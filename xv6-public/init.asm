@@ -5,11 +5,11 @@ _init:     file format elf32-i386
 Disassembly of section .text:
 
 00000000 <main>:
+#include "fcntl.h"
 
-char *argv[] = { "sh", 0 };
+char *argv[] = {"sh", 0};
 
-int
-main(void)
+int main(void)
 {
    0:	8d 4c 24 04          	lea    0x4(%esp),%ecx
    4:	83 e4 f0             	and    $0xfffffff0,%esp
@@ -20,7 +20,7 @@ main(void)
    e:	51                   	push   %ecx
   int pid, wpid;
 
-  if(open("console", O_RDWR) < 0){
+  if (open("console", O_RDWR) < 0)
    f:	83 ec 08             	sub    $0x8,%esp
   12:	6a 02                	push   $0x2
   14:	68 f8 07 00 00       	push   $0x7f8
@@ -28,20 +28,22 @@ main(void)
   1e:	83 c4 10             	add    $0x10,%esp
   21:	85 c0                	test   %eax,%eax
   23:	0f 88 cf 00 00 00    	js     f8 <main+0xf8>
+  {
     mknod("console", 1, 1);
     open("console", O_RDWR);
   }
-  dup(0);  // stdout
+  dup(0); // stdout
   29:	83 ec 0c             	sub    $0xc,%esp
   2c:	6a 00                	push   $0x0
   2e:	e8 b8 03 00 00       	call   3eb <dup>
-  dup(0);  // stderr
+  dup(0); // stderr
   33:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
   3a:	e8 ac 03 00 00       	call   3eb <dup>
   3f:	83 c4 10             	add    $0x10,%esp
   42:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-  for(;;){
+  for (;;)
+  {
     printf(1, "init: starting sh\n");
   48:	83 ec 08             	sub    $0x8,%esp
   4b:	68 00 08 00 00       	push   $0x800
@@ -73,24 +75,26 @@ main(void)
   8a:	e8 41 04 00 00       	call   4d0 <printf>
     pid = fork();
   8f:	e8 d7 02 00 00       	call   36b <fork>
-    if(pid < 0){
+    if (pid < 0)
   94:	83 c4 10             	add    $0x10,%esp
     pid = fork();
   97:	89 c3                	mov    %eax,%ebx
-    if(pid < 0){
+    if (pid < 0)
   99:	85 c0                	test   %eax,%eax
   9b:	78 24                	js     c1 <main+0xc1>
+    {
       printf(1, "init: fork failed\n");
       exit();
     }
-    if(pid == 0){
+    if (pid == 0)
   9d:	74 35                	je     d4 <main+0xd4>
   9f:	90                   	nop
+    {
       exec("sh", argv);
       printf(1, "init: exec sh failed\n");
       exit();
     }
-    while((wpid=wait()) >= 0 && wpid != pid)
+    while ((wpid = wait()) >= 0 && wpid != pid)
   a0:	e8 d6 02 00 00       	call   37b <wait>
   a5:	85 c0                	test   %eax,%eax
   a7:	78 9f                	js     48 <main+0x48>
