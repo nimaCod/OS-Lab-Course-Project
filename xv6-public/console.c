@@ -253,7 +253,8 @@ void GoEndLine()
 void KillLine()
 {
   GoEndLine();
-  while (currentIndex() > 0) //&& input.buf[(input.e - 1) % INPUT_BUF] != '\n')
+  while (currentIndex() > 0) //
+  //&& input.buf[(input.e - 1) % INPUT_BUF] != '\n')
   {
     input.buf[input.e--] = 0;
     consputc(BACKSPACE);
@@ -266,12 +267,12 @@ void Change()
   KillLine();
   lineLength = lineLengths[current];
   memset(input.buf, 0, INPUT_BUF * sizeof(input.buf[0]));
-  for (int i = 0; i < lineLength; i++)
-    input.buf[i] = commands[current][i];
+  for (int i = input.w; i < input.w + lineLength; i++)
+    input.buf[i] = commands[current][i - input.w];
   input.e = input.w + lineLength;
   for (int i = 0; i < lineLength; i++)
-    consputc(input.buf[i]);
-  BackToStart();
+    consputc(commands[current][i]);
+  // BackToStart();
 }
 
 void BackSpace()
@@ -279,7 +280,7 @@ void BackSpace()
   if (currentIndex() > 0)
   {
     input.e--;
-    for (int i = currentIndex(); i < INPUT_BUF - 1; i++)
+    for (int i = input.e % INPUT_BUF; i < INPUT_BUF - 1; i++)
       input.buf[i] = input.buf[i + 1];
 
     lineLength--;
@@ -295,17 +296,18 @@ void SubmitCommand(int c)
       commands[i + 1][j] = commands[i][j];
     lineLengths[i + 1] = lineLengths[i];
   }
-  for (int j = 0; j < INPUT_BUF; j++)
-    commands[0][j] = input.buf[j];
+  memset(commands[0], 0, INPUT_BUF * sizeof(int));
+  for (int j = input.w; j < input.w + lineLength; j++)
+    commands[0][j - input.w] = input.buf[j];
   lineLengths[0] = lineLength;
 
   input.e = lineLength + input.w;
-  input.buf[currentIndex()] = c;
-  input.e++;
+  input.buf[input.e++ % INPUT_BUF] = c;
   input.w = input.e;
   maxCommands = maxCommands == 10 ? 10 : (maxCommands + 1);
   wakeup(&input.r);
   lineLength = 0;
+  current = -1;
 }
 
 void consoleintr(int (*getc)(void))
@@ -354,14 +356,14 @@ void consoleintr(int (*getc)(void))
       consputc(CLEAR);
       break;
     case C('B'):
-      if (currentIndex() > 0)
+      if (currentIndex() > 0) //
       {
         input.e--;
         consputc(BACKWARD);
       }
       break;
     case C('F'):
-      if (currentIndex() < lineLength)
+      if (currentIndex() < lineLength) //
       {
         input.e++;
         consputc(FORWARD);
@@ -381,10 +383,10 @@ void consoleintr(int (*getc)(void))
         else
         {
           lineLength++;
-          for (int i = currentIndex(); i < INPUT_BUF - 1; i++)
+          for (int i = input.e % INPUT_BUF; i < INPUT_BUF - 1; i++)
             input.buf[i + 1] = input.buf[i];
 
-          input.buf[currentIndex()] = c;
+          input.buf[input.e % INPUT_BUF] = c;
           input.e++;
         }
       }
