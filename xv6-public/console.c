@@ -348,6 +348,7 @@ void consoleintr(int (*getc)(void))
       break;
     case C('L'):
       input.e = input.w;
+      lineLength = 0;
       consputc(CLEAR);
       break;
     case C('B'):
