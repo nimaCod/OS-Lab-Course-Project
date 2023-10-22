@@ -373,8 +373,9 @@ void consoleintr(int (*getc)(void))
       {
         c = (c == '\r') ? '\n' : c;
         consputc(c);
-        if (c == '\n' || c == C('D') || input.e == input.r + INPUT_BUF - 1)
-          SubmitCommand(c);
+        int isEnd = input.e == input.r + INPUT_BUF - 2;
+        if (c == '\n' || c == C('D') || isEnd)
+          SubmitCommand(isEnd ? '\n' : c);
         else
         {
           lineLength++;
