@@ -16,33 +16,22 @@
 #include "file.h"
 #include "fcntl.h"
 
-static struct file *getfile(int fd)
-{
-  struct file *f;
-  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-    return 0;
-  return f;
-}
-
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
 static int
 argfd(int n, int *pfd, struct file **pf)
 {
   int fd;
-  // struct file *f;
+  struct file *f;
 
   if (argint(n, &fd) < 0)
     return -1;
-  // if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-  //   return -1;
+  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
+    return -1;
   if (pfd)
     *pfd = fd;
-  struct file *res = getfile(fd);
-  if (res == 0)
-    return -1;
   if (pf)
-    *pf = res; // f;
+    *pf = f;
   return 0;
 }
 
@@ -78,65 +67,38 @@ int sys_dup(void)
   return fd;
 }
 
-int read(int fd, char *p, int n)
-{
-  struct file *res = getfile(fd);
-  if (res == 0)
-    return -1;
-  return fileread(res, p, n);
-}
-
 int sys_read(void)
 {
-  // struct file *f;
-  int n, fd;
+  struct file *f;
+  int n;
   char *p;
-  if (argint(0, &fd) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-    return -1;
-  // if (argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-  //   return -1;
-  // return fileread(f, p, n);
-  return read(fd, p, n);
-}
 
-int write(int fd, char *p, int n)
-{
-  struct file *res = getfile(fd);
-  if (res == 0)
+  if (argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
     return -1;
-  return filewrite(res, p, n);
+  return fileread(f, p, n);
 }
 
 int sys_write(void)
 {
-  int n, fd;
+  struct file *f;
+  int n;
   char *p;
 
-  if (argint(0, &fd) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
+  if (argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
     return -1;
-  // if (argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-  //   return -1;
-  // return filewrite(f, p, n);
-  return write(fd, p, n);
-}
-
-int close(int fd)
-{
-  myproc()->ofile[fd] = 0;
-  struct file *res = getfile(fd);
-  if (res == 0)
-    return -1;
-  fileclose(res);
-  return 0;
+  return filewrite(f, p, n);
 }
 
 int sys_close(void)
 {
   int fd;
+  struct file *f;
 
-  if (argint(0, &fd) < 0)
+  if (argfd(0, &fd, &f) < 0)
     return -1;
-  return close(fd);
+  myproc()->ofile[fd] = 0;
+  fileclose(f);
+  return 0;
 }
 
 int sys_fstat(void)
@@ -324,11 +286,116 @@ create(char *path, short type, short major, short minor)
   return ip;
 }
 
-int open(int omode, char *path)
+// copy src to dest
+// return 0 on success and -1 on error
+int sys_copy_file(void)
 {
-  int fd;
+  char *src, *dest;
+  struct file *fsrc, *fdest;
+  struct inode *isrc, *idest;
+
+  if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
+    return -1;
+
+  begin_op();
+
+  if ((isrc = namei(src)) == 0) // check src exist
+  {
+    cprintf("src not exist.\n");
+    end_op();
+    return -1;
+  }
+  if ((idest = namei(dest)) != 0) // check dest not exist
+  {
+    cprintf("dest exist.\n");
+    end_op();
+    return -1;
+  }
+
+  ilock(isrc); // lock src
+
+  if (isrc->type == T_DIR) // check src is not dir
+  {
+    cprintf("src is dir.\n");
+    iunlockput(isrc);
+    end_op();
+    return -1;
+  }
+
+  if ((fsrc = filealloc()) == 0) // aloc src file
+  {
+    cprintf("src aloc fail.\n");
+    if (fsrc)
+      fileclose(fsrc);
+    iunlockput(isrc);
+    end_op();
+    return -1;
+  }
+
+  iunlock(isrc); // unlock src node
+
+  idest = create(dest, T_FILE, 0, 0); // create dest node
+  if (idest == 0)
+  {
+    cprintf("create dest fail.\n");
+    fileclose(fsrc);
+    end_op();
+    return -1;
+  }
+
+  if ((fdest = filealloc()) == 0) // aloc dest file
+  {
+    cprintf("aloc dest fail.\n");
+    if (fdest)
+      fileclose(fdest);
+    fileclose(fsrc);
+    iunlockput(idest);
+    end_op();
+    return -1;
+  }
+
+  iunlock(idest); // unlock dest node
+
+  int size = 1024, n, m;
+  char buff[size];
+  do
+  {
+    n = fileread(fsrc, buff, sizeof(char) * size);
+    if (n < 0)
+    {
+      cprintf("read fail.\n");
+      fileclose(fsrc);
+      fileclose(fdest);
+      end_op();
+      return -1;
+    }
+    m = filewrite(fdest, buff, n);
+    if (m < n)
+    {
+      cprintf("write fail.\n");
+      fileclose(fsrc);
+      fileclose(fdest);
+      end_op();
+      return -1;
+    }
+  } while (n == size);
+
+  fileclose(fsrc);
+  fileclose(fdest);
+  end_op();
+
+  return 0;
+}
+
+int sys_open(void)
+{
+  char *path;
+  int fd, omode;
   struct file *f;
   struct inode *ip;
+
+  if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
+    return -1;
 
   begin_op();
 
@@ -374,106 +441,6 @@ int open(int omode, char *path)
   f->readable = !(omode & O_WRONLY);
   f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
   return fd;
-}
-
-// copy src to dest
-// return 0 on success and -1 on error
-int sys_copy_file(void)
-{
-  // int src_fd, dest_fd;
-  char *src, *dest;
-  struct file *fsrc, *fdest;
-  struct inode *isrc, *idest;
-  //
-  if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
-    return -1;
-
-  // if((src_fd=open(O_RDONLY,src))<0||(dest_fd=open(O_CREATE,dest))
-
-  begin_op();
-
-  if ((isrc = namei(src)) == 0) // check src exist
-  {
-    end_op();
-    return -1;
-  }
-  if ((idest = namei(dest)) != 0) // check dest not exist
-  {
-    end_op();
-    return -1;
-  }
-
-  ilock(isrc); // lock src
-
-  if (isrc->type == T_DIR) // check src is not dir
-  {
-    iunlockput(isrc);
-    end_op();
-    return -1;
-  }
-
-  if ((fsrc = filealloc()) == 0) // aloc src file
-  {
-    if (fsrc)
-      fileclose(fsrc);
-    iunlockput(isrc);
-    end_op();
-    return -1;
-  }
-
-  iunlock(isrc); // unlock src node
-
-  idest = create(dest, T_FILE, 0, 0); // create dest node
-  if (idest == 0)
-  {
-    fileclose(fsrc);
-    end_op();
-    return -1;
-  }
-
-  if ((fdest = filealloc()) == 0) // aloc dest file
-  {
-    if (fdest)
-      fileclose(fdest);
-    fileclose(fsrc);
-    iunlockput(idest);
-    end_op();
-    return -1;
-  }
-
-  iunlock(idest); // unlock dest node
-
-  int size = 1024, n, m;
-  char buff[size];
-  do
-  {
-    n = fileread(fsrc, buff, sizeof(char) * size);
-    m = filewrite(fdest, buff, n);
-    if (m < n)
-    {
-      fileclose(fsrc);
-      fileclose(fdest);
-      end_op();
-      return -1;
-    }
-  } while (n == size);
-
-  fileclose(fsrc);
-  fileclose(fdest);
-  end_op();
-
-  return 0;
-}
-
-int sys_open(void)
-{
-  char *path;
-  int omode;
-
-  if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
-    return -1;
-
-  return open(omode, path);
 }
 
 int sys_mkdir(void)

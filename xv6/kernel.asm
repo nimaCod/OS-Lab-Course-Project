@@ -35,7 +35,7 @@ Disassembly of section .text:
 80100043:	53                   	push   %ebx
 80100044:	bb 54 b5 10 80       	mov    $0x8010b554,%ebx
 80100049:	83 ec 0c             	sub    $0xc,%esp
-8010004c:	68 20 7d 10 80       	push   $0x80107d20
+8010004c:	68 20 7c 10 80       	push   $0x80107c20
 80100051:	68 20 b5 10 80       	push   $0x8010b520
 80100056:	e8 45 4b 00 00       	call   80104ba0 <initlock>
 8010005b:	83 c4 10             	add    $0x10,%esp
@@ -51,7 +51,7 @@ Disassembly of section .text:
 80100085:	83 ec 08             	sub    $0x8,%esp
 80100088:	8d 43 0c             	lea    0xc(%ebx),%eax
 8010008b:	c7 43 50 1c fc 10 80 	movl   $0x8010fc1c,0x50(%ebx)
-80100092:	68 27 7d 10 80       	push   $0x80107d27
+80100092:	68 27 7c 10 80       	push   $0x80107c27
 80100097:	50                   	push   %eax
 80100098:	e8 d3 49 00 00       	call   80104a70 <initsleeplock>
 8010009d:	a1 70 fc 10 80       	mov    0x8010fc70,%eax
@@ -141,7 +141,7 @@ Disassembly of section .text:
 8010019c:	5d                   	pop    %ebp
 8010019d:	c3                   	ret    
 8010019e:	83 ec 0c             	sub    $0xc,%esp
-801001a1:	68 2e 7d 10 80       	push   $0x80107d2e
+801001a1:	68 2e 7c 10 80       	push   $0x80107c2e
 801001a6:	e8 f5 01 00 00       	call   801003a0 <panic>
 801001ab:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 801001af:	90                   	nop
@@ -164,7 +164,7 @@ Disassembly of section .text:
 801001d3:	c9                   	leave  
 801001d4:	e9 d7 28 00 00       	jmp    80102ab0 <iderw>
 801001d9:	83 ec 0c             	sub    $0xc,%esp
-801001dc:	68 3f 7d 10 80       	push   $0x80107d3f
+801001dc:	68 3f 7c 10 80       	push   $0x80107c3f
 801001e1:	e8 ba 01 00 00       	call   801003a0 <panic>
 801001e6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 801001ed:	8d 76 00             	lea    0x0(%esi),%esi
@@ -212,7 +212,7 @@ Disassembly of section .text:
 8010026b:	5d                   	pop    %ebp
 8010026c:	e9 9f 4a 00 00       	jmp    80104d10 <release>
 80100271:	83 ec 0c             	sub    $0xc,%esp
-80100274:	68 46 7d 10 80       	push   $0x80107d46
+80100274:	68 46 7c 10 80       	push   $0x80107c46
 80100279:	e8 22 01 00 00       	call   801003a0 <panic>
 8010027e:	66 90                	xchg   %ax,%ax
 
@@ -378,14 +378,14 @@ cli(void)
 801003b9:	e8 02 2d 00 00       	call   801030c0 <lapicid>
 801003be:	83 ec 08             	sub    $0x8,%esp
 801003c1:	50                   	push   %eax
-801003c2:	68 4d 7d 10 80       	push   $0x80107d4d
+801003c2:	68 4d 7c 10 80       	push   $0x80107c4d
 801003c7:	e8 84 03 00 00       	call   80100750 <cprintf>
   cprintf(s);
 801003cc:	58                   	pop    %eax
 801003cd:	ff 75 08             	push   0x8(%ebp)
 801003d0:	e8 7b 03 00 00       	call   80100750 <cprintf>
   cprintf("\n");
-801003d5:	c7 04 24 df 86 10 80 	movl   $0x801086df,(%esp)
+801003d5:	c7 04 24 57 86 10 80 	movl   $0x80108657,(%esp)
 801003dc:	e8 6f 03 00 00       	call   80100750 <cprintf>
   getcallerpcs(&s, pcs);
 801003e1:	8d 45 08             	lea    0x8(%ebp),%eax
@@ -402,7 +402,7 @@ cli(void)
   for (i = 0; i < 10; i++)
 801003f5:	83 c3 04             	add    $0x4,%ebx
     cprintf(" %p", pcs[i]);
-801003f8:	68 61 7d 10 80       	push   $0x80107d61
+801003f8:	68 61 7c 10 80       	push   $0x80107c61
 801003fd:	e8 4e 03 00 00       	call   80100750 <cprintf>
   for (i = 0; i < 10; i++)
 80100402:	83 c4 10             	add    $0x10,%esp
@@ -613,7 +613,7 @@ cli(void)
 8010060d:	e9 0e ff ff ff       	jmp    80100520 <cgaputc+0x100>
     panic("pos under/overflow");
 80100612:	83 ec 0c             	sub    $0xc,%esp
-80100615:	68 65 7d 10 80       	push   $0x80107d65
+80100615:	68 65 7c 10 80       	push   $0x80107c65
 8010061a:	e8 81 fd ff ff       	call   801003a0 <panic>
 8010061f:	90                   	nop
 
@@ -663,7 +663,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80100666:	83 c3 01             	add    $0x1,%ebx
     uartputc(c);
 80100669:	50                   	push   %eax
-8010066a:	e8 c1 61 00 00       	call   80106830 <uartputc>
+8010066a:	e8 d1 60 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 8010066f:	8b 45 e4             	mov    -0x1c(%ebp),%eax
 80100672:	e8 a9 fd ff ff       	call   80100420 <cgaputc>
@@ -719,7 +719,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 801006ce:	89 cf                	mov    %ecx,%edi
 801006d0:	f7 75 d4             	divl   -0x2c(%ebp)
 801006d3:	8d 5b 01             	lea    0x1(%ebx),%ebx
-801006d6:	0f b6 92 e8 7d 10 80 	movzbl -0x7fef8218(%edx),%edx
+801006d6:	0f b6 92 e8 7c 10 80 	movzbl -0x7fef8318(%edx),%edx
   } while ((x /= base) != 0);
 801006dd:	89 c1                	mov    %eax,%ecx
     buf[i++] = digits[x % base];
@@ -753,7 +753,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
     uartputc(c);
 80100713:	83 ec 0c             	sub    $0xc,%esp
 80100716:	56                   	push   %esi
-80100717:	e8 14 61 00 00       	call   80106830 <uartputc>
+80100717:	e8 24 60 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 8010071c:	89 f0                	mov    %esi,%eax
 8010071e:	e8 fd fc ff ff       	call   80100420 <cgaputc>
@@ -858,7 +858,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 801007fd:	85 ff                	test   %edi,%edi
 801007ff:	0f 85 33 01 00 00    	jne    80100938 <cprintf+0x1e8>
         s = "(null)";
-80100805:	bf 78 7d 10 80       	mov    $0x80107d78,%edi
+80100805:	bf 78 7c 10 80       	mov    $0x80107c78,%edi
       for (; *s; s++)
 8010080a:	89 5d dc             	mov    %ebx,-0x24(%ebp)
 8010080d:	b8 28 00 00 00       	mov    $0x28,%eax
@@ -908,7 +908,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80100876:	83 c3 01             	add    $0x1,%ebx
     uartputc(c);
 80100879:	50                   	push   %eax
-8010087a:	e8 b1 5f 00 00       	call   80106830 <uartputc>
+8010087a:	e8 c1 5e 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 8010087f:	8b 45 e0             	mov    -0x20(%ebp),%eax
 80100882:	e8 99 fb ff ff       	call   80100420 <cgaputc>
@@ -936,7 +936,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 801008bf:	83 ec 0c             	sub    $0xc,%esp
 801008c2:	89 55 e0             	mov    %edx,-0x20(%ebp)
 801008c5:	6a 25                	push   $0x25
-801008c7:	e8 64 5f 00 00       	call   80106830 <uartputc>
+801008c7:	e8 74 5e 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 801008cc:	b8 25 00 00 00       	mov    $0x25,%eax
 801008d1:	e8 4a fb ff ff       	call   80100420 <cgaputc>
@@ -964,7 +964,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80100903:	83 c3 01             	add    $0x1,%ebx
     uartputc(c);
 80100906:	6a 25                	push   $0x25
-80100908:	e8 23 5f 00 00       	call   80106830 <uartputc>
+80100908:	e8 33 5e 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 8010090d:	b8 25 00 00 00       	mov    $0x25,%eax
 80100912:	e8 09 fb ff ff       	call   80100420 <cgaputc>
@@ -998,7 +998,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 8010094f:	83 c3 01             	add    $0x1,%ebx
     uartputc(c);
 80100952:	57                   	push   %edi
-80100953:	e8 d8 5e 00 00       	call   80106830 <uartputc>
+80100953:	e8 e8 5d 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80100958:	89 f8                	mov    %edi,%eax
 8010095a:	e8 c1 fa ff ff       	call   80100420 <cgaputc>
@@ -1015,7 +1015,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80100978:	83 ec 0c             	sub    $0xc,%esp
 8010097b:	89 55 e0             	mov    %edx,-0x20(%ebp)
 8010097e:	52                   	push   %edx
-8010097f:	e8 ac 5e 00 00       	call   80106830 <uartputc>
+8010097f:	e8 bc 5d 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80100984:	8b 45 e0             	mov    -0x20(%ebp),%eax
 80100987:	e8 94 fa ff ff       	call   80100420 <cgaputc>
@@ -1034,7 +1034,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 801009ac:	e9 1a fe ff ff       	jmp    801007cb <cprintf+0x7b>
     panic("null fmt");
 801009b1:	83 ec 0c             	sub    $0xc,%esp
-801009b4:	68 7f 7d 10 80       	push   $0x80107d7f
+801009b4:	68 7f 7c 10 80       	push   $0x80107c7f
 801009b9:	e8 e2 f9 ff ff       	call   801003a0 <panic>
 801009be:	66 90                	xchg   %ax,%ax
 
@@ -1201,7 +1201,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
     uartputc('\b');
 80100b30:	83 ec 0c             	sub    $0xc,%esp
 80100b33:	6a 08                	push   $0x8
-80100b35:	e8 f6 5c 00 00       	call   80106830 <uartputc>
+80100b35:	e8 06 5c 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80100b3a:	83 c4 10             	add    $0x10,%esp
 }
@@ -1265,7 +1265,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
     uartputc('\b');
 80100bb8:	83 ec 0c             	sub    $0xc,%esp
 80100bbb:	6a 08                	push   $0x8
-80100bbd:	e8 6e 5c 00 00       	call   80106830 <uartputc>
+80100bbd:	e8 7e 5b 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80100bc2:	b8 00 01 00 00       	mov    $0x100,%eax
 80100bc7:	e8 54 f8 ff ff       	call   80100420 <cgaputc>
@@ -1352,7 +1352,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80100c78:	0f be f0             	movsbl %al,%esi
     uartputc(c);
 80100c7b:	56                   	push   %esi
-80100c7c:	e8 af 5b 00 00       	call   80106830 <uartputc>
+80100c7c:	e8 bf 5a 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80100c81:	89 f0                	mov    %esi,%eax
 80100c83:	e8 98 f7 ff ff       	call   80100420 <cgaputc>
@@ -1540,7 +1540,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80100e3b:	0f 8e 7f 00 00 00    	jle    80100ec0 <consoleintr+0xb0>
 80100e41:	83 fb 15             	cmp    $0x15,%ebx
 80100e44:	77 7a                	ja     80100ec0 <consoleintr+0xb0>
-80100e46:	ff 24 9d 90 7d 10 80 	jmp    *-0x7fef8270(,%ebx,4)
+80100e46:	ff 24 9d 90 7c 10 80 	jmp    *-0x7fef8370(,%ebx,4)
 80100e4d:	8d 76 00             	lea    0x0(%esi),%esi
 80100e50:	81 fb e2 00 00 00    	cmp    $0xe2,%ebx
 80100e56:	0f 84 04 02 00 00    	je     80101060 <consoleintr+0x250>
@@ -1793,7 +1793,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
 80101114:	83 ec 0c             	sub    $0xc,%esp
 80101117:	88 55 e0             	mov    %dl,-0x20(%ebp)
 8010111a:	53                   	push   %ebx
-8010111b:	e8 10 57 00 00       	call   80106830 <uartputc>
+8010111b:	e8 20 56 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80101120:	89 d8                	mov    %ebx,%eax
 80101122:	e8 f9 f2 ff ff       	call   80100420 <cgaputc>
@@ -1877,7 +1877,7 @@ int consolewrite(struct inode *ip, char *buf, int n)
     uartputc('\b');
 801011fe:	83 ec 0c             	sub    $0xc,%esp
 80101201:	6a 08                	push   $0x8
-80101203:	e8 28 56 00 00       	call   80106830 <uartputc>
+80101203:	e8 38 55 00 00       	call   80106740 <uartputc>
   cgaputc(c);
 80101208:	b8 00 01 00 00       	mov    $0x100,%eax
 8010120d:	e8 0e f2 ff ff       	call   80100420 <cgaputc>
@@ -1899,7 +1899,7 @@ void consoleinit(void)
 80101231:	89 e5                	mov    %esp,%ebp
 80101233:	83 ec 10             	sub    $0x10,%esp
   initlock(&cons.lock, "console");
-80101236:	68 88 7d 10 80       	push   $0x80107d88
+80101236:	68 88 7c 10 80       	push   $0x80107c88
 8010123b:	68 60 0b 11 80       	push   $0x80110b60
 80101240:	e8 5b 39 00 00       	call   80104ba0 <initlock>
 
@@ -2017,7 +2017,7 @@ exec(char *path, char **argv)
 801012ff:	45 4c 46 
 80101302:	75 d2                	jne    801012d6 <exec+0x56>
   if((pgdir = setupkvm()) == 0)
-80101304:	e8 b7 66 00 00       	call   801079c0 <setupkvm>
+80101304:	e8 c7 65 00 00       	call   801078d0 <setupkvm>
 80101309:	89 85 f4 fe ff ff    	mov    %eax,-0x10c(%ebp)
 8010130f:	85 c0                	test   %eax,%eax
 80101311:	74 c3                	je     801012d6 <exec+0x56>
@@ -2049,7 +2049,7 @@ exec(char *path, char **argv)
 80101366:	50                   	push   %eax
 80101367:	ff b5 f0 fe ff ff    	push   -0x110(%ebp)
 8010136d:	ff b5 f4 fe ff ff    	push   -0x10c(%ebp)
-80101373:	e8 68 64 00 00       	call   801077e0 <allocuvm>
+80101373:	e8 78 63 00 00       	call   801076f0 <allocuvm>
 80101378:	83 c4 10             	add    $0x10,%esp
 8010137b:	89 85 f0 fe ff ff    	mov    %eax,-0x110(%ebp)
 80101381:	85 c0                	test   %eax,%eax
@@ -2065,7 +2065,7 @@ exec(char *path, char **argv)
 801013a1:	53                   	push   %ebx
 801013a2:	50                   	push   %eax
 801013a3:	ff b5 f4 fe ff ff    	push   -0x10c(%ebp)
-801013a9:	e8 42 63 00 00       	call   801076f0 <loaduvm>
+801013a9:	e8 52 62 00 00       	call   80107600 <loaduvm>
 801013ae:	83 c4 20             	add    $0x20,%esp
 801013b1:	85 c0                	test   %eax,%eax
 801013b3:	78 2d                	js     801013e2 <exec+0x162>
@@ -2088,7 +2088,7 @@ exec(char *path, char **argv)
     freevm(pgdir);
 801013e2:	83 ec 0c             	sub    $0xc,%esp
 801013e5:	ff b5 f4 fe ff ff    	push   -0x10c(%ebp)
-801013eb:	e8 50 65 00 00       	call   80107940 <freevm>
+801013eb:	e8 60 64 00 00       	call   80107850 <freevm>
   if(ip){
 801013f0:	83 c4 10             	add    $0x10,%esp
 801013f3:	e9 de fe ff ff       	jmp    801012d6 <exec+0x56>
@@ -2112,7 +2112,7 @@ exec(char *path, char **argv)
 8010142a:	57                   	push   %edi
 8010142b:	8b bd f4 fe ff ff    	mov    -0x10c(%ebp),%edi
 80101431:	57                   	push   %edi
-80101432:	e8 a9 63 00 00       	call   801077e0 <allocuvm>
+80101432:	e8 b9 62 00 00       	call   801076f0 <allocuvm>
 80101437:	83 c4 10             	add    $0x10,%esp
 8010143a:	89 c6                	mov    %eax,%esi
 8010143c:	85 c0                	test   %eax,%eax
@@ -2128,7 +2128,7 @@ exec(char *path, char **argv)
   for(argc = 0; argv[argc]; argc++) {
 80101451:	31 ff                	xor    %edi,%edi
   clearpteu(pgdir, (char*)(sz - 2*PGSIZE));
-80101453:	e8 08 66 00 00       	call   80107a60 <clearpteu>
+80101453:	e8 18 65 00 00       	call   80107970 <clearpteu>
   for(argc = 0; argv[argc]; argc++) {
 80101458:	8b 45 0c             	mov    0xc(%ebp),%eax
 8010145b:	83 c4 10             	add    $0x10,%esp
@@ -2176,7 +2176,7 @@ exec(char *path, char **argv)
 801014c3:	ff 34 b8             	push   (%eax,%edi,4)
 801014c6:	53                   	push   %ebx
 801014c7:	56                   	push   %esi
-801014c8:	e8 63 67 00 00       	call   80107c30 <copyout>
+801014c8:	e8 73 66 00 00       	call   80107b40 <copyout>
 801014cd:	83 c4 20             	add    $0x20,%esp
 801014d0:	85 c0                	test   %eax,%eax
 801014d2:	79 ac                	jns    80101480 <exec+0x200>
@@ -2184,7 +2184,7 @@ exec(char *path, char **argv)
     freevm(pgdir);
 801014d8:	83 ec 0c             	sub    $0xc,%esp
 801014db:	ff b5 f4 fe ff ff    	push   -0x10c(%ebp)
-801014e1:	e8 5a 64 00 00       	call   80107940 <freevm>
+801014e1:	e8 6a 63 00 00       	call   80107850 <freevm>
 801014e6:	83 c4 10             	add    $0x10,%esp
   return -1;
 801014e9:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
@@ -2215,7 +2215,7 @@ exec(char *path, char **argv)
   ustack[2] = sp - (argc+1)*4;  // argv pointer
 8010152d:	89 8d 60 ff ff ff    	mov    %ecx,-0xa0(%ebp)
   if(copyout(pgdir, sp, ustack, (3+argc+1)*4) < 0)
-80101533:	e8 f8 66 00 00       	call   80107c30 <copyout>
+80101533:	e8 08 66 00 00       	call   80107b40 <copyout>
 80101538:	83 c4 10             	add    $0x10,%esp
 8010153b:	85 c0                	test   %eax,%eax
 8010153d:	78 99                	js     801014d8 <exec+0x258>
@@ -2265,10 +2265,10 @@ exec(char *path, char **argv)
 80101597:	89 58 44             	mov    %ebx,0x44(%eax)
   switchuvm(curproc);
 8010159a:	89 0c 24             	mov    %ecx,(%esp)
-8010159d:	e8 be 5f 00 00       	call   80107560 <switchuvm>
+8010159d:	e8 ce 5e 00 00       	call   80107470 <switchuvm>
   freevm(oldpgdir);
 801015a2:	89 3c 24             	mov    %edi,(%esp)
-801015a5:	e8 96 63 00 00       	call   80107940 <freevm>
+801015a5:	e8 a6 62 00 00       	call   80107850 <freevm>
   return 0;
 801015aa:	83 c4 10             	add    $0x10,%esp
 801015ad:	31 c0                	xor    %eax,%eax
@@ -2277,7 +2277,7 @@ exec(char *path, char **argv)
 801015b4:	e8 e7 1f 00 00       	call   801035a0 <end_op>
     cprintf("exec: fail\n");
 801015b9:	83 ec 0c             	sub    $0xc,%esp
-801015bc:	68 f9 7d 10 80       	push   $0x80107df9
+801015bc:	68 f9 7c 10 80       	push   $0x80107cf9
 801015c1:	e8 8a f1 ff ff       	call   80100750 <cprintf>
     return -1;
 801015c6:	83 c4 10             	add    $0x10,%esp
@@ -2300,7 +2300,7 @@ void fileinit(void)
 801015e1:	89 e5                	mov    %esp,%ebp
 801015e3:	83 ec 10             	sub    $0x10,%esp
   initlock(&ftable.lock, "ftable");
-801015e6:	68 05 7e 10 80       	push   $0x80107e05
+801015e6:	68 05 7d 10 80       	push   $0x80107d05
 801015eb:	68 a0 0b 11 80       	push   $0x80110ba0
 801015f0:	e8 ab 35 00 00       	call   80104ba0 <initlock>
 }
@@ -2416,7 +2416,7 @@ filedup(struct file *f)
 801016a7:	c3                   	ret    
     panic("filedup");
 801016a8:	83 ec 0c             	sub    $0xc,%esp
-801016ab:	68 0c 7e 10 80       	push   $0x80107e0c
+801016ab:	68 0c 7d 10 80       	push   $0x80107d0c
 801016b0:	e8 eb ec ff ff       	call   801003a0 <panic>
 801016b5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 801016bc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
@@ -2541,7 +2541,7 @@ void fileclose(struct file *f)
 80101788:	c3                   	ret    
     panic("fileclose");
 80101789:	83 ec 0c             	sub    $0xc,%esp
-8010178c:	68 14 7e 10 80       	push   $0x80107e14
+8010178c:	68 14 7d 10 80       	push   $0x80107d14
 80101791:	e8 0a ec ff ff       	call   801003a0 <panic>
 80101796:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 8010179d:	8d 76 00             	lea    0x0(%esi),%esi
@@ -2672,7 +2672,7 @@ int fileread(struct file *f, char *addr, int n)
 8010186d:	eb d7                	jmp    80101846 <fileread+0x56>
   panic("fileread");
 8010186f:	83 ec 0c             	sub    $0xc,%esp
-80101872:	68 1e 7e 10 80       	push   $0x80107e1e
+80101872:	68 1e 7d 10 80       	push   $0x80107d1e
 80101877:	e8 24 eb ff ff       	call   801003a0 <panic>
 8010187c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
@@ -2790,7 +2790,7 @@ int filewrite(struct file *f, char *addr, int n)
 80101942:	75 1b                	jne    8010195f <filewrite+0xdf>
         panic("short filewrite");
 80101944:	83 ec 0c             	sub    $0xc,%esp
-80101947:	68 27 7e 10 80       	push   $0x80107e27
+80101947:	68 27 7d 10 80       	push   $0x80107d27
 8010194c:	e8 4f ea ff ff       	call   801003a0 <panic>
 80101951:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     }
@@ -2821,7 +2821,7 @@ int filewrite(struct file *f, char *addr, int n)
 80101979:	e9 22 24 00 00       	jmp    80103da0 <pipewrite>
   panic("filewrite");
 8010197e:	83 ec 0c             	sub    $0xc,%esp
-80101981:	68 2d 7e 10 80       	push   $0x80107e2d
+80101981:	68 2d 7d 10 80       	push   $0x80107d2d
 80101986:	e8 15 ea ff ff       	call   801003a0 <panic>
 8010198b:	66 90                	xchg   %ax,%ax
 8010198d:	66 90                	xchg   %ax,%ax
@@ -2895,7 +2895,7 @@ bfree(int dev, uint b)
 801019f3:	c3                   	ret    
     panic("freeing free block");
 801019f4:	83 ec 0c             	sub    $0xc,%esp
-801019f7:	68 37 7e 10 80       	push   $0x80107e37
+801019f7:	68 37 7d 10 80       	push   $0x80107d37
 801019fc:	e8 9f e9 ff ff       	call   801003a0 <panic>
 80101a01:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80101a08:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -2968,7 +2968,7 @@ bfree(int dev, uint b)
 80101aaf:	77 80                	ja     80101a31 <balloc+0x21>
   panic("balloc: out of blocks");
 80101ab1:	83 ec 0c             	sub    $0xc,%esp
-80101ab4:	68 4a 7e 10 80       	push   $0x80107e4a
+80101ab4:	68 4a 7d 10 80       	push   $0x80107d4a
 80101ab9:	e8 e2 e8 ff ff       	call   801003a0 <panic>
 80101abe:	66 90                	xchg   %ax,%ax
         bp->data[bi / 8] |= m; // Mark block in use.
@@ -3155,7 +3155,7 @@ iget(uint dev, uint inum)
 80101c00:	e9 68 ff ff ff       	jmp    80101b6d <iget+0x4d>
     panic("iget: no inodes");
 80101c05:	83 ec 0c             	sub    $0xc,%esp
-80101c08:	68 60 7e 10 80       	push   $0x80107e60
+80101c08:	68 60 7d 10 80       	push   $0x80107d60
 80101c0d:	e8 8e e7 ff ff       	call   801003a0 <panic>
 80101c12:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80101c19:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -3279,7 +3279,7 @@ bmap(struct inode *ip, uint bn)
 80101ce1:	c3                   	ret    
   panic("bmap: out of range");
 80101ce2:	83 ec 0c             	sub    $0xc,%esp
-80101ce5:	68 70 7e 10 80       	push   $0x80107e70
+80101ce5:	68 70 7d 10 80       	push   $0x80107d70
 80101cea:	e8 b1 e6 ff ff       	call   801003a0 <panic>
 80101cef:	90                   	nop
 
@@ -3326,7 +3326,7 @@ bmap(struct inode *ip, uint bn)
 80101d34:	bb e0 15 11 80       	mov    $0x801115e0,%ebx
 80101d39:	83 ec 0c             	sub    $0xc,%esp
   initlock(&icache.lock, "icache");
-80101d3c:	68 83 7e 10 80       	push   $0x80107e83
+80101d3c:	68 83 7d 10 80       	push   $0x80107d83
 80101d41:	68 a0 15 11 80       	push   $0x801115a0
 80101d46:	e8 55 2e 00 00       	call   80104ba0 <initlock>
   for (i = 0; i < NINODE; i++)
@@ -3334,7 +3334,7 @@ bmap(struct inode *ip, uint bn)
 80101d4e:	66 90                	xchg   %ax,%ax
     initsleeplock(&icache.inode[i].lock, "inode");
 80101d50:	83 ec 08             	sub    $0x8,%esp
-80101d53:	68 8a 7e 10 80       	push   $0x80107e8a
+80101d53:	68 8a 7d 10 80       	push   $0x80107d8a
 80101d58:	53                   	push   %ebx
   for (i = 0; i < NINODE; i++)
 80101d59:	81 c3 90 00 00 00    	add    $0x90,%ebx
@@ -3370,7 +3370,7 @@ bmap(struct inode *ip, uint bn)
 80101db1:	ff 35 fc 31 11 80    	push   0x801131fc
 80101db7:	ff 35 f8 31 11 80    	push   0x801131f8
 80101dbd:	ff 35 f4 31 11 80    	push   0x801131f4
-80101dc3:	68 f0 7e 10 80       	push   $0x80107ef0
+80101dc3:	68 f0 7d 10 80       	push   $0x80107df0
 80101dc8:	e8 83 e9 ff ff       	call   80100750 <cprintf>
 }
 80101dcd:	8b 5d fc             	mov    -0x4(%ebp),%ebx
@@ -3466,7 +3466,7 @@ bmap(struct inode *ip, uint bn)
 80101e8b:	e9 90 fc ff ff       	jmp    80101b20 <iget>
   panic("ialloc: no inodes");
 80101e90:	83 ec 0c             	sub    $0xc,%esp
-80101e93:	68 90 7e 10 80       	push   $0x80107e90
+80101e93:	68 90 7d 10 80       	push   $0x80107d90
 80101e98:	e8 03 e5 ff ff       	call   801003a0 <panic>
 80101e9d:	8d 76 00             	lea    0x0(%esi),%esi
 
@@ -3643,11 +3643,11 @@ bmap(struct inode *ip, uint bn)
 80102004:	0f 85 77 ff ff ff    	jne    80101f81 <ilock+0x31>
       panic("ilock: no type");
 8010200a:	83 ec 0c             	sub    $0xc,%esp
-8010200d:	68 a8 7e 10 80       	push   $0x80107ea8
+8010200d:	68 a8 7d 10 80       	push   $0x80107da8
 80102012:	e8 89 e3 ff ff       	call   801003a0 <panic>
     panic("ilock");
 80102017:	83 ec 0c             	sub    $0xc,%esp
-8010201a:	68 a2 7e 10 80       	push   $0x80107ea2
+8010201a:	68 a2 7d 10 80       	push   $0x80107da2
 8010201f:	e8 7c e3 ff ff       	call   801003a0 <panic>
 80102024:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 8010202b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
@@ -3684,7 +3684,7 @@ bmap(struct inode *ip, uint bn)
 8010205f:	e9 ac 2a 00 00       	jmp    80104b10 <releasesleep>
     panic("iunlock");
 80102064:	83 ec 0c             	sub    $0xc,%esp
-80102067:	68 b7 7e 10 80       	push   $0x80107eb7
+80102067:	68 b7 7d 10 80       	push   $0x80107db7
 8010206c:	e8 2f e3 ff ff       	call   801003a0 <panic>
 80102071:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80102078:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -3881,7 +3881,7 @@ bmap(struct inode *ip, uint bn)
 8010221b:	e9 60 fe ff ff       	jmp    80102080 <iput>
     panic("iunlock");
 80102220:	83 ec 0c             	sub    $0xc,%esp
-80102223:	68 b7 7e 10 80       	push   $0x80107eb7
+80102223:	68 b7 7d 10 80       	push   $0x80107db7
 80102228:	e8 73 e1 ff ff       	call   801003a0 <panic>
 8010222d:	8d 76 00             	lea    0x0(%esi),%esi
 
@@ -4335,11 +4335,11 @@ dirlookup(struct inode *dp, char *name, uint *poff)
 8010253e:	c3                   	ret    
       panic("dirlookup read");
 8010253f:	83 ec 0c             	sub    $0xc,%esp
-80102542:	68 d1 7e 10 80       	push   $0x80107ed1
+80102542:	68 d1 7d 10 80       	push   $0x80107dd1
 80102547:	e8 54 de ff ff       	call   801003a0 <panic>
     panic("dirlookup not DIR");
 8010254c:	83 ec 0c             	sub    $0xc,%esp
-8010254f:	68 bf 7e 10 80       	push   $0x80107ebf
+8010254f:	68 bf 7d 10 80       	push   $0x80107dbf
 80102554:	e8 47 de ff ff       	call   801003a0 <panic>
 80102559:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
@@ -4633,7 +4633,7 @@ namex(char *path, int nameiparent, char *name)
 80102797:	e9 2f ff ff ff       	jmp    801026cb <namex+0x16b>
     panic("iunlock");
 8010279c:	83 ec 0c             	sub    $0xc,%esp
-8010279f:	68 b7 7e 10 80       	push   $0x80107eb7
+8010279f:	68 b7 7d 10 80       	push   $0x80107db7
 801027a4:	e8 f7 db ff ff       	call   801003a0 <panic>
 801027a9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
@@ -4719,11 +4719,11 @@ namex(char *path, int nameiparent, char *name)
 80102846:	eb e5                	jmp    8010282d <dirlink+0x7d>
       panic("dirlink read");
 80102848:	83 ec 0c             	sub    $0xc,%esp
-8010284b:	68 e0 7e 10 80       	push   $0x80107ee0
+8010284b:	68 e0 7d 10 80       	push   $0x80107de0
 80102850:	e8 4b db ff ff       	call   801003a0 <panic>
     panic("dirlink");
 80102855:	83 ec 0c             	sub    $0xc,%esp
-80102858:	68 c6 84 10 80       	push   $0x801084c6
+80102858:	68 c6 83 10 80       	push   $0x801083c6
 8010285d:	e8 3e db ff ff       	call   801003a0 <panic>
 80102862:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80102869:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -4876,11 +4876,11 @@ idestart(struct buf *b)
 80102967:	c3                   	ret    
     panic("incorrect blockno");
 80102968:	83 ec 0c             	sub    $0xc,%esp
-8010296b:	68 4c 7f 10 80       	push   $0x80107f4c
+8010296b:	68 4c 7e 10 80       	push   $0x80107e4c
 80102970:	e8 2b da ff ff       	call   801003a0 <panic>
     panic("idestart");
 80102975:	83 ec 0c             	sub    $0xc,%esp
-80102978:	68 43 7f 10 80       	push   $0x80107f43
+80102978:	68 43 7e 10 80       	push   $0x80107e43
 8010297d:	e8 1e da ff ff       	call   801003a0 <panic>
 80102982:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80102989:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -4891,7 +4891,7 @@ idestart(struct buf *b)
 80102991:	89 e5                	mov    %esp,%ebp
 80102993:	83 ec 10             	sub    $0x10,%esp
   initlock(&idelock, "ide");
-80102996:	68 5e 7f 10 80       	push   $0x80107f5e
+80102996:	68 5e 7e 10 80       	push   $0x80107e5e
 8010299b:	68 40 32 11 80       	push   $0x80113240
 801029a0:	e8 fb 21 00 00       	call   80104ba0 <initlock>
   ioapicenable(IRQ_IDE, ncpu - 1);
@@ -5142,15 +5142,15 @@ iderw(struct buf *b)
 80102b75:	eb a5                	jmp    80102b1c <iderw+0x6c>
     panic("iderw: ide disk 1 not present");
 80102b77:	83 ec 0c             	sub    $0xc,%esp
-80102b7a:	68 8d 7f 10 80       	push   $0x80107f8d
+80102b7a:	68 8d 7e 10 80       	push   $0x80107e8d
 80102b7f:	e8 1c d8 ff ff       	call   801003a0 <panic>
     panic("iderw: nothing to do");
 80102b84:	83 ec 0c             	sub    $0xc,%esp
-80102b87:	68 78 7f 10 80       	push   $0x80107f78
+80102b87:	68 78 7e 10 80       	push   $0x80107e78
 80102b8c:	e8 0f d8 ff ff       	call   801003a0 <panic>
     panic("iderw: buf not locked");
 80102b91:	83 ec 0c             	sub    $0xc,%esp
-80102b94:	68 62 7f 10 80       	push   $0x80107f62
+80102b94:	68 62 7e 10 80       	push   $0x80107e62
 80102b99:	e8 02 d8 ff ff       	call   801003a0 <panic>
 80102b9e:	66 90                	xchg   %ax,%ax
 
@@ -5176,7 +5176,7 @@ iderw(struct buf *b)
 80102be3:	39 c2                	cmp    %eax,%edx
 80102be5:	74 16                	je     80102bfd <ioapicinit+0x5d>
 80102be7:	83 ec 0c             	sub    $0xc,%esp
-80102bea:	68 ac 7f 10 80       	push   $0x80107fac
+80102bea:	68 ac 7e 10 80       	push   $0x80107eac
 80102bef:	e8 5c db ff ff       	call   80100750 <cprintf>
 80102bf4:	8b 0d 74 32 11 80    	mov    0x80113274,%ecx
 80102bfa:	83 c4 10             	add    $0x10,%esp
@@ -5274,7 +5274,7 @@ iderw(struct buf *b)
 80102d12:	c9                   	leave  
 80102d13:	e9 f8 1f 00 00       	jmp    80104d10 <release>
 80102d18:	83 ec 0c             	sub    $0xc,%esp
-80102d1b:	68 de 7f 10 80       	push   $0x80107fde
+80102d1b:	68 de 7e 10 80       	push   $0x80107ede
 80102d20:	e8 7b d6 ff ff       	call   801003a0 <panic>
 80102d25:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80102d2c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
@@ -5346,7 +5346,7 @@ iderw(struct buf *b)
 80102de4:	53                   	push   %ebx
 80102de5:	8b 75 0c             	mov    0xc(%ebp),%esi
 80102de8:	83 ec 08             	sub    $0x8,%esp
-80102deb:	68 e4 7f 10 80       	push   $0x80107fe4
+80102deb:	68 e4 7e 10 80       	push   $0x80107ee4
 80102df0:	68 80 32 11 80       	push   $0x80113280
 80102df5:	e8 a6 1d 00 00       	call   80104ba0 <initlock>
 80102dfa:	8b 45 08             	mov    0x8(%ebp),%eax
@@ -5465,9 +5465,9 @@ iderw(struct buf *b)
   }
 
   shift |= shiftcode[data];
-80102efb:	0f b6 91 20 81 10 80 	movzbl -0x7fef7ee0(%ecx),%edx
+80102efb:	0f b6 91 20 80 10 80 	movzbl -0x7fef7fe0(%ecx),%edx
   shift ^= togglecode[data];
-80102f02:	0f b6 81 20 80 10 80 	movzbl -0x7fef7fe0(%ecx),%eax
+80102f02:	0f b6 81 20 7f 10 80 	movzbl -0x7fef80e0(%ecx),%eax
   shift |= shiftcode[data];
 80102f09:	09 da                	or     %ebx,%edx
   shift ^= togglecode[data];
@@ -5481,7 +5481,7 @@ iderw(struct buf *b)
   if(shift & CAPSLOCK){
 80102f18:	83 e2 08             	and    $0x8,%edx
   c = charcode[shift & (CTL | SHIFT)][data];
-80102f1b:	8b 04 85 00 80 10 80 	mov    -0x7fef8000(,%eax,4),%eax
+80102f1b:	8b 04 85 00 7f 10 80 	mov    -0x7fef8100(,%eax,4),%eax
 80102f22:	0f b6 04 08          	movzbl (%eax,%ecx,1),%eax
   if(shift & CAPSLOCK){
 80102f26:	74 0b                	je     80102f33 <kbdgetc+0x73>
@@ -5516,7 +5516,7 @@ iderw(struct buf *b)
 80102f53:	85 d2                	test   %edx,%edx
 80102f55:	0f 44 c8             	cmove  %eax,%ecx
     shift &= ~(shiftcode[data] | E0ESC);
-80102f58:	0f b6 81 20 81 10 80 	movzbl -0x7fef7ee0(%ecx),%eax
+80102f58:	0f b6 81 20 80 10 80 	movzbl -0x7fef7fe0(%ecx),%eax
 80102f5f:	83 c8 40             	or     $0x40,%eax
 80102f62:	0f b6 c0             	movzbl %al,%eax
 80102f65:	f7 d0                	not    %eax
@@ -6231,7 +6231,7 @@ write_head(void)
 80103494:	83 ec 2c             	sub    $0x2c,%esp
 80103497:	8b 5d 08             	mov    0x8(%ebp),%ebx
   initlock(&log.lock, "log");
-8010349a:	68 20 82 10 80       	push   $0x80108220
+8010349a:	68 20 81 10 80       	push   $0x80108120
 8010349f:	68 e0 32 11 80       	push   $0x801132e0
 801034a4:	e8 f7 16 00 00       	call   80104ba0 <initlock>
   readsb(dev, &sb);
@@ -6512,7 +6512,7 @@ commit()
 801036f3:	c3                   	ret    
     panic("log.committing");
 801036f4:	83 ec 0c             	sub    $0xc,%esp
-801036f7:	68 24 82 10 80       	push   $0x80108224
+801036f7:	68 24 81 10 80       	push   $0x80108124
 801036fc:	e8 9f cc ff ff       	call   801003a0 <panic>
 80103701:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80103708:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -6603,11 +6603,11 @@ void log_write(struct buf *b)
 801037ac:	eb e9                	jmp    80103797 <log_write+0x87>
     panic("too big a transaction");
 801037ae:	83 ec 0c             	sub    $0xc,%esp
-801037b1:	68 33 82 10 80       	push   $0x80108233
+801037b1:	68 33 81 10 80       	push   $0x80108133
 801037b6:	e8 e5 cb ff ff       	call   801003a0 <panic>
     panic("log_write outside of trans");
 801037bb:	83 ec 0c             	sub    $0xc,%esp
-801037be:	68 49 82 10 80       	push   $0x80108249
+801037be:	68 49 81 10 80       	push   $0x80108149
 801037c3:	e8 d8 cb ff ff       	call   801003a0 <panic>
 801037c8:	66 90                	xchg   %ax,%ax
 801037ca:	66 90                	xchg   %ax,%ax
@@ -6632,10 +6632,10 @@ mpmain(void)
 801037e3:	83 ec 04             	sub    $0x4,%esp
 801037e6:	53                   	push   %ebx
 801037e7:	50                   	push   %eax
-801037e8:	68 64 82 10 80       	push   $0x80108264
+801037e8:	68 64 81 10 80       	push   $0x80108164
 801037ed:	e8 5e cf ff ff       	call   80100750 <cprintf>
   idtinit();       // load idt register
-801037f2:	e8 69 2c 00 00       	call   80106460 <idtinit>
+801037f2:	e8 79 2b 00 00       	call   80106370 <idtinit>
   xchg(&(mycpu()->started), 1); // tell startothers() we're up
 801037f7:	e8 c4 08 00 00       	call   801040c0 <mycpu>
 801037fc:	89 c2                	mov    %eax,%edx
@@ -6657,9 +6657,9 @@ xchg(volatile uint *addr, uint newval)
 80103811:	89 e5                	mov    %esp,%ebp
 80103813:	83 ec 08             	sub    $0x8,%esp
   switchkvm();
-80103816:	e8 35 3d 00 00       	call   80107550 <switchkvm>
+80103816:	e8 45 3c 00 00       	call   80107460 <switchkvm>
   seginit();
-8010381b:	e8 a0 3c 00 00       	call   801074c0 <seginit>
+8010381b:	e8 b0 3b 00 00       	call   801073d0 <seginit>
   lapicinit();
 80103820:	e8 9b f7 ff ff       	call   80102fc0 <lapicinit>
   mpmain();
@@ -6683,13 +6683,13 @@ xchg(volatile uint *addr, uint newval)
 80103847:	68 10 71 11 80       	push   $0x80117110
 8010384c:	e8 8f f5 ff ff       	call   80102de0 <kinit1>
   kvmalloc();      // kernel page table
-80103851:	e8 ea 41 00 00       	call   80107a40 <kvmalloc>
+80103851:	e8 fa 40 00 00       	call   80107950 <kvmalloc>
   mpinit();        // detect other processors
 80103856:	e8 85 01 00 00       	call   801039e0 <mpinit>
   lapicinit();     // interrupt controller
 8010385b:	e8 60 f7 ff ff       	call   80102fc0 <lapicinit>
   seginit();       // segment descriptors
-80103860:	e8 5b 3c 00 00       	call   801074c0 <seginit>
+80103860:	e8 6b 3b 00 00       	call   801073d0 <seginit>
   picinit();       // disable pic
 80103865:	e8 76 03 00 00       	call   80103be0 <picinit>
   ioapicinit();    // another interrupt controller
@@ -6697,11 +6697,11 @@ xchg(volatile uint *addr, uint newval)
   consoleinit();   // console hardware
 8010386f:	e8 bc d9 ff ff       	call   80101230 <consoleinit>
   uartinit();      // serial port
-80103874:	e8 d7 2e 00 00       	call   80106750 <uartinit>
+80103874:	e8 e7 2d 00 00       	call   80106660 <uartinit>
   pinit();         // process table
 80103879:	e8 22 08 00 00       	call   801040a0 <pinit>
   tvinit();        // trap vectors
-8010387e:	e8 5d 2b 00 00       	call   801063e0 <tvinit>
+8010387e:	e8 6d 2a 00 00       	call   801062f0 <tvinit>
   binit();         // buffer cache
 80103883:	e8 b8 c7 ff ff       	call   80100040 <binit>
   fileinit();      // file table
@@ -6823,7 +6823,7 @@ mpsearch1(uint a, int len)
 80103986:	83 ec 04             	sub    $0x4,%esp
 80103989:	8d 7e 10             	lea    0x10(%esi),%edi
 8010398c:	6a 04                	push   $0x4
-8010398e:	68 78 82 10 80       	push   $0x80108278
+8010398e:	68 78 81 10 80       	push   $0x80108178
 80103993:	56                   	push   %esi
 80103994:	e8 e7 14 00 00       	call   80104e80 <memcmp>
 80103999:	83 c4 10             	add    $0x10,%esp
@@ -6912,7 +6912,7 @@ mpinit(void)
 80103a3e:	8d 86 00 00 00 80    	lea    -0x80000000(%esi),%eax
   if(memcmp(conf, "PCMP", 4) != 0)
 80103a44:	6a 04                	push   $0x4
-80103a46:	68 7d 82 10 80       	push   $0x8010827d
+80103a46:	68 7d 81 10 80       	push   $0x8010817d
 80103a4b:	50                   	push   %eax
   conf = (struct mpconf*) P2V((uint) mp->physaddr);
 80103a4c:	89 45 e4             	mov    %eax,-0x1c(%ebp)
@@ -7058,7 +7058,7 @@ mpinit(void)
 80103b5c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     panic("Expect to run on an SMP");
 80103b60:	83 ec 0c             	sub    $0xc,%esp
-80103b63:	68 82 82 10 80       	push   $0x80108282
+80103b63:	68 82 81 10 80       	push   $0x80108182
 80103b68:	e8 33 c8 ff ff       	call   801003a0 <panic>
 80103b6d:	8d 76 00             	lea    0x0(%esi),%esi
 {
@@ -7074,7 +7074,7 @@ mpinit(void)
 80103b8a:	83 ec 04             	sub    $0x4,%esp
 80103b8d:	8d 73 10             	lea    0x10(%ebx),%esi
 80103b90:	6a 04                	push   $0x4
-80103b92:	68 78 82 10 80       	push   $0x80108278
+80103b92:	68 78 81 10 80       	push   $0x80108178
 80103b97:	53                   	push   %ebx
 80103b98:	e8 e3 12 00 00       	call   80104e80 <memcmp>
 80103b9d:	83 c4 10             	add    $0x10,%esp
@@ -7098,7 +7098,7 @@ mpinit(void)
 80103bc0:	e9 6b fe ff ff       	jmp    80103a30 <mpinit+0x50>
     panic("Didn't find a suitable machine");
 80103bc5:	83 ec 0c             	sub    $0xc,%esp
-80103bc8:	68 9c 82 10 80       	push   $0x8010829c
+80103bc8:	68 9c 81 10 80       	push   $0x8010819c
 80103bcd:	e8 ce c7 ff ff       	call   801003a0 <panic>
 80103bd2:	66 90                	xchg   %ax,%ax
 80103bd4:	66 90                	xchg   %ax,%ax
@@ -7161,7 +7161,7 @@ picinit(void)
 80103c66:	00 00 00 
 80103c69:	c7 80 34 02 00 00 00 	movl   $0x0,0x234(%eax)
 80103c70:	00 00 00 
-80103c73:	68 bb 82 10 80       	push   $0x801082bb
+80103c73:	68 bb 81 10 80       	push   $0x801081bb
 80103c78:	50                   	push   %eax
 80103c79:	e8 22 0f 00 00       	call   80104ba0 <initlock>
 80103c7e:	8b 03                	mov    (%ebx),%eax
@@ -7513,7 +7513,7 @@ found:
   sp -= sizeof *p->tf;
 80103ff4:	89 53 18             	mov    %edx,0x18(%ebx)
   *(uint *)sp = (uint)trapret;
-80103ff7:	c7 40 14 cd 63 10 80 	movl   $0x801063cd,0x14(%eax)
+80103ff7:	c7 40 14 dd 62 10 80 	movl   $0x801062dd,0x14(%eax)
   p->context = (struct context *)sp;
 80103ffe:	89 43 1c             	mov    %eax,0x1c(%ebx)
   memset(p->context, 0, sizeof *p->context);
@@ -7613,7 +7613,7 @@ void forkret(void)
 801040a1:	89 e5                	mov    %esp,%ebp
 801040a3:	83 ec 10             	sub    $0x10,%esp
   initlock(&ptable.lock, "ptable");
-801040a6:	68 c0 82 10 80       	push   $0x801082c0
+801040a6:	68 c0 81 10 80       	push   $0x801081c0
 801040ab:	68 60 39 11 80       	push   $0x80113960
 801040b0:	e8 eb 0a 00 00       	call   80104ba0 <initlock>
 }
@@ -7662,11 +7662,11 @@ void forkret(void)
 80104104:	c3                   	ret    
   panic("unknown apicid\n");
 80104105:	83 ec 0c             	sub    $0xc,%esp
-80104108:	68 c7 82 10 80       	push   $0x801082c7
+80104108:	68 c7 81 10 80       	push   $0x801081c7
 8010410d:	e8 8e c2 ff ff       	call   801003a0 <panic>
     panic("mycpu called with interrupts enabled\n");
 80104112:	83 ec 0c             	sub    $0xc,%esp
-80104115:	68 a4 83 10 80       	push   $0x801083a4
+80104115:	68 a4 82 10 80       	push   $0x801082a4
 8010411a:	e8 81 c2 ff ff       	call   801003a0 <panic>
 8010411f:	90                   	nop
 
@@ -7722,7 +7722,7 @@ void forkret(void)
   initproc = p;
 8010417e:	a3 94 58 11 80       	mov    %eax,0x80115894
   if ((p->pgdir = setupkvm()) == 0)
-80104183:	e8 38 38 00 00       	call   801079c0 <setupkvm>
+80104183:	e8 48 37 00 00       	call   801078d0 <setupkvm>
 80104188:	89 43 04             	mov    %eax,0x4(%ebx)
 8010418b:	85 c0                	test   %eax,%eax
 8010418d:	0f 84 bd 00 00 00    	je     80104250 <userinit+0xe0>
@@ -7731,7 +7731,7 @@ void forkret(void)
 80104196:	68 2c 00 00 00       	push   $0x2c
 8010419b:	68 60 b4 10 80       	push   $0x8010b460
 801041a0:	50                   	push   %eax
-801041a1:	e8 ca 34 00 00       	call   80107670 <inituvm>
+801041a1:	e8 da 33 00 00       	call   80107580 <inituvm>
   memset(p->tf, 0, sizeof(*p->tf));
 801041a6:	83 c4 0c             	add    $0xc,%esp
   p->sz = PGSIZE;
@@ -7773,11 +7773,11 @@ void forkret(void)
   safestrcpy(p->name, "initcode", sizeof(p->name));
 8010420a:	8d 43 6c             	lea    0x6c(%ebx),%eax
 8010420d:	6a 10                	push   $0x10
-8010420f:	68 f0 82 10 80       	push   $0x801082f0
+8010420f:	68 f0 81 10 80       	push   $0x801081f0
 80104214:	50                   	push   %eax
 80104215:	e8 d6 0d 00 00       	call   80104ff0 <safestrcpy>
   p->cwd = namei("/");
-8010421a:	c7 04 24 f9 82 10 80 	movl   $0x801082f9,(%esp)
+8010421a:	c7 04 24 f9 81 10 80 	movl   $0x801081f9,(%esp)
 80104221:	e8 4a e6 ff ff       	call   80102870 <namei>
 80104226:	89 43 68             	mov    %eax,0x68(%ebx)
   acquire(&ptable.lock);
@@ -7795,7 +7795,7 @@ void forkret(void)
 8010424f:	c3                   	ret    
     panic("userinit: out of memory?");
 80104250:	83 ec 0c             	sub    $0xc,%esp
-80104253:	68 d7 82 10 80       	push   $0x801082d7
+80104253:	68 d7 81 10 80       	push   $0x801081d7
 80104258:	e8 43 c1 ff ff       	call   801003a0 <panic>
 8010425d:	8d 76 00             	lea    0x0(%esi),%esi
 
@@ -7827,7 +7827,7 @@ void forkret(void)
 80104288:	89 03                	mov    %eax,(%ebx)
   switchuvm(curproc);
 8010428a:	53                   	push   %ebx
-8010428b:	e8 d0 32 00 00       	call   80107560 <switchuvm>
+8010428b:	e8 e0 31 00 00       	call   80107470 <switchuvm>
   return 0;
 80104290:	83 c4 10             	add    $0x10,%esp
 80104293:	31 c0                	xor    %eax,%eax
@@ -7844,7 +7844,7 @@ void forkret(void)
 801042a5:	56                   	push   %esi
 801042a6:	50                   	push   %eax
 801042a7:	ff 73 04             	push   0x4(%ebx)
-801042aa:	e8 31 35 00 00       	call   801077e0 <allocuvm>
+801042aa:	e8 41 34 00 00       	call   801076f0 <allocuvm>
 801042af:	83 c4 10             	add    $0x10,%esp
 801042b2:	85 c0                	test   %eax,%eax
 801042b4:	75 cf                	jne    80104285 <growproc+0x25>
@@ -7858,7 +7858,7 @@ void forkret(void)
 801042c5:	56                   	push   %esi
 801042c6:	50                   	push   %eax
 801042c7:	ff 73 04             	push   0x4(%ebx)
-801042ca:	e8 41 36 00 00       	call   80107910 <deallocuvm>
+801042ca:	e8 51 35 00 00       	call   80107820 <deallocuvm>
 801042cf:	83 c4 10             	add    $0x10,%esp
 801042d2:	85 c0                	test   %eax,%eax
 801042d4:	75 af                	jne    80104285 <growproc+0x25>
@@ -7892,7 +7892,7 @@ void forkret(void)
 80104311:	ff 33                	push   (%ebx)
 80104313:	89 c7                	mov    %eax,%edi
 80104315:	ff 73 04             	push   0x4(%ebx)
-80104318:	e8 93 37 00 00       	call   80107ab0 <copyuvm>
+80104318:	e8 a3 36 00 00       	call   801079c0 <copyuvm>
 8010431d:	83 c4 10             	add    $0x10,%esp
 80104320:	89 47 04             	mov    %eax,0x4(%edi)
 80104323:	85 c0                	test   %eax,%eax
@@ -8027,7 +8027,7 @@ void forkret(void)
 80104449:	89 9e ac 00 00 00    	mov    %ebx,0xac(%esi)
       switchuvm(p);
 8010444f:	53                   	push   %ebx
-80104450:	e8 0b 31 00 00       	call   80107560 <switchuvm>
+80104450:	e8 1b 30 00 00       	call   80107470 <switchuvm>
       swtch(&(c->scheduler), p->context);
 80104455:	58                   	pop    %eax
 80104456:	5a                   	pop    %edx
@@ -8038,7 +8038,7 @@ void forkret(void)
       swtch(&(c->scheduler), p->context);
 80104462:	e8 e4 0b 00 00       	call   8010504b <swtch>
       switchkvm();
-80104467:	e8 e4 30 00 00       	call   80107550 <switchkvm>
+80104467:	e8 f4 2f 00 00       	call   80107460 <switchkvm>
       c->proc = 0;
 8010446c:	83 c4 10             	add    $0x10,%esp
 8010446f:	c7 86 ac 00 00 00 00 	movl   $0x0,0xac(%esi)
@@ -8117,19 +8117,19 @@ void forkret(void)
 8010451c:	c3                   	ret    
     panic("sched ptable.lock");
 8010451d:	83 ec 0c             	sub    $0xc,%esp
-80104520:	68 fb 82 10 80       	push   $0x801082fb
+80104520:	68 fb 81 10 80       	push   $0x801081fb
 80104525:	e8 76 be ff ff       	call   801003a0 <panic>
     panic("sched interruptible");
 8010452a:	83 ec 0c             	sub    $0xc,%esp
-8010452d:	68 27 83 10 80       	push   $0x80108327
+8010452d:	68 27 82 10 80       	push   $0x80108227
 80104532:	e8 69 be ff ff       	call   801003a0 <panic>
     panic("sched running");
 80104537:	83 ec 0c             	sub    $0xc,%esp
-8010453a:	68 19 83 10 80       	push   $0x80108319
+8010453a:	68 19 82 10 80       	push   $0x80108219
 8010453f:	e8 5c be ff ff       	call   801003a0 <panic>
     panic("sched locks");
 80104544:	83 ec 0c             	sub    $0xc,%esp
-80104547:	68 0d 83 10 80       	push   $0x8010830d
+80104547:	68 0d 82 10 80       	push   $0x8010820d
 8010454c:	e8 4f be ff ff       	call   801003a0 <panic>
 80104551:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 80104558:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
@@ -8247,11 +8247,11 @@ wakeup1(void *chan)
 80104665:	e8 36 fe ff ff       	call   801044a0 <sched>
   panic("zombie exit");
 8010466a:	83 ec 0c             	sub    $0xc,%esp
-8010466d:	68 48 83 10 80       	push   $0x80108348
+8010466d:	68 48 82 10 80       	push   $0x80108248
 80104672:	e8 29 bd ff ff       	call   801003a0 <panic>
     panic("init exiting");
 80104677:	83 ec 0c             	sub    $0xc,%esp
-8010467a:	68 3b 83 10 80       	push   $0x8010833b
+8010467a:	68 3b 82 10 80       	push   $0x8010823b
 8010467f:	e8 1c bd ff ff       	call   801003a0 <panic>
 80104684:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 8010468b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
@@ -8340,7 +8340,7 @@ wakeup1(void *chan)
         freevm(p->pgdir);
 80104755:	5a                   	pop    %edx
 80104756:	ff 73 04             	push   0x4(%ebx)
-80104759:	e8 e2 31 00 00       	call   80107940 <freevm>
+80104759:	e8 f2 30 00 00       	call   80107850 <freevm>
         p->pid = 0;
 8010475e:	c7 43 10 00 00 00 00 	movl   $0x0,0x10(%ebx)
         p->parent = 0;
@@ -8375,7 +8375,7 @@ wakeup1(void *chan)
 801047ab:	eb e0                	jmp    8010478d <wait+0xfd>
     panic("sleep");
 801047ad:	83 ec 0c             	sub    $0xc,%esp
-801047b0:	68 54 83 10 80       	push   $0x80108354
+801047b0:	68 54 82 10 80       	push   $0x80108254
 801047b5:	e8 e6 bb ff ff       	call   801003a0 <panic>
 801047ba:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
@@ -8485,11 +8485,11 @@ wakeup1(void *chan)
 801048b5:	c3                   	ret    
     panic("sleep without lk");
 801048b6:	83 ec 0c             	sub    $0xc,%esp
-801048b9:	68 5a 83 10 80       	push   $0x8010835a
+801048b9:	68 5a 82 10 80       	push   $0x8010825a
 801048be:	e8 dd ba ff ff       	call   801003a0 <panic>
     panic("sleep");
 801048c3:	83 ec 0c             	sub    $0xc,%esp
-801048c6:	68 54 83 10 80       	push   $0x80108354
+801048c6:	68 54 82 10 80       	push   $0x80108254
 801048cb:	e8 d0 ba ff ff       	call   801003a0 <panic>
 
 801048d0 <wakeup>:
@@ -8633,7 +8633,7 @@ void procdump(void)
     }
     cprintf("\n");
 801049c8:	83 ec 0c             	sub    $0xc,%esp
-801049cb:	68 df 86 10 80       	push   $0x801086df
+801049cb:	68 57 86 10 80       	push   $0x80108657
 801049d0:	e8 7b bd ff ff       	call   80100750 <cprintf>
 801049d5:	83 c4 10             	add    $0x10,%esp
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
@@ -8645,20 +8645,20 @@ void procdump(void)
 801049ea:	85 c0                	test   %eax,%eax
 801049ec:	74 ea                	je     801049d8 <procdump+0x28>
       state = "???";
-801049ee:	ba 6b 83 10 80       	mov    $0x8010836b,%edx
+801049ee:	ba 6b 82 10 80       	mov    $0x8010826b,%edx
     if (p->state >= 0 && p->state < NELEM(states) && states[p->state])
 801049f3:	83 f8 05             	cmp    $0x5,%eax
 801049f6:	77 11                	ja     80104a09 <procdump+0x59>
-801049f8:	8b 14 85 cc 83 10 80 	mov    -0x7fef7c34(,%eax,4),%edx
+801049f8:	8b 14 85 cc 82 10 80 	mov    -0x7fef7d34(,%eax,4),%edx
       state = "???";
-801049ff:	b8 6b 83 10 80       	mov    $0x8010836b,%eax
+801049ff:	b8 6b 82 10 80       	mov    $0x8010826b,%eax
 80104a04:	85 d2                	test   %edx,%edx
 80104a06:	0f 44 d0             	cmove  %eax,%edx
     cprintf("%d %s %s", p->pid, state, p->name);
 80104a09:	53                   	push   %ebx
 80104a0a:	52                   	push   %edx
 80104a0b:	ff 73 a4             	push   -0x5c(%ebx)
-80104a0e:	68 6f 83 10 80       	push   $0x8010836f
+80104a0e:	68 6f 82 10 80       	push   $0x8010826f
 80104a13:	e8 38 bd ff ff       	call   80100750 <cprintf>
     if (p->state == SLEEPING)
 80104a18:	83 c4 10             	add    $0x10,%esp
@@ -8686,7 +8686,7 @@ void procdump(void)
 80104a49:	83 c7 04             	add    $0x4,%edi
         cprintf(" %p", pc[i]);
 80104a4c:	52                   	push   %edx
-80104a4d:	68 61 7d 10 80       	push   $0x80107d61
+80104a4d:	68 61 7c 10 80       	push   $0x80107c61
 80104a52:	e8 f9 bc ff ff       	call   80100750 <cprintf>
       for (i = 0; i < 10 && pc[i] != 0; i++)
 80104a57:	83 c4 10             	add    $0x10,%esp
@@ -8717,7 +8717,7 @@ initsleeplock(struct sleeplock *lk, char *name)
 80104a74:	83 ec 0c             	sub    $0xc,%esp
 80104a77:	8b 5d 08             	mov    0x8(%ebp),%ebx
   initlock(&lk->lk, "sleep lock");
-80104a7a:	68 e4 83 10 80       	push   $0x801083e4
+80104a7a:	68 e4 82 10 80       	push   $0x801082e4
 80104a7f:	8d 43 04             	lea    0x4(%ebx),%eax
 80104a82:	50                   	push   %eax
 80104a83:	e8 18 01 00 00       	call   80104ba0 <initlock>
@@ -9046,11 +9046,11 @@ popcli(void)
 80104cb1:	c3                   	ret    
     panic("popcli - interruptible");
 80104cb2:	83 ec 0c             	sub    $0xc,%esp
-80104cb5:	68 ef 83 10 80       	push   $0x801083ef
+80104cb5:	68 ef 82 10 80       	push   $0x801082ef
 80104cba:	e8 e1 b6 ff ff       	call   801003a0 <panic>
     panic("popcli");
 80104cbf:	83 ec 0c             	sub    $0xc,%esp
-80104cc2:	68 06 84 10 80       	push   $0x80108406
+80104cc2:	68 06 83 10 80       	push   $0x80108306
 80104cc7:	e8 d4 b6 ff ff       	call   801003a0 <panic>
 80104ccc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
@@ -9111,7 +9111,7 @@ popcli(void)
 80104d23:	e8 48 ff ff ff       	call   80104c70 <popcli>
     panic("release");
 80104d28:	83 ec 0c             	sub    $0xc,%esp
-80104d2b:	68 0d 84 10 80       	push   $0x8010840d
+80104d2b:	68 0d 83 10 80       	push   $0x8010830d
 80104d30:	e8 6b b6 ff ff       	call   801003a0 <panic>
 80104d35:	8d 76 00             	lea    0x0(%esi),%esi
   r = lock->locked && lock->cpu == mycpu();
@@ -9223,7 +9223,7 @@ popcli(void)
 80104e18:	e8 53 fe ff ff       	call   80104c70 <popcli>
     panic("acquire");
 80104e1d:	83 ec 0c             	sub    $0xc,%esp
-80104e20:	68 15 84 10 80       	push   $0x80108415
+80104e20:	68 15 83 10 80       	push   $0x80108315
 80104e25:	e8 76 b5 ff ff       	call   801003a0 <panic>
 80104e2a:	66 90                	xchg   %ax,%ax
 80104e2c:	66 90                	xchg   %ax,%ax
@@ -9925,7 +9925,7 @@ void syscall(void)
 80105244:	8d 50 ff             	lea    -0x1(%eax),%edx
 80105247:	83 fa 16             	cmp    $0x16,%edx
 8010524a:	77 24                	ja     80105270 <syscall+0x40>
-8010524c:	8b 14 85 40 84 10 80 	mov    -0x7fef7bc0(,%eax,4),%edx
+8010524c:	8b 14 85 40 83 10 80 	mov    -0x7fef7cc0(,%eax,4),%edx
 80105253:	85 d2                	test   %edx,%edx
 80105255:	74 19                	je     80105270 <syscall+0x40>
   {
@@ -9952,7 +9952,7 @@ void syscall(void)
     cprintf("%d %s: unknown sys call %d\n",
 80105274:	50                   	push   %eax
 80105275:	ff 73 10             	push   0x10(%ebx)
-80105278:	68 1d 84 10 80       	push   $0x8010841d
+80105278:	68 1d 83 10 80       	push   $0x8010831d
 8010527d:	e8 ce b4 ff ff       	call   80100750 <cprintf>
     curproc->tf->eax = -1;
 80105282:	8b 43 18             	mov    0x18(%ebx),%eax
@@ -10130,7 +10130,7 @@ create(char *path, short type, short major, short minor)
     if (dirlink(ip, ".", ip->inum) < 0 || dirlink(ip, "..", dp->inum) < 0)
 801053ce:	83 c4 0c             	add    $0xc,%esp
 801053d1:	ff 76 04             	push   0x4(%esi)
-801053d4:	68 bc 84 10 80       	push   $0x801084bc
+801053d4:	68 bc 83 10 80       	push   $0x801083bc
 801053d9:	56                   	push   %esi
 801053da:	e8 d1 d3 ff ff       	call   801027b0 <dirlink>
 801053df:	83 c4 10             	add    $0x10,%esp
@@ -10138,7 +10138,7 @@ create(char *path, short type, short major, short minor)
 801053e4:	78 18                	js     801053fe <create+0x15e>
 801053e6:	83 ec 04             	sub    $0x4,%esp
 801053e9:	ff 73 04             	push   0x4(%ebx)
-801053ec:	68 bb 84 10 80       	push   $0x801084bb
+801053ec:	68 bb 83 10 80       	push   $0x801083bb
 801053f1:	56                   	push   %esi
 801053f2:	e8 b9 d3 ff ff       	call   801027b0 <dirlink>
 801053f7:	83 c4 10             	add    $0x10,%esp
@@ -10146,7 +10146,7 @@ create(char *path, short type, short major, short minor)
 801053fc:	79 92                	jns    80105390 <create+0xf0>
       panic("create dots");
 801053fe:	83 ec 0c             	sub    $0xc,%esp
-80105401:	68 af 84 10 80       	push   $0x801084af
+80105401:	68 af 83 10 80       	push   $0x801083af
 80105406:	e8 95 af ff ff       	call   801003a0 <panic>
 8010540b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 8010540f:	90                   	nop
@@ -10163,11 +10163,11 @@ create(char *path, short type, short major, short minor)
 8010541b:	c3                   	ret    
     panic("create: dirlink");
 8010541c:	83 ec 0c             	sub    $0xc,%esp
-8010541f:	68 be 84 10 80       	push   $0x801084be
+8010541f:	68 be 83 10 80       	push   $0x801083be
 80105424:	e8 77 af ff ff       	call   801003a0 <panic>
     panic("create: ialloc");
 80105429:	83 ec 0c             	sub    $0xc,%esp
-8010542c:	68 a0 84 10 80       	push   $0x801084a0
+8010542c:	68 a0 83 10 80       	push   $0x801083a0
 80105431:	e8 6a af ff ff       	call   801003a0 <panic>
 80105436:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 8010543d:	8d 76 00             	lea    0x0(%esi),%esi
@@ -10189,21 +10189,20 @@ create(char *path, short type, short major, short minor)
 80105453:	83 c4 10             	add    $0x10,%esp
 80105456:	85 c0                	test   %eax,%eax
 80105458:	78 36                	js     80105490 <sys_dup+0x50>
-  struct file *res = getfile(fd);
-8010545a:	8b 5d f4             	mov    -0xc(%ebp),%ebx
   if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-8010545d:	83 fb 0f             	cmp    $0xf,%ebx
-80105460:	77 2e                	ja     80105490 <sys_dup+0x50>
-80105462:	e8 d9 ec ff ff       	call   80104140 <myproc>
-80105467:	8b 74 98 28          	mov    0x28(%eax,%ebx,4),%esi
-8010546b:	85 f6                	test   %esi,%esi
-8010546d:	74 21                	je     80105490 <sys_dup+0x50>
+8010545a:	83 7d f4 0f          	cmpl   $0xf,-0xc(%ebp)
+8010545e:	77 30                	ja     80105490 <sys_dup+0x50>
+80105460:	e8 db ec ff ff       	call   80104140 <myproc>
+80105465:	8b 55 f4             	mov    -0xc(%ebp),%edx
+80105468:	8b 74 90 28          	mov    0x28(%eax,%edx,4),%esi
+8010546c:	85 f6                	test   %esi,%esi
+8010546e:	74 20                	je     80105490 <sys_dup+0x50>
   struct proc *curproc = myproc();
-8010546f:	e8 cc ec ff ff       	call   80104140 <myproc>
+80105470:	e8 cb ec ff ff       	call   80104140 <myproc>
   for (fd = 0; fd < NOFILE; fd++)
-80105474:	31 db                	xor    %ebx,%ebx
-80105476:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010547d:	8d 76 00             	lea    0x0(%esi),%esi
+80105475:	31 db                	xor    %ebx,%ebx
+80105477:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010547e:	66 90                	xchg   %ax,%ax
     if (curproc->ofile[fd] == 0)
 80105480:	8b 54 98 28          	mov    0x28(%eax,%ebx,4),%edx
 80105484:	85 d2                	test   %edx,%edx
@@ -10241,4228 +10240,4192 @@ create(char *path, short type, short major, short minor)
 801054b8:	c3                   	ret    
 801054b9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-801054c0 <read>:
+801054c0 <sys_read>:
 {
 801054c0:	55                   	push   %ebp
 801054c1:	89 e5                	mov    %esp,%ebp
-801054c3:	57                   	push   %edi
-801054c4:	56                   	push   %esi
-801054c5:	53                   	push   %ebx
-801054c6:	83 ec 0c             	sub    $0xc,%esp
-801054c9:	8b 5d 08             	mov    0x8(%ebp),%ebx
-801054cc:	8b 75 0c             	mov    0xc(%ebp),%esi
-801054cf:	8b 7d 10             	mov    0x10(%ebp),%edi
+801054c3:	56                   	push   %esi
+801054c4:	53                   	push   %ebx
+  if (argint(n, &fd) < 0)
+801054c5:	8d 5d f4             	lea    -0xc(%ebp),%ebx
+{
+801054c8:	83 ec 18             	sub    $0x18,%esp
+  if (argint(n, &fd) < 0)
+801054cb:	53                   	push   %ebx
+801054cc:	6a 00                	push   $0x0
+801054ce:	e8 1d fc ff ff       	call   801050f0 <argint>
+801054d3:	83 c4 10             	add    $0x10,%esp
+801054d6:	85 c0                	test   %eax,%eax
+801054d8:	78 5e                	js     80105538 <sys_read+0x78>
   if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-801054d2:	83 fb 0f             	cmp    $0xf,%ebx
-801054d5:	77 29                	ja     80105500 <read+0x40>
-801054d7:	e8 64 ec ff ff       	call   80104140 <myproc>
-801054dc:	8b 44 98 28          	mov    0x28(%eax,%ebx,4),%eax
-801054e0:	85 c0                	test   %eax,%eax
-801054e2:	74 1c                	je     80105500 <read+0x40>
-  return fileread(res, p, n);
-801054e4:	89 7d 10             	mov    %edi,0x10(%ebp)
-801054e7:	89 75 0c             	mov    %esi,0xc(%ebp)
-801054ea:	89 45 08             	mov    %eax,0x8(%ebp)
+801054da:	83 7d f4 0f          	cmpl   $0xf,-0xc(%ebp)
+801054de:	77 58                	ja     80105538 <sys_read+0x78>
+801054e0:	e8 5b ec ff ff       	call   80104140 <myproc>
+801054e5:	8b 55 f4             	mov    -0xc(%ebp),%edx
+801054e8:	8b 74 90 28          	mov    0x28(%eax,%edx,4),%esi
+801054ec:	85 f6                	test   %esi,%esi
+801054ee:	74 48                	je     80105538 <sys_read+0x78>
+  if (argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
+801054f0:	83 ec 08             	sub    $0x8,%esp
+801054f3:	8d 45 f0             	lea    -0x10(%ebp),%eax
+801054f6:	50                   	push   %eax
+801054f7:	6a 02                	push   $0x2
+801054f9:	e8 f2 fb ff ff       	call   801050f0 <argint>
+801054fe:	83 c4 10             	add    $0x10,%esp
+80105501:	85 c0                	test   %eax,%eax
+80105503:	78 33                	js     80105538 <sys_read+0x78>
+80105505:	83 ec 04             	sub    $0x4,%esp
+80105508:	ff 75 f0             	push   -0x10(%ebp)
+8010550b:	53                   	push   %ebx
+8010550c:	6a 01                	push   $0x1
+8010550e:	e8 2d fc ff ff       	call   80105140 <argptr>
+80105513:	83 c4 10             	add    $0x10,%esp
+80105516:	85 c0                	test   %eax,%eax
+80105518:	78 1e                	js     80105538 <sys_read+0x78>
+  return fileread(f, p, n);
+8010551a:	83 ec 04             	sub    $0x4,%esp
+8010551d:	ff 75 f0             	push   -0x10(%ebp)
+80105520:	ff 75 f4             	push   -0xc(%ebp)
+80105523:	56                   	push   %esi
+80105524:	e8 c7 c2 ff ff       	call   801017f0 <fileread>
+80105529:	83 c4 10             	add    $0x10,%esp
 }
-801054ed:	83 c4 0c             	add    $0xc,%esp
-801054f0:	5b                   	pop    %ebx
-801054f1:	5e                   	pop    %esi
-801054f2:	5f                   	pop    %edi
-801054f3:	5d                   	pop    %ebp
-  return fileread(res, p, n);
-801054f4:	e9 f7 c2 ff ff       	jmp    801017f0 <fileread>
-801054f9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-}
-80105500:	83 c4 0c             	add    $0xc,%esp
-80105503:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105508:	5b                   	pop    %ebx
-80105509:	5e                   	pop    %esi
-8010550a:	5f                   	pop    %edi
-8010550b:	5d                   	pop    %ebp
-8010550c:	c3                   	ret    
-8010550d:	8d 76 00             	lea    0x0(%esi),%esi
+8010552c:	8d 65 f8             	lea    -0x8(%ebp),%esp
+8010552f:	5b                   	pop    %ebx
+80105530:	5e                   	pop    %esi
+80105531:	5d                   	pop    %ebp
+80105532:	c3                   	ret    
+80105533:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105537:	90                   	nop
+    return -1;
+80105538:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+8010553d:	eb ed                	jmp    8010552c <sys_read+0x6c>
+8010553f:	90                   	nop
 
-80105510 <sys_read>:
+80105540 <sys_write>:
 {
-80105510:	55                   	push   %ebp
-80105511:	89 e5                	mov    %esp,%ebp
-80105513:	57                   	push   %edi
-80105514:	56                   	push   %esi
-  if (argint(0, &fd) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-80105515:	8d 45 e0             	lea    -0x20(%ebp),%eax
+80105540:	55                   	push   %ebp
+80105541:	89 e5                	mov    %esp,%ebp
+80105543:	56                   	push   %esi
+80105544:	53                   	push   %ebx
+  if (argint(n, &fd) < 0)
+80105545:	8d 5d f4             	lea    -0xc(%ebp),%ebx
 {
-80105518:	53                   	push   %ebx
-80105519:	83 ec 24             	sub    $0x24,%esp
-  if (argint(0, &fd) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-8010551c:	50                   	push   %eax
-8010551d:	6a 00                	push   $0x0
-8010551f:	e8 cc fb ff ff       	call   801050f0 <argint>
-80105524:	83 c4 10             	add    $0x10,%esp
-80105527:	85 c0                	test   %eax,%eax
-80105529:	78 65                	js     80105590 <sys_read+0x80>
-8010552b:	83 ec 08             	sub    $0x8,%esp
-8010552e:	8d 45 dc             	lea    -0x24(%ebp),%eax
-80105531:	50                   	push   %eax
-80105532:	6a 02                	push   $0x2
-80105534:	e8 b7 fb ff ff       	call   801050f0 <argint>
-80105539:	83 c4 10             	add    $0x10,%esp
-8010553c:	85 c0                	test   %eax,%eax
-8010553e:	78 50                	js     80105590 <sys_read+0x80>
-80105540:	83 ec 04             	sub    $0x4,%esp
-80105543:	8d 45 e4             	lea    -0x1c(%ebp),%eax
-80105546:	ff 75 dc             	push   -0x24(%ebp)
-80105549:	50                   	push   %eax
-8010554a:	6a 01                	push   $0x1
-8010554c:	e8 ef fb ff ff       	call   80105140 <argptr>
-80105551:	83 c4 10             	add    $0x10,%esp
-80105554:	85 c0                	test   %eax,%eax
-80105556:	78 38                	js     80105590 <sys_read+0x80>
-  return read(fd, p, n);
-80105558:	8b 5d e0             	mov    -0x20(%ebp),%ebx
-8010555b:	8b 7d dc             	mov    -0x24(%ebp),%edi
-8010555e:	8b 75 e4             	mov    -0x1c(%ebp),%esi
+80105548:	83 ec 18             	sub    $0x18,%esp
+  if (argint(n, &fd) < 0)
+8010554b:	53                   	push   %ebx
+8010554c:	6a 00                	push   $0x0
+8010554e:	e8 9d fb ff ff       	call   801050f0 <argint>
+80105553:	83 c4 10             	add    $0x10,%esp
+80105556:	85 c0                	test   %eax,%eax
+80105558:	78 5e                	js     801055b8 <sys_write+0x78>
   if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-80105561:	83 fb 0f             	cmp    $0xf,%ebx
-80105564:	77 2a                	ja     80105590 <sys_read+0x80>
-80105566:	e8 d5 eb ff ff       	call   80104140 <myproc>
-8010556b:	8b 44 98 28          	mov    0x28(%eax,%ebx,4),%eax
-8010556f:	85 c0                	test   %eax,%eax
-80105571:	74 1d                	je     80105590 <sys_read+0x80>
-  return fileread(res, p, n);
-80105573:	83 ec 04             	sub    $0x4,%esp
-80105576:	57                   	push   %edi
-80105577:	56                   	push   %esi
-80105578:	50                   	push   %eax
-80105579:	e8 72 c2 ff ff       	call   801017f0 <fileread>
+8010555a:	83 7d f4 0f          	cmpl   $0xf,-0xc(%ebp)
+8010555e:	77 58                	ja     801055b8 <sys_write+0x78>
+80105560:	e8 db eb ff ff       	call   80104140 <myproc>
+80105565:	8b 55 f4             	mov    -0xc(%ebp),%edx
+80105568:	8b 74 90 28          	mov    0x28(%eax,%edx,4),%esi
+8010556c:	85 f6                	test   %esi,%esi
+8010556e:	74 48                	je     801055b8 <sys_write+0x78>
+  if (argfd(0, 0, &f) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
+80105570:	83 ec 08             	sub    $0x8,%esp
+80105573:	8d 45 f0             	lea    -0x10(%ebp),%eax
+80105576:	50                   	push   %eax
+80105577:	6a 02                	push   $0x2
+80105579:	e8 72 fb ff ff       	call   801050f0 <argint>
 8010557e:	83 c4 10             	add    $0x10,%esp
+80105581:	85 c0                	test   %eax,%eax
+80105583:	78 33                	js     801055b8 <sys_write+0x78>
+80105585:	83 ec 04             	sub    $0x4,%esp
+80105588:	ff 75 f0             	push   -0x10(%ebp)
+8010558b:	53                   	push   %ebx
+8010558c:	6a 01                	push   $0x1
+8010558e:	e8 ad fb ff ff       	call   80105140 <argptr>
+80105593:	83 c4 10             	add    $0x10,%esp
+80105596:	85 c0                	test   %eax,%eax
+80105598:	78 1e                	js     801055b8 <sys_write+0x78>
+  return filewrite(f, p, n);
+8010559a:	83 ec 04             	sub    $0x4,%esp
+8010559d:	ff 75 f0             	push   -0x10(%ebp)
+801055a0:	ff 75 f4             	push   -0xc(%ebp)
+801055a3:	56                   	push   %esi
+801055a4:	e8 d7 c2 ff ff       	call   80101880 <filewrite>
+801055a9:	83 c4 10             	add    $0x10,%esp
 }
-80105581:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80105584:	5b                   	pop    %ebx
-80105585:	5e                   	pop    %esi
-80105586:	5f                   	pop    %edi
-80105587:	5d                   	pop    %ebp
-80105588:	c3                   	ret    
-80105589:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105590:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801055ac:	8d 65 f8             	lea    -0x8(%ebp),%esp
+801055af:	5b                   	pop    %ebx
+801055b0:	5e                   	pop    %esi
+801055b1:	5d                   	pop    %ebp
+801055b2:	c3                   	ret    
+801055b3:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801055b7:	90                   	nop
     return -1;
-80105593:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-80105598:	5b                   	pop    %ebx
-80105599:	5e                   	pop    %esi
-8010559a:	5f                   	pop    %edi
-8010559b:	5d                   	pop    %ebp
-8010559c:	c3                   	ret    
-8010559d:	8d 76 00             	lea    0x0(%esi),%esi
+801055b8:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+801055bd:	eb ed                	jmp    801055ac <sys_write+0x6c>
+801055bf:	90                   	nop
 
-801055a0 <write>:
+801055c0 <sys_close>:
 {
-801055a0:	55                   	push   %ebp
-801055a1:	89 e5                	mov    %esp,%ebp
-801055a3:	57                   	push   %edi
-801055a4:	56                   	push   %esi
-801055a5:	53                   	push   %ebx
-801055a6:	83 ec 0c             	sub    $0xc,%esp
-801055a9:	8b 5d 08             	mov    0x8(%ebp),%ebx
-801055ac:	8b 75 0c             	mov    0xc(%ebp),%esi
-801055af:	8b 7d 10             	mov    0x10(%ebp),%edi
-  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-801055b2:	83 fb 0f             	cmp    $0xf,%ebx
-801055b5:	77 29                	ja     801055e0 <write+0x40>
-801055b7:	e8 84 eb ff ff       	call   80104140 <myproc>
-801055bc:	8b 44 98 28          	mov    0x28(%eax,%ebx,4),%eax
-801055c0:	85 c0                	test   %eax,%eax
-801055c2:	74 1c                	je     801055e0 <write+0x40>
-  return filewrite(res, p, n);
-801055c4:	89 7d 10             	mov    %edi,0x10(%ebp)
-801055c7:	89 75 0c             	mov    %esi,0xc(%ebp)
-801055ca:	89 45 08             	mov    %eax,0x8(%ebp)
-}
-801055cd:	83 c4 0c             	add    $0xc,%esp
-801055d0:	5b                   	pop    %ebx
-801055d1:	5e                   	pop    %esi
-801055d2:	5f                   	pop    %edi
-801055d3:	5d                   	pop    %ebp
-  return filewrite(res, p, n);
-801055d4:	e9 a7 c2 ff ff       	jmp    80101880 <filewrite>
-801055d9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-}
-801055e0:	83 c4 0c             	add    $0xc,%esp
-801055e3:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-801055e8:	5b                   	pop    %ebx
-801055e9:	5e                   	pop    %esi
-801055ea:	5f                   	pop    %edi
-801055eb:	5d                   	pop    %ebp
-801055ec:	c3                   	ret    
-801055ed:	8d 76 00             	lea    0x0(%esi),%esi
-
-801055f0 <sys_write>:
-{
-801055f0:	55                   	push   %ebp
-801055f1:	89 e5                	mov    %esp,%ebp
-801055f3:	57                   	push   %edi
-801055f4:	56                   	push   %esi
-  if (argint(0, &fd) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-801055f5:	8d 45 e0             	lea    -0x20(%ebp),%eax
-{
-801055f8:	53                   	push   %ebx
-801055f9:	83 ec 24             	sub    $0x24,%esp
-  if (argint(0, &fd) < 0 || argint(2, &n) < 0 || argptr(1, &p, n) < 0)
-801055fc:	50                   	push   %eax
-801055fd:	6a 00                	push   $0x0
-801055ff:	e8 ec fa ff ff       	call   801050f0 <argint>
-80105604:	83 c4 10             	add    $0x10,%esp
-80105607:	85 c0                	test   %eax,%eax
-80105609:	78 65                	js     80105670 <sys_write+0x80>
-8010560b:	83 ec 08             	sub    $0x8,%esp
-8010560e:	8d 45 dc             	lea    -0x24(%ebp),%eax
-80105611:	50                   	push   %eax
-80105612:	6a 02                	push   $0x2
-80105614:	e8 d7 fa ff ff       	call   801050f0 <argint>
-80105619:	83 c4 10             	add    $0x10,%esp
-8010561c:	85 c0                	test   %eax,%eax
-8010561e:	78 50                	js     80105670 <sys_write+0x80>
-80105620:	83 ec 04             	sub    $0x4,%esp
-80105623:	8d 45 e4             	lea    -0x1c(%ebp),%eax
-80105626:	ff 75 dc             	push   -0x24(%ebp)
-80105629:	50                   	push   %eax
-8010562a:	6a 01                	push   $0x1
-8010562c:	e8 0f fb ff ff       	call   80105140 <argptr>
-80105631:	83 c4 10             	add    $0x10,%esp
-80105634:	85 c0                	test   %eax,%eax
-80105636:	78 38                	js     80105670 <sys_write+0x80>
-  return write(fd, p, n);
-80105638:	8b 5d e0             	mov    -0x20(%ebp),%ebx
-8010563b:	8b 7d dc             	mov    -0x24(%ebp),%edi
-8010563e:	8b 75 e4             	mov    -0x1c(%ebp),%esi
-  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-80105641:	83 fb 0f             	cmp    $0xf,%ebx
-80105644:	77 2a                	ja     80105670 <sys_write+0x80>
-80105646:	e8 f5 ea ff ff       	call   80104140 <myproc>
-8010564b:	8b 44 98 28          	mov    0x28(%eax,%ebx,4),%eax
-8010564f:	85 c0                	test   %eax,%eax
-80105651:	74 1d                	je     80105670 <sys_write+0x80>
-  return filewrite(res, p, n);
-80105653:	83 ec 04             	sub    $0x4,%esp
-80105656:	57                   	push   %edi
-80105657:	56                   	push   %esi
-80105658:	50                   	push   %eax
-80105659:	e8 22 c2 ff ff       	call   80101880 <filewrite>
-8010565e:	83 c4 10             	add    $0x10,%esp
-}
-80105661:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80105664:	5b                   	pop    %ebx
-80105665:	5e                   	pop    %esi
-80105666:	5f                   	pop    %edi
-80105667:	5d                   	pop    %ebp
-80105668:	c3                   	ret    
-80105669:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105670:	8d 65 f4             	lea    -0xc(%ebp),%esp
-    return -1;
-80105673:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-80105678:	5b                   	pop    %ebx
-80105679:	5e                   	pop    %esi
-8010567a:	5f                   	pop    %edi
-8010567b:	5d                   	pop    %ebp
-8010567c:	c3                   	ret    
-8010567d:	8d 76 00             	lea    0x0(%esi),%esi
-
-80105680 <close>:
-{
-80105680:	55                   	push   %ebp
-80105681:	89 e5                	mov    %esp,%ebp
-80105683:	56                   	push   %esi
-80105684:	53                   	push   %ebx
-80105685:	8b 5d 08             	mov    0x8(%ebp),%ebx
-  myproc()->ofile[fd] = 0;
-80105688:	8d 73 08             	lea    0x8(%ebx),%esi
-8010568b:	e8 b0 ea ff ff       	call   80104140 <myproc>
-80105690:	c7 44 b0 08 00 00 00 	movl   $0x0,0x8(%eax,%esi,4)
-80105697:	00 
-  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-80105698:	83 fb 0f             	cmp    $0xf,%ebx
-8010569b:	77 23                	ja     801056c0 <close+0x40>
-8010569d:	e8 9e ea ff ff       	call   80104140 <myproc>
-801056a2:	8b 44 b0 08          	mov    0x8(%eax,%esi,4),%eax
-801056a6:	85 c0                	test   %eax,%eax
-801056a8:	74 16                	je     801056c0 <close+0x40>
-  fileclose(res);
-801056aa:	83 ec 0c             	sub    $0xc,%esp
-801056ad:	50                   	push   %eax
-801056ae:	e8 0d c0 ff ff       	call   801016c0 <fileclose>
-  return 0;
-801056b3:	83 c4 10             	add    $0x10,%esp
-}
-801056b6:	8d 65 f8             	lea    -0x8(%ebp),%esp
-  return 0;
-801056b9:	31 c0                	xor    %eax,%eax
-}
-801056bb:	5b                   	pop    %ebx
-801056bc:	5e                   	pop    %esi
-801056bd:	5d                   	pop    %ebp
-801056be:	c3                   	ret    
-801056bf:	90                   	nop
-801056c0:	8d 65 f8             	lea    -0x8(%ebp),%esp
-    return -1;
-801056c3:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-801056c8:	5b                   	pop    %ebx
-801056c9:	5e                   	pop    %esi
-801056ca:	5d                   	pop    %ebp
-801056cb:	c3                   	ret    
-801056cc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-
-801056d0 <sys_close>:
-{
-801056d0:	55                   	push   %ebp
-801056d1:	89 e5                	mov    %esp,%ebp
-801056d3:	56                   	push   %esi
-801056d4:	53                   	push   %ebx
-  if (argint(0, &fd) < 0)
-801056d5:	8d 45 f4             	lea    -0xc(%ebp),%eax
-{
-801056d8:	83 ec 18             	sub    $0x18,%esp
-  if (argint(0, &fd) < 0)
-801056db:	50                   	push   %eax
-801056dc:	6a 00                	push   $0x0
-801056de:	e8 0d fa ff ff       	call   801050f0 <argint>
-801056e3:	83 c4 10             	add    $0x10,%esp
-801056e6:	85 c0                	test   %eax,%eax
-801056e8:	78 3e                	js     80105728 <sys_close+0x58>
-  return close(fd);
-801056ea:	8b 5d f4             	mov    -0xc(%ebp),%ebx
-  myproc()->ofile[fd] = 0;
-801056ed:	e8 4e ea ff ff       	call   80104140 <myproc>
-801056f2:	8d 73 08             	lea    0x8(%ebx),%esi
-801056f5:	c7 44 b0 08 00 00 00 	movl   $0x0,0x8(%eax,%esi,4)
-801056fc:	00 
-  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-801056fd:	83 fb 0f             	cmp    $0xf,%ebx
-80105700:	77 26                	ja     80105728 <sys_close+0x58>
-80105702:	e8 39 ea ff ff       	call   80104140 <myproc>
-80105707:	8b 44 b0 08          	mov    0x8(%eax,%esi,4),%eax
-8010570b:	85 c0                	test   %eax,%eax
-8010570d:	74 19                	je     80105728 <sys_close+0x58>
-  fileclose(res);
-8010570f:	83 ec 0c             	sub    $0xc,%esp
-80105712:	50                   	push   %eax
-80105713:	e8 a8 bf ff ff       	call   801016c0 <fileclose>
-  return 0;
-80105718:	83 c4 10             	add    $0x10,%esp
-}
-8010571b:	8d 65 f8             	lea    -0x8(%ebp),%esp
-  return 0;
-8010571e:	31 c0                	xor    %eax,%eax
-}
-80105720:	5b                   	pop    %ebx
-80105721:	5e                   	pop    %esi
-80105722:	5d                   	pop    %ebp
-80105723:	c3                   	ret    
-80105724:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-80105728:	8d 65 f8             	lea    -0x8(%ebp),%esp
-    return -1;
-8010572b:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-80105730:	5b                   	pop    %ebx
-80105731:	5e                   	pop    %esi
-80105732:	5d                   	pop    %ebp
-80105733:	c3                   	ret    
-80105734:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010573b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-8010573f:	90                   	nop
-
-80105740 <sys_fstat>:
-{
-80105740:	55                   	push   %ebp
-80105741:	89 e5                	mov    %esp,%ebp
-80105743:	56                   	push   %esi
-80105744:	53                   	push   %ebx
+801055c0:	55                   	push   %ebp
+801055c1:	89 e5                	mov    %esp,%ebp
+801055c3:	56                   	push   %esi
+801055c4:	53                   	push   %ebx
   if (argint(n, &fd) < 0)
-80105745:	8d 5d f4             	lea    -0xc(%ebp),%ebx
+801055c5:	8d 45 f4             	lea    -0xc(%ebp),%eax
 {
-80105748:	83 ec 18             	sub    $0x18,%esp
+801055c8:	83 ec 18             	sub    $0x18,%esp
   if (argint(n, &fd) < 0)
-8010574b:	53                   	push   %ebx
-8010574c:	6a 00                	push   $0x0
-8010574e:	e8 9d f9 ff ff       	call   801050f0 <argint>
-80105753:	83 c4 10             	add    $0x10,%esp
-80105756:	85 c0                	test   %eax,%eax
-80105758:	78 46                	js     801057a0 <sys_fstat+0x60>
-  struct file *res = getfile(fd);
-8010575a:	8b 75 f4             	mov    -0xc(%ebp),%esi
+801055cb:	50                   	push   %eax
+801055cc:	6a 00                	push   $0x0
+801055ce:	e8 1d fb ff ff       	call   801050f0 <argint>
+801055d3:	83 c4 10             	add    $0x10,%esp
+801055d6:	85 c0                	test   %eax,%eax
+801055d8:	78 3e                	js     80105618 <sys_close+0x58>
   if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
-8010575d:	83 fe 0f             	cmp    $0xf,%esi
-80105760:	77 3e                	ja     801057a0 <sys_fstat+0x60>
-80105762:	e8 d9 e9 ff ff       	call   80104140 <myproc>
-80105767:	8b 74 b0 28          	mov    0x28(%eax,%esi,4),%esi
-8010576b:	85 f6                	test   %esi,%esi
-8010576d:	74 31                	je     801057a0 <sys_fstat+0x60>
+801055da:	83 7d f4 0f          	cmpl   $0xf,-0xc(%ebp)
+801055de:	77 38                	ja     80105618 <sys_close+0x58>
+801055e0:	e8 5b eb ff ff       	call   80104140 <myproc>
+801055e5:	8b 55 f4             	mov    -0xc(%ebp),%edx
+801055e8:	8d 5a 08             	lea    0x8(%edx),%ebx
+801055eb:	8b 74 98 08          	mov    0x8(%eax,%ebx,4),%esi
+801055ef:	85 f6                	test   %esi,%esi
+801055f1:	74 25                	je     80105618 <sys_close+0x58>
+  myproc()->ofile[fd] = 0;
+801055f3:	e8 48 eb ff ff       	call   80104140 <myproc>
+  fileclose(f);
+801055f8:	83 ec 0c             	sub    $0xc,%esp
+  myproc()->ofile[fd] = 0;
+801055fb:	c7 44 98 08 00 00 00 	movl   $0x0,0x8(%eax,%ebx,4)
+80105602:	00 
+  fileclose(f);
+80105603:	56                   	push   %esi
+80105604:	e8 b7 c0 ff ff       	call   801016c0 <fileclose>
+  return 0;
+80105609:	83 c4 10             	add    $0x10,%esp
+8010560c:	31 c0                	xor    %eax,%eax
+}
+8010560e:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80105611:	5b                   	pop    %ebx
+80105612:	5e                   	pop    %esi
+80105613:	5d                   	pop    %ebp
+80105614:	c3                   	ret    
+80105615:	8d 76 00             	lea    0x0(%esi),%esi
+    return -1;
+80105618:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+8010561d:	eb ef                	jmp    8010560e <sys_close+0x4e>
+8010561f:	90                   	nop
+
+80105620 <sys_fstat>:
+{
+80105620:	55                   	push   %ebp
+80105621:	89 e5                	mov    %esp,%ebp
+80105623:	56                   	push   %esi
+80105624:	53                   	push   %ebx
+  if (argint(n, &fd) < 0)
+80105625:	8d 5d f4             	lea    -0xc(%ebp),%ebx
+{
+80105628:	83 ec 18             	sub    $0x18,%esp
+  if (argint(n, &fd) < 0)
+8010562b:	53                   	push   %ebx
+8010562c:	6a 00                	push   $0x0
+8010562e:	e8 bd fa ff ff       	call   801050f0 <argint>
+80105633:	83 c4 10             	add    $0x10,%esp
+80105636:	85 c0                	test   %eax,%eax
+80105638:	78 46                	js     80105680 <sys_fstat+0x60>
+  if (fd < 0 || fd >= NOFILE || (f = myproc()->ofile[fd]) == 0)
+8010563a:	83 7d f4 0f          	cmpl   $0xf,-0xc(%ebp)
+8010563e:	77 40                	ja     80105680 <sys_fstat+0x60>
+80105640:	e8 fb ea ff ff       	call   80104140 <myproc>
+80105645:	8b 55 f4             	mov    -0xc(%ebp),%edx
+80105648:	8b 74 90 28          	mov    0x28(%eax,%edx,4),%esi
+8010564c:	85 f6                	test   %esi,%esi
+8010564e:	74 30                	je     80105680 <sys_fstat+0x60>
   if (argfd(0, 0, &f) < 0 || argptr(1, (void *)&st, sizeof(*st)) < 0)
-8010576f:	83 ec 04             	sub    $0x4,%esp
-80105772:	6a 14                	push   $0x14
-80105774:	53                   	push   %ebx
-80105775:	6a 01                	push   $0x1
-80105777:	e8 c4 f9 ff ff       	call   80105140 <argptr>
-8010577c:	83 c4 10             	add    $0x10,%esp
-8010577f:	85 c0                	test   %eax,%eax
-80105781:	78 1d                	js     801057a0 <sys_fstat+0x60>
+80105650:	83 ec 04             	sub    $0x4,%esp
+80105653:	6a 14                	push   $0x14
+80105655:	53                   	push   %ebx
+80105656:	6a 01                	push   $0x1
+80105658:	e8 e3 fa ff ff       	call   80105140 <argptr>
+8010565d:	83 c4 10             	add    $0x10,%esp
+80105660:	85 c0                	test   %eax,%eax
+80105662:	78 1c                	js     80105680 <sys_fstat+0x60>
   return filestat(f, st);
-80105783:	83 ec 08             	sub    $0x8,%esp
-80105786:	ff 75 f4             	push   -0xc(%ebp)
-80105789:	56                   	push   %esi
-8010578a:	e8 11 c0 ff ff       	call   801017a0 <filestat>
-8010578f:	83 c4 10             	add    $0x10,%esp
+80105664:	83 ec 08             	sub    $0x8,%esp
+80105667:	ff 75 f4             	push   -0xc(%ebp)
+8010566a:	56                   	push   %esi
+8010566b:	e8 30 c1 ff ff       	call   801017a0 <filestat>
+80105670:	83 c4 10             	add    $0x10,%esp
 }
-80105792:	8d 65 f8             	lea    -0x8(%ebp),%esp
-80105795:	5b                   	pop    %ebx
-80105796:	5e                   	pop    %esi
-80105797:	5d                   	pop    %ebp
-80105798:	c3                   	ret    
-80105799:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801057a0:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80105673:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80105676:	5b                   	pop    %ebx
+80105677:	5e                   	pop    %esi
+80105678:	5d                   	pop    %ebp
+80105679:	c3                   	ret    
+8010567a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
     return -1;
-801057a3:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-801057a8:	5b                   	pop    %ebx
-801057a9:	5e                   	pop    %esi
-801057aa:	5d                   	pop    %ebp
-801057ab:	c3                   	ret    
-801057ac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105680:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105685:	eb ec                	jmp    80105673 <sys_fstat+0x53>
+80105687:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010568e:	66 90                	xchg   %ax,%ax
 
-801057b0 <sys_link>:
+80105690 <sys_link>:
 {
-801057b0:	55                   	push   %ebp
-801057b1:	89 e5                	mov    %esp,%ebp
-801057b3:	57                   	push   %edi
-801057b4:	56                   	push   %esi
+80105690:	55                   	push   %ebp
+80105691:	89 e5                	mov    %esp,%ebp
+80105693:	57                   	push   %edi
+80105694:	56                   	push   %esi
   if (argstr(0, &old) < 0 || argstr(1, &new) < 0)
-801057b5:	8d 45 d4             	lea    -0x2c(%ebp),%eax
+80105695:	8d 45 d4             	lea    -0x2c(%ebp),%eax
 {
-801057b8:	53                   	push   %ebx
-801057b9:	83 ec 34             	sub    $0x34,%esp
+80105698:	53                   	push   %ebx
+80105699:	83 ec 34             	sub    $0x34,%esp
   if (argstr(0, &old) < 0 || argstr(1, &new) < 0)
-801057bc:	50                   	push   %eax
-801057bd:	6a 00                	push   $0x0
-801057bf:	e8 ec f9 ff ff       	call   801051b0 <argstr>
-801057c4:	83 c4 10             	add    $0x10,%esp
-801057c7:	85 c0                	test   %eax,%eax
-801057c9:	0f 88 fb 00 00 00    	js     801058ca <sys_link+0x11a>
-801057cf:	83 ec 08             	sub    $0x8,%esp
-801057d2:	8d 45 d0             	lea    -0x30(%ebp),%eax
-801057d5:	50                   	push   %eax
-801057d6:	6a 01                	push   $0x1
-801057d8:	e8 d3 f9 ff ff       	call   801051b0 <argstr>
-801057dd:	83 c4 10             	add    $0x10,%esp
-801057e0:	85 c0                	test   %eax,%eax
-801057e2:	0f 88 e2 00 00 00    	js     801058ca <sys_link+0x11a>
+8010569c:	50                   	push   %eax
+8010569d:	6a 00                	push   $0x0
+8010569f:	e8 0c fb ff ff       	call   801051b0 <argstr>
+801056a4:	83 c4 10             	add    $0x10,%esp
+801056a7:	85 c0                	test   %eax,%eax
+801056a9:	0f 88 fb 00 00 00    	js     801057aa <sys_link+0x11a>
+801056af:	83 ec 08             	sub    $0x8,%esp
+801056b2:	8d 45 d0             	lea    -0x30(%ebp),%eax
+801056b5:	50                   	push   %eax
+801056b6:	6a 01                	push   $0x1
+801056b8:	e8 f3 fa ff ff       	call   801051b0 <argstr>
+801056bd:	83 c4 10             	add    $0x10,%esp
+801056c0:	85 c0                	test   %eax,%eax
+801056c2:	0f 88 e2 00 00 00    	js     801057aa <sys_link+0x11a>
   begin_op();
-801057e8:	e8 43 dd ff ff       	call   80103530 <begin_op>
+801056c8:	e8 63 de ff ff       	call   80103530 <begin_op>
   if ((ip = namei(old)) == 0)
-801057ed:	83 ec 0c             	sub    $0xc,%esp
-801057f0:	ff 75 d4             	push   -0x2c(%ebp)
-801057f3:	e8 78 d0 ff ff       	call   80102870 <namei>
-801057f8:	83 c4 10             	add    $0x10,%esp
-801057fb:	89 c3                	mov    %eax,%ebx
-801057fd:	85 c0                	test   %eax,%eax
-801057ff:	0f 84 e4 00 00 00    	je     801058e9 <sys_link+0x139>
+801056cd:	83 ec 0c             	sub    $0xc,%esp
+801056d0:	ff 75 d4             	push   -0x2c(%ebp)
+801056d3:	e8 98 d1 ff ff       	call   80102870 <namei>
+801056d8:	83 c4 10             	add    $0x10,%esp
+801056db:	89 c3                	mov    %eax,%ebx
+801056dd:	85 c0                	test   %eax,%eax
+801056df:	0f 84 e4 00 00 00    	je     801057c9 <sys_link+0x139>
   ilock(ip);
-80105805:	83 ec 0c             	sub    $0xc,%esp
-80105808:	50                   	push   %eax
-80105809:	e8 42 c7 ff ff       	call   80101f50 <ilock>
+801056e5:	83 ec 0c             	sub    $0xc,%esp
+801056e8:	50                   	push   %eax
+801056e9:	e8 62 c8 ff ff       	call   80101f50 <ilock>
   if (ip->type == T_DIR)
-8010580e:	83 c4 10             	add    $0x10,%esp
-80105811:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
-80105816:	0f 84 b5 00 00 00    	je     801058d1 <sys_link+0x121>
+801056ee:	83 c4 10             	add    $0x10,%esp
+801056f1:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
+801056f6:	0f 84 b5 00 00 00    	je     801057b1 <sys_link+0x121>
   iupdate(ip);
-8010581c:	83 ec 0c             	sub    $0xc,%esp
+801056fc:	83 ec 0c             	sub    $0xc,%esp
   ip->nlink++;
-8010581f:	66 83 43 56 01       	addw   $0x1,0x56(%ebx)
+801056ff:	66 83 43 56 01       	addw   $0x1,0x56(%ebx)
   if ((dp = nameiparent(new, name)) == 0)
-80105824:	8d 7d da             	lea    -0x26(%ebp),%edi
+80105704:	8d 7d da             	lea    -0x26(%ebp),%edi
   iupdate(ip);
-80105827:	53                   	push   %ebx
-80105828:	e8 73 c6 ff ff       	call   80101ea0 <iupdate>
+80105707:	53                   	push   %ebx
+80105708:	e8 93 c7 ff ff       	call   80101ea0 <iupdate>
   iunlock(ip);
-8010582d:	89 1c 24             	mov    %ebx,(%esp)
-80105830:	e8 fb c7 ff ff       	call   80102030 <iunlock>
+8010570d:	89 1c 24             	mov    %ebx,(%esp)
+80105710:	e8 1b c9 ff ff       	call   80102030 <iunlock>
   if ((dp = nameiparent(new, name)) == 0)
-80105835:	58                   	pop    %eax
-80105836:	5a                   	pop    %edx
-80105837:	57                   	push   %edi
-80105838:	ff 75 d0             	push   -0x30(%ebp)
-8010583b:	e8 50 d0 ff ff       	call   80102890 <nameiparent>
-80105840:	83 c4 10             	add    $0x10,%esp
-80105843:	89 c6                	mov    %eax,%esi
-80105845:	85 c0                	test   %eax,%eax
-80105847:	74 5b                	je     801058a4 <sys_link+0xf4>
+80105715:	58                   	pop    %eax
+80105716:	5a                   	pop    %edx
+80105717:	57                   	push   %edi
+80105718:	ff 75 d0             	push   -0x30(%ebp)
+8010571b:	e8 70 d1 ff ff       	call   80102890 <nameiparent>
+80105720:	83 c4 10             	add    $0x10,%esp
+80105723:	89 c6                	mov    %eax,%esi
+80105725:	85 c0                	test   %eax,%eax
+80105727:	74 5b                	je     80105784 <sys_link+0xf4>
   ilock(dp);
-80105849:	83 ec 0c             	sub    $0xc,%esp
-8010584c:	50                   	push   %eax
-8010584d:	e8 fe c6 ff ff       	call   80101f50 <ilock>
+80105729:	83 ec 0c             	sub    $0xc,%esp
+8010572c:	50                   	push   %eax
+8010572d:	e8 1e c8 ff ff       	call   80101f50 <ilock>
   if (dp->dev != ip->dev || dirlink(dp, name, ip->inum) < 0)
-80105852:	8b 03                	mov    (%ebx),%eax
-80105854:	83 c4 10             	add    $0x10,%esp
-80105857:	39 06                	cmp    %eax,(%esi)
-80105859:	75 3d                	jne    80105898 <sys_link+0xe8>
-8010585b:	83 ec 04             	sub    $0x4,%esp
-8010585e:	ff 73 04             	push   0x4(%ebx)
-80105861:	57                   	push   %edi
-80105862:	56                   	push   %esi
-80105863:	e8 48 cf ff ff       	call   801027b0 <dirlink>
-80105868:	83 c4 10             	add    $0x10,%esp
-8010586b:	85 c0                	test   %eax,%eax
-8010586d:	78 29                	js     80105898 <sys_link+0xe8>
+80105732:	8b 03                	mov    (%ebx),%eax
+80105734:	83 c4 10             	add    $0x10,%esp
+80105737:	39 06                	cmp    %eax,(%esi)
+80105739:	75 3d                	jne    80105778 <sys_link+0xe8>
+8010573b:	83 ec 04             	sub    $0x4,%esp
+8010573e:	ff 73 04             	push   0x4(%ebx)
+80105741:	57                   	push   %edi
+80105742:	56                   	push   %esi
+80105743:	e8 68 d0 ff ff       	call   801027b0 <dirlink>
+80105748:	83 c4 10             	add    $0x10,%esp
+8010574b:	85 c0                	test   %eax,%eax
+8010574d:	78 29                	js     80105778 <sys_link+0xe8>
   iunlockput(dp);
-8010586f:	83 ec 0c             	sub    $0xc,%esp
-80105872:	56                   	push   %esi
-80105873:	e8 68 c9 ff ff       	call   801021e0 <iunlockput>
+8010574f:	83 ec 0c             	sub    $0xc,%esp
+80105752:	56                   	push   %esi
+80105753:	e8 88 ca ff ff       	call   801021e0 <iunlockput>
   iput(ip);
-80105878:	89 1c 24             	mov    %ebx,(%esp)
-8010587b:	e8 00 c8 ff ff       	call   80102080 <iput>
+80105758:	89 1c 24             	mov    %ebx,(%esp)
+8010575b:	e8 20 c9 ff ff       	call   80102080 <iput>
   end_op();
-80105880:	e8 1b dd ff ff       	call   801035a0 <end_op>
+80105760:	e8 3b de ff ff       	call   801035a0 <end_op>
   return 0;
-80105885:	83 c4 10             	add    $0x10,%esp
-80105888:	31 c0                	xor    %eax,%eax
+80105765:	83 c4 10             	add    $0x10,%esp
+80105768:	31 c0                	xor    %eax,%eax
 }
-8010588a:	8d 65 f4             	lea    -0xc(%ebp),%esp
-8010588d:	5b                   	pop    %ebx
-8010588e:	5e                   	pop    %esi
-8010588f:	5f                   	pop    %edi
-80105890:	5d                   	pop    %ebp
-80105891:	c3                   	ret    
-80105892:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+8010576a:	8d 65 f4             	lea    -0xc(%ebp),%esp
+8010576d:	5b                   	pop    %ebx
+8010576e:	5e                   	pop    %esi
+8010576f:	5f                   	pop    %edi
+80105770:	5d                   	pop    %ebp
+80105771:	c3                   	ret    
+80105772:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
     iunlockput(dp);
-80105898:	83 ec 0c             	sub    $0xc,%esp
-8010589b:	56                   	push   %esi
-8010589c:	e8 3f c9 ff ff       	call   801021e0 <iunlockput>
+80105778:	83 ec 0c             	sub    $0xc,%esp
+8010577b:	56                   	push   %esi
+8010577c:	e8 5f ca ff ff       	call   801021e0 <iunlockput>
     goto bad;
-801058a1:	83 c4 10             	add    $0x10,%esp
+80105781:	83 c4 10             	add    $0x10,%esp
   ilock(ip);
-801058a4:	83 ec 0c             	sub    $0xc,%esp
-801058a7:	53                   	push   %ebx
-801058a8:	e8 a3 c6 ff ff       	call   80101f50 <ilock>
+80105784:	83 ec 0c             	sub    $0xc,%esp
+80105787:	53                   	push   %ebx
+80105788:	e8 c3 c7 ff ff       	call   80101f50 <ilock>
   ip->nlink--;
-801058ad:	66 83 6b 56 01       	subw   $0x1,0x56(%ebx)
+8010578d:	66 83 6b 56 01       	subw   $0x1,0x56(%ebx)
   iupdate(ip);
-801058b2:	89 1c 24             	mov    %ebx,(%esp)
-801058b5:	e8 e6 c5 ff ff       	call   80101ea0 <iupdate>
+80105792:	89 1c 24             	mov    %ebx,(%esp)
+80105795:	e8 06 c7 ff ff       	call   80101ea0 <iupdate>
   iunlockput(ip);
-801058ba:	89 1c 24             	mov    %ebx,(%esp)
-801058bd:	e8 1e c9 ff ff       	call   801021e0 <iunlockput>
+8010579a:	89 1c 24             	mov    %ebx,(%esp)
+8010579d:	e8 3e ca ff ff       	call   801021e0 <iunlockput>
   end_op();
-801058c2:	e8 d9 dc ff ff       	call   801035a0 <end_op>
+801057a2:	e8 f9 dd ff ff       	call   801035a0 <end_op>
   return -1;
-801058c7:	83 c4 10             	add    $0x10,%esp
-801058ca:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-801058cf:	eb b9                	jmp    8010588a <sys_link+0xda>
+801057a7:	83 c4 10             	add    $0x10,%esp
+801057aa:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+801057af:	eb b9                	jmp    8010576a <sys_link+0xda>
     iunlockput(ip);
-801058d1:	83 ec 0c             	sub    $0xc,%esp
-801058d4:	53                   	push   %ebx
-801058d5:	e8 06 c9 ff ff       	call   801021e0 <iunlockput>
+801057b1:	83 ec 0c             	sub    $0xc,%esp
+801057b4:	53                   	push   %ebx
+801057b5:	e8 26 ca ff ff       	call   801021e0 <iunlockput>
     end_op();
-801058da:	e8 c1 dc ff ff       	call   801035a0 <end_op>
+801057ba:	e8 e1 dd ff ff       	call   801035a0 <end_op>
     return -1;
-801058df:	83 c4 10             	add    $0x10,%esp
-801058e2:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-801058e7:	eb a1                	jmp    8010588a <sys_link+0xda>
+801057bf:	83 c4 10             	add    $0x10,%esp
+801057c2:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+801057c7:	eb a1                	jmp    8010576a <sys_link+0xda>
     end_op();
-801058e9:	e8 b2 dc ff ff       	call   801035a0 <end_op>
+801057c9:	e8 d2 dd ff ff       	call   801035a0 <end_op>
     return -1;
-801058ee:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-801058f3:	eb 95                	jmp    8010588a <sys_link+0xda>
-801058f5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801058fc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801057ce:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+801057d3:	eb 95                	jmp    8010576a <sys_link+0xda>
+801057d5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801057dc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-80105900 <sys_unlink>:
+801057e0 <sys_unlink>:
 {
-80105900:	55                   	push   %ebp
-80105901:	89 e5                	mov    %esp,%ebp
-80105903:	57                   	push   %edi
-80105904:	56                   	push   %esi
+801057e0:	55                   	push   %ebp
+801057e1:	89 e5                	mov    %esp,%ebp
+801057e3:	57                   	push   %edi
+801057e4:	56                   	push   %esi
   if (argstr(0, &path) < 0)
-80105905:	8d 45 c0             	lea    -0x40(%ebp),%eax
+801057e5:	8d 45 c0             	lea    -0x40(%ebp),%eax
 {
-80105908:	53                   	push   %ebx
-80105909:	83 ec 54             	sub    $0x54,%esp
+801057e8:	53                   	push   %ebx
+801057e9:	83 ec 54             	sub    $0x54,%esp
   if (argstr(0, &path) < 0)
-8010590c:	50                   	push   %eax
-8010590d:	6a 00                	push   $0x0
-8010590f:	e8 9c f8 ff ff       	call   801051b0 <argstr>
-80105914:	83 c4 10             	add    $0x10,%esp
-80105917:	85 c0                	test   %eax,%eax
-80105919:	0f 88 7a 01 00 00    	js     80105a99 <sys_unlink+0x199>
+801057ec:	50                   	push   %eax
+801057ed:	6a 00                	push   $0x0
+801057ef:	e8 bc f9 ff ff       	call   801051b0 <argstr>
+801057f4:	83 c4 10             	add    $0x10,%esp
+801057f7:	85 c0                	test   %eax,%eax
+801057f9:	0f 88 7a 01 00 00    	js     80105979 <sys_unlink+0x199>
   begin_op();
-8010591f:	e8 0c dc ff ff       	call   80103530 <begin_op>
+801057ff:	e8 2c dd ff ff       	call   80103530 <begin_op>
   if ((dp = nameiparent(path, name)) == 0)
-80105924:	8d 5d ca             	lea    -0x36(%ebp),%ebx
-80105927:	83 ec 08             	sub    $0x8,%esp
-8010592a:	53                   	push   %ebx
-8010592b:	ff 75 c0             	push   -0x40(%ebp)
-8010592e:	e8 5d cf ff ff       	call   80102890 <nameiparent>
-80105933:	83 c4 10             	add    $0x10,%esp
-80105936:	89 45 b4             	mov    %eax,-0x4c(%ebp)
-80105939:	85 c0                	test   %eax,%eax
-8010593b:	0f 84 62 01 00 00    	je     80105aa3 <sys_unlink+0x1a3>
+80105804:	8d 5d ca             	lea    -0x36(%ebp),%ebx
+80105807:	83 ec 08             	sub    $0x8,%esp
+8010580a:	53                   	push   %ebx
+8010580b:	ff 75 c0             	push   -0x40(%ebp)
+8010580e:	e8 7d d0 ff ff       	call   80102890 <nameiparent>
+80105813:	83 c4 10             	add    $0x10,%esp
+80105816:	89 45 b4             	mov    %eax,-0x4c(%ebp)
+80105819:	85 c0                	test   %eax,%eax
+8010581b:	0f 84 62 01 00 00    	je     80105983 <sys_unlink+0x1a3>
   ilock(dp);
-80105941:	8b 7d b4             	mov    -0x4c(%ebp),%edi
-80105944:	83 ec 0c             	sub    $0xc,%esp
-80105947:	57                   	push   %edi
-80105948:	e8 03 c6 ff ff       	call   80101f50 <ilock>
+80105821:	8b 7d b4             	mov    -0x4c(%ebp),%edi
+80105824:	83 ec 0c             	sub    $0xc,%esp
+80105827:	57                   	push   %edi
+80105828:	e8 23 c7 ff ff       	call   80101f50 <ilock>
   if (namecmp(name, ".") == 0 || namecmp(name, "..") == 0)
-8010594d:	58                   	pop    %eax
-8010594e:	5a                   	pop    %edx
-8010594f:	68 bc 84 10 80       	push   $0x801084bc
-80105954:	53                   	push   %ebx
-80105955:	e8 36 cb ff ff       	call   80102490 <namecmp>
-8010595a:	83 c4 10             	add    $0x10,%esp
-8010595d:	85 c0                	test   %eax,%eax
-8010595f:	0f 84 fb 00 00 00    	je     80105a60 <sys_unlink+0x160>
-80105965:	83 ec 08             	sub    $0x8,%esp
-80105968:	68 bb 84 10 80       	push   $0x801084bb
-8010596d:	53                   	push   %ebx
-8010596e:	e8 1d cb ff ff       	call   80102490 <namecmp>
-80105973:	83 c4 10             	add    $0x10,%esp
-80105976:	85 c0                	test   %eax,%eax
-80105978:	0f 84 e2 00 00 00    	je     80105a60 <sys_unlink+0x160>
+8010582d:	58                   	pop    %eax
+8010582e:	5a                   	pop    %edx
+8010582f:	68 bc 83 10 80       	push   $0x801083bc
+80105834:	53                   	push   %ebx
+80105835:	e8 56 cc ff ff       	call   80102490 <namecmp>
+8010583a:	83 c4 10             	add    $0x10,%esp
+8010583d:	85 c0                	test   %eax,%eax
+8010583f:	0f 84 fb 00 00 00    	je     80105940 <sys_unlink+0x160>
+80105845:	83 ec 08             	sub    $0x8,%esp
+80105848:	68 bb 83 10 80       	push   $0x801083bb
+8010584d:	53                   	push   %ebx
+8010584e:	e8 3d cc ff ff       	call   80102490 <namecmp>
+80105853:	83 c4 10             	add    $0x10,%esp
+80105856:	85 c0                	test   %eax,%eax
+80105858:	0f 84 e2 00 00 00    	je     80105940 <sys_unlink+0x160>
   if ((ip = dirlookup(dp, name, &off)) == 0)
-8010597e:	83 ec 04             	sub    $0x4,%esp
-80105981:	8d 45 c4             	lea    -0x3c(%ebp),%eax
-80105984:	50                   	push   %eax
-80105985:	53                   	push   %ebx
-80105986:	57                   	push   %edi
-80105987:	e8 24 cb ff ff       	call   801024b0 <dirlookup>
-8010598c:	83 c4 10             	add    $0x10,%esp
-8010598f:	89 c3                	mov    %eax,%ebx
-80105991:	85 c0                	test   %eax,%eax
-80105993:	0f 84 c7 00 00 00    	je     80105a60 <sys_unlink+0x160>
+8010585e:	83 ec 04             	sub    $0x4,%esp
+80105861:	8d 45 c4             	lea    -0x3c(%ebp),%eax
+80105864:	50                   	push   %eax
+80105865:	53                   	push   %ebx
+80105866:	57                   	push   %edi
+80105867:	e8 44 cc ff ff       	call   801024b0 <dirlookup>
+8010586c:	83 c4 10             	add    $0x10,%esp
+8010586f:	89 c3                	mov    %eax,%ebx
+80105871:	85 c0                	test   %eax,%eax
+80105873:	0f 84 c7 00 00 00    	je     80105940 <sys_unlink+0x160>
   ilock(ip);
-80105999:	83 ec 0c             	sub    $0xc,%esp
-8010599c:	50                   	push   %eax
-8010599d:	e8 ae c5 ff ff       	call   80101f50 <ilock>
+80105879:	83 ec 0c             	sub    $0xc,%esp
+8010587c:	50                   	push   %eax
+8010587d:	e8 ce c6 ff ff       	call   80101f50 <ilock>
   if (ip->nlink < 1)
-801059a2:	83 c4 10             	add    $0x10,%esp
-801059a5:	66 83 7b 56 00       	cmpw   $0x0,0x56(%ebx)
-801059aa:	0f 8e 1c 01 00 00    	jle    80105acc <sys_unlink+0x1cc>
+80105882:	83 c4 10             	add    $0x10,%esp
+80105885:	66 83 7b 56 00       	cmpw   $0x0,0x56(%ebx)
+8010588a:	0f 8e 1c 01 00 00    	jle    801059ac <sys_unlink+0x1cc>
   if (ip->type == T_DIR && !isdirempty(ip))
-801059b0:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
-801059b5:	8d 7d d8             	lea    -0x28(%ebp),%edi
-801059b8:	74 66                	je     80105a20 <sys_unlink+0x120>
+80105890:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
+80105895:	8d 7d d8             	lea    -0x28(%ebp),%edi
+80105898:	74 66                	je     80105900 <sys_unlink+0x120>
   memset(&de, 0, sizeof(de));
-801059ba:	83 ec 04             	sub    $0x4,%esp
-801059bd:	6a 10                	push   $0x10
-801059bf:	6a 00                	push   $0x0
-801059c1:	57                   	push   %edi
-801059c2:	e8 69 f4 ff ff       	call   80104e30 <memset>
+8010589a:	83 ec 04             	sub    $0x4,%esp
+8010589d:	6a 10                	push   $0x10
+8010589f:	6a 00                	push   $0x0
+801058a1:	57                   	push   %edi
+801058a2:	e8 89 f5 ff ff       	call   80104e30 <memset>
   if (writei(dp, (char *)&de, off, sizeof(de)) != sizeof(de))
-801059c7:	6a 10                	push   $0x10
-801059c9:	ff 75 c4             	push   -0x3c(%ebp)
-801059cc:	57                   	push   %edi
-801059cd:	ff 75 b4             	push   -0x4c(%ebp)
-801059d0:	e8 8b c9 ff ff       	call   80102360 <writei>
-801059d5:	83 c4 20             	add    $0x20,%esp
-801059d8:	83 f8 10             	cmp    $0x10,%eax
-801059db:	0f 85 de 00 00 00    	jne    80105abf <sys_unlink+0x1bf>
+801058a7:	6a 10                	push   $0x10
+801058a9:	ff 75 c4             	push   -0x3c(%ebp)
+801058ac:	57                   	push   %edi
+801058ad:	ff 75 b4             	push   -0x4c(%ebp)
+801058b0:	e8 ab ca ff ff       	call   80102360 <writei>
+801058b5:	83 c4 20             	add    $0x20,%esp
+801058b8:	83 f8 10             	cmp    $0x10,%eax
+801058bb:	0f 85 de 00 00 00    	jne    8010599f <sys_unlink+0x1bf>
   if (ip->type == T_DIR)
-801059e1:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
-801059e6:	0f 84 94 00 00 00    	je     80105a80 <sys_unlink+0x180>
+801058c1:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
+801058c6:	0f 84 94 00 00 00    	je     80105960 <sys_unlink+0x180>
   iunlockput(dp);
-801059ec:	83 ec 0c             	sub    $0xc,%esp
-801059ef:	ff 75 b4             	push   -0x4c(%ebp)
-801059f2:	e8 e9 c7 ff ff       	call   801021e0 <iunlockput>
+801058cc:	83 ec 0c             	sub    $0xc,%esp
+801058cf:	ff 75 b4             	push   -0x4c(%ebp)
+801058d2:	e8 09 c9 ff ff       	call   801021e0 <iunlockput>
   ip->nlink--;
-801059f7:	66 83 6b 56 01       	subw   $0x1,0x56(%ebx)
+801058d7:	66 83 6b 56 01       	subw   $0x1,0x56(%ebx)
   iupdate(ip);
-801059fc:	89 1c 24             	mov    %ebx,(%esp)
-801059ff:	e8 9c c4 ff ff       	call   80101ea0 <iupdate>
+801058dc:	89 1c 24             	mov    %ebx,(%esp)
+801058df:	e8 bc c5 ff ff       	call   80101ea0 <iupdate>
   iunlockput(ip);
-80105a04:	89 1c 24             	mov    %ebx,(%esp)
-80105a07:	e8 d4 c7 ff ff       	call   801021e0 <iunlockput>
+801058e4:	89 1c 24             	mov    %ebx,(%esp)
+801058e7:	e8 f4 c8 ff ff       	call   801021e0 <iunlockput>
   end_op();
-80105a0c:	e8 8f db ff ff       	call   801035a0 <end_op>
+801058ec:	e8 af dc ff ff       	call   801035a0 <end_op>
   return 0;
-80105a11:	83 c4 10             	add    $0x10,%esp
-80105a14:	31 c0                	xor    %eax,%eax
+801058f1:	83 c4 10             	add    $0x10,%esp
+801058f4:	31 c0                	xor    %eax,%eax
 }
-80105a16:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80105a19:	5b                   	pop    %ebx
-80105a1a:	5e                   	pop    %esi
-80105a1b:	5f                   	pop    %edi
-80105a1c:	5d                   	pop    %ebp
-80105a1d:	c3                   	ret    
-80105a1e:	66 90                	xchg   %ax,%ax
+801058f6:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801058f9:	5b                   	pop    %ebx
+801058fa:	5e                   	pop    %esi
+801058fb:	5f                   	pop    %edi
+801058fc:	5d                   	pop    %ebp
+801058fd:	c3                   	ret    
+801058fe:	66 90                	xchg   %ax,%ax
   for (off = 2 * sizeof(de); off < dp->size; off += sizeof(de))
-80105a20:	83 7b 58 20          	cmpl   $0x20,0x58(%ebx)
-80105a24:	76 94                	jbe    801059ba <sys_unlink+0xba>
-80105a26:	be 20 00 00 00       	mov    $0x20,%esi
-80105a2b:	eb 0b                	jmp    80105a38 <sys_unlink+0x138>
-80105a2d:	8d 76 00             	lea    0x0(%esi),%esi
-80105a30:	83 c6 10             	add    $0x10,%esi
-80105a33:	3b 73 58             	cmp    0x58(%ebx),%esi
-80105a36:	73 82                	jae    801059ba <sys_unlink+0xba>
+80105900:	83 7b 58 20          	cmpl   $0x20,0x58(%ebx)
+80105904:	76 94                	jbe    8010589a <sys_unlink+0xba>
+80105906:	be 20 00 00 00       	mov    $0x20,%esi
+8010590b:	eb 0b                	jmp    80105918 <sys_unlink+0x138>
+8010590d:	8d 76 00             	lea    0x0(%esi),%esi
+80105910:	83 c6 10             	add    $0x10,%esi
+80105913:	3b 73 58             	cmp    0x58(%ebx),%esi
+80105916:	73 82                	jae    8010589a <sys_unlink+0xba>
     if (readi(dp, (char *)&de, off, sizeof(de)) != sizeof(de))
-80105a38:	6a 10                	push   $0x10
-80105a3a:	56                   	push   %esi
-80105a3b:	57                   	push   %edi
-80105a3c:	53                   	push   %ebx
-80105a3d:	e8 1e c8 ff ff       	call   80102260 <readi>
-80105a42:	83 c4 10             	add    $0x10,%esp
-80105a45:	83 f8 10             	cmp    $0x10,%eax
-80105a48:	75 68                	jne    80105ab2 <sys_unlink+0x1b2>
+80105918:	6a 10                	push   $0x10
+8010591a:	56                   	push   %esi
+8010591b:	57                   	push   %edi
+8010591c:	53                   	push   %ebx
+8010591d:	e8 3e c9 ff ff       	call   80102260 <readi>
+80105922:	83 c4 10             	add    $0x10,%esp
+80105925:	83 f8 10             	cmp    $0x10,%eax
+80105928:	75 68                	jne    80105992 <sys_unlink+0x1b2>
     if (de.inum != 0)
-80105a4a:	66 83 7d d8 00       	cmpw   $0x0,-0x28(%ebp)
-80105a4f:	74 df                	je     80105a30 <sys_unlink+0x130>
+8010592a:	66 83 7d d8 00       	cmpw   $0x0,-0x28(%ebp)
+8010592f:	74 df                	je     80105910 <sys_unlink+0x130>
     iunlockput(ip);
-80105a51:	83 ec 0c             	sub    $0xc,%esp
-80105a54:	53                   	push   %ebx
-80105a55:	e8 86 c7 ff ff       	call   801021e0 <iunlockput>
+80105931:	83 ec 0c             	sub    $0xc,%esp
+80105934:	53                   	push   %ebx
+80105935:	e8 a6 c8 ff ff       	call   801021e0 <iunlockput>
     goto bad;
-80105a5a:	83 c4 10             	add    $0x10,%esp
-80105a5d:	8d 76 00             	lea    0x0(%esi),%esi
+8010593a:	83 c4 10             	add    $0x10,%esp
+8010593d:	8d 76 00             	lea    0x0(%esi),%esi
   iunlockput(dp);
-80105a60:	83 ec 0c             	sub    $0xc,%esp
-80105a63:	ff 75 b4             	push   -0x4c(%ebp)
-80105a66:	e8 75 c7 ff ff       	call   801021e0 <iunlockput>
+80105940:	83 ec 0c             	sub    $0xc,%esp
+80105943:	ff 75 b4             	push   -0x4c(%ebp)
+80105946:	e8 95 c8 ff ff       	call   801021e0 <iunlockput>
   end_op();
-80105a6b:	e8 30 db ff ff       	call   801035a0 <end_op>
+8010594b:	e8 50 dc ff ff       	call   801035a0 <end_op>
   return -1;
-80105a70:	83 c4 10             	add    $0x10,%esp
-80105a73:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105a78:	eb 9c                	jmp    80105a16 <sys_unlink+0x116>
-80105a7a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+80105950:	83 c4 10             	add    $0x10,%esp
+80105953:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105958:	eb 9c                	jmp    801058f6 <sys_unlink+0x116>
+8010595a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
     dp->nlink--;
-80105a80:	8b 45 b4             	mov    -0x4c(%ebp),%eax
+80105960:	8b 45 b4             	mov    -0x4c(%ebp),%eax
     iupdate(dp);
-80105a83:	83 ec 0c             	sub    $0xc,%esp
+80105963:	83 ec 0c             	sub    $0xc,%esp
     dp->nlink--;
-80105a86:	66 83 68 56 01       	subw   $0x1,0x56(%eax)
+80105966:	66 83 68 56 01       	subw   $0x1,0x56(%eax)
     iupdate(dp);
-80105a8b:	50                   	push   %eax
-80105a8c:	e8 0f c4 ff ff       	call   80101ea0 <iupdate>
-80105a91:	83 c4 10             	add    $0x10,%esp
-80105a94:	e9 53 ff ff ff       	jmp    801059ec <sys_unlink+0xec>
+8010596b:	50                   	push   %eax
+8010596c:	e8 2f c5 ff ff       	call   80101ea0 <iupdate>
+80105971:	83 c4 10             	add    $0x10,%esp
+80105974:	e9 53 ff ff ff       	jmp    801058cc <sys_unlink+0xec>
     return -1;
-80105a99:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105a9e:	e9 73 ff ff ff       	jmp    80105a16 <sys_unlink+0x116>
+80105979:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+8010597e:	e9 73 ff ff ff       	jmp    801058f6 <sys_unlink+0x116>
     end_op();
-80105aa3:	e8 f8 da ff ff       	call   801035a0 <end_op>
+80105983:	e8 18 dc ff ff       	call   801035a0 <end_op>
     return -1;
-80105aa8:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105aad:	e9 64 ff ff ff       	jmp    80105a16 <sys_unlink+0x116>
+80105988:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+8010598d:	e9 64 ff ff ff       	jmp    801058f6 <sys_unlink+0x116>
       panic("isdirempty: readi");
-80105ab2:	83 ec 0c             	sub    $0xc,%esp
-80105ab5:	68 e0 84 10 80       	push   $0x801084e0
-80105aba:	e8 e1 a8 ff ff       	call   801003a0 <panic>
+80105992:	83 ec 0c             	sub    $0xc,%esp
+80105995:	68 e0 83 10 80       	push   $0x801083e0
+8010599a:	e8 01 aa ff ff       	call   801003a0 <panic>
     panic("unlink: writei");
-80105abf:	83 ec 0c             	sub    $0xc,%esp
-80105ac2:	68 f2 84 10 80       	push   $0x801084f2
-80105ac7:	e8 d4 a8 ff ff       	call   801003a0 <panic>
+8010599f:	83 ec 0c             	sub    $0xc,%esp
+801059a2:	68 f2 83 10 80       	push   $0x801083f2
+801059a7:	e8 f4 a9 ff ff       	call   801003a0 <panic>
     panic("unlink: nlink < 1");
-80105acc:	83 ec 0c             	sub    $0xc,%esp
-80105acf:	68 ce 84 10 80       	push   $0x801084ce
-80105ad4:	e8 c7 a8 ff ff       	call   801003a0 <panic>
-80105ad9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801059ac:	83 ec 0c             	sub    $0xc,%esp
+801059af:	68 ce 83 10 80       	push   $0x801083ce
+801059b4:	e8 e7 a9 ff ff       	call   801003a0 <panic>
+801059b9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-80105ae0 <open>:
-
-int open(int omode, char *path)
-{
-80105ae0:	55                   	push   %ebp
-80105ae1:	89 e5                	mov    %esp,%ebp
-80105ae3:	57                   	push   %edi
-80105ae4:	56                   	push   %esi
-80105ae5:	53                   	push   %ebx
-80105ae6:	83 ec 0c             	sub    $0xc,%esp
-80105ae9:	8b 5d 0c             	mov    0xc(%ebp),%ebx
-  int fd;
-  struct file *f;
-  struct inode *ip;
-
-  begin_op();
-80105aec:	e8 3f da ff ff       	call   80103530 <begin_op>
-
-  if (omode & O_CREATE)
-80105af1:	f7 45 08 00 02 00 00 	testl  $0x200,0x8(%ebp)
-80105af8:	0f 84 b2 00 00 00    	je     80105bb0 <open+0xd0>
-  {
-    ip = create(path, T_FILE, 0, 0);
-80105afe:	83 ec 0c             	sub    $0xc,%esp
-80105b01:	31 c9                	xor    %ecx,%ecx
-80105b03:	ba 02 00 00 00       	mov    $0x2,%edx
-80105b08:	89 d8                	mov    %ebx,%eax
-80105b0a:	6a 00                	push   $0x0
-80105b0c:	e8 8f f7 ff ff       	call   801052a0 <create>
-    if (ip == 0)
-80105b11:	83 c4 10             	add    $0x10,%esp
-    ip = create(path, T_FILE, 0, 0);
-80105b14:	89 c6                	mov    %eax,%esi
-    if (ip == 0)
-80105b16:	85 c0                	test   %eax,%eax
-80105b18:	0f 84 cb 00 00 00    	je     80105be9 <open+0x109>
-      end_op();
-      return -1;
-    }
-  }
-
-  if ((f = filealloc()) == 0 || (fd = fdalloc(f)) < 0)
-80105b1e:	e8 dd ba ff ff       	call   80101600 <filealloc>
-80105b23:	89 c7                	mov    %eax,%edi
-80105b25:	85 c0                	test   %eax,%eax
-80105b27:	74 23                	je     80105b4c <open+0x6c>
-  struct proc *curproc = myproc();
-80105b29:	e8 12 e6 ff ff       	call   80104140 <myproc>
-  for (fd = 0; fd < NOFILE; fd++)
-80105b2e:	31 db                	xor    %ebx,%ebx
-    if (curproc->ofile[fd] == 0)
-80105b30:	8b 54 98 28          	mov    0x28(%eax,%ebx,4),%edx
-80105b34:	85 d2                	test   %edx,%edx
-80105b36:	74 30                	je     80105b68 <open+0x88>
-  for (fd = 0; fd < NOFILE; fd++)
-80105b38:	83 c3 01             	add    $0x1,%ebx
-80105b3b:	83 fb 10             	cmp    $0x10,%ebx
-80105b3e:	75 f0                	jne    80105b30 <open+0x50>
-  {
-    if (f)
-      fileclose(f);
-80105b40:	83 ec 0c             	sub    $0xc,%esp
-80105b43:	57                   	push   %edi
-80105b44:	e8 77 bb ff ff       	call   801016c0 <fileclose>
-80105b49:	83 c4 10             	add    $0x10,%esp
-    iunlockput(ip);
-80105b4c:	83 ec 0c             	sub    $0xc,%esp
-    end_op();
-    return -1;
-80105b4f:	bb ff ff ff ff       	mov    $0xffffffff,%ebx
-    iunlockput(ip);
-80105b54:	56                   	push   %esi
-80105b55:	e8 86 c6 ff ff       	call   801021e0 <iunlockput>
-    end_op();
-80105b5a:	e8 41 da ff ff       	call   801035a0 <end_op>
-    return -1;
-80105b5f:	83 c4 10             	add    $0x10,%esp
-80105b62:	eb 3c                	jmp    80105ba0 <open+0xc0>
-80105b64:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-  }
-  iunlock(ip);
-80105b68:	83 ec 0c             	sub    $0xc,%esp
-      curproc->ofile[fd] = f;
-80105b6b:	89 7c 98 28          	mov    %edi,0x28(%eax,%ebx,4)
-  iunlock(ip);
-80105b6f:	56                   	push   %esi
-80105b70:	e8 bb c4 ff ff       	call   80102030 <iunlock>
-  end_op();
-80105b75:	e8 26 da ff ff       	call   801035a0 <end_op>
-
-  f->type = FD_INODE;
-  f->ip = ip;
-  f->off = 0;
-  f->readable = !(omode & O_WRONLY);
-80105b7a:	8b 45 08             	mov    0x8(%ebp),%eax
-  f->ip = ip;
-80105b7d:	89 77 10             	mov    %esi,0x10(%edi)
-  f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
-80105b80:	83 c4 10             	add    $0x10,%esp
-  f->type = FD_INODE;
-80105b83:	c7 07 02 00 00 00    	movl   $0x2,(%edi)
-  f->readable = !(omode & O_WRONLY);
-80105b89:	f7 d0                	not    %eax
-  f->off = 0;
-80105b8b:	c7 47 14 00 00 00 00 	movl   $0x0,0x14(%edi)
-  f->readable = !(omode & O_WRONLY);
-80105b92:	83 e0 01             	and    $0x1,%eax
-  f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
-80105b95:	f6 45 08 03          	testb  $0x3,0x8(%ebp)
-  f->readable = !(omode & O_WRONLY);
-80105b99:	88 47 08             	mov    %al,0x8(%edi)
-  f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
-80105b9c:	0f 95 47 09          	setne  0x9(%edi)
-  return fd;
-}
-80105ba0:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80105ba3:	89 d8                	mov    %ebx,%eax
-80105ba5:	5b                   	pop    %ebx
-80105ba6:	5e                   	pop    %esi
-80105ba7:	5f                   	pop    %edi
-80105ba8:	5d                   	pop    %ebp
-80105ba9:	c3                   	ret    
-80105baa:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-    if ((ip = namei(path)) == 0)
-80105bb0:	83 ec 0c             	sub    $0xc,%esp
-80105bb3:	53                   	push   %ebx
-80105bb4:	e8 b7 cc ff ff       	call   80102870 <namei>
-80105bb9:	83 c4 10             	add    $0x10,%esp
-80105bbc:	89 c6                	mov    %eax,%esi
-80105bbe:	85 c0                	test   %eax,%eax
-80105bc0:	74 27                	je     80105be9 <open+0x109>
-    ilock(ip);
-80105bc2:	83 ec 0c             	sub    $0xc,%esp
-80105bc5:	50                   	push   %eax
-80105bc6:	e8 85 c3 ff ff       	call   80101f50 <ilock>
-    if (ip->type == T_DIR && omode != O_RDONLY)
-80105bcb:	83 c4 10             	add    $0x10,%esp
-80105bce:	66 83 7e 50 01       	cmpw   $0x1,0x50(%esi)
-80105bd3:	0f 85 45 ff ff ff    	jne    80105b1e <open+0x3e>
-80105bd9:	8b 4d 08             	mov    0x8(%ebp),%ecx
-80105bdc:	85 c9                	test   %ecx,%ecx
-80105bde:	0f 84 3a ff ff ff    	je     80105b1e <open+0x3e>
-80105be4:	e9 63 ff ff ff       	jmp    80105b4c <open+0x6c>
-      end_op();
-80105be9:	e8 b2 d9 ff ff       	call   801035a0 <end_op>
-      return -1;
-80105bee:	bb ff ff ff ff       	mov    $0xffffffff,%ebx
-80105bf3:	eb ab                	jmp    80105ba0 <open+0xc0>
-80105bf5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105bfc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-
-80105c00 <sys_copy_file>:
+801059c0 <sys_copy_file>:
 
 // copy src to dest
 // return 0 on success and -1 on error
 int sys_copy_file(void)
 {
-80105c00:	55                   	push   %ebp
-80105c01:	89 e5                	mov    %esp,%ebp
-80105c03:	57                   	push   %edi
-80105c04:	56                   	push   %esi
-  // int src_fd, dest_fd;
+801059c0:	55                   	push   %ebp
+801059c1:	89 e5                	mov    %esp,%ebp
+801059c3:	57                   	push   %edi
+801059c4:	56                   	push   %esi
   char *src, *dest;
   struct file *fsrc, *fdest;
   struct inode *isrc, *idest;
-  //
+
   if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
-80105c05:	8d 45 e0             	lea    -0x20(%ebp),%eax
+801059c5:	8d 45 e0             	lea    -0x20(%ebp),%eax
 {
-80105c08:	53                   	push   %ebx
-80105c09:	83 ec 34             	sub    $0x34,%esp
+801059c8:	53                   	push   %ebx
+801059c9:	83 ec 34             	sub    $0x34,%esp
   if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
-80105c0c:	50                   	push   %eax
-80105c0d:	6a 00                	push   $0x0
-80105c0f:	e8 9c f5 ff ff       	call   801051b0 <argstr>
-80105c14:	83 c4 10             	add    $0x10,%esp
-80105c17:	85 c0                	test   %eax,%eax
-80105c19:	0f 88 7e 01 00 00    	js     80105d9d <sys_copy_file+0x19d>
-80105c1f:	83 ec 08             	sub    $0x8,%esp
-80105c22:	8d 45 e4             	lea    -0x1c(%ebp),%eax
-80105c25:	50                   	push   %eax
-80105c26:	6a 01                	push   $0x1
-80105c28:	e8 83 f5 ff ff       	call   801051b0 <argstr>
-80105c2d:	83 c4 10             	add    $0x10,%esp
-80105c30:	85 c0                	test   %eax,%eax
-80105c32:	0f 88 65 01 00 00    	js     80105d9d <sys_copy_file+0x19d>
+801059cc:	50                   	push   %eax
+801059cd:	6a 00                	push   $0x0
+801059cf:	e8 dc f7 ff ff       	call   801051b0 <argstr>
+801059d4:	83 c4 10             	add    $0x10,%esp
+801059d7:	85 c0                	test   %eax,%eax
+801059d9:	0f 88 43 01 00 00    	js     80105b22 <sys_copy_file+0x162>
+801059df:	83 ec 08             	sub    $0x8,%esp
+801059e2:	8d 45 e4             	lea    -0x1c(%ebp),%eax
+801059e5:	50                   	push   %eax
+801059e6:	6a 01                	push   $0x1
+801059e8:	e8 c3 f7 ff ff       	call   801051b0 <argstr>
+801059ed:	83 c4 10             	add    $0x10,%esp
+801059f0:	85 c0                	test   %eax,%eax
+801059f2:	0f 88 2a 01 00 00    	js     80105b22 <sys_copy_file+0x162>
     return -1;
 
-  // if((src_fd=open(O_RDONLY,src))<0||(dest_fd=open(O_CREATE,dest))
-
   begin_op();
-80105c38:	e8 f3 d8 ff ff       	call   80103530 <begin_op>
+801059f8:	e8 33 db ff ff       	call   80103530 <begin_op>
 
   if ((isrc = namei(src)) == 0) // check src exist
-80105c3d:	83 ec 0c             	sub    $0xc,%esp
-80105c40:	ff 75 e0             	push   -0x20(%ebp)
-80105c43:	e8 28 cc ff ff       	call   80102870 <namei>
-80105c48:	83 c4 10             	add    $0x10,%esp
-80105c4b:	89 c3                	mov    %eax,%ebx
-80105c4d:	85 c0                	test   %eax,%eax
-80105c4f:	0f 84 4f 01 00 00    	je     80105da4 <sys_copy_file+0x1a4>
+801059fd:	83 ec 0c             	sub    $0xc,%esp
+80105a00:	ff 75 e0             	push   -0x20(%ebp)
+80105a03:	e8 68 ce ff ff       	call   80102870 <namei>
+80105a08:	83 c4 10             	add    $0x10,%esp
+80105a0b:	89 c3                	mov    %eax,%ebx
+80105a0d:	85 c0                	test   %eax,%eax
+80105a0f:	0f 84 dc 01 00 00    	je     80105bf1 <sys_copy_file+0x231>
   {
+    cprintf("src not exist.\n");
     end_op();
     return -1;
   }
   if ((idest = namei(dest)) != 0) // check dest not exist
-80105c55:	83 ec 0c             	sub    $0xc,%esp
-80105c58:	ff 75 e4             	push   -0x1c(%ebp)
-80105c5b:	e8 10 cc ff ff       	call   80102870 <namei>
-80105c60:	83 c4 10             	add    $0x10,%esp
-80105c63:	85 c0                	test   %eax,%eax
-80105c65:	0f 85 39 01 00 00    	jne    80105da4 <sys_copy_file+0x1a4>
-  {
+80105a15:	83 ec 0c             	sub    $0xc,%esp
+80105a18:	ff 75 e4             	push   -0x1c(%ebp)
+80105a1b:	e8 50 ce ff ff       	call   80102870 <namei>
+80105a20:	83 c4 10             	add    $0x10,%esp
+80105a23:	85 c0                	test   %eax,%eax
+80105a25:	0f 85 39 01 00 00    	jne    80105b64 <sys_copy_file+0x1a4>
+    cprintf("dest exist.\n");
     end_op();
     return -1;
   }
 
   ilock(isrc); // lock src
-80105c6b:	83 ec 0c             	sub    $0xc,%esp
-80105c6e:	53                   	push   %ebx
-80105c6f:	e8 dc c2 ff ff       	call   80101f50 <ilock>
+80105a2b:	83 ec 0c             	sub    $0xc,%esp
+80105a2e:	53                   	push   %ebx
+80105a2f:	e8 1c c5 ff ff       	call   80101f50 <ilock>
 
   if (isrc->type == T_DIR) // check src is not dir
-80105c74:	83 c4 10             	add    $0x10,%esp
-80105c77:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
-80105c7c:	0f 84 2e 01 00 00    	je     80105db0 <sys_copy_file+0x1b0>
+80105a34:	83 c4 10             	add    $0x10,%esp
+80105a37:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
+80105a3c:	0f 84 3e 01 00 00    	je     80105b80 <sys_copy_file+0x1c0>
     iunlockput(isrc);
     end_op();
     return -1;
   }
 
   if ((fsrc = filealloc()) == 0) // aloc src file
-80105c82:	e8 79 b9 ff ff       	call   80101600 <filealloc>
-80105c87:	89 c6                	mov    %eax,%esi
-80105c89:	85 c0                	test   %eax,%eax
-80105c8b:	0f 84 1f 01 00 00    	je     80105db0 <sys_copy_file+0x1b0>
+80105a42:	e8 b9 bb ff ff       	call   80101600 <filealloc>
+80105a47:	89 c6                	mov    %eax,%esi
+80105a49:	85 c0                	test   %eax,%eax
+80105a4b:	0f 84 53 01 00 00    	je     80105ba4 <sys_copy_file+0x1e4>
     iunlockput(isrc);
     end_op();
     return -1;
   }
 
   iunlock(isrc); // unlock src node
-80105c91:	83 ec 0c             	sub    $0xc,%esp
-80105c94:	53                   	push   %ebx
-80105c95:	e8 96 c3 ff ff       	call   80102030 <iunlock>
+80105a51:	83 ec 0c             	sub    $0xc,%esp
+80105a54:	53                   	push   %ebx
+80105a55:	e8 d6 c5 ff ff       	call   80102030 <iunlock>
 
   idest = create(dest, T_FILE, 0, 0); // create dest node
-80105c9a:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-80105c9d:	31 c9                	xor    %ecx,%ecx
-80105c9f:	ba 02 00 00 00       	mov    $0x2,%edx
-80105ca4:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
-80105cab:	e8 f0 f5 ff ff       	call   801052a0 <create>
+80105a5a:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+80105a5d:	31 c9                	xor    %ecx,%ecx
+80105a5f:	ba 02 00 00 00       	mov    $0x2,%edx
+80105a64:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+80105a6b:	e8 30 f8 ff ff       	call   801052a0 <create>
   if (idest == 0)
-80105cb0:	83 c4 10             	add    $0x10,%esp
+80105a70:	83 c4 10             	add    $0x10,%esp
   idest = create(dest, T_FILE, 0, 0); // create dest node
-80105cb3:	89 c3                	mov    %eax,%ebx
+80105a73:	89 c3                	mov    %eax,%ebx
   if (idest == 0)
-80105cb5:	85 c0                	test   %eax,%eax
-80105cb7:	0f 84 0b 01 00 00    	je     80105dc8 <sys_copy_file+0x1c8>
+80105a75:	85 c0                	test   %eax,%eax
+80105a77:	0f 84 36 01 00 00    	je     80105bb3 <sys_copy_file+0x1f3>
     fileclose(fsrc);
     end_op();
     return -1;
   }
 
   if ((fdest = filealloc()) == 0) // aloc dest file
-80105cbd:	e8 3e b9 ff ff       	call   80101600 <filealloc>
-80105cc2:	89 45 d4             	mov    %eax,-0x2c(%ebp)
-80105cc5:	85 c0                	test   %eax,%eax
-80105cc7:	0f 84 b7 00 00 00    	je     80105d84 <sys_copy_file+0x184>
+80105a7d:	e8 7e bb ff ff       	call   80101600 <filealloc>
+80105a82:	89 45 d4             	mov    %eax,-0x2c(%ebp)
+80105a85:	85 c0                	test   %eax,%eax
+80105a87:	0f 84 4d 01 00 00    	je     80105bda <sys_copy_file+0x21a>
     iunlockput(idest);
     end_op();
     return -1;
   }
 
   iunlock(idest); // unlock dest node
-80105ccd:	83 ec 0c             	sub    $0xc,%esp
-80105cd0:	53                   	push   %ebx
-80105cd1:	e8 5a c3 ff ff       	call   80102030 <iunlock>
+80105a8d:	83 ec 0c             	sub    $0xc,%esp
+80105a90:	53                   	push   %ebx
+80105a91:	e8 9a c5 ff ff       	call   80102030 <iunlock>
 
   int size = 1024, n, m;
   char buff[size];
-80105cd6:	83 c4 10             	add    $0x10,%esp
-80105cd9:	89 e0                	mov    %esp,%eax
-80105cdb:	39 c4                	cmp    %eax,%esp
-80105cdd:	74 12                	je     80105cf1 <sys_copy_file+0xf1>
-80105cdf:	81 ec 00 10 00 00    	sub    $0x1000,%esp
-80105ce5:	83 8c 24 fc 0f 00 00 	orl    $0x0,0xffc(%esp)
-80105cec:	00 
-80105ced:	39 c4                	cmp    %eax,%esp
-80105cef:	75 ee                	jne    80105cdf <sys_copy_file+0xdf>
-80105cf1:	81 ec 00 04 00 00    	sub    $0x400,%esp
-80105cf7:	83 8c 24 fc 03 00 00 	orl    $0x0,0x3fc(%esp)
-80105cfe:	00 
-80105cff:	89 e3                	mov    %esp,%ebx
-80105d01:	eb 0d                	jmp    80105d10 <sys_copy_file+0x110>
-80105d03:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-80105d07:	90                   	nop
+80105a96:	83 c4 10             	add    $0x10,%esp
+80105a99:	89 e0                	mov    %esp,%eax
+80105a9b:	39 c4                	cmp    %eax,%esp
+80105a9d:	74 12                	je     80105ab1 <sys_copy_file+0xf1>
+80105a9f:	81 ec 00 10 00 00    	sub    $0x1000,%esp
+80105aa5:	83 8c 24 fc 0f 00 00 	orl    $0x0,0xffc(%esp)
+80105aac:	00 
+80105aad:	39 c4                	cmp    %eax,%esp
+80105aaf:	75 ee                	jne    80105a9f <sys_copy_file+0xdf>
+80105ab1:	81 ec 00 04 00 00    	sub    $0x400,%esp
+80105ab7:	83 8c 24 fc 03 00 00 	orl    $0x0,0x3fc(%esp)
+80105abe:	00 
+80105abf:	89 e3                	mov    %esp,%ebx
+80105ac1:	eb 21                	jmp    80105ae4 <sys_copy_file+0x124>
+80105ac3:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105ac7:	90                   	nop
+      fileclose(fsrc);
+      fileclose(fdest);
+      end_op();
+      return -1;
+    }
+    m = filewrite(fdest, buff, n);
+80105ac8:	83 ec 04             	sub    $0x4,%esp
+80105acb:	50                   	push   %eax
+80105acc:	53                   	push   %ebx
+80105acd:	ff 75 d4             	push   -0x2c(%ebp)
+80105ad0:	e8 ab bd ff ff       	call   80101880 <filewrite>
+    if (m < n)
+80105ad5:	83 c4 10             	add    $0x10,%esp
+80105ad8:	39 c7                	cmp    %eax,%edi
+80105ada:	7f 54                	jg     80105b30 <sys_copy_file+0x170>
       fileclose(fsrc);
       fileclose(fdest);
       end_op();
       return -1;
     }
   } while (n == size);
-80105d08:	81 ff 00 04 00 00    	cmp    $0x400,%edi
-80105d0e:	75 50                	jne    80105d60 <sys_copy_file+0x160>
+80105adc:	81 ff 00 04 00 00    	cmp    $0x400,%edi
+80105ae2:	75 5c                	jne    80105b40 <sys_copy_file+0x180>
     n = fileread(fsrc, buff, sizeof(char) * size);
-80105d10:	83 ec 04             	sub    $0x4,%esp
-80105d13:	68 00 04 00 00       	push   $0x400
-80105d18:	53                   	push   %ebx
-80105d19:	56                   	push   %esi
-80105d1a:	e8 d1 ba ff ff       	call   801017f0 <fileread>
-    m = filewrite(fdest, buff, n);
-80105d1f:	83 c4 0c             	add    $0xc,%esp
-80105d22:	50                   	push   %eax
+80105ae4:	83 ec 04             	sub    $0x4,%esp
+80105ae7:	68 00 04 00 00       	push   $0x400
+80105aec:	53                   	push   %ebx
+80105aed:	56                   	push   %esi
+80105aee:	e8 fd bc ff ff       	call   801017f0 <fileread>
+    if (n < 0)
+80105af3:	83 c4 10             	add    $0x10,%esp
     n = fileread(fsrc, buff, sizeof(char) * size);
-80105d23:	89 c7                	mov    %eax,%edi
-    m = filewrite(fdest, buff, n);
-80105d25:	53                   	push   %ebx
-80105d26:	ff 75 d4             	push   -0x2c(%ebp)
-80105d29:	e8 52 bb ff ff       	call   80101880 <filewrite>
-    if (m < n)
-80105d2e:	83 c4 10             	add    $0x10,%esp
-80105d31:	39 c7                	cmp    %eax,%edi
-80105d33:	7e d3                	jle    80105d08 <sys_copy_file+0x108>
+80105af6:	89 c7                	mov    %eax,%edi
+    if (n < 0)
+80105af8:	85 c0                	test   %eax,%eax
+80105afa:	79 cc                	jns    80105ac8 <sys_copy_file+0x108>
+      cprintf("read fail.\n");
+80105afc:	83 ec 0c             	sub    $0xc,%esp
+80105aff:	68 5f 84 10 80       	push   $0x8010845f
+      cprintf("write fail.\n");
+80105b04:	e8 47 ac ff ff       	call   80100750 <cprintf>
       fileclose(fsrc);
-80105d35:	83 ec 0c             	sub    $0xc,%esp
-80105d38:	56                   	push   %esi
-80105d39:	e8 82 b9 ff ff       	call   801016c0 <fileclose>
+80105b09:	89 34 24             	mov    %esi,(%esp)
+80105b0c:	e8 af bb ff ff       	call   801016c0 <fileclose>
       fileclose(fdest);
-80105d3e:	5a                   	pop    %edx
-80105d3f:	ff 75 d4             	push   -0x2c(%ebp)
-80105d42:	e8 79 b9 ff ff       	call   801016c0 <fileclose>
+80105b11:	5a                   	pop    %edx
+80105b12:	ff 75 d4             	push   -0x2c(%ebp)
+80105b15:	e8 a6 bb ff ff       	call   801016c0 <fileclose>
       end_op();
-80105d47:	e8 54 d8 ff ff       	call   801035a0 <end_op>
+80105b1a:	e8 81 da ff ff       	call   801035a0 <end_op>
       return -1;
-80105d4c:	83 c4 10             	add    $0x10,%esp
-80105d4f:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105b1f:	83 c4 10             	add    $0x10,%esp
+80105b22:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
   fileclose(fsrc);
   fileclose(fdest);
   end_op();
 
   return 0;
 }
-80105d54:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80105d57:	5b                   	pop    %ebx
-80105d58:	5e                   	pop    %esi
-80105d59:	5f                   	pop    %edi
-80105d5a:	5d                   	pop    %ebp
-80105d5b:	c3                   	ret    
-80105d5c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105b27:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80105b2a:	5b                   	pop    %ebx
+80105b2b:	5e                   	pop    %esi
+80105b2c:	5f                   	pop    %edi
+80105b2d:	5d                   	pop    %ebp
+80105b2e:	c3                   	ret    
+80105b2f:	90                   	nop
+      cprintf("write fail.\n");
+80105b30:	83 ec 0c             	sub    $0xc,%esp
+80105b33:	68 6b 84 10 80       	push   $0x8010846b
+80105b38:	eb ca                	jmp    80105b04 <sys_copy_file+0x144>
+80105b3a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
   fileclose(fsrc);
-80105d60:	83 ec 0c             	sub    $0xc,%esp
-80105d63:	56                   	push   %esi
-80105d64:	e8 57 b9 ff ff       	call   801016c0 <fileclose>
+80105b40:	83 ec 0c             	sub    $0xc,%esp
+80105b43:	56                   	push   %esi
+80105b44:	e8 77 bb ff ff       	call   801016c0 <fileclose>
   fileclose(fdest);
-80105d69:	58                   	pop    %eax
-80105d6a:	ff 75 d4             	push   -0x2c(%ebp)
-80105d6d:	e8 4e b9 ff ff       	call   801016c0 <fileclose>
+80105b49:	58                   	pop    %eax
+80105b4a:	ff 75 d4             	push   -0x2c(%ebp)
+80105b4d:	e8 6e bb ff ff       	call   801016c0 <fileclose>
   end_op();
-80105d72:	e8 29 d8 ff ff       	call   801035a0 <end_op>
+80105b52:	e8 49 da ff ff       	call   801035a0 <end_op>
   return 0;
-80105d77:	83 c4 10             	add    $0x10,%esp
+80105b57:	83 c4 10             	add    $0x10,%esp
 }
-80105d7a:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80105b5a:	8d 65 f4             	lea    -0xc(%ebp),%esp
   return 0;
-80105d7d:	31 c0                	xor    %eax,%eax
+80105b5d:	31 c0                	xor    %eax,%eax
 }
-80105d7f:	5b                   	pop    %ebx
-80105d80:	5e                   	pop    %esi
-80105d81:	5f                   	pop    %edi
-80105d82:	5d                   	pop    %ebp
-80105d83:	c3                   	ret    
-    fileclose(fsrc);
-80105d84:	83 ec 0c             	sub    $0xc,%esp
-80105d87:	56                   	push   %esi
-80105d88:	e8 33 b9 ff ff       	call   801016c0 <fileclose>
+80105b5f:	5b                   	pop    %ebx
+80105b60:	5e                   	pop    %esi
+80105b61:	5f                   	pop    %edi
+80105b62:	5d                   	pop    %ebp
+80105b63:	c3                   	ret    
+    cprintf("dest exist.\n");
+80105b64:	83 ec 0c             	sub    $0xc,%esp
+80105b67:	68 11 84 10 80       	push   $0x80108411
+80105b6c:	e8 df ab ff ff       	call   80100750 <cprintf>
+    end_op();
+80105b71:	e8 2a da ff ff       	call   801035a0 <end_op>
+    return -1;
+80105b76:	83 c4 10             	add    $0x10,%esp
+80105b79:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105b7e:	eb a7                	jmp    80105b27 <sys_copy_file+0x167>
+    cprintf("src is dir.\n");
+80105b80:	83 ec 0c             	sub    $0xc,%esp
+80105b83:	68 1e 84 10 80       	push   $0x8010841e
+80105b88:	e8 c3 ab ff ff       	call   80100750 <cprintf>
     iunlockput(idest);
-80105d8d:	89 1c 24             	mov    %ebx,(%esp)
-80105d90:	e8 4b c4 ff ff       	call   801021e0 <iunlockput>
+80105b8d:	89 1c 24             	mov    %ebx,(%esp)
+80105b90:	e8 4b c6 ff ff       	call   801021e0 <iunlockput>
     end_op();
-80105d95:	e8 06 d8 ff ff       	call   801035a0 <end_op>
+80105b95:	e8 06 da ff ff       	call   801035a0 <end_op>
     return -1;
-80105d9a:	83 c4 10             	add    $0x10,%esp
-80105d9d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105da2:	eb b0                	jmp    80105d54 <sys_copy_file+0x154>
-    end_op();
-80105da4:	e8 f7 d7 ff ff       	call   801035a0 <end_op>
-    return -1;
-80105da9:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105dae:	eb a4                	jmp    80105d54 <sys_copy_file+0x154>
+80105b9a:	83 c4 10             	add    $0x10,%esp
+80105b9d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105ba2:	eb 83                	jmp    80105b27 <sys_copy_file+0x167>
+    cprintf("src aloc fail.\n");
+80105ba4:	83 ec 0c             	sub    $0xc,%esp
+80105ba7:	68 2b 84 10 80       	push   $0x8010842b
+80105bac:	e8 9f ab ff ff       	call   80100750 <cprintf>
     iunlockput(isrc);
-80105db0:	83 ec 0c             	sub    $0xc,%esp
-80105db3:	53                   	push   %ebx
-80105db4:	e8 27 c4 ff ff       	call   801021e0 <iunlockput>
-    end_op();
-80105db9:	e8 e2 d7 ff ff       	call   801035a0 <end_op>
-    return -1;
-80105dbe:	83 c4 10             	add    $0x10,%esp
-80105dc1:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105dc6:	eb 8c                	jmp    80105d54 <sys_copy_file+0x154>
+80105bb1:	eb da                	jmp    80105b8d <sys_copy_file+0x1cd>
+    cprintf("create dest fail.\n");
+80105bb3:	83 ec 0c             	sub    $0xc,%esp
+80105bb6:	68 3b 84 10 80       	push   $0x8010843b
+80105bbb:	e8 90 ab ff ff       	call   80100750 <cprintf>
     fileclose(fsrc);
-80105dc8:	83 ec 0c             	sub    $0xc,%esp
-80105dcb:	56                   	push   %esi
-80105dcc:	e8 ef b8 ff ff       	call   801016c0 <fileclose>
+80105bc0:	89 34 24             	mov    %esi,(%esp)
+80105bc3:	e8 f8 ba ff ff       	call   801016c0 <fileclose>
     end_op();
-80105dd1:	e8 ca d7 ff ff       	call   801035a0 <end_op>
+80105bc8:	e8 d3 d9 ff ff       	call   801035a0 <end_op>
     return -1;
-80105dd6:	83 c4 10             	add    $0x10,%esp
-80105dd9:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105dde:	e9 71 ff ff ff       	jmp    80105d54 <sys_copy_file+0x154>
-80105de3:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105dea:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+80105bcd:	83 c4 10             	add    $0x10,%esp
+80105bd0:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105bd5:	e9 4d ff ff ff       	jmp    80105b27 <sys_copy_file+0x167>
+    cprintf("aloc dest fail.\n");
+80105bda:	83 ec 0c             	sub    $0xc,%esp
+80105bdd:	68 4e 84 10 80       	push   $0x8010844e
+80105be2:	e8 69 ab ff ff       	call   80100750 <cprintf>
+    fileclose(fsrc);
+80105be7:	89 34 24             	mov    %esi,(%esp)
+80105bea:	e8 d1 ba ff ff       	call   801016c0 <fileclose>
+80105bef:	eb 9c                	jmp    80105b8d <sys_copy_file+0x1cd>
+    cprintf("src not exist.\n");
+80105bf1:	83 ec 0c             	sub    $0xc,%esp
+80105bf4:	68 01 84 10 80       	push   $0x80108401
+80105bf9:	e8 52 ab ff ff       	call   80100750 <cprintf>
+    end_op();
+80105bfe:	e8 9d d9 ff ff       	call   801035a0 <end_op>
+    return -1;
+80105c03:	83 c4 10             	add    $0x10,%esp
+80105c06:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105c0b:	e9 17 ff ff ff       	jmp    80105b27 <sys_copy_file+0x167>
 
-80105df0 <sys_open>:
+80105c10 <sys_open>:
 
 int sys_open(void)
 {
-80105df0:	55                   	push   %ebp
-80105df1:	89 e5                	mov    %esp,%ebp
-80105df3:	83 ec 20             	sub    $0x20,%esp
+80105c10:	55                   	push   %ebp
+80105c11:	89 e5                	mov    %esp,%ebp
+80105c13:	57                   	push   %edi
+80105c14:	56                   	push   %esi
   char *path;
-  int omode;
+  int fd, omode;
+  struct file *f;
+  struct inode *ip;
 
   if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
-80105df6:	8d 45 f0             	lea    -0x10(%ebp),%eax
-80105df9:	50                   	push   %eax
-80105dfa:	6a 00                	push   $0x0
-80105dfc:	e8 af f3 ff ff       	call   801051b0 <argstr>
-80105e01:	83 c4 10             	add    $0x10,%esp
-80105e04:	85 c0                	test   %eax,%eax
-80105e06:	78 28                	js     80105e30 <sys_open+0x40>
-80105e08:	83 ec 08             	sub    $0x8,%esp
-80105e0b:	8d 45 f4             	lea    -0xc(%ebp),%eax
-80105e0e:	50                   	push   %eax
-80105e0f:	6a 01                	push   $0x1
-80105e11:	e8 da f2 ff ff       	call   801050f0 <argint>
-80105e16:	83 c4 10             	add    $0x10,%esp
-80105e19:	85 c0                	test   %eax,%eax
-80105e1b:	78 13                	js     80105e30 <sys_open+0x40>
+80105c15:	8d 45 e0             	lea    -0x20(%ebp),%eax
+{
+80105c18:	53                   	push   %ebx
+80105c19:	83 ec 24             	sub    $0x24,%esp
+  if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
+80105c1c:	50                   	push   %eax
+80105c1d:	6a 00                	push   $0x0
+80105c1f:	e8 8c f5 ff ff       	call   801051b0 <argstr>
+80105c24:	83 c4 10             	add    $0x10,%esp
+80105c27:	85 c0                	test   %eax,%eax
+80105c29:	0f 88 8e 00 00 00    	js     80105cbd <sys_open+0xad>
+80105c2f:	83 ec 08             	sub    $0x8,%esp
+80105c32:	8d 45 e4             	lea    -0x1c(%ebp),%eax
+80105c35:	50                   	push   %eax
+80105c36:	6a 01                	push   $0x1
+80105c38:	e8 b3 f4 ff ff       	call   801050f0 <argint>
+80105c3d:	83 c4 10             	add    $0x10,%esp
+80105c40:	85 c0                	test   %eax,%eax
+80105c42:	78 79                	js     80105cbd <sys_open+0xad>
     return -1;
 
-  return open(omode, path);
-80105e1d:	83 ec 08             	sub    $0x8,%esp
-80105e20:	ff 75 f0             	push   -0x10(%ebp)
-80105e23:	ff 75 f4             	push   -0xc(%ebp)
-80105e26:	e8 b5 fc ff ff       	call   80105ae0 <open>
-80105e2b:	83 c4 10             	add    $0x10,%esp
-}
-80105e2e:	c9                   	leave  
-80105e2f:	c3                   	ret    
-80105e30:	c9                   	leave  
-    return -1;
-80105e31:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-80105e36:	c3                   	ret    
-80105e37:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105e3e:	66 90                	xchg   %ax,%ax
+  begin_op();
+80105c44:	e8 e7 d8 ff ff       	call   80103530 <begin_op>
 
-80105e40 <sys_mkdir>:
+  if (omode & O_CREATE)
+80105c49:	f6 45 e5 02          	testb  $0x2,-0x1b(%ebp)
+80105c4d:	75 79                	jne    80105cc8 <sys_open+0xb8>
+      return -1;
+    }
+  }
+  else
+  {
+    if ((ip = namei(path)) == 0)
+80105c4f:	83 ec 0c             	sub    $0xc,%esp
+80105c52:	ff 75 e0             	push   -0x20(%ebp)
+80105c55:	e8 16 cc ff ff       	call   80102870 <namei>
+80105c5a:	83 c4 10             	add    $0x10,%esp
+80105c5d:	89 c6                	mov    %eax,%esi
+80105c5f:	85 c0                	test   %eax,%eax
+80105c61:	0f 84 7e 00 00 00    	je     80105ce5 <sys_open+0xd5>
+    {
+      end_op();
+      return -1;
+    }
+    ilock(ip);
+80105c67:	83 ec 0c             	sub    $0xc,%esp
+80105c6a:	50                   	push   %eax
+80105c6b:	e8 e0 c2 ff ff       	call   80101f50 <ilock>
+    if (ip->type == T_DIR && omode != O_RDONLY)
+80105c70:	83 c4 10             	add    $0x10,%esp
+80105c73:	66 83 7e 50 01       	cmpw   $0x1,0x50(%esi)
+80105c78:	0f 84 c2 00 00 00    	je     80105d40 <sys_open+0x130>
+      end_op();
+      return -1;
+    }
+  }
+
+  if ((f = filealloc()) == 0 || (fd = fdalloc(f)) < 0)
+80105c7e:	e8 7d b9 ff ff       	call   80101600 <filealloc>
+80105c83:	89 c7                	mov    %eax,%edi
+80105c85:	85 c0                	test   %eax,%eax
+80105c87:	74 23                	je     80105cac <sys_open+0x9c>
+  struct proc *curproc = myproc();
+80105c89:	e8 b2 e4 ff ff       	call   80104140 <myproc>
+  for (fd = 0; fd < NOFILE; fd++)
+80105c8e:	31 db                	xor    %ebx,%ebx
+    if (curproc->ofile[fd] == 0)
+80105c90:	8b 54 98 28          	mov    0x28(%eax,%ebx,4),%edx
+80105c94:	85 d2                	test   %edx,%edx
+80105c96:	74 60                	je     80105cf8 <sys_open+0xe8>
+  for (fd = 0; fd < NOFILE; fd++)
+80105c98:	83 c3 01             	add    $0x1,%ebx
+80105c9b:	83 fb 10             	cmp    $0x10,%ebx
+80105c9e:	75 f0                	jne    80105c90 <sys_open+0x80>
+  {
+    if (f)
+      fileclose(f);
+80105ca0:	83 ec 0c             	sub    $0xc,%esp
+80105ca3:	57                   	push   %edi
+80105ca4:	e8 17 ba ff ff       	call   801016c0 <fileclose>
+80105ca9:	83 c4 10             	add    $0x10,%esp
+    iunlockput(ip);
+80105cac:	83 ec 0c             	sub    $0xc,%esp
+80105caf:	56                   	push   %esi
+80105cb0:	e8 2b c5 ff ff       	call   801021e0 <iunlockput>
+    end_op();
+80105cb5:	e8 e6 d8 ff ff       	call   801035a0 <end_op>
+    return -1;
+80105cba:	83 c4 10             	add    $0x10,%esp
+80105cbd:	bb ff ff ff ff       	mov    $0xffffffff,%ebx
+80105cc2:	eb 6d                	jmp    80105d31 <sys_open+0x121>
+80105cc4:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+    ip = create(path, T_FILE, 0, 0);
+80105cc8:	83 ec 0c             	sub    $0xc,%esp
+80105ccb:	8b 45 e0             	mov    -0x20(%ebp),%eax
+80105cce:	31 c9                	xor    %ecx,%ecx
+80105cd0:	ba 02 00 00 00       	mov    $0x2,%edx
+80105cd5:	6a 00                	push   $0x0
+80105cd7:	e8 c4 f5 ff ff       	call   801052a0 <create>
+    if (ip == 0)
+80105cdc:	83 c4 10             	add    $0x10,%esp
+    ip = create(path, T_FILE, 0, 0);
+80105cdf:	89 c6                	mov    %eax,%esi
+    if (ip == 0)
+80105ce1:	85 c0                	test   %eax,%eax
+80105ce3:	75 99                	jne    80105c7e <sys_open+0x6e>
+      end_op();
+80105ce5:	e8 b6 d8 ff ff       	call   801035a0 <end_op>
+      return -1;
+80105cea:	bb ff ff ff ff       	mov    $0xffffffff,%ebx
+80105cef:	eb 40                	jmp    80105d31 <sys_open+0x121>
+80105cf1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  }
+  iunlock(ip);
+80105cf8:	83 ec 0c             	sub    $0xc,%esp
+      curproc->ofile[fd] = f;
+80105cfb:	89 7c 98 28          	mov    %edi,0x28(%eax,%ebx,4)
+  iunlock(ip);
+80105cff:	56                   	push   %esi
+80105d00:	e8 2b c3 ff ff       	call   80102030 <iunlock>
+  end_op();
+80105d05:	e8 96 d8 ff ff       	call   801035a0 <end_op>
+
+  f->type = FD_INODE;
+80105d0a:	c7 07 02 00 00 00    	movl   $0x2,(%edi)
+  f->ip = ip;
+  f->off = 0;
+  f->readable = !(omode & O_WRONLY);
+80105d10:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+  f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
+80105d13:	83 c4 10             	add    $0x10,%esp
+  f->ip = ip;
+80105d16:	89 77 10             	mov    %esi,0x10(%edi)
+  f->readable = !(omode & O_WRONLY);
+80105d19:	89 d0                	mov    %edx,%eax
+  f->off = 0;
+80105d1b:	c7 47 14 00 00 00 00 	movl   $0x0,0x14(%edi)
+  f->readable = !(omode & O_WRONLY);
+80105d22:	f7 d0                	not    %eax
+80105d24:	83 e0 01             	and    $0x1,%eax
+  f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
+80105d27:	83 e2 03             	and    $0x3,%edx
+  f->readable = !(omode & O_WRONLY);
+80105d2a:	88 47 08             	mov    %al,0x8(%edi)
+  f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
+80105d2d:	0f 95 47 09          	setne  0x9(%edi)
+  return fd;
+}
+80105d31:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80105d34:	89 d8                	mov    %ebx,%eax
+80105d36:	5b                   	pop    %ebx
+80105d37:	5e                   	pop    %esi
+80105d38:	5f                   	pop    %edi
+80105d39:	5d                   	pop    %ebp
+80105d3a:	c3                   	ret    
+80105d3b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105d3f:	90                   	nop
+    if (ip->type == T_DIR && omode != O_RDONLY)
+80105d40:	8b 4d e4             	mov    -0x1c(%ebp),%ecx
+80105d43:	85 c9                	test   %ecx,%ecx
+80105d45:	0f 84 33 ff ff ff    	je     80105c7e <sys_open+0x6e>
+80105d4b:	e9 5c ff ff ff       	jmp    80105cac <sys_open+0x9c>
+
+80105d50 <sys_mkdir>:
 
 int sys_mkdir(void)
 {
-80105e40:	55                   	push   %ebp
-80105e41:	89 e5                	mov    %esp,%ebp
-80105e43:	83 ec 18             	sub    $0x18,%esp
+80105d50:	55                   	push   %ebp
+80105d51:	89 e5                	mov    %esp,%ebp
+80105d53:	83 ec 18             	sub    $0x18,%esp
   char *path;
   struct inode *ip;
 
   begin_op();
-80105e46:	e8 e5 d6 ff ff       	call   80103530 <begin_op>
+80105d56:	e8 d5 d7 ff ff       	call   80103530 <begin_op>
   if (argstr(0, &path) < 0 || (ip = create(path, T_DIR, 0, 0)) == 0)
-80105e4b:	83 ec 08             	sub    $0x8,%esp
-80105e4e:	8d 45 f4             	lea    -0xc(%ebp),%eax
-80105e51:	50                   	push   %eax
-80105e52:	6a 00                	push   $0x0
-80105e54:	e8 57 f3 ff ff       	call   801051b0 <argstr>
-80105e59:	83 c4 10             	add    $0x10,%esp
-80105e5c:	85 c0                	test   %eax,%eax
-80105e5e:	78 30                	js     80105e90 <sys_mkdir+0x50>
-80105e60:	83 ec 0c             	sub    $0xc,%esp
-80105e63:	8b 45 f4             	mov    -0xc(%ebp),%eax
-80105e66:	31 c9                	xor    %ecx,%ecx
-80105e68:	ba 01 00 00 00       	mov    $0x1,%edx
-80105e6d:	6a 00                	push   $0x0
-80105e6f:	e8 2c f4 ff ff       	call   801052a0 <create>
-80105e74:	83 c4 10             	add    $0x10,%esp
-80105e77:	85 c0                	test   %eax,%eax
-80105e79:	74 15                	je     80105e90 <sys_mkdir+0x50>
+80105d5b:	83 ec 08             	sub    $0x8,%esp
+80105d5e:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80105d61:	50                   	push   %eax
+80105d62:	6a 00                	push   $0x0
+80105d64:	e8 47 f4 ff ff       	call   801051b0 <argstr>
+80105d69:	83 c4 10             	add    $0x10,%esp
+80105d6c:	85 c0                	test   %eax,%eax
+80105d6e:	78 30                	js     80105da0 <sys_mkdir+0x50>
+80105d70:	83 ec 0c             	sub    $0xc,%esp
+80105d73:	8b 45 f4             	mov    -0xc(%ebp),%eax
+80105d76:	31 c9                	xor    %ecx,%ecx
+80105d78:	ba 01 00 00 00       	mov    $0x1,%edx
+80105d7d:	6a 00                	push   $0x0
+80105d7f:	e8 1c f5 ff ff       	call   801052a0 <create>
+80105d84:	83 c4 10             	add    $0x10,%esp
+80105d87:	85 c0                	test   %eax,%eax
+80105d89:	74 15                	je     80105da0 <sys_mkdir+0x50>
   {
     end_op();
     return -1;
   }
   iunlockput(ip);
-80105e7b:	83 ec 0c             	sub    $0xc,%esp
-80105e7e:	50                   	push   %eax
-80105e7f:	e8 5c c3 ff ff       	call   801021e0 <iunlockput>
+80105d8b:	83 ec 0c             	sub    $0xc,%esp
+80105d8e:	50                   	push   %eax
+80105d8f:	e8 4c c4 ff ff       	call   801021e0 <iunlockput>
   end_op();
-80105e84:	e8 17 d7 ff ff       	call   801035a0 <end_op>
+80105d94:	e8 07 d8 ff ff       	call   801035a0 <end_op>
   return 0;
-80105e89:	83 c4 10             	add    $0x10,%esp
-80105e8c:	31 c0                	xor    %eax,%eax
+80105d99:	83 c4 10             	add    $0x10,%esp
+80105d9c:	31 c0                	xor    %eax,%eax
 }
-80105e8e:	c9                   	leave  
-80105e8f:	c3                   	ret    
+80105d9e:	c9                   	leave  
+80105d9f:	c3                   	ret    
     end_op();
-80105e90:	e8 0b d7 ff ff       	call   801035a0 <end_op>
+80105da0:	e8 fb d7 ff ff       	call   801035a0 <end_op>
     return -1;
-80105e95:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105da5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-80105e9a:	c9                   	leave  
-80105e9b:	c3                   	ret    
-80105e9c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105daa:	c9                   	leave  
+80105dab:	c3                   	ret    
+80105dac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-80105ea0 <sys_mknod>:
+80105db0 <sys_mknod>:
 
 int sys_mknod(void)
 {
-80105ea0:	55                   	push   %ebp
-80105ea1:	89 e5                	mov    %esp,%ebp
-80105ea3:	83 ec 18             	sub    $0x18,%esp
+80105db0:	55                   	push   %ebp
+80105db1:	89 e5                	mov    %esp,%ebp
+80105db3:	83 ec 18             	sub    $0x18,%esp
   struct inode *ip;
   char *path;
   int major, minor;
 
   begin_op();
-80105ea6:	e8 85 d6 ff ff       	call   80103530 <begin_op>
+80105db6:	e8 75 d7 ff ff       	call   80103530 <begin_op>
   if ((argstr(0, &path)) < 0 ||
-80105eab:	83 ec 08             	sub    $0x8,%esp
-80105eae:	8d 45 ec             	lea    -0x14(%ebp),%eax
-80105eb1:	50                   	push   %eax
-80105eb2:	6a 00                	push   $0x0
-80105eb4:	e8 f7 f2 ff ff       	call   801051b0 <argstr>
-80105eb9:	83 c4 10             	add    $0x10,%esp
-80105ebc:	85 c0                	test   %eax,%eax
-80105ebe:	78 60                	js     80105f20 <sys_mknod+0x80>
+80105dbb:	83 ec 08             	sub    $0x8,%esp
+80105dbe:	8d 45 ec             	lea    -0x14(%ebp),%eax
+80105dc1:	50                   	push   %eax
+80105dc2:	6a 00                	push   $0x0
+80105dc4:	e8 e7 f3 ff ff       	call   801051b0 <argstr>
+80105dc9:	83 c4 10             	add    $0x10,%esp
+80105dcc:	85 c0                	test   %eax,%eax
+80105dce:	78 60                	js     80105e30 <sys_mknod+0x80>
       argint(1, &major) < 0 ||
-80105ec0:	83 ec 08             	sub    $0x8,%esp
-80105ec3:	8d 45 f0             	lea    -0x10(%ebp),%eax
-80105ec6:	50                   	push   %eax
-80105ec7:	6a 01                	push   $0x1
-80105ec9:	e8 22 f2 ff ff       	call   801050f0 <argint>
+80105dd0:	83 ec 08             	sub    $0x8,%esp
+80105dd3:	8d 45 f0             	lea    -0x10(%ebp),%eax
+80105dd6:	50                   	push   %eax
+80105dd7:	6a 01                	push   $0x1
+80105dd9:	e8 12 f3 ff ff       	call   801050f0 <argint>
   if ((argstr(0, &path)) < 0 ||
-80105ece:	83 c4 10             	add    $0x10,%esp
-80105ed1:	85 c0                	test   %eax,%eax
-80105ed3:	78 4b                	js     80105f20 <sys_mknod+0x80>
+80105dde:	83 c4 10             	add    $0x10,%esp
+80105de1:	85 c0                	test   %eax,%eax
+80105de3:	78 4b                	js     80105e30 <sys_mknod+0x80>
       argint(2, &minor) < 0 ||
-80105ed5:	83 ec 08             	sub    $0x8,%esp
-80105ed8:	8d 45 f4             	lea    -0xc(%ebp),%eax
-80105edb:	50                   	push   %eax
-80105edc:	6a 02                	push   $0x2
-80105ede:	e8 0d f2 ff ff       	call   801050f0 <argint>
+80105de5:	83 ec 08             	sub    $0x8,%esp
+80105de8:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80105deb:	50                   	push   %eax
+80105dec:	6a 02                	push   $0x2
+80105dee:	e8 fd f2 ff ff       	call   801050f0 <argint>
       argint(1, &major) < 0 ||
-80105ee3:	83 c4 10             	add    $0x10,%esp
-80105ee6:	85 c0                	test   %eax,%eax
-80105ee8:	78 36                	js     80105f20 <sys_mknod+0x80>
+80105df3:	83 c4 10             	add    $0x10,%esp
+80105df6:	85 c0                	test   %eax,%eax
+80105df8:	78 36                	js     80105e30 <sys_mknod+0x80>
       (ip = create(path, T_DEV, major, minor)) == 0)
-80105eea:	0f bf 45 f4          	movswl -0xc(%ebp),%eax
-80105eee:	83 ec 0c             	sub    $0xc,%esp
-80105ef1:	0f bf 4d f0          	movswl -0x10(%ebp),%ecx
-80105ef5:	ba 03 00 00 00       	mov    $0x3,%edx
-80105efa:	50                   	push   %eax
-80105efb:	8b 45 ec             	mov    -0x14(%ebp),%eax
-80105efe:	e8 9d f3 ff ff       	call   801052a0 <create>
+80105dfa:	0f bf 45 f4          	movswl -0xc(%ebp),%eax
+80105dfe:	83 ec 0c             	sub    $0xc,%esp
+80105e01:	0f bf 4d f0          	movswl -0x10(%ebp),%ecx
+80105e05:	ba 03 00 00 00       	mov    $0x3,%edx
+80105e0a:	50                   	push   %eax
+80105e0b:	8b 45 ec             	mov    -0x14(%ebp),%eax
+80105e0e:	e8 8d f4 ff ff       	call   801052a0 <create>
       argint(2, &minor) < 0 ||
-80105f03:	83 c4 10             	add    $0x10,%esp
-80105f06:	85 c0                	test   %eax,%eax
-80105f08:	74 16                	je     80105f20 <sys_mknod+0x80>
+80105e13:	83 c4 10             	add    $0x10,%esp
+80105e16:	85 c0                	test   %eax,%eax
+80105e18:	74 16                	je     80105e30 <sys_mknod+0x80>
   {
     end_op();
     return -1;
   }
   iunlockput(ip);
-80105f0a:	83 ec 0c             	sub    $0xc,%esp
-80105f0d:	50                   	push   %eax
-80105f0e:	e8 cd c2 ff ff       	call   801021e0 <iunlockput>
+80105e1a:	83 ec 0c             	sub    $0xc,%esp
+80105e1d:	50                   	push   %eax
+80105e1e:	e8 bd c3 ff ff       	call   801021e0 <iunlockput>
   end_op();
-80105f13:	e8 88 d6 ff ff       	call   801035a0 <end_op>
+80105e23:	e8 78 d7 ff ff       	call   801035a0 <end_op>
   return 0;
-80105f18:	83 c4 10             	add    $0x10,%esp
-80105f1b:	31 c0                	xor    %eax,%eax
+80105e28:	83 c4 10             	add    $0x10,%esp
+80105e2b:	31 c0                	xor    %eax,%eax
 }
-80105f1d:	c9                   	leave  
-80105f1e:	c3                   	ret    
-80105f1f:	90                   	nop
+80105e2d:	c9                   	leave  
+80105e2e:	c3                   	ret    
+80105e2f:	90                   	nop
     end_op();
-80105f20:	e8 7b d6 ff ff       	call   801035a0 <end_op>
+80105e30:	e8 6b d7 ff ff       	call   801035a0 <end_op>
     return -1;
-80105f25:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105e35:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-80105f2a:	c9                   	leave  
-80105f2b:	c3                   	ret    
-80105f2c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105e3a:	c9                   	leave  
+80105e3b:	c3                   	ret    
+80105e3c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-80105f30 <sys_chdir>:
+80105e40 <sys_chdir>:
 
 int sys_chdir(void)
 {
-80105f30:	55                   	push   %ebp
-80105f31:	89 e5                	mov    %esp,%ebp
-80105f33:	56                   	push   %esi
-80105f34:	53                   	push   %ebx
-80105f35:	83 ec 10             	sub    $0x10,%esp
+80105e40:	55                   	push   %ebp
+80105e41:	89 e5                	mov    %esp,%ebp
+80105e43:	56                   	push   %esi
+80105e44:	53                   	push   %ebx
+80105e45:	83 ec 10             	sub    $0x10,%esp
   char *path;
   struct inode *ip;
   struct proc *curproc = myproc();
-80105f38:	e8 03 e2 ff ff       	call   80104140 <myproc>
-80105f3d:	89 c6                	mov    %eax,%esi
+80105e48:	e8 f3 e2 ff ff       	call   80104140 <myproc>
+80105e4d:	89 c6                	mov    %eax,%esi
 
   begin_op();
-80105f3f:	e8 ec d5 ff ff       	call   80103530 <begin_op>
+80105e4f:	e8 dc d6 ff ff       	call   80103530 <begin_op>
   if (argstr(0, &path) < 0 || (ip = namei(path)) == 0)
-80105f44:	83 ec 08             	sub    $0x8,%esp
-80105f47:	8d 45 f4             	lea    -0xc(%ebp),%eax
-80105f4a:	50                   	push   %eax
-80105f4b:	6a 00                	push   $0x0
-80105f4d:	e8 5e f2 ff ff       	call   801051b0 <argstr>
-80105f52:	83 c4 10             	add    $0x10,%esp
-80105f55:	85 c0                	test   %eax,%eax
-80105f57:	78 77                	js     80105fd0 <sys_chdir+0xa0>
-80105f59:	83 ec 0c             	sub    $0xc,%esp
-80105f5c:	ff 75 f4             	push   -0xc(%ebp)
-80105f5f:	e8 0c c9 ff ff       	call   80102870 <namei>
-80105f64:	83 c4 10             	add    $0x10,%esp
-80105f67:	89 c3                	mov    %eax,%ebx
-80105f69:	85 c0                	test   %eax,%eax
-80105f6b:	74 63                	je     80105fd0 <sys_chdir+0xa0>
+80105e54:	83 ec 08             	sub    $0x8,%esp
+80105e57:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80105e5a:	50                   	push   %eax
+80105e5b:	6a 00                	push   $0x0
+80105e5d:	e8 4e f3 ff ff       	call   801051b0 <argstr>
+80105e62:	83 c4 10             	add    $0x10,%esp
+80105e65:	85 c0                	test   %eax,%eax
+80105e67:	78 77                	js     80105ee0 <sys_chdir+0xa0>
+80105e69:	83 ec 0c             	sub    $0xc,%esp
+80105e6c:	ff 75 f4             	push   -0xc(%ebp)
+80105e6f:	e8 fc c9 ff ff       	call   80102870 <namei>
+80105e74:	83 c4 10             	add    $0x10,%esp
+80105e77:	89 c3                	mov    %eax,%ebx
+80105e79:	85 c0                	test   %eax,%eax
+80105e7b:	74 63                	je     80105ee0 <sys_chdir+0xa0>
   {
     end_op();
     return -1;
   }
   ilock(ip);
-80105f6d:	83 ec 0c             	sub    $0xc,%esp
-80105f70:	50                   	push   %eax
-80105f71:	e8 da bf ff ff       	call   80101f50 <ilock>
+80105e7d:	83 ec 0c             	sub    $0xc,%esp
+80105e80:	50                   	push   %eax
+80105e81:	e8 ca c0 ff ff       	call   80101f50 <ilock>
   if (ip->type != T_DIR)
-80105f76:	83 c4 10             	add    $0x10,%esp
-80105f79:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
-80105f7e:	75 30                	jne    80105fb0 <sys_chdir+0x80>
+80105e86:	83 c4 10             	add    $0x10,%esp
+80105e89:	66 83 7b 50 01       	cmpw   $0x1,0x50(%ebx)
+80105e8e:	75 30                	jne    80105ec0 <sys_chdir+0x80>
   {
     iunlockput(ip);
     end_op();
     return -1;
   }
   iunlock(ip);
-80105f80:	83 ec 0c             	sub    $0xc,%esp
-80105f83:	53                   	push   %ebx
-80105f84:	e8 a7 c0 ff ff       	call   80102030 <iunlock>
+80105e90:	83 ec 0c             	sub    $0xc,%esp
+80105e93:	53                   	push   %ebx
+80105e94:	e8 97 c1 ff ff       	call   80102030 <iunlock>
   iput(curproc->cwd);
-80105f89:	58                   	pop    %eax
-80105f8a:	ff 76 68             	push   0x68(%esi)
-80105f8d:	e8 ee c0 ff ff       	call   80102080 <iput>
+80105e99:	58                   	pop    %eax
+80105e9a:	ff 76 68             	push   0x68(%esi)
+80105e9d:	e8 de c1 ff ff       	call   80102080 <iput>
   end_op();
-80105f92:	e8 09 d6 ff ff       	call   801035a0 <end_op>
+80105ea2:	e8 f9 d6 ff ff       	call   801035a0 <end_op>
   curproc->cwd = ip;
-80105f97:	89 5e 68             	mov    %ebx,0x68(%esi)
+80105ea7:	89 5e 68             	mov    %ebx,0x68(%esi)
   return 0;
-80105f9a:	83 c4 10             	add    $0x10,%esp
-80105f9d:	31 c0                	xor    %eax,%eax
+80105eaa:	83 c4 10             	add    $0x10,%esp
+80105ead:	31 c0                	xor    %eax,%eax
 }
-80105f9f:	8d 65 f8             	lea    -0x8(%ebp),%esp
-80105fa2:	5b                   	pop    %ebx
-80105fa3:	5e                   	pop    %esi
-80105fa4:	5d                   	pop    %ebp
-80105fa5:	c3                   	ret    
-80105fa6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105fad:	8d 76 00             	lea    0x0(%esi),%esi
+80105eaf:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80105eb2:	5b                   	pop    %ebx
+80105eb3:	5e                   	pop    %esi
+80105eb4:	5d                   	pop    %ebp
+80105eb5:	c3                   	ret    
+80105eb6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80105ebd:	8d 76 00             	lea    0x0(%esi),%esi
     iunlockput(ip);
-80105fb0:	83 ec 0c             	sub    $0xc,%esp
-80105fb3:	53                   	push   %ebx
-80105fb4:	e8 27 c2 ff ff       	call   801021e0 <iunlockput>
+80105ec0:	83 ec 0c             	sub    $0xc,%esp
+80105ec3:	53                   	push   %ebx
+80105ec4:	e8 17 c3 ff ff       	call   801021e0 <iunlockput>
     end_op();
-80105fb9:	e8 e2 d5 ff ff       	call   801035a0 <end_op>
+80105ec9:	e8 d2 d6 ff ff       	call   801035a0 <end_op>
     return -1;
-80105fbe:	83 c4 10             	add    $0x10,%esp
-80105fc1:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105fc6:	eb d7                	jmp    80105f9f <sys_chdir+0x6f>
-80105fc8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80105fcf:	90                   	nop
+80105ece:	83 c4 10             	add    $0x10,%esp
+80105ed1:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105ed6:	eb d7                	jmp    80105eaf <sys_chdir+0x6f>
+80105ed8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80105edf:	90                   	nop
     end_op();
-80105fd0:	e8 cb d5 ff ff       	call   801035a0 <end_op>
+80105ee0:	e8 bb d6 ff ff       	call   801035a0 <end_op>
     return -1;
-80105fd5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-80105fda:	eb c3                	jmp    80105f9f <sys_chdir+0x6f>
-80105fdc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105ee5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105eea:	eb c3                	jmp    80105eaf <sys_chdir+0x6f>
+80105eec:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-80105fe0 <sys_exec>:
+80105ef0 <sys_exec>:
 
 int sys_exec(void)
 {
-80105fe0:	55                   	push   %ebp
-80105fe1:	89 e5                	mov    %esp,%ebp
-80105fe3:	57                   	push   %edi
-80105fe4:	56                   	push   %esi
+80105ef0:	55                   	push   %ebp
+80105ef1:	89 e5                	mov    %esp,%ebp
+80105ef3:	57                   	push   %edi
+80105ef4:	56                   	push   %esi
   char *path, *argv[MAXARG];
   int i;
   uint uargv, uarg;
 
   if (argstr(0, &path) < 0 || argint(1, (int *)&uargv) < 0)
-80105fe5:	8d 85 5c ff ff ff    	lea    -0xa4(%ebp),%eax
+80105ef5:	8d 85 5c ff ff ff    	lea    -0xa4(%ebp),%eax
 {
-80105feb:	53                   	push   %ebx
-80105fec:	81 ec a4 00 00 00    	sub    $0xa4,%esp
+80105efb:	53                   	push   %ebx
+80105efc:	81 ec a4 00 00 00    	sub    $0xa4,%esp
   if (argstr(0, &path) < 0 || argint(1, (int *)&uargv) < 0)
-80105ff2:	50                   	push   %eax
-80105ff3:	6a 00                	push   $0x0
-80105ff5:	e8 b6 f1 ff ff       	call   801051b0 <argstr>
-80105ffa:	83 c4 10             	add    $0x10,%esp
-80105ffd:	85 c0                	test   %eax,%eax
-80105fff:	0f 88 87 00 00 00    	js     8010608c <sys_exec+0xac>
-80106005:	83 ec 08             	sub    $0x8,%esp
-80106008:	8d 85 60 ff ff ff    	lea    -0xa0(%ebp),%eax
-8010600e:	50                   	push   %eax
-8010600f:	6a 01                	push   $0x1
-80106011:	e8 da f0 ff ff       	call   801050f0 <argint>
-80106016:	83 c4 10             	add    $0x10,%esp
-80106019:	85 c0                	test   %eax,%eax
-8010601b:	78 6f                	js     8010608c <sys_exec+0xac>
+80105f02:	50                   	push   %eax
+80105f03:	6a 00                	push   $0x0
+80105f05:	e8 a6 f2 ff ff       	call   801051b0 <argstr>
+80105f0a:	83 c4 10             	add    $0x10,%esp
+80105f0d:	85 c0                	test   %eax,%eax
+80105f0f:	0f 88 87 00 00 00    	js     80105f9c <sys_exec+0xac>
+80105f15:	83 ec 08             	sub    $0x8,%esp
+80105f18:	8d 85 60 ff ff ff    	lea    -0xa0(%ebp),%eax
+80105f1e:	50                   	push   %eax
+80105f1f:	6a 01                	push   $0x1
+80105f21:	e8 ca f1 ff ff       	call   801050f0 <argint>
+80105f26:	83 c4 10             	add    $0x10,%esp
+80105f29:	85 c0                	test   %eax,%eax
+80105f2b:	78 6f                	js     80105f9c <sys_exec+0xac>
   {
     return -1;
   }
   memset(argv, 0, sizeof(argv));
-8010601d:	83 ec 04             	sub    $0x4,%esp
-80106020:	8d b5 68 ff ff ff    	lea    -0x98(%ebp),%esi
+80105f2d:	83 ec 04             	sub    $0x4,%esp
+80105f30:	8d b5 68 ff ff ff    	lea    -0x98(%ebp),%esi
   for (i = 0;; i++)
-80106026:	31 db                	xor    %ebx,%ebx
+80105f36:	31 db                	xor    %ebx,%ebx
   memset(argv, 0, sizeof(argv));
-80106028:	68 80 00 00 00       	push   $0x80
-8010602d:	6a 00                	push   $0x0
-8010602f:	56                   	push   %esi
-80106030:	e8 fb ed ff ff       	call   80104e30 <memset>
-80106035:	83 c4 10             	add    $0x10,%esp
-80106038:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010603f:	90                   	nop
+80105f38:	68 80 00 00 00       	push   $0x80
+80105f3d:	6a 00                	push   $0x0
+80105f3f:	56                   	push   %esi
+80105f40:	e8 eb ee ff ff       	call   80104e30 <memset>
+80105f45:	83 c4 10             	add    $0x10,%esp
+80105f48:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80105f4f:	90                   	nop
   {
     if (i >= NELEM(argv))
       return -1;
     if (fetchint(uargv + 4 * i, (int *)&uarg) < 0)
-80106040:	83 ec 08             	sub    $0x8,%esp
-80106043:	8d 85 64 ff ff ff    	lea    -0x9c(%ebp),%eax
-80106049:	8d 3c 9d 00 00 00 00 	lea    0x0(,%ebx,4),%edi
-80106050:	50                   	push   %eax
-80106051:	8b 85 60 ff ff ff    	mov    -0xa0(%ebp),%eax
-80106057:	01 f8                	add    %edi,%eax
-80106059:	50                   	push   %eax
-8010605a:	e8 01 f0 ff ff       	call   80105060 <fetchint>
-8010605f:	83 c4 10             	add    $0x10,%esp
-80106062:	85 c0                	test   %eax,%eax
-80106064:	78 26                	js     8010608c <sys_exec+0xac>
+80105f50:	83 ec 08             	sub    $0x8,%esp
+80105f53:	8d 85 64 ff ff ff    	lea    -0x9c(%ebp),%eax
+80105f59:	8d 3c 9d 00 00 00 00 	lea    0x0(,%ebx,4),%edi
+80105f60:	50                   	push   %eax
+80105f61:	8b 85 60 ff ff ff    	mov    -0xa0(%ebp),%eax
+80105f67:	01 f8                	add    %edi,%eax
+80105f69:	50                   	push   %eax
+80105f6a:	e8 f1 f0 ff ff       	call   80105060 <fetchint>
+80105f6f:	83 c4 10             	add    $0x10,%esp
+80105f72:	85 c0                	test   %eax,%eax
+80105f74:	78 26                	js     80105f9c <sys_exec+0xac>
       return -1;
     if (uarg == 0)
-80106066:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
-8010606c:	85 c0                	test   %eax,%eax
-8010606e:	74 30                	je     801060a0 <sys_exec+0xc0>
+80105f76:	8b 85 64 ff ff ff    	mov    -0x9c(%ebp),%eax
+80105f7c:	85 c0                	test   %eax,%eax
+80105f7e:	74 30                	je     80105fb0 <sys_exec+0xc0>
     {
       argv[i] = 0;
       break;
     }
     if (fetchstr(uarg, &argv[i]) < 0)
-80106070:	83 ec 08             	sub    $0x8,%esp
-80106073:	8d 14 3e             	lea    (%esi,%edi,1),%edx
-80106076:	52                   	push   %edx
-80106077:	50                   	push   %eax
-80106078:	e8 23 f0 ff ff       	call   801050a0 <fetchstr>
-8010607d:	83 c4 10             	add    $0x10,%esp
-80106080:	85 c0                	test   %eax,%eax
-80106082:	78 08                	js     8010608c <sys_exec+0xac>
+80105f80:	83 ec 08             	sub    $0x8,%esp
+80105f83:	8d 14 3e             	lea    (%esi,%edi,1),%edx
+80105f86:	52                   	push   %edx
+80105f87:	50                   	push   %eax
+80105f88:	e8 13 f1 ff ff       	call   801050a0 <fetchstr>
+80105f8d:	83 c4 10             	add    $0x10,%esp
+80105f90:	85 c0                	test   %eax,%eax
+80105f92:	78 08                	js     80105f9c <sys_exec+0xac>
   for (i = 0;; i++)
-80106084:	83 c3 01             	add    $0x1,%ebx
+80105f94:	83 c3 01             	add    $0x1,%ebx
     if (i >= NELEM(argv))
-80106087:	83 fb 20             	cmp    $0x20,%ebx
-8010608a:	75 b4                	jne    80106040 <sys_exec+0x60>
+80105f97:	83 fb 20             	cmp    $0x20,%ebx
+80105f9a:	75 b4                	jne    80105f50 <sys_exec+0x60>
       return -1;
   }
   return exec(path, argv);
 }
-8010608c:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80105f9c:	8d 65 f4             	lea    -0xc(%ebp),%esp
     return -1;
-8010608f:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80105f9f:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-80106094:	5b                   	pop    %ebx
-80106095:	5e                   	pop    %esi
-80106096:	5f                   	pop    %edi
-80106097:	5d                   	pop    %ebp
-80106098:	c3                   	ret    
-80106099:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80105fa4:	5b                   	pop    %ebx
+80105fa5:	5e                   	pop    %esi
+80105fa6:	5f                   	pop    %edi
+80105fa7:	5d                   	pop    %ebp
+80105fa8:	c3                   	ret    
+80105fa9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
       argv[i] = 0;
-801060a0:	c7 84 9d 68 ff ff ff 	movl   $0x0,-0x98(%ebp,%ebx,4)
-801060a7:	00 00 00 00 
+80105fb0:	c7 84 9d 68 ff ff ff 	movl   $0x0,-0x98(%ebp,%ebx,4)
+80105fb7:	00 00 00 00 
   return exec(path, argv);
-801060ab:	83 ec 08             	sub    $0x8,%esp
-801060ae:	56                   	push   %esi
-801060af:	ff b5 5c ff ff ff    	push   -0xa4(%ebp)
-801060b5:	e8 c6 b1 ff ff       	call   80101280 <exec>
-801060ba:	83 c4 10             	add    $0x10,%esp
+80105fbb:	83 ec 08             	sub    $0x8,%esp
+80105fbe:	56                   	push   %esi
+80105fbf:	ff b5 5c ff ff ff    	push   -0xa4(%ebp)
+80105fc5:	e8 b6 b2 ff ff       	call   80101280 <exec>
+80105fca:	83 c4 10             	add    $0x10,%esp
 }
-801060bd:	8d 65 f4             	lea    -0xc(%ebp),%esp
-801060c0:	5b                   	pop    %ebx
-801060c1:	5e                   	pop    %esi
-801060c2:	5f                   	pop    %edi
-801060c3:	5d                   	pop    %ebp
-801060c4:	c3                   	ret    
-801060c5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801060cc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80105fcd:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80105fd0:	5b                   	pop    %ebx
+80105fd1:	5e                   	pop    %esi
+80105fd2:	5f                   	pop    %edi
+80105fd3:	5d                   	pop    %ebp
+80105fd4:	c3                   	ret    
+80105fd5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80105fdc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-801060d0 <sys_pipe>:
+80105fe0 <sys_pipe>:
 
 int sys_pipe(void)
 {
-801060d0:	55                   	push   %ebp
-801060d1:	89 e5                	mov    %esp,%ebp
-801060d3:	57                   	push   %edi
-801060d4:	56                   	push   %esi
+80105fe0:	55                   	push   %ebp
+80105fe1:	89 e5                	mov    %esp,%ebp
+80105fe3:	57                   	push   %edi
+80105fe4:	56                   	push   %esi
   int *fd;
   struct file *rf, *wf;
   int fd0, fd1;
 
   if (argptr(0, (void *)&fd, 2 * sizeof(fd[0])) < 0)
-801060d5:	8d 45 dc             	lea    -0x24(%ebp),%eax
+80105fe5:	8d 45 dc             	lea    -0x24(%ebp),%eax
 {
-801060d8:	53                   	push   %ebx
-801060d9:	83 ec 20             	sub    $0x20,%esp
+80105fe8:	53                   	push   %ebx
+80105fe9:	83 ec 20             	sub    $0x20,%esp
   if (argptr(0, (void *)&fd, 2 * sizeof(fd[0])) < 0)
-801060dc:	6a 08                	push   $0x8
-801060de:	50                   	push   %eax
-801060df:	6a 00                	push   $0x0
-801060e1:	e8 5a f0 ff ff       	call   80105140 <argptr>
-801060e6:	83 c4 10             	add    $0x10,%esp
-801060e9:	85 c0                	test   %eax,%eax
-801060eb:	78 4a                	js     80106137 <sys_pipe+0x67>
+80105fec:	6a 08                	push   $0x8
+80105fee:	50                   	push   %eax
+80105fef:	6a 00                	push   $0x0
+80105ff1:	e8 4a f1 ff ff       	call   80105140 <argptr>
+80105ff6:	83 c4 10             	add    $0x10,%esp
+80105ff9:	85 c0                	test   %eax,%eax
+80105ffb:	78 4a                	js     80106047 <sys_pipe+0x67>
     return -1;
   if (pipealloc(&rf, &wf) < 0)
-801060ed:	83 ec 08             	sub    $0x8,%esp
-801060f0:	8d 45 e4             	lea    -0x1c(%ebp),%eax
-801060f3:	50                   	push   %eax
-801060f4:	8d 45 e0             	lea    -0x20(%ebp),%eax
-801060f7:	50                   	push   %eax
-801060f8:	e8 03 db ff ff       	call   80103c00 <pipealloc>
-801060fd:	83 c4 10             	add    $0x10,%esp
-80106100:	85 c0                	test   %eax,%eax
-80106102:	78 33                	js     80106137 <sys_pipe+0x67>
+80105ffd:	83 ec 08             	sub    $0x8,%esp
+80106000:	8d 45 e4             	lea    -0x1c(%ebp),%eax
+80106003:	50                   	push   %eax
+80106004:	8d 45 e0             	lea    -0x20(%ebp),%eax
+80106007:	50                   	push   %eax
+80106008:	e8 f3 db ff ff       	call   80103c00 <pipealloc>
+8010600d:	83 c4 10             	add    $0x10,%esp
+80106010:	85 c0                	test   %eax,%eax
+80106012:	78 33                	js     80106047 <sys_pipe+0x67>
     return -1;
   fd0 = -1;
   if ((fd0 = fdalloc(rf)) < 0 || (fd1 = fdalloc(wf)) < 0)
-80106104:	8b 7d e0             	mov    -0x20(%ebp),%edi
+80106014:	8b 7d e0             	mov    -0x20(%ebp),%edi
   for (fd = 0; fd < NOFILE; fd++)
-80106107:	31 db                	xor    %ebx,%ebx
+80106017:	31 db                	xor    %ebx,%ebx
   struct proc *curproc = myproc();
-80106109:	e8 32 e0 ff ff       	call   80104140 <myproc>
+80106019:	e8 22 e1 ff ff       	call   80104140 <myproc>
   for (fd = 0; fd < NOFILE; fd++)
-8010610e:	66 90                	xchg   %ax,%ax
+8010601e:	66 90                	xchg   %ax,%ax
     if (curproc->ofile[fd] == 0)
-80106110:	8b 74 98 28          	mov    0x28(%eax,%ebx,4),%esi
-80106114:	85 f6                	test   %esi,%esi
-80106116:	74 28                	je     80106140 <sys_pipe+0x70>
+80106020:	8b 74 98 28          	mov    0x28(%eax,%ebx,4),%esi
+80106024:	85 f6                	test   %esi,%esi
+80106026:	74 28                	je     80106050 <sys_pipe+0x70>
   for (fd = 0; fd < NOFILE; fd++)
-80106118:	83 c3 01             	add    $0x1,%ebx
-8010611b:	83 fb 10             	cmp    $0x10,%ebx
-8010611e:	75 f0                	jne    80106110 <sys_pipe+0x40>
+80106028:	83 c3 01             	add    $0x1,%ebx
+8010602b:	83 fb 10             	cmp    $0x10,%ebx
+8010602e:	75 f0                	jne    80106020 <sys_pipe+0x40>
   {
     if (fd0 >= 0)
       myproc()->ofile[fd0] = 0;
     fileclose(rf);
-80106120:	83 ec 0c             	sub    $0xc,%esp
-80106123:	ff 75 e0             	push   -0x20(%ebp)
-80106126:	e8 95 b5 ff ff       	call   801016c0 <fileclose>
+80106030:	83 ec 0c             	sub    $0xc,%esp
+80106033:	ff 75 e0             	push   -0x20(%ebp)
+80106036:	e8 85 b6 ff ff       	call   801016c0 <fileclose>
     fileclose(wf);
-8010612b:	58                   	pop    %eax
-8010612c:	ff 75 e4             	push   -0x1c(%ebp)
-8010612f:	e8 8c b5 ff ff       	call   801016c0 <fileclose>
+8010603b:	58                   	pop    %eax
+8010603c:	ff 75 e4             	push   -0x1c(%ebp)
+8010603f:	e8 7c b6 ff ff       	call   801016c0 <fileclose>
     return -1;
-80106134:	83 c4 10             	add    $0x10,%esp
-80106137:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-8010613c:	eb 53                	jmp    80106191 <sys_pipe+0xc1>
-8010613e:	66 90                	xchg   %ax,%ax
+80106044:	83 c4 10             	add    $0x10,%esp
+80106047:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+8010604c:	eb 53                	jmp    801060a1 <sys_pipe+0xc1>
+8010604e:	66 90                	xchg   %ax,%ax
       curproc->ofile[fd] = f;
-80106140:	8d 73 08             	lea    0x8(%ebx),%esi
-80106143:	89 7c b0 08          	mov    %edi,0x8(%eax,%esi,4)
+80106050:	8d 73 08             	lea    0x8(%ebx),%esi
+80106053:	89 7c b0 08          	mov    %edi,0x8(%eax,%esi,4)
   if ((fd0 = fdalloc(rf)) < 0 || (fd1 = fdalloc(wf)) < 0)
-80106147:	8b 7d e4             	mov    -0x1c(%ebp),%edi
+80106057:	8b 7d e4             	mov    -0x1c(%ebp),%edi
   struct proc *curproc = myproc();
-8010614a:	e8 f1 df ff ff       	call   80104140 <myproc>
+8010605a:	e8 e1 e0 ff ff       	call   80104140 <myproc>
   for (fd = 0; fd < NOFILE; fd++)
-8010614f:	31 d2                	xor    %edx,%edx
-80106151:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010605f:	31 d2                	xor    %edx,%edx
+80106061:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     if (curproc->ofile[fd] == 0)
-80106158:	8b 4c 90 28          	mov    0x28(%eax,%edx,4),%ecx
-8010615c:	85 c9                	test   %ecx,%ecx
-8010615e:	74 20                	je     80106180 <sys_pipe+0xb0>
+80106068:	8b 4c 90 28          	mov    0x28(%eax,%edx,4),%ecx
+8010606c:	85 c9                	test   %ecx,%ecx
+8010606e:	74 20                	je     80106090 <sys_pipe+0xb0>
   for (fd = 0; fd < NOFILE; fd++)
-80106160:	83 c2 01             	add    $0x1,%edx
-80106163:	83 fa 10             	cmp    $0x10,%edx
-80106166:	75 f0                	jne    80106158 <sys_pipe+0x88>
+80106070:	83 c2 01             	add    $0x1,%edx
+80106073:	83 fa 10             	cmp    $0x10,%edx
+80106076:	75 f0                	jne    80106068 <sys_pipe+0x88>
       myproc()->ofile[fd0] = 0;
-80106168:	e8 d3 df ff ff       	call   80104140 <myproc>
-8010616d:	c7 44 b0 08 00 00 00 	movl   $0x0,0x8(%eax,%esi,4)
-80106174:	00 
-80106175:	eb a9                	jmp    80106120 <sys_pipe+0x50>
-80106177:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010617e:	66 90                	xchg   %ax,%ax
+80106078:	e8 c3 e0 ff ff       	call   80104140 <myproc>
+8010607d:	c7 44 b0 08 00 00 00 	movl   $0x0,0x8(%eax,%esi,4)
+80106084:	00 
+80106085:	eb a9                	jmp    80106030 <sys_pipe+0x50>
+80106087:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010608e:	66 90                	xchg   %ax,%ax
       curproc->ofile[fd] = f;
-80106180:	89 7c 90 28          	mov    %edi,0x28(%eax,%edx,4)
+80106090:	89 7c 90 28          	mov    %edi,0x28(%eax,%edx,4)
   }
   fd[0] = fd0;
-80106184:	8b 45 dc             	mov    -0x24(%ebp),%eax
-80106187:	89 18                	mov    %ebx,(%eax)
+80106094:	8b 45 dc             	mov    -0x24(%ebp),%eax
+80106097:	89 18                	mov    %ebx,(%eax)
   fd[1] = fd1;
-80106189:	8b 45 dc             	mov    -0x24(%ebp),%eax
-8010618c:	89 50 04             	mov    %edx,0x4(%eax)
+80106099:	8b 45 dc             	mov    -0x24(%ebp),%eax
+8010609c:	89 50 04             	mov    %edx,0x4(%eax)
   return 0;
-8010618f:	31 c0                	xor    %eax,%eax
+8010609f:	31 c0                	xor    %eax,%eax
 }
-80106191:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80106194:	5b                   	pop    %ebx
-80106195:	5e                   	pop    %esi
-80106196:	5f                   	pop    %edi
-80106197:	5d                   	pop    %ebp
-80106198:	c3                   	ret    
-80106199:	66 90                	xchg   %ax,%ax
-8010619b:	66 90                	xchg   %ax,%ax
-8010619d:	66 90                	xchg   %ax,%ax
-8010619f:	90                   	nop
+801060a1:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801060a4:	5b                   	pop    %ebx
+801060a5:	5e                   	pop    %esi
+801060a6:	5f                   	pop    %edi
+801060a7:	5d                   	pop    %ebp
+801060a8:	c3                   	ret    
+801060a9:	66 90                	xchg   %ax,%ax
+801060ab:	66 90                	xchg   %ax,%ax
+801060ad:	66 90                	xchg   %ax,%ax
+801060af:	90                   	nop
 
-801061a0 <sys_fork>:
+801060b0 <sys_fork>:
 #include "mmu.h"
 #include "proc.h"
 
 int sys_fork(void)
 {
   return fork();
-801061a0:	e9 3b e1 ff ff       	jmp    801042e0 <fork>
-801061a5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801061ac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801060b0:	e9 2b e2 ff ff       	jmp    801042e0 <fork>
+801060b5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801060bc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-801061b0 <sys_exit>:
+801060c0 <sys_exit>:
 }
 
 int sys_exit(void)
 {
-801061b0:	55                   	push   %ebp
-801061b1:	89 e5                	mov    %esp,%ebp
-801061b3:	83 ec 08             	sub    $0x8,%esp
+801060c0:	55                   	push   %ebp
+801060c1:	89 e5                	mov    %esp,%ebp
+801060c3:	83 ec 08             	sub    $0x8,%esp
   exit();
-801061b6:	e8 a5 e3 ff ff       	call   80104560 <exit>
+801060c6:	e8 95 e4 ff ff       	call   80104560 <exit>
   return 0; // not reached
 }
-801061bb:	31 c0                	xor    %eax,%eax
-801061bd:	c9                   	leave  
-801061be:	c3                   	ret    
-801061bf:	90                   	nop
+801060cb:	31 c0                	xor    %eax,%eax
+801060cd:	c9                   	leave  
+801060ce:	c3                   	ret    
+801060cf:	90                   	nop
 
-801061c0 <sys_wait>:
+801060d0 <sys_wait>:
 
 int sys_wait(void)
 {
   return wait();
-801061c0:	e9 cb e4 ff ff       	jmp    80104690 <wait>
-801061c5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801061cc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801060d0:	e9 bb e5 ff ff       	jmp    80104690 <wait>
+801060d5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801060dc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-801061d0 <sys_kill>:
+801060e0 <sys_kill>:
 }
 
 int sys_kill(void)
 {
-801061d0:	55                   	push   %ebp
-801061d1:	89 e5                	mov    %esp,%ebp
-801061d3:	83 ec 20             	sub    $0x20,%esp
+801060e0:	55                   	push   %ebp
+801060e1:	89 e5                	mov    %esp,%ebp
+801060e3:	83 ec 20             	sub    $0x20,%esp
   int pid;
 
   if (argint(0, &pid) < 0)
-801061d6:	8d 45 f4             	lea    -0xc(%ebp),%eax
-801061d9:	50                   	push   %eax
-801061da:	6a 00                	push   $0x0
-801061dc:	e8 0f ef ff ff       	call   801050f0 <argint>
-801061e1:	83 c4 10             	add    $0x10,%esp
-801061e4:	85 c0                	test   %eax,%eax
-801061e6:	78 18                	js     80106200 <sys_kill+0x30>
+801060e6:	8d 45 f4             	lea    -0xc(%ebp),%eax
+801060e9:	50                   	push   %eax
+801060ea:	6a 00                	push   $0x0
+801060ec:	e8 ff ef ff ff       	call   801050f0 <argint>
+801060f1:	83 c4 10             	add    $0x10,%esp
+801060f4:	85 c0                	test   %eax,%eax
+801060f6:	78 18                	js     80106110 <sys_kill+0x30>
     return -1;
   return kill(pid);
-801061e8:	83 ec 0c             	sub    $0xc,%esp
-801061eb:	ff 75 f4             	push   -0xc(%ebp)
-801061ee:	e8 3d e7 ff ff       	call   80104930 <kill>
-801061f3:	83 c4 10             	add    $0x10,%esp
+801060f8:	83 ec 0c             	sub    $0xc,%esp
+801060fb:	ff 75 f4             	push   -0xc(%ebp)
+801060fe:	e8 2d e8 ff ff       	call   80104930 <kill>
+80106103:	83 c4 10             	add    $0x10,%esp
 }
-801061f6:	c9                   	leave  
-801061f7:	c3                   	ret    
-801061f8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801061ff:	90                   	nop
-80106200:	c9                   	leave  
+80106106:	c9                   	leave  
+80106107:	c3                   	ret    
+80106108:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010610f:	90                   	nop
+80106110:	c9                   	leave  
     return -1;
-80106201:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80106111:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-80106206:	c3                   	ret    
-80106207:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010620e:	66 90                	xchg   %ax,%ax
+80106116:	c3                   	ret    
+80106117:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010611e:	66 90                	xchg   %ax,%ax
 
-80106210 <sys_getpid>:
+80106120 <sys_getpid>:
 
 int sys_getpid(void)
 {
-80106210:	55                   	push   %ebp
-80106211:	89 e5                	mov    %esp,%ebp
-80106213:	83 ec 08             	sub    $0x8,%esp
+80106120:	55                   	push   %ebp
+80106121:	89 e5                	mov    %esp,%ebp
+80106123:	83 ec 08             	sub    $0x8,%esp
   return myproc()->pid;
-80106216:	e8 25 df ff ff       	call   80104140 <myproc>
-8010621b:	8b 40 10             	mov    0x10(%eax),%eax
+80106126:	e8 15 e0 ff ff       	call   80104140 <myproc>
+8010612b:	8b 40 10             	mov    0x10(%eax),%eax
 }
-8010621e:	c9                   	leave  
-8010621f:	c3                   	ret    
+8010612e:	c9                   	leave  
+8010612f:	c3                   	ret    
 
-80106220 <sys_sbrk>:
+80106130 <sys_sbrk>:
 
 int sys_sbrk(void)
 {
-80106220:	55                   	push   %ebp
-80106221:	89 e5                	mov    %esp,%ebp
-80106223:	53                   	push   %ebx
+80106130:	55                   	push   %ebp
+80106131:	89 e5                	mov    %esp,%ebp
+80106133:	53                   	push   %ebx
   int addr;
   int n;
 
   if (argint(0, &n) < 0)
-80106224:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80106134:	8d 45 f4             	lea    -0xc(%ebp),%eax
 {
-80106227:	83 ec 1c             	sub    $0x1c,%esp
+80106137:	83 ec 1c             	sub    $0x1c,%esp
   if (argint(0, &n) < 0)
-8010622a:	50                   	push   %eax
-8010622b:	6a 00                	push   $0x0
-8010622d:	e8 be ee ff ff       	call   801050f0 <argint>
-80106232:	83 c4 10             	add    $0x10,%esp
-80106235:	85 c0                	test   %eax,%eax
-80106237:	78 27                	js     80106260 <sys_sbrk+0x40>
+8010613a:	50                   	push   %eax
+8010613b:	6a 00                	push   $0x0
+8010613d:	e8 ae ef ff ff       	call   801050f0 <argint>
+80106142:	83 c4 10             	add    $0x10,%esp
+80106145:	85 c0                	test   %eax,%eax
+80106147:	78 27                	js     80106170 <sys_sbrk+0x40>
     return -1;
   addr = myproc()->sz;
-80106239:	e8 02 df ff ff       	call   80104140 <myproc>
+80106149:	e8 f2 df ff ff       	call   80104140 <myproc>
   if (growproc(n) < 0)
-8010623e:	83 ec 0c             	sub    $0xc,%esp
+8010614e:	83 ec 0c             	sub    $0xc,%esp
   addr = myproc()->sz;
-80106241:	8b 18                	mov    (%eax),%ebx
+80106151:	8b 18                	mov    (%eax),%ebx
   if (growproc(n) < 0)
-80106243:	ff 75 f4             	push   -0xc(%ebp)
-80106246:	e8 15 e0 ff ff       	call   80104260 <growproc>
-8010624b:	83 c4 10             	add    $0x10,%esp
-8010624e:	85 c0                	test   %eax,%eax
-80106250:	78 0e                	js     80106260 <sys_sbrk+0x40>
+80106153:	ff 75 f4             	push   -0xc(%ebp)
+80106156:	e8 05 e1 ff ff       	call   80104260 <growproc>
+8010615b:	83 c4 10             	add    $0x10,%esp
+8010615e:	85 c0                	test   %eax,%eax
+80106160:	78 0e                	js     80106170 <sys_sbrk+0x40>
     return -1;
   return addr;
 }
-80106252:	89 d8                	mov    %ebx,%eax
-80106254:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-80106257:	c9                   	leave  
-80106258:	c3                   	ret    
-80106259:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80106162:	89 d8                	mov    %ebx,%eax
+80106164:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+80106167:	c9                   	leave  
+80106168:	c3                   	ret    
+80106169:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     return -1;
-80106260:	bb ff ff ff ff       	mov    $0xffffffff,%ebx
-80106265:	eb eb                	jmp    80106252 <sys_sbrk+0x32>
-80106267:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010626e:	66 90                	xchg   %ax,%ax
+80106170:	bb ff ff ff ff       	mov    $0xffffffff,%ebx
+80106175:	eb eb                	jmp    80106162 <sys_sbrk+0x32>
+80106177:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010617e:	66 90                	xchg   %ax,%ax
 
-80106270 <sys_sleep>:
+80106180 <sys_sleep>:
 
 int sys_sleep(void)
 {
-80106270:	55                   	push   %ebp
-80106271:	89 e5                	mov    %esp,%ebp
-80106273:	53                   	push   %ebx
+80106180:	55                   	push   %ebp
+80106181:	89 e5                	mov    %esp,%ebp
+80106183:	53                   	push   %ebx
   int n;
   uint ticks0;
 
   if (argint(0, &n) < 0)
-80106274:	8d 45 f4             	lea    -0xc(%ebp),%eax
+80106184:	8d 45 f4             	lea    -0xc(%ebp),%eax
 {
-80106277:	83 ec 1c             	sub    $0x1c,%esp
+80106187:	83 ec 1c             	sub    $0x1c,%esp
   if (argint(0, &n) < 0)
-8010627a:	50                   	push   %eax
-8010627b:	6a 00                	push   $0x0
-8010627d:	e8 6e ee ff ff       	call   801050f0 <argint>
-80106282:	83 c4 10             	add    $0x10,%esp
-80106285:	85 c0                	test   %eax,%eax
-80106287:	0f 88 8a 00 00 00    	js     80106317 <sys_sleep+0xa7>
+8010618a:	50                   	push   %eax
+8010618b:	6a 00                	push   $0x0
+8010618d:	e8 5e ef ff ff       	call   801050f0 <argint>
+80106192:	83 c4 10             	add    $0x10,%esp
+80106195:	85 c0                	test   %eax,%eax
+80106197:	0f 88 8a 00 00 00    	js     80106227 <sys_sleep+0xa7>
     return -1;
   acquire(&tickslock);
-8010628d:	83 ec 0c             	sub    $0xc,%esp
-80106290:	68 c0 58 11 80       	push   $0x801158c0
-80106295:	e8 d6 ea ff ff       	call   80104d70 <acquire>
+8010619d:	83 ec 0c             	sub    $0xc,%esp
+801061a0:	68 c0 58 11 80       	push   $0x801158c0
+801061a5:	e8 c6 eb ff ff       	call   80104d70 <acquire>
   ticks0 = ticks;
   while (ticks - ticks0 < n)
-8010629a:	8b 55 f4             	mov    -0xc(%ebp),%edx
+801061aa:	8b 55 f4             	mov    -0xc(%ebp),%edx
   ticks0 = ticks;
-8010629d:	8b 1d a0 58 11 80    	mov    0x801158a0,%ebx
+801061ad:	8b 1d a0 58 11 80    	mov    0x801158a0,%ebx
   while (ticks - ticks0 < n)
-801062a3:	83 c4 10             	add    $0x10,%esp
-801062a6:	85 d2                	test   %edx,%edx
-801062a8:	75 27                	jne    801062d1 <sys_sleep+0x61>
-801062aa:	eb 54                	jmp    80106300 <sys_sleep+0x90>
-801062ac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801061b3:	83 c4 10             	add    $0x10,%esp
+801061b6:	85 d2                	test   %edx,%edx
+801061b8:	75 27                	jne    801061e1 <sys_sleep+0x61>
+801061ba:	eb 54                	jmp    80106210 <sys_sleep+0x90>
+801061bc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     if (myproc()->killed)
     {
       release(&tickslock);
       return -1;
     }
     sleep(&ticks, &tickslock);
-801062b0:	83 ec 08             	sub    $0x8,%esp
-801062b3:	68 c0 58 11 80       	push   $0x801158c0
-801062b8:	68 a0 58 11 80       	push   $0x801158a0
-801062bd:	e8 4e e5 ff ff       	call   80104810 <sleep>
+801061c0:	83 ec 08             	sub    $0x8,%esp
+801061c3:	68 c0 58 11 80       	push   $0x801158c0
+801061c8:	68 a0 58 11 80       	push   $0x801158a0
+801061cd:	e8 3e e6 ff ff       	call   80104810 <sleep>
   while (ticks - ticks0 < n)
-801062c2:	a1 a0 58 11 80       	mov    0x801158a0,%eax
-801062c7:	83 c4 10             	add    $0x10,%esp
-801062ca:	29 d8                	sub    %ebx,%eax
-801062cc:	3b 45 f4             	cmp    -0xc(%ebp),%eax
-801062cf:	73 2f                	jae    80106300 <sys_sleep+0x90>
+801061d2:	a1 a0 58 11 80       	mov    0x801158a0,%eax
+801061d7:	83 c4 10             	add    $0x10,%esp
+801061da:	29 d8                	sub    %ebx,%eax
+801061dc:	3b 45 f4             	cmp    -0xc(%ebp),%eax
+801061df:	73 2f                	jae    80106210 <sys_sleep+0x90>
     if (myproc()->killed)
-801062d1:	e8 6a de ff ff       	call   80104140 <myproc>
-801062d6:	8b 40 24             	mov    0x24(%eax),%eax
-801062d9:	85 c0                	test   %eax,%eax
-801062db:	74 d3                	je     801062b0 <sys_sleep+0x40>
+801061e1:	e8 5a df ff ff       	call   80104140 <myproc>
+801061e6:	8b 40 24             	mov    0x24(%eax),%eax
+801061e9:	85 c0                	test   %eax,%eax
+801061eb:	74 d3                	je     801061c0 <sys_sleep+0x40>
       release(&tickslock);
-801062dd:	83 ec 0c             	sub    $0xc,%esp
-801062e0:	68 c0 58 11 80       	push   $0x801158c0
-801062e5:	e8 26 ea ff ff       	call   80104d10 <release>
+801061ed:	83 ec 0c             	sub    $0xc,%esp
+801061f0:	68 c0 58 11 80       	push   $0x801158c0
+801061f5:	e8 16 eb ff ff       	call   80104d10 <release>
   }
   release(&tickslock);
   return 0;
 }
-801062ea:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+801061fa:	8b 5d fc             	mov    -0x4(%ebp),%ebx
       return -1;
-801062ed:	83 c4 10             	add    $0x10,%esp
-801062f0:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+801061fd:	83 c4 10             	add    $0x10,%esp
+80106200:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-801062f5:	c9                   	leave  
-801062f6:	c3                   	ret    
-801062f7:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801062fe:	66 90                	xchg   %ax,%ax
+80106205:	c9                   	leave  
+80106206:	c3                   	ret    
+80106207:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010620e:	66 90                	xchg   %ax,%ax
   release(&tickslock);
-80106300:	83 ec 0c             	sub    $0xc,%esp
-80106303:	68 c0 58 11 80       	push   $0x801158c0
-80106308:	e8 03 ea ff ff       	call   80104d10 <release>
+80106210:	83 ec 0c             	sub    $0xc,%esp
+80106213:	68 c0 58 11 80       	push   $0x801158c0
+80106218:	e8 f3 ea ff ff       	call   80104d10 <release>
   return 0;
-8010630d:	83 c4 10             	add    $0x10,%esp
-80106310:	31 c0                	xor    %eax,%eax
+8010621d:	83 c4 10             	add    $0x10,%esp
+80106220:	31 c0                	xor    %eax,%eax
 }
-80106312:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-80106315:	c9                   	leave  
-80106316:	c3                   	ret    
+80106222:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+80106225:	c9                   	leave  
+80106226:	c3                   	ret    
     return -1;
-80106317:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-8010631c:	eb f4                	jmp    80106312 <sys_sleep+0xa2>
-8010631e:	66 90                	xchg   %ax,%ax
+80106227:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+8010622c:	eb f4                	jmp    80106222 <sys_sleep+0xa2>
+8010622e:	66 90                	xchg   %ax,%ax
 
-80106320 <sys_uptime>:
+80106230 <sys_uptime>:
 
 // return how many clock tick interrupts have occurred
 // since start.
 int sys_uptime(void)
 {
-80106320:	55                   	push   %ebp
-80106321:	89 e5                	mov    %esp,%ebp
-80106323:	53                   	push   %ebx
-80106324:	83 ec 10             	sub    $0x10,%esp
+80106230:	55                   	push   %ebp
+80106231:	89 e5                	mov    %esp,%ebp
+80106233:	53                   	push   %ebx
+80106234:	83 ec 10             	sub    $0x10,%esp
   uint xticks;
 
   acquire(&tickslock);
-80106327:	68 c0 58 11 80       	push   $0x801158c0
-8010632c:	e8 3f ea ff ff       	call   80104d70 <acquire>
+80106237:	68 c0 58 11 80       	push   $0x801158c0
+8010623c:	e8 2f eb ff ff       	call   80104d70 <acquire>
   xticks = ticks;
-80106331:	8b 1d a0 58 11 80    	mov    0x801158a0,%ebx
+80106241:	8b 1d a0 58 11 80    	mov    0x801158a0,%ebx
   release(&tickslock);
-80106337:	c7 04 24 c0 58 11 80 	movl   $0x801158c0,(%esp)
-8010633e:	e8 cd e9 ff ff       	call   80104d10 <release>
+80106247:	c7 04 24 c0 58 11 80 	movl   $0x801158c0,(%esp)
+8010624e:	e8 bd ea ff ff       	call   80104d10 <release>
   return xticks;
 }
-80106343:	89 d8                	mov    %ebx,%eax
-80106345:	8b 5d fc             	mov    -0x4(%ebp),%ebx
-80106348:	c9                   	leave  
-80106349:	c3                   	ret    
-8010634a:	66 90                	xchg   %ax,%ax
-8010634c:	66 90                	xchg   %ax,%ax
-8010634e:	66 90                	xchg   %ax,%ax
+80106253:	89 d8                	mov    %ebx,%eax
+80106255:	8b 5d fc             	mov    -0x4(%ebp),%ebx
+80106258:	c9                   	leave  
+80106259:	c3                   	ret    
+8010625a:	66 90                	xchg   %ax,%ax
+8010625c:	66 90                	xchg   %ax,%ax
+8010625e:	66 90                	xchg   %ax,%ax
 
-80106350 <sys_find_digital_root>:
+80106260 <sys_find_digital_root>:
 #include "mmu.h"
 #include "proc.h"
 
 // return digital root of number given
 int sys_find_digital_root(void)
 {
-80106350:	55                   	push   %ebp
-80106351:	89 e5                	mov    %esp,%ebp
-80106353:	56                   	push   %esi
-80106354:	53                   	push   %ebx
+80106260:	55                   	push   %ebp
+80106261:	89 e5                	mov    %esp,%ebp
+80106263:	56                   	push   %esi
+80106264:	53                   	push   %ebx
     int n = myproc()->tf->ebx;
-80106355:	e8 e6 dd ff ff       	call   80104140 <myproc>
+80106265:	e8 d6 de ff ff       	call   80104140 <myproc>
     int res = 0;
-8010635a:	31 c9                	xor    %ecx,%ecx
+8010626a:	31 c9                	xor    %ecx,%ecx
     int n = myproc()->tf->ebx;
-8010635c:	8b 40 18             	mov    0x18(%eax),%eax
-8010635f:	8b 70 10             	mov    0x10(%eax),%esi
+8010626c:	8b 40 18             	mov    0x18(%eax),%eax
+8010626f:	8b 70 10             	mov    0x10(%eax),%esi
     while (n > 0)
-80106362:	85 f6                	test   %esi,%esi
-80106364:	7e 49                	jle    801063af <sys_find_digital_root+0x5f>
+80106272:	85 f6                	test   %esi,%esi
+80106274:	7e 49                	jle    801062bf <sys_find_digital_root+0x5f>
     {
         res += n % 10;
-80106366:	89 f0                	mov    %esi,%eax
-80106368:	ba 67 66 66 66       	mov    $0x66666667,%edx
-8010636d:	f7 ea                	imul   %edx
-8010636f:	89 f0                	mov    %esi,%eax
-80106371:	c1 f8 1f             	sar    $0x1f,%eax
-80106374:	c1 fa 02             	sar    $0x2,%edx
-80106377:	89 d1                	mov    %edx,%ecx
-80106379:	29 c1                	sub    %eax,%ecx
-8010637b:	8d 04 89             	lea    (%ecx,%ecx,4),%eax
-8010637e:	89 cb                	mov    %ecx,%ebx
-80106380:	01 c0                	add    %eax,%eax
-80106382:	29 c6                	sub    %eax,%esi
-80106384:	89 f1                	mov    %esi,%ecx
-80106386:	be cd cc cc cc       	mov    $0xcccccccd,%esi
-8010638b:	eb 1e                	jmp    801063ab <sys_find_digital_root+0x5b>
-8010638d:	8d 76 00             	lea    0x0(%esi),%esi
-80106390:	89 d8                	mov    %ebx,%eax
-80106392:	f7 e6                	mul    %esi
-80106394:	c1 ea 03             	shr    $0x3,%edx
-80106397:	8d 04 92             	lea    (%edx,%edx,4),%eax
-8010639a:	01 c0                	add    %eax,%eax
-8010639c:	29 c3                	sub    %eax,%ebx
-8010639e:	01 d9                	add    %ebx,%ecx
+80106276:	89 f0                	mov    %esi,%eax
+80106278:	ba 67 66 66 66       	mov    $0x66666667,%edx
+8010627d:	f7 ea                	imul   %edx
+8010627f:	89 f0                	mov    %esi,%eax
+80106281:	c1 f8 1f             	sar    $0x1f,%eax
+80106284:	c1 fa 02             	sar    $0x2,%edx
+80106287:	89 d1                	mov    %edx,%ecx
+80106289:	29 c1                	sub    %eax,%ecx
+8010628b:	8d 04 89             	lea    (%ecx,%ecx,4),%eax
+8010628e:	89 cb                	mov    %ecx,%ebx
+80106290:	01 c0                	add    %eax,%eax
+80106292:	29 c6                	sub    %eax,%esi
+80106294:	89 f1                	mov    %esi,%ecx
+80106296:	be cd cc cc cc       	mov    $0xcccccccd,%esi
+8010629b:	eb 1e                	jmp    801062bb <sys_find_digital_root+0x5b>
+8010629d:	8d 76 00             	lea    0x0(%esi),%esi
+801062a0:	89 d8                	mov    %ebx,%eax
+801062a2:	f7 e6                	mul    %esi
+801062a4:	c1 ea 03             	shr    $0x3,%edx
+801062a7:	8d 04 92             	lea    (%edx,%edx,4),%eax
+801062aa:	01 c0                	add    %eax,%eax
+801062ac:	29 c3                	sub    %eax,%ebx
+801062ae:	01 d9                	add    %ebx,%ecx
         n /= 10;
-801063a0:	89 d3                	mov    %edx,%ebx
+801062b0:	89 d3                	mov    %edx,%ebx
         if (res > 9)
             res -= 9;
-801063a2:	8d 41 f7             	lea    -0x9(%ecx),%eax
-801063a5:	83 f9 09             	cmp    $0x9,%ecx
-801063a8:	0f 4f c8             	cmovg  %eax,%ecx
+801062b2:	8d 41 f7             	lea    -0x9(%ecx),%eax
+801062b5:	83 f9 09             	cmp    $0x9,%ecx
+801062b8:	0f 4f c8             	cmovg  %eax,%ecx
     while (n > 0)
-801063ab:	85 db                	test   %ebx,%ebx
-801063ad:	75 e1                	jne    80106390 <sys_find_digital_root+0x40>
+801062bb:	85 db                	test   %ebx,%ebx
+801062bd:	75 e1                	jne    801062a0 <sys_find_digital_root+0x40>
     }
     return res;
-801063af:	5b                   	pop    %ebx
-801063b0:	89 c8                	mov    %ecx,%eax
-801063b2:	5e                   	pop    %esi
-801063b3:	5d                   	pop    %ebp
-801063b4:	c3                   	ret    
+801062bf:	5b                   	pop    %ebx
+801062c0:	89 c8                	mov    %ecx,%eax
+801062c2:	5e                   	pop    %esi
+801062c3:	5d                   	pop    %ebp
+801062c4:	c3                   	ret    
 
-801063b5 <alltraps>:
-801063b5:	1e                   	push   %ds
-801063b6:	06                   	push   %es
-801063b7:	0f a0                	push   %fs
-801063b9:	0f a8                	push   %gs
-801063bb:	60                   	pusha  
-801063bc:	66 b8 10 00          	mov    $0x10,%ax
-801063c0:	8e d8                	mov    %eax,%ds
-801063c2:	8e c0                	mov    %eax,%es
-801063c4:	54                   	push   %esp
-801063c5:	e8 c6 00 00 00       	call   80106490 <trap>
-801063ca:	83 c4 04             	add    $0x4,%esp
+801062c5 <alltraps>:
+801062c5:	1e                   	push   %ds
+801062c6:	06                   	push   %es
+801062c7:	0f a0                	push   %fs
+801062c9:	0f a8                	push   %gs
+801062cb:	60                   	pusha  
+801062cc:	66 b8 10 00          	mov    $0x10,%ax
+801062d0:	8e d8                	mov    %eax,%ds
+801062d2:	8e c0                	mov    %eax,%es
+801062d4:	54                   	push   %esp
+801062d5:	e8 c6 00 00 00       	call   801063a0 <trap>
+801062da:	83 c4 04             	add    $0x4,%esp
 
-801063cd <trapret>:
-801063cd:	61                   	popa   
-801063ce:	0f a9                	pop    %gs
-801063d0:	0f a1                	pop    %fs
-801063d2:	07                   	pop    %es
-801063d3:	1f                   	pop    %ds
-801063d4:	83 c4 08             	add    $0x8,%esp
-801063d7:	cf                   	iret   
-801063d8:	66 90                	xchg   %ax,%ax
-801063da:	66 90                	xchg   %ax,%ax
-801063dc:	66 90                	xchg   %ax,%ax
-801063de:	66 90                	xchg   %ax,%ax
+801062dd <trapret>:
+801062dd:	61                   	popa   
+801062de:	0f a9                	pop    %gs
+801062e0:	0f a1                	pop    %fs
+801062e2:	07                   	pop    %es
+801062e3:	1f                   	pop    %ds
+801062e4:	83 c4 08             	add    $0x8,%esp
+801062e7:	cf                   	iret   
+801062e8:	66 90                	xchg   %ax,%ax
+801062ea:	66 90                	xchg   %ax,%ax
+801062ec:	66 90                	xchg   %ax,%ax
+801062ee:	66 90                	xchg   %ax,%ax
 
-801063e0 <tvinit>:
+801062f0 <tvinit>:
 struct spinlock tickslock;
 uint ticks;
 
 void
 tvinit(void)
 {
-801063e0:	55                   	push   %ebp
+801062f0:	55                   	push   %ebp
   int i;
 
   for(i = 0; i < 256; i++)
-801063e1:	31 c0                	xor    %eax,%eax
+801062f1:	31 c0                	xor    %eax,%eax
 {
-801063e3:	89 e5                	mov    %esp,%ebp
-801063e5:	83 ec 08             	sub    $0x8,%esp
-801063e8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801063ef:	90                   	nop
+801062f3:	89 e5                	mov    %esp,%ebp
+801062f5:	83 ec 08             	sub    $0x8,%esp
+801062f8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801062ff:	90                   	nop
     SETGATE(idt[i], 0, SEG_KCODE<<3, vectors[i], 0);
-801063f0:	8b 14 85 08 b0 10 80 	mov    -0x7fef4ff8(,%eax,4),%edx
-801063f7:	c7 04 c5 02 59 11 80 	movl   $0x8e000008,-0x7feea6fe(,%eax,8)
-801063fe:	08 00 00 8e 
-80106402:	66 89 14 c5 00 59 11 	mov    %dx,-0x7feea700(,%eax,8)
-80106409:	80 
-8010640a:	c1 ea 10             	shr    $0x10,%edx
-8010640d:	66 89 14 c5 06 59 11 	mov    %dx,-0x7feea6fa(,%eax,8)
-80106414:	80 
+80106300:	8b 14 85 08 b0 10 80 	mov    -0x7fef4ff8(,%eax,4),%edx
+80106307:	c7 04 c5 02 59 11 80 	movl   $0x8e000008,-0x7feea6fe(,%eax,8)
+8010630e:	08 00 00 8e 
+80106312:	66 89 14 c5 00 59 11 	mov    %dx,-0x7feea700(,%eax,8)
+80106319:	80 
+8010631a:	c1 ea 10             	shr    $0x10,%edx
+8010631d:	66 89 14 c5 06 59 11 	mov    %dx,-0x7feea6fa(,%eax,8)
+80106324:	80 
   for(i = 0; i < 256; i++)
-80106415:	83 c0 01             	add    $0x1,%eax
-80106418:	3d 00 01 00 00       	cmp    $0x100,%eax
-8010641d:	75 d1                	jne    801063f0 <tvinit+0x10>
+80106325:	83 c0 01             	add    $0x1,%eax
+80106328:	3d 00 01 00 00       	cmp    $0x100,%eax
+8010632d:	75 d1                	jne    80106300 <tvinit+0x10>
   SETGATE(idt[T_SYSCALL], 1, SEG_KCODE<<3, vectors[T_SYSCALL], DPL_USER);
 
   initlock(&tickslock, "time");
-8010641f:	83 ec 08             	sub    $0x8,%esp
+8010632f:	83 ec 08             	sub    $0x8,%esp
   SETGATE(idt[T_SYSCALL], 1, SEG_KCODE<<3, vectors[T_SYSCALL], DPL_USER);
-80106422:	a1 08 b1 10 80       	mov    0x8010b108,%eax
-80106427:	c7 05 02 5b 11 80 08 	movl   $0xef000008,0x80115b02
-8010642e:	00 00 ef 
+80106332:	a1 08 b1 10 80       	mov    0x8010b108,%eax
+80106337:	c7 05 02 5b 11 80 08 	movl   $0xef000008,0x80115b02
+8010633e:	00 00 ef 
   initlock(&tickslock, "time");
-80106431:	68 01 85 10 80       	push   $0x80108501
-80106436:	68 c0 58 11 80       	push   $0x801158c0
+80106341:	68 78 84 10 80       	push   $0x80108478
+80106346:	68 c0 58 11 80       	push   $0x801158c0
   SETGATE(idt[T_SYSCALL], 1, SEG_KCODE<<3, vectors[T_SYSCALL], DPL_USER);
-8010643b:	66 a3 00 5b 11 80    	mov    %ax,0x80115b00
-80106441:	c1 e8 10             	shr    $0x10,%eax
-80106444:	66 a3 06 5b 11 80    	mov    %ax,0x80115b06
+8010634b:	66 a3 00 5b 11 80    	mov    %ax,0x80115b00
+80106351:	c1 e8 10             	shr    $0x10,%eax
+80106354:	66 a3 06 5b 11 80    	mov    %ax,0x80115b06
   initlock(&tickslock, "time");
-8010644a:	e8 51 e7 ff ff       	call   80104ba0 <initlock>
+8010635a:	e8 41 e8 ff ff       	call   80104ba0 <initlock>
 }
-8010644f:	83 c4 10             	add    $0x10,%esp
-80106452:	c9                   	leave  
-80106453:	c3                   	ret    
-80106454:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010645b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-8010645f:	90                   	nop
+8010635f:	83 c4 10             	add    $0x10,%esp
+80106362:	c9                   	leave  
+80106363:	c3                   	ret    
+80106364:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010636b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+8010636f:	90                   	nop
 
-80106460 <idtinit>:
+80106370 <idtinit>:
 
 void
 idtinit(void)
 {
-80106460:	55                   	push   %ebp
+80106370:	55                   	push   %ebp
   pd[0] = size - 1;
-80106461:	b8 ff 07 00 00       	mov    $0x7ff,%eax
-80106466:	89 e5                	mov    %esp,%ebp
-80106468:	83 ec 10             	sub    $0x10,%esp
-8010646b:	66 89 45 fa          	mov    %ax,-0x6(%ebp)
+80106371:	b8 ff 07 00 00       	mov    $0x7ff,%eax
+80106376:	89 e5                	mov    %esp,%ebp
+80106378:	83 ec 10             	sub    $0x10,%esp
+8010637b:	66 89 45 fa          	mov    %ax,-0x6(%ebp)
   pd[1] = (uint)p;
-8010646f:	b8 00 59 11 80       	mov    $0x80115900,%eax
-80106474:	66 89 45 fc          	mov    %ax,-0x4(%ebp)
+8010637f:	b8 00 59 11 80       	mov    $0x80115900,%eax
+80106384:	66 89 45 fc          	mov    %ax,-0x4(%ebp)
   pd[2] = (uint)p >> 16;
-80106478:	c1 e8 10             	shr    $0x10,%eax
-8010647b:	66 89 45 fe          	mov    %ax,-0x2(%ebp)
+80106388:	c1 e8 10             	shr    $0x10,%eax
+8010638b:	66 89 45 fe          	mov    %ax,-0x2(%ebp)
   asm volatile("lidt (%0)" : : "r"(pd));
-8010647f:	8d 45 fa             	lea    -0x6(%ebp),%eax
-80106482:	0f 01 18             	lidtl  (%eax)
+8010638f:	8d 45 fa             	lea    -0x6(%ebp),%eax
+80106392:	0f 01 18             	lidtl  (%eax)
   lidt(idt, sizeof(idt));
 }
-80106485:	c9                   	leave  
-80106486:	c3                   	ret    
-80106487:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010648e:	66 90                	xchg   %ax,%ax
+80106395:	c9                   	leave  
+80106396:	c3                   	ret    
+80106397:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010639e:	66 90                	xchg   %ax,%ax
 
-80106490 <trap>:
+801063a0 <trap>:
 
 //PAGEBREAK: 41
 void
 trap(struct trapframe *tf)
 {
-80106490:	55                   	push   %ebp
-80106491:	89 e5                	mov    %esp,%ebp
-80106493:	57                   	push   %edi
-80106494:	56                   	push   %esi
-80106495:	53                   	push   %ebx
-80106496:	83 ec 1c             	sub    $0x1c,%esp
-80106499:	8b 5d 08             	mov    0x8(%ebp),%ebx
+801063a0:	55                   	push   %ebp
+801063a1:	89 e5                	mov    %esp,%ebp
+801063a3:	57                   	push   %edi
+801063a4:	56                   	push   %esi
+801063a5:	53                   	push   %ebx
+801063a6:	83 ec 1c             	sub    $0x1c,%esp
+801063a9:	8b 5d 08             	mov    0x8(%ebp),%ebx
   if(tf->trapno == T_SYSCALL){
-8010649c:	8b 43 30             	mov    0x30(%ebx),%eax
-8010649f:	83 f8 40             	cmp    $0x40,%eax
-801064a2:	0f 84 68 01 00 00    	je     80106610 <trap+0x180>
+801063ac:	8b 43 30             	mov    0x30(%ebx),%eax
+801063af:	83 f8 40             	cmp    $0x40,%eax
+801063b2:	0f 84 68 01 00 00    	je     80106520 <trap+0x180>
     if(myproc()->killed)
       exit();
     return;
   }
 
   switch(tf->trapno){
-801064a8:	83 e8 20             	sub    $0x20,%eax
-801064ab:	83 f8 1f             	cmp    $0x1f,%eax
-801064ae:	0f 87 8c 00 00 00    	ja     80106540 <trap+0xb0>
-801064b4:	ff 24 85 a8 85 10 80 	jmp    *-0x7fef7a58(,%eax,4)
-801064bb:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-801064bf:	90                   	nop
+801063b8:	83 e8 20             	sub    $0x20,%eax
+801063bb:	83 f8 1f             	cmp    $0x1f,%eax
+801063be:	0f 87 8c 00 00 00    	ja     80106450 <trap+0xb0>
+801063c4:	ff 24 85 20 85 10 80 	jmp    *-0x7fef7ae0(,%eax,4)
+801063cb:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801063cf:	90                   	nop
       release(&tickslock);
     }
     lapiceoi();
     break;
   case T_IRQ0 + IRQ_IDE:
     ideintr();
-801064c0:	e8 4b c5 ff ff       	call   80102a10 <ideintr>
+801063d0:	e8 3b c6 ff ff       	call   80102a10 <ideintr>
     lapiceoi();
-801064c5:	e8 16 cc ff ff       	call   801030e0 <lapiceoi>
+801063d5:	e8 06 cd ff ff       	call   801030e0 <lapiceoi>
   }
 
   // Force process exit if it has been killed and is in user space.
   // (If it is still executing in the kernel, let it keep running
   // until it gets to the regular system call return.)
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
-801064ca:	e8 71 dc ff ff       	call   80104140 <myproc>
-801064cf:	85 c0                	test   %eax,%eax
-801064d1:	74 1d                	je     801064f0 <trap+0x60>
-801064d3:	e8 68 dc ff ff       	call   80104140 <myproc>
-801064d8:	8b 50 24             	mov    0x24(%eax),%edx
-801064db:	85 d2                	test   %edx,%edx
-801064dd:	74 11                	je     801064f0 <trap+0x60>
-801064df:	0f b7 43 3c          	movzwl 0x3c(%ebx),%eax
-801064e3:	83 e0 03             	and    $0x3,%eax
-801064e6:	66 83 f8 03          	cmp    $0x3,%ax
-801064ea:	0f 84 e8 01 00 00    	je     801066d8 <trap+0x248>
+801063da:	e8 61 dd ff ff       	call   80104140 <myproc>
+801063df:	85 c0                	test   %eax,%eax
+801063e1:	74 1d                	je     80106400 <trap+0x60>
+801063e3:	e8 58 dd ff ff       	call   80104140 <myproc>
+801063e8:	8b 50 24             	mov    0x24(%eax),%edx
+801063eb:	85 d2                	test   %edx,%edx
+801063ed:	74 11                	je     80106400 <trap+0x60>
+801063ef:	0f b7 43 3c          	movzwl 0x3c(%ebx),%eax
+801063f3:	83 e0 03             	and    $0x3,%eax
+801063f6:	66 83 f8 03          	cmp    $0x3,%ax
+801063fa:	0f 84 e8 01 00 00    	je     801065e8 <trap+0x248>
     exit();
 
   // Force process to give up CPU on clock tick.
   // If interrupts were on while locks held, would need to check nlock.
   if(myproc() && myproc()->state == RUNNING &&
-801064f0:	e8 4b dc ff ff       	call   80104140 <myproc>
-801064f5:	85 c0                	test   %eax,%eax
-801064f7:	74 0f                	je     80106508 <trap+0x78>
-801064f9:	e8 42 dc ff ff       	call   80104140 <myproc>
-801064fe:	83 78 0c 04          	cmpl   $0x4,0xc(%eax)
-80106502:	0f 84 b8 00 00 00    	je     801065c0 <trap+0x130>
+80106400:	e8 3b dd ff ff       	call   80104140 <myproc>
+80106405:	85 c0                	test   %eax,%eax
+80106407:	74 0f                	je     80106418 <trap+0x78>
+80106409:	e8 32 dd ff ff       	call   80104140 <myproc>
+8010640e:	83 78 0c 04          	cmpl   $0x4,0xc(%eax)
+80106412:	0f 84 b8 00 00 00    	je     801064d0 <trap+0x130>
      tf->trapno == T_IRQ0+IRQ_TIMER)
     yield();
 
   // Check if the process has been killed since we yielded
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
-80106508:	e8 33 dc ff ff       	call   80104140 <myproc>
-8010650d:	85 c0                	test   %eax,%eax
-8010650f:	74 1d                	je     8010652e <trap+0x9e>
-80106511:	e8 2a dc ff ff       	call   80104140 <myproc>
-80106516:	8b 40 24             	mov    0x24(%eax),%eax
-80106519:	85 c0                	test   %eax,%eax
-8010651b:	74 11                	je     8010652e <trap+0x9e>
-8010651d:	0f b7 43 3c          	movzwl 0x3c(%ebx),%eax
-80106521:	83 e0 03             	and    $0x3,%eax
-80106524:	66 83 f8 03          	cmp    $0x3,%ax
-80106528:	0f 84 0f 01 00 00    	je     8010663d <trap+0x1ad>
+80106418:	e8 23 dd ff ff       	call   80104140 <myproc>
+8010641d:	85 c0                	test   %eax,%eax
+8010641f:	74 1d                	je     8010643e <trap+0x9e>
+80106421:	e8 1a dd ff ff       	call   80104140 <myproc>
+80106426:	8b 40 24             	mov    0x24(%eax),%eax
+80106429:	85 c0                	test   %eax,%eax
+8010642b:	74 11                	je     8010643e <trap+0x9e>
+8010642d:	0f b7 43 3c          	movzwl 0x3c(%ebx),%eax
+80106431:	83 e0 03             	and    $0x3,%eax
+80106434:	66 83 f8 03          	cmp    $0x3,%ax
+80106438:	0f 84 0f 01 00 00    	je     8010654d <trap+0x1ad>
     exit();
 }
-8010652e:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80106531:	5b                   	pop    %ebx
-80106532:	5e                   	pop    %esi
-80106533:	5f                   	pop    %edi
-80106534:	5d                   	pop    %ebp
-80106535:	c3                   	ret    
-80106536:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010653d:	8d 76 00             	lea    0x0(%esi),%esi
+8010643e:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80106441:	5b                   	pop    %ebx
+80106442:	5e                   	pop    %esi
+80106443:	5f                   	pop    %edi
+80106444:	5d                   	pop    %ebp
+80106445:	c3                   	ret    
+80106446:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010644d:	8d 76 00             	lea    0x0(%esi),%esi
     if(myproc() == 0 || (tf->cs&3) == 0){
-80106540:	e8 fb db ff ff       	call   80104140 <myproc>
-80106545:	8b 7b 38             	mov    0x38(%ebx),%edi
-80106548:	85 c0                	test   %eax,%eax
-8010654a:	0f 84 a2 01 00 00    	je     801066f2 <trap+0x262>
-80106550:	f6 43 3c 03          	testb  $0x3,0x3c(%ebx)
-80106554:	0f 84 98 01 00 00    	je     801066f2 <trap+0x262>
+80106450:	e8 eb dc ff ff       	call   80104140 <myproc>
+80106455:	8b 7b 38             	mov    0x38(%ebx),%edi
+80106458:	85 c0                	test   %eax,%eax
+8010645a:	0f 84 a2 01 00 00    	je     80106602 <trap+0x262>
+80106460:	f6 43 3c 03          	testb  $0x3,0x3c(%ebx)
+80106464:	0f 84 98 01 00 00    	je     80106602 <trap+0x262>
 
 static inline uint
 rcr2(void)
 {
   uint val;
   asm volatile("movl %%cr2,%0" : "=r"(val));
-8010655a:	0f 20 d1             	mov    %cr2,%ecx
-8010655d:	89 4d d8             	mov    %ecx,-0x28(%ebp)
+8010646a:	0f 20 d1             	mov    %cr2,%ecx
+8010646d:	89 4d d8             	mov    %ecx,-0x28(%ebp)
     cprintf("pid %d %s: trap %d err %d on cpu %d "
-80106560:	e8 bb db ff ff       	call   80104120 <cpuid>
-80106565:	8b 73 30             	mov    0x30(%ebx),%esi
-80106568:	89 45 dc             	mov    %eax,-0x24(%ebp)
-8010656b:	8b 43 34             	mov    0x34(%ebx),%eax
-8010656e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+80106470:	e8 ab dc ff ff       	call   80104120 <cpuid>
+80106475:	8b 73 30             	mov    0x30(%ebx),%esi
+80106478:	89 45 dc             	mov    %eax,-0x24(%ebp)
+8010647b:	8b 43 34             	mov    0x34(%ebx),%eax
+8010647e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
             myproc()->pid, myproc()->name, tf->trapno,
-80106571:	e8 ca db ff ff       	call   80104140 <myproc>
-80106576:	89 45 e0             	mov    %eax,-0x20(%ebp)
-80106579:	e8 c2 db ff ff       	call   80104140 <myproc>
+80106481:	e8 ba dc ff ff       	call   80104140 <myproc>
+80106486:	89 45 e0             	mov    %eax,-0x20(%ebp)
+80106489:	e8 b2 dc ff ff       	call   80104140 <myproc>
     cprintf("pid %d %s: trap %d err %d on cpu %d "
-8010657e:	8b 4d d8             	mov    -0x28(%ebp),%ecx
-80106581:	8b 55 dc             	mov    -0x24(%ebp),%edx
-80106584:	51                   	push   %ecx
-80106585:	57                   	push   %edi
-80106586:	52                   	push   %edx
-80106587:	ff 75 e4             	push   -0x1c(%ebp)
-8010658a:	56                   	push   %esi
+8010648e:	8b 4d d8             	mov    -0x28(%ebp),%ecx
+80106491:	8b 55 dc             	mov    -0x24(%ebp),%edx
+80106494:	51                   	push   %ecx
+80106495:	57                   	push   %edi
+80106496:	52                   	push   %edx
+80106497:	ff 75 e4             	push   -0x1c(%ebp)
+8010649a:	56                   	push   %esi
             myproc()->pid, myproc()->name, tf->trapno,
-8010658b:	8b 75 e0             	mov    -0x20(%ebp),%esi
-8010658e:	83 c6 6c             	add    $0x6c,%esi
+8010649b:	8b 75 e0             	mov    -0x20(%ebp),%esi
+8010649e:	83 c6 6c             	add    $0x6c,%esi
     cprintf("pid %d %s: trap %d err %d on cpu %d "
-80106591:	56                   	push   %esi
-80106592:	ff 70 10             	push   0x10(%eax)
-80106595:	68 64 85 10 80       	push   $0x80108564
-8010659a:	e8 b1 a1 ff ff       	call   80100750 <cprintf>
+801064a1:	56                   	push   %esi
+801064a2:	ff 70 10             	push   0x10(%eax)
+801064a5:	68 dc 84 10 80       	push   $0x801084dc
+801064aa:	e8 a1 a2 ff ff       	call   80100750 <cprintf>
     myproc()->killed = 1;
-8010659f:	83 c4 20             	add    $0x20,%esp
-801065a2:	e8 99 db ff ff       	call   80104140 <myproc>
-801065a7:	c7 40 24 01 00 00 00 	movl   $0x1,0x24(%eax)
+801064af:	83 c4 20             	add    $0x20,%esp
+801064b2:	e8 89 dc ff ff       	call   80104140 <myproc>
+801064b7:	c7 40 24 01 00 00 00 	movl   $0x1,0x24(%eax)
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
-801065ae:	e8 8d db ff ff       	call   80104140 <myproc>
-801065b3:	85 c0                	test   %eax,%eax
-801065b5:	0f 85 18 ff ff ff    	jne    801064d3 <trap+0x43>
-801065bb:	e9 30 ff ff ff       	jmp    801064f0 <trap+0x60>
+801064be:	e8 7d dc ff ff       	call   80104140 <myproc>
+801064c3:	85 c0                	test   %eax,%eax
+801064c5:	0f 85 18 ff ff ff    	jne    801063e3 <trap+0x43>
+801064cb:	e9 30 ff ff ff       	jmp    80106400 <trap+0x60>
   if(myproc() && myproc()->state == RUNNING &&
-801065c0:	83 7b 30 20          	cmpl   $0x20,0x30(%ebx)
-801065c4:	0f 85 3e ff ff ff    	jne    80106508 <trap+0x78>
+801064d0:	83 7b 30 20          	cmpl   $0x20,0x30(%ebx)
+801064d4:	0f 85 3e ff ff ff    	jne    80106418 <trap+0x78>
     yield();
-801065ca:	e8 f1 e1 ff ff       	call   801047c0 <yield>
-801065cf:	e9 34 ff ff ff       	jmp    80106508 <trap+0x78>
-801065d4:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801064da:	e8 e1 e2 ff ff       	call   801047c0 <yield>
+801064df:	e9 34 ff ff ff       	jmp    80106418 <trap+0x78>
+801064e4:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     cprintf("cpu%d: spurious interrupt at %x:%x\n",
-801065d8:	8b 7b 38             	mov    0x38(%ebx),%edi
-801065db:	0f b7 73 3c          	movzwl 0x3c(%ebx),%esi
-801065df:	e8 3c db ff ff       	call   80104120 <cpuid>
-801065e4:	57                   	push   %edi
-801065e5:	56                   	push   %esi
-801065e6:	50                   	push   %eax
-801065e7:	68 0c 85 10 80       	push   $0x8010850c
-801065ec:	e8 5f a1 ff ff       	call   80100750 <cprintf>
+801064e8:	8b 7b 38             	mov    0x38(%ebx),%edi
+801064eb:	0f b7 73 3c          	movzwl 0x3c(%ebx),%esi
+801064ef:	e8 2c dc ff ff       	call   80104120 <cpuid>
+801064f4:	57                   	push   %edi
+801064f5:	56                   	push   %esi
+801064f6:	50                   	push   %eax
+801064f7:	68 84 84 10 80       	push   $0x80108484
+801064fc:	e8 4f a2 ff ff       	call   80100750 <cprintf>
     lapiceoi();
-801065f1:	e8 ea ca ff ff       	call   801030e0 <lapiceoi>
+80106501:	e8 da cb ff ff       	call   801030e0 <lapiceoi>
     break;
-801065f6:	83 c4 10             	add    $0x10,%esp
+80106506:	83 c4 10             	add    $0x10,%esp
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
-801065f9:	e8 42 db ff ff       	call   80104140 <myproc>
-801065fe:	85 c0                	test   %eax,%eax
-80106600:	0f 85 cd fe ff ff    	jne    801064d3 <trap+0x43>
-80106606:	e9 e5 fe ff ff       	jmp    801064f0 <trap+0x60>
-8010660b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-8010660f:	90                   	nop
+80106509:	e8 32 dc ff ff       	call   80104140 <myproc>
+8010650e:	85 c0                	test   %eax,%eax
+80106510:	0f 85 cd fe ff ff    	jne    801063e3 <trap+0x43>
+80106516:	e9 e5 fe ff ff       	jmp    80106400 <trap+0x60>
+8010651b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+8010651f:	90                   	nop
     if(myproc()->killed)
-80106610:	e8 2b db ff ff       	call   80104140 <myproc>
-80106615:	8b 70 24             	mov    0x24(%eax),%esi
-80106618:	85 f6                	test   %esi,%esi
-8010661a:	0f 85 c8 00 00 00    	jne    801066e8 <trap+0x258>
+80106520:	e8 1b dc ff ff       	call   80104140 <myproc>
+80106525:	8b 70 24             	mov    0x24(%eax),%esi
+80106528:	85 f6                	test   %esi,%esi
+8010652a:	0f 85 c8 00 00 00    	jne    801065f8 <trap+0x258>
     myproc()->tf = tf;
-80106620:	e8 1b db ff ff       	call   80104140 <myproc>
-80106625:	89 58 18             	mov    %ebx,0x18(%eax)
+80106530:	e8 0b dc ff ff       	call   80104140 <myproc>
+80106535:	89 58 18             	mov    %ebx,0x18(%eax)
     syscall();
-80106628:	e8 03 ec ff ff       	call   80105230 <syscall>
+80106538:	e8 f3 ec ff ff       	call   80105230 <syscall>
     if(myproc()->killed)
-8010662d:	e8 0e db ff ff       	call   80104140 <myproc>
-80106632:	8b 48 24             	mov    0x24(%eax),%ecx
-80106635:	85 c9                	test   %ecx,%ecx
-80106637:	0f 84 f1 fe ff ff    	je     8010652e <trap+0x9e>
+8010653d:	e8 fe db ff ff       	call   80104140 <myproc>
+80106542:	8b 48 24             	mov    0x24(%eax),%ecx
+80106545:	85 c9                	test   %ecx,%ecx
+80106547:	0f 84 f1 fe ff ff    	je     8010643e <trap+0x9e>
 }
-8010663d:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80106640:	5b                   	pop    %ebx
-80106641:	5e                   	pop    %esi
-80106642:	5f                   	pop    %edi
-80106643:	5d                   	pop    %ebp
+8010654d:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80106550:	5b                   	pop    %ebx
+80106551:	5e                   	pop    %esi
+80106552:	5f                   	pop    %edi
+80106553:	5d                   	pop    %ebp
       exit();
-80106644:	e9 17 df ff ff       	jmp    80104560 <exit>
-80106649:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80106554:	e9 07 e0 ff ff       	jmp    80104560 <exit>
+80106559:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     uartintr();
-80106650:	e8 3b 02 00 00       	call   80106890 <uartintr>
+80106560:	e8 3b 02 00 00       	call   801067a0 <uartintr>
     lapiceoi();
-80106655:	e8 86 ca ff ff       	call   801030e0 <lapiceoi>
+80106565:	e8 76 cb ff ff       	call   801030e0 <lapiceoi>
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
-8010665a:	e8 e1 da ff ff       	call   80104140 <myproc>
-8010665f:	85 c0                	test   %eax,%eax
-80106661:	0f 85 6c fe ff ff    	jne    801064d3 <trap+0x43>
-80106667:	e9 84 fe ff ff       	jmp    801064f0 <trap+0x60>
-8010666c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+8010656a:	e8 d1 db ff ff       	call   80104140 <myproc>
+8010656f:	85 c0                	test   %eax,%eax
+80106571:	0f 85 6c fe ff ff    	jne    801063e3 <trap+0x43>
+80106577:	e9 84 fe ff ff       	jmp    80106400 <trap+0x60>
+8010657c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     kbdintr();
-80106670:	e8 2b c9 ff ff       	call   80102fa0 <kbdintr>
+80106580:	e8 1b ca ff ff       	call   80102fa0 <kbdintr>
     lapiceoi();
-80106675:	e8 66 ca ff ff       	call   801030e0 <lapiceoi>
+80106585:	e8 56 cb ff ff       	call   801030e0 <lapiceoi>
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
-8010667a:	e8 c1 da ff ff       	call   80104140 <myproc>
-8010667f:	85 c0                	test   %eax,%eax
-80106681:	0f 85 4c fe ff ff    	jne    801064d3 <trap+0x43>
-80106687:	e9 64 fe ff ff       	jmp    801064f0 <trap+0x60>
-8010668c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+8010658a:	e8 b1 db ff ff       	call   80104140 <myproc>
+8010658f:	85 c0                	test   %eax,%eax
+80106591:	0f 85 4c fe ff ff    	jne    801063e3 <trap+0x43>
+80106597:	e9 64 fe ff ff       	jmp    80106400 <trap+0x60>
+8010659c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     if(cpuid() == 0){
-80106690:	e8 8b da ff ff       	call   80104120 <cpuid>
-80106695:	85 c0                	test   %eax,%eax
-80106697:	0f 85 28 fe ff ff    	jne    801064c5 <trap+0x35>
+801065a0:	e8 7b db ff ff       	call   80104120 <cpuid>
+801065a5:	85 c0                	test   %eax,%eax
+801065a7:	0f 85 28 fe ff ff    	jne    801063d5 <trap+0x35>
       acquire(&tickslock);
-8010669d:	83 ec 0c             	sub    $0xc,%esp
-801066a0:	68 c0 58 11 80       	push   $0x801158c0
-801066a5:	e8 c6 e6 ff ff       	call   80104d70 <acquire>
+801065ad:	83 ec 0c             	sub    $0xc,%esp
+801065b0:	68 c0 58 11 80       	push   $0x801158c0
+801065b5:	e8 b6 e7 ff ff       	call   80104d70 <acquire>
       wakeup(&ticks);
-801066aa:	c7 04 24 a0 58 11 80 	movl   $0x801158a0,(%esp)
+801065ba:	c7 04 24 a0 58 11 80 	movl   $0x801158a0,(%esp)
       ticks++;
-801066b1:	83 05 a0 58 11 80 01 	addl   $0x1,0x801158a0
+801065c1:	83 05 a0 58 11 80 01 	addl   $0x1,0x801158a0
       wakeup(&ticks);
-801066b8:	e8 13 e2 ff ff       	call   801048d0 <wakeup>
+801065c8:	e8 03 e3 ff ff       	call   801048d0 <wakeup>
       release(&tickslock);
-801066bd:	c7 04 24 c0 58 11 80 	movl   $0x801158c0,(%esp)
-801066c4:	e8 47 e6 ff ff       	call   80104d10 <release>
-801066c9:	83 c4 10             	add    $0x10,%esp
+801065cd:	c7 04 24 c0 58 11 80 	movl   $0x801158c0,(%esp)
+801065d4:	e8 37 e7 ff ff       	call   80104d10 <release>
+801065d9:	83 c4 10             	add    $0x10,%esp
     lapiceoi();
-801066cc:	e9 f4 fd ff ff       	jmp    801064c5 <trap+0x35>
-801066d1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801065dc:	e9 f4 fd ff ff       	jmp    801063d5 <trap+0x35>
+801065e1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     exit();
-801066d8:	e8 83 de ff ff       	call   80104560 <exit>
-801066dd:	e9 0e fe ff ff       	jmp    801064f0 <trap+0x60>
-801066e2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+801065e8:	e8 73 df ff ff       	call   80104560 <exit>
+801065ed:	e9 0e fe ff ff       	jmp    80106400 <trap+0x60>
+801065f2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
       exit();
-801066e8:	e8 73 de ff ff       	call   80104560 <exit>
-801066ed:	e9 2e ff ff ff       	jmp    80106620 <trap+0x190>
-801066f2:	0f 20 d6             	mov    %cr2,%esi
+801065f8:	e8 63 df ff ff       	call   80104560 <exit>
+801065fd:	e9 2e ff ff ff       	jmp    80106530 <trap+0x190>
+80106602:	0f 20 d6             	mov    %cr2,%esi
       cprintf("unexpected trap %d from cpu %d eip %x (cr2=0x%x)\n",
-801066f5:	e8 26 da ff ff       	call   80104120 <cpuid>
-801066fa:	83 ec 0c             	sub    $0xc,%esp
-801066fd:	56                   	push   %esi
-801066fe:	57                   	push   %edi
-801066ff:	50                   	push   %eax
-80106700:	ff 73 30             	push   0x30(%ebx)
-80106703:	68 30 85 10 80       	push   $0x80108530
-80106708:	e8 43 a0 ff ff       	call   80100750 <cprintf>
+80106605:	e8 16 db ff ff       	call   80104120 <cpuid>
+8010660a:	83 ec 0c             	sub    $0xc,%esp
+8010660d:	56                   	push   %esi
+8010660e:	57                   	push   %edi
+8010660f:	50                   	push   %eax
+80106610:	ff 73 30             	push   0x30(%ebx)
+80106613:	68 a8 84 10 80       	push   $0x801084a8
+80106618:	e8 33 a1 ff ff       	call   80100750 <cprintf>
       panic("trap");
-8010670d:	83 c4 14             	add    $0x14,%esp
-80106710:	68 06 85 10 80       	push   $0x80108506
-80106715:	e8 86 9c ff ff       	call   801003a0 <panic>
-8010671a:	66 90                	xchg   %ax,%ax
-8010671c:	66 90                	xchg   %ax,%ax
-8010671e:	66 90                	xchg   %ax,%ax
+8010661d:	83 c4 14             	add    $0x14,%esp
+80106620:	68 7d 84 10 80       	push   $0x8010847d
+80106625:	e8 76 9d ff ff       	call   801003a0 <panic>
+8010662a:	66 90                	xchg   %ax,%ax
+8010662c:	66 90                	xchg   %ax,%ax
+8010662e:	66 90                	xchg   %ax,%ax
 
-80106720 <uartgetc>:
+80106630 <uartgetc>:
 }
 
 static int
 uartgetc(void)
 {
   if(!uart)
-80106720:	a1 00 61 11 80       	mov    0x80116100,%eax
-80106725:	85 c0                	test   %eax,%eax
-80106727:	74 17                	je     80106740 <uartgetc+0x20>
+80106630:	a1 00 61 11 80       	mov    0x80116100,%eax
+80106635:	85 c0                	test   %eax,%eax
+80106637:	74 17                	je     80106650 <uartgetc+0x20>
   asm volatile("in %1,%0" : "=a"(data) : "d"(port));
-80106729:	ba fd 03 00 00       	mov    $0x3fd,%edx
-8010672e:	ec                   	in     (%dx),%al
+80106639:	ba fd 03 00 00       	mov    $0x3fd,%edx
+8010663e:	ec                   	in     (%dx),%al
     return -1;
   if(!(inb(COM1+5) & 0x01))
-8010672f:	a8 01                	test   $0x1,%al
-80106731:	74 0d                	je     80106740 <uartgetc+0x20>
-80106733:	ba f8 03 00 00       	mov    $0x3f8,%edx
-80106738:	ec                   	in     (%dx),%al
+8010663f:	a8 01                	test   $0x1,%al
+80106641:	74 0d                	je     80106650 <uartgetc+0x20>
+80106643:	ba f8 03 00 00       	mov    $0x3f8,%edx
+80106648:	ec                   	in     (%dx),%al
     return -1;
   return inb(COM1+0);
-80106739:	0f b6 c0             	movzbl %al,%eax
-8010673c:	c3                   	ret    
-8010673d:	8d 76 00             	lea    0x0(%esi),%esi
+80106649:	0f b6 c0             	movzbl %al,%eax
+8010664c:	c3                   	ret    
+8010664d:	8d 76 00             	lea    0x0(%esi),%esi
     return -1;
-80106740:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80106650:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-80106745:	c3                   	ret    
-80106746:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010674d:	8d 76 00             	lea    0x0(%esi),%esi
+80106655:	c3                   	ret    
+80106656:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010665d:	8d 76 00             	lea    0x0(%esi),%esi
 
-80106750 <uartinit>:
+80106660 <uartinit>:
 {
-80106750:	55                   	push   %ebp
+80106660:	55                   	push   %ebp
   asm volatile("out %0,%1" : : "a"(data), "d"(port));
-80106751:	31 c9                	xor    %ecx,%ecx
-80106753:	89 c8                	mov    %ecx,%eax
-80106755:	89 e5                	mov    %esp,%ebp
-80106757:	57                   	push   %edi
-80106758:	bf fa 03 00 00       	mov    $0x3fa,%edi
-8010675d:	56                   	push   %esi
-8010675e:	89 fa                	mov    %edi,%edx
-80106760:	53                   	push   %ebx
-80106761:	83 ec 1c             	sub    $0x1c,%esp
-80106764:	ee                   	out    %al,(%dx)
-80106765:	be fb 03 00 00       	mov    $0x3fb,%esi
-8010676a:	b8 80 ff ff ff       	mov    $0xffffff80,%eax
-8010676f:	89 f2                	mov    %esi,%edx
-80106771:	ee                   	out    %al,(%dx)
-80106772:	b8 0c 00 00 00       	mov    $0xc,%eax
-80106777:	ba f8 03 00 00       	mov    $0x3f8,%edx
-8010677c:	ee                   	out    %al,(%dx)
-8010677d:	bb f9 03 00 00       	mov    $0x3f9,%ebx
-80106782:	89 c8                	mov    %ecx,%eax
-80106784:	89 da                	mov    %ebx,%edx
-80106786:	ee                   	out    %al,(%dx)
-80106787:	b8 03 00 00 00       	mov    $0x3,%eax
-8010678c:	89 f2                	mov    %esi,%edx
-8010678e:	ee                   	out    %al,(%dx)
-8010678f:	ba fc 03 00 00       	mov    $0x3fc,%edx
-80106794:	89 c8                	mov    %ecx,%eax
-80106796:	ee                   	out    %al,(%dx)
-80106797:	b8 01 00 00 00       	mov    $0x1,%eax
-8010679c:	89 da                	mov    %ebx,%edx
-8010679e:	ee                   	out    %al,(%dx)
+80106661:	31 c9                	xor    %ecx,%ecx
+80106663:	89 c8                	mov    %ecx,%eax
+80106665:	89 e5                	mov    %esp,%ebp
+80106667:	57                   	push   %edi
+80106668:	bf fa 03 00 00       	mov    $0x3fa,%edi
+8010666d:	56                   	push   %esi
+8010666e:	89 fa                	mov    %edi,%edx
+80106670:	53                   	push   %ebx
+80106671:	83 ec 1c             	sub    $0x1c,%esp
+80106674:	ee                   	out    %al,(%dx)
+80106675:	be fb 03 00 00       	mov    $0x3fb,%esi
+8010667a:	b8 80 ff ff ff       	mov    $0xffffff80,%eax
+8010667f:	89 f2                	mov    %esi,%edx
+80106681:	ee                   	out    %al,(%dx)
+80106682:	b8 0c 00 00 00       	mov    $0xc,%eax
+80106687:	ba f8 03 00 00       	mov    $0x3f8,%edx
+8010668c:	ee                   	out    %al,(%dx)
+8010668d:	bb f9 03 00 00       	mov    $0x3f9,%ebx
+80106692:	89 c8                	mov    %ecx,%eax
+80106694:	89 da                	mov    %ebx,%edx
+80106696:	ee                   	out    %al,(%dx)
+80106697:	b8 03 00 00 00       	mov    $0x3,%eax
+8010669c:	89 f2                	mov    %esi,%edx
+8010669e:	ee                   	out    %al,(%dx)
+8010669f:	ba fc 03 00 00       	mov    $0x3fc,%edx
+801066a4:	89 c8                	mov    %ecx,%eax
+801066a6:	ee                   	out    %al,(%dx)
+801066a7:	b8 01 00 00 00       	mov    $0x1,%eax
+801066ac:	89 da                	mov    %ebx,%edx
+801066ae:	ee                   	out    %al,(%dx)
   asm volatile("in %1,%0" : "=a"(data) : "d"(port));
-8010679f:	ba fd 03 00 00       	mov    $0x3fd,%edx
-801067a4:	ec                   	in     (%dx),%al
+801066af:	ba fd 03 00 00       	mov    $0x3fd,%edx
+801066b4:	ec                   	in     (%dx),%al
   if(inb(COM1+5) == 0xFF)
-801067a5:	3c ff                	cmp    $0xff,%al
-801067a7:	74 78                	je     80106821 <uartinit+0xd1>
+801066b5:	3c ff                	cmp    $0xff,%al
+801066b7:	74 78                	je     80106731 <uartinit+0xd1>
   uart = 1;
-801067a9:	c7 05 00 61 11 80 01 	movl   $0x1,0x80116100
-801067b0:	00 00 00 
-801067b3:	89 fa                	mov    %edi,%edx
-801067b5:	ec                   	in     (%dx),%al
-801067b6:	ba f8 03 00 00       	mov    $0x3f8,%edx
-801067bb:	ec                   	in     (%dx),%al
+801066b9:	c7 05 00 61 11 80 01 	movl   $0x1,0x80116100
+801066c0:	00 00 00 
+801066c3:	89 fa                	mov    %edi,%edx
+801066c5:	ec                   	in     (%dx),%al
+801066c6:	ba f8 03 00 00       	mov    $0x3f8,%edx
+801066cb:	ec                   	in     (%dx),%al
   ioapicenable(IRQ_COM1, 0);
-801067bc:	83 ec 08             	sub    $0x8,%esp
+801066cc:	83 ec 08             	sub    $0x8,%esp
   for(p="xv6...\n"; *p; p++)
-801067bf:	bf 28 86 10 80       	mov    $0x80108628,%edi
-801067c4:	be fd 03 00 00       	mov    $0x3fd,%esi
+801066cf:	bf a0 85 10 80       	mov    $0x801085a0,%edi
+801066d4:	be fd 03 00 00       	mov    $0x3fd,%esi
   ioapicenable(IRQ_COM1, 0);
-801067c9:	6a 00                	push   $0x0
-801067cb:	6a 04                	push   $0x4
-801067cd:	e8 7e c4 ff ff       	call   80102c50 <ioapicenable>
+801066d9:	6a 00                	push   $0x0
+801066db:	6a 04                	push   $0x4
+801066dd:	e8 6e c5 ff ff       	call   80102c50 <ioapicenable>
   for(p="xv6...\n"; *p; p++)
-801067d2:	c6 45 e7 78          	movb   $0x78,-0x19(%ebp)
+801066e2:	c6 45 e7 78          	movb   $0x78,-0x19(%ebp)
   ioapicenable(IRQ_COM1, 0);
-801067d6:	83 c4 10             	add    $0x10,%esp
-801067d9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801066e6:	83 c4 10             	add    $0x10,%esp
+801066e9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
   if(!uart)
-801067e0:	a1 00 61 11 80       	mov    0x80116100,%eax
-801067e5:	bb 80 00 00 00       	mov    $0x80,%ebx
-801067ea:	85 c0                	test   %eax,%eax
-801067ec:	75 14                	jne    80106802 <uartinit+0xb2>
-801067ee:	eb 23                	jmp    80106813 <uartinit+0xc3>
+801066f0:	a1 00 61 11 80       	mov    0x80116100,%eax
+801066f5:	bb 80 00 00 00       	mov    $0x80,%ebx
+801066fa:	85 c0                	test   %eax,%eax
+801066fc:	75 14                	jne    80106712 <uartinit+0xb2>
+801066fe:	eb 23                	jmp    80106723 <uartinit+0xc3>
     microdelay(10);
-801067f0:	83 ec 0c             	sub    $0xc,%esp
-801067f3:	6a 0a                	push   $0xa
-801067f5:	e8 06 c9 ff ff       	call   80103100 <microdelay>
+80106700:	83 ec 0c             	sub    $0xc,%esp
+80106703:	6a 0a                	push   $0xa
+80106705:	e8 f6 c9 ff ff       	call   80103100 <microdelay>
   for(i = 0; i < 128 && !(inb(COM1+5) & 0x20); i++)
-801067fa:	83 c4 10             	add    $0x10,%esp
-801067fd:	83 eb 01             	sub    $0x1,%ebx
-80106800:	74 07                	je     80106809 <uartinit+0xb9>
-80106802:	89 f2                	mov    %esi,%edx
-80106804:	ec                   	in     (%dx),%al
-80106805:	a8 20                	test   $0x20,%al
-80106807:	74 e7                	je     801067f0 <uartinit+0xa0>
+8010670a:	83 c4 10             	add    $0x10,%esp
+8010670d:	83 eb 01             	sub    $0x1,%ebx
+80106710:	74 07                	je     80106719 <uartinit+0xb9>
+80106712:	89 f2                	mov    %esi,%edx
+80106714:	ec                   	in     (%dx),%al
+80106715:	a8 20                	test   $0x20,%al
+80106717:	74 e7                	je     80106700 <uartinit+0xa0>
   asm volatile("out %0,%1" : : "a"(data), "d"(port));
-80106809:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
-8010680d:	ba f8 03 00 00       	mov    $0x3f8,%edx
-80106812:	ee                   	out    %al,(%dx)
+80106719:	0f b6 45 e7          	movzbl -0x19(%ebp),%eax
+8010671d:	ba f8 03 00 00       	mov    $0x3f8,%edx
+80106722:	ee                   	out    %al,(%dx)
   for(p="xv6...\n"; *p; p++)
-80106813:	0f b6 47 01          	movzbl 0x1(%edi),%eax
-80106817:	83 c7 01             	add    $0x1,%edi
-8010681a:	88 45 e7             	mov    %al,-0x19(%ebp)
-8010681d:	84 c0                	test   %al,%al
-8010681f:	75 bf                	jne    801067e0 <uartinit+0x90>
+80106723:	0f b6 47 01          	movzbl 0x1(%edi),%eax
+80106727:	83 c7 01             	add    $0x1,%edi
+8010672a:	88 45 e7             	mov    %al,-0x19(%ebp)
+8010672d:	84 c0                	test   %al,%al
+8010672f:	75 bf                	jne    801066f0 <uartinit+0x90>
 }
-80106821:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80106824:	5b                   	pop    %ebx
-80106825:	5e                   	pop    %esi
-80106826:	5f                   	pop    %edi
-80106827:	5d                   	pop    %ebp
-80106828:	c3                   	ret    
-80106829:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80106731:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80106734:	5b                   	pop    %ebx
+80106735:	5e                   	pop    %esi
+80106736:	5f                   	pop    %edi
+80106737:	5d                   	pop    %ebp
+80106738:	c3                   	ret    
+80106739:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-80106830 <uartputc>:
+80106740 <uartputc>:
   if(!uart)
-80106830:	a1 00 61 11 80       	mov    0x80116100,%eax
-80106835:	85 c0                	test   %eax,%eax
-80106837:	74 47                	je     80106880 <uartputc+0x50>
+80106740:	a1 00 61 11 80       	mov    0x80116100,%eax
+80106745:	85 c0                	test   %eax,%eax
+80106747:	74 47                	je     80106790 <uartputc+0x50>
 {
-80106839:	55                   	push   %ebp
-8010683a:	89 e5                	mov    %esp,%ebp
-8010683c:	56                   	push   %esi
+80106749:	55                   	push   %ebp
+8010674a:	89 e5                	mov    %esp,%ebp
+8010674c:	56                   	push   %esi
   asm volatile("in %1,%0" : "=a"(data) : "d"(port));
-8010683d:	be fd 03 00 00       	mov    $0x3fd,%esi
-80106842:	53                   	push   %ebx
-80106843:	bb 80 00 00 00       	mov    $0x80,%ebx
-80106848:	eb 18                	jmp    80106862 <uartputc+0x32>
-8010684a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+8010674d:	be fd 03 00 00       	mov    $0x3fd,%esi
+80106752:	53                   	push   %ebx
+80106753:	bb 80 00 00 00       	mov    $0x80,%ebx
+80106758:	eb 18                	jmp    80106772 <uartputc+0x32>
+8010675a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
     microdelay(10);
-80106850:	83 ec 0c             	sub    $0xc,%esp
-80106853:	6a 0a                	push   $0xa
-80106855:	e8 a6 c8 ff ff       	call   80103100 <microdelay>
+80106760:	83 ec 0c             	sub    $0xc,%esp
+80106763:	6a 0a                	push   $0xa
+80106765:	e8 96 c9 ff ff       	call   80103100 <microdelay>
   for(i = 0; i < 128 && !(inb(COM1+5) & 0x20); i++)
-8010685a:	83 c4 10             	add    $0x10,%esp
-8010685d:	83 eb 01             	sub    $0x1,%ebx
-80106860:	74 07                	je     80106869 <uartputc+0x39>
-80106862:	89 f2                	mov    %esi,%edx
-80106864:	ec                   	in     (%dx),%al
-80106865:	a8 20                	test   $0x20,%al
-80106867:	74 e7                	je     80106850 <uartputc+0x20>
+8010676a:	83 c4 10             	add    $0x10,%esp
+8010676d:	83 eb 01             	sub    $0x1,%ebx
+80106770:	74 07                	je     80106779 <uartputc+0x39>
+80106772:	89 f2                	mov    %esi,%edx
+80106774:	ec                   	in     (%dx),%al
+80106775:	a8 20                	test   $0x20,%al
+80106777:	74 e7                	je     80106760 <uartputc+0x20>
   asm volatile("out %0,%1" : : "a"(data), "d"(port));
-80106869:	8b 45 08             	mov    0x8(%ebp),%eax
-8010686c:	ba f8 03 00 00       	mov    $0x3f8,%edx
-80106871:	ee                   	out    %al,(%dx)
+80106779:	8b 45 08             	mov    0x8(%ebp),%eax
+8010677c:	ba f8 03 00 00       	mov    $0x3f8,%edx
+80106781:	ee                   	out    %al,(%dx)
 }
-80106872:	8d 65 f8             	lea    -0x8(%ebp),%esp
-80106875:	5b                   	pop    %ebx
-80106876:	5e                   	pop    %esi
-80106877:	5d                   	pop    %ebp
-80106878:	c3                   	ret    
-80106879:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80106880:	c3                   	ret    
-80106881:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80106888:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010688f:	90                   	nop
+80106782:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80106785:	5b                   	pop    %ebx
+80106786:	5e                   	pop    %esi
+80106787:	5d                   	pop    %ebp
+80106788:	c3                   	ret    
+80106789:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80106790:	c3                   	ret    
+80106791:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80106798:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010679f:	90                   	nop
 
-80106890 <uartintr>:
+801067a0 <uartintr>:
 
 void
 uartintr(void)
 {
-80106890:	55                   	push   %ebp
-80106891:	89 e5                	mov    %esp,%ebp
-80106893:	83 ec 14             	sub    $0x14,%esp
+801067a0:	55                   	push   %ebp
+801067a1:	89 e5                	mov    %esp,%ebp
+801067a3:	83 ec 14             	sub    $0x14,%esp
   consoleintr(uartgetc);
-80106896:	68 20 67 10 80       	push   $0x80106720
-8010689b:	e8 70 a5 ff ff       	call   80100e10 <consoleintr>
+801067a6:	68 30 66 10 80       	push   $0x80106630
+801067ab:	e8 60 a6 ff ff       	call   80100e10 <consoleintr>
 }
-801068a0:	83 c4 10             	add    $0x10,%esp
-801068a3:	c9                   	leave  
-801068a4:	c3                   	ret    
+801067b0:	83 c4 10             	add    $0x10,%esp
+801067b3:	c9                   	leave  
+801067b4:	c3                   	ret    
 
-801068a5 <vector0>:
-801068a5:	6a 00                	push   $0x0
-801068a7:	6a 00                	push   $0x0
-801068a9:	e9 07 fb ff ff       	jmp    801063b5 <alltraps>
+801067b5 <vector0>:
+801067b5:	6a 00                	push   $0x0
+801067b7:	6a 00                	push   $0x0
+801067b9:	e9 07 fb ff ff       	jmp    801062c5 <alltraps>
 
-801068ae <vector1>:
-801068ae:	6a 00                	push   $0x0
-801068b0:	6a 01                	push   $0x1
-801068b2:	e9 fe fa ff ff       	jmp    801063b5 <alltraps>
+801067be <vector1>:
+801067be:	6a 00                	push   $0x0
+801067c0:	6a 01                	push   $0x1
+801067c2:	e9 fe fa ff ff       	jmp    801062c5 <alltraps>
 
-801068b7 <vector2>:
-801068b7:	6a 00                	push   $0x0
-801068b9:	6a 02                	push   $0x2
-801068bb:	e9 f5 fa ff ff       	jmp    801063b5 <alltraps>
+801067c7 <vector2>:
+801067c7:	6a 00                	push   $0x0
+801067c9:	6a 02                	push   $0x2
+801067cb:	e9 f5 fa ff ff       	jmp    801062c5 <alltraps>
 
-801068c0 <vector3>:
-801068c0:	6a 00                	push   $0x0
-801068c2:	6a 03                	push   $0x3
-801068c4:	e9 ec fa ff ff       	jmp    801063b5 <alltraps>
+801067d0 <vector3>:
+801067d0:	6a 00                	push   $0x0
+801067d2:	6a 03                	push   $0x3
+801067d4:	e9 ec fa ff ff       	jmp    801062c5 <alltraps>
 
-801068c9 <vector4>:
-801068c9:	6a 00                	push   $0x0
-801068cb:	6a 04                	push   $0x4
-801068cd:	e9 e3 fa ff ff       	jmp    801063b5 <alltraps>
+801067d9 <vector4>:
+801067d9:	6a 00                	push   $0x0
+801067db:	6a 04                	push   $0x4
+801067dd:	e9 e3 fa ff ff       	jmp    801062c5 <alltraps>
 
-801068d2 <vector5>:
-801068d2:	6a 00                	push   $0x0
-801068d4:	6a 05                	push   $0x5
-801068d6:	e9 da fa ff ff       	jmp    801063b5 <alltraps>
+801067e2 <vector5>:
+801067e2:	6a 00                	push   $0x0
+801067e4:	6a 05                	push   $0x5
+801067e6:	e9 da fa ff ff       	jmp    801062c5 <alltraps>
 
-801068db <vector6>:
-801068db:	6a 00                	push   $0x0
-801068dd:	6a 06                	push   $0x6
-801068df:	e9 d1 fa ff ff       	jmp    801063b5 <alltraps>
+801067eb <vector6>:
+801067eb:	6a 00                	push   $0x0
+801067ed:	6a 06                	push   $0x6
+801067ef:	e9 d1 fa ff ff       	jmp    801062c5 <alltraps>
 
-801068e4 <vector7>:
-801068e4:	6a 00                	push   $0x0
-801068e6:	6a 07                	push   $0x7
-801068e8:	e9 c8 fa ff ff       	jmp    801063b5 <alltraps>
+801067f4 <vector7>:
+801067f4:	6a 00                	push   $0x0
+801067f6:	6a 07                	push   $0x7
+801067f8:	e9 c8 fa ff ff       	jmp    801062c5 <alltraps>
 
-801068ed <vector8>:
-801068ed:	6a 08                	push   $0x8
-801068ef:	e9 c1 fa ff ff       	jmp    801063b5 <alltraps>
+801067fd <vector8>:
+801067fd:	6a 08                	push   $0x8
+801067ff:	e9 c1 fa ff ff       	jmp    801062c5 <alltraps>
 
-801068f4 <vector9>:
+80106804 <vector9>:
+80106804:	6a 00                	push   $0x0
+80106806:	6a 09                	push   $0x9
+80106808:	e9 b8 fa ff ff       	jmp    801062c5 <alltraps>
+
+8010680d <vector10>:
+8010680d:	6a 0a                	push   $0xa
+8010680f:	e9 b1 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106814 <vector11>:
+80106814:	6a 0b                	push   $0xb
+80106816:	e9 aa fa ff ff       	jmp    801062c5 <alltraps>
+
+8010681b <vector12>:
+8010681b:	6a 0c                	push   $0xc
+8010681d:	e9 a3 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106822 <vector13>:
+80106822:	6a 0d                	push   $0xd
+80106824:	e9 9c fa ff ff       	jmp    801062c5 <alltraps>
+
+80106829 <vector14>:
+80106829:	6a 0e                	push   $0xe
+8010682b:	e9 95 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106830 <vector15>:
+80106830:	6a 00                	push   $0x0
+80106832:	6a 0f                	push   $0xf
+80106834:	e9 8c fa ff ff       	jmp    801062c5 <alltraps>
+
+80106839 <vector16>:
+80106839:	6a 00                	push   $0x0
+8010683b:	6a 10                	push   $0x10
+8010683d:	e9 83 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106842 <vector17>:
+80106842:	6a 11                	push   $0x11
+80106844:	e9 7c fa ff ff       	jmp    801062c5 <alltraps>
+
+80106849 <vector18>:
+80106849:	6a 00                	push   $0x0
+8010684b:	6a 12                	push   $0x12
+8010684d:	e9 73 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106852 <vector19>:
+80106852:	6a 00                	push   $0x0
+80106854:	6a 13                	push   $0x13
+80106856:	e9 6a fa ff ff       	jmp    801062c5 <alltraps>
+
+8010685b <vector20>:
+8010685b:	6a 00                	push   $0x0
+8010685d:	6a 14                	push   $0x14
+8010685f:	e9 61 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106864 <vector21>:
+80106864:	6a 00                	push   $0x0
+80106866:	6a 15                	push   $0x15
+80106868:	e9 58 fa ff ff       	jmp    801062c5 <alltraps>
+
+8010686d <vector22>:
+8010686d:	6a 00                	push   $0x0
+8010686f:	6a 16                	push   $0x16
+80106871:	e9 4f fa ff ff       	jmp    801062c5 <alltraps>
+
+80106876 <vector23>:
+80106876:	6a 00                	push   $0x0
+80106878:	6a 17                	push   $0x17
+8010687a:	e9 46 fa ff ff       	jmp    801062c5 <alltraps>
+
+8010687f <vector24>:
+8010687f:	6a 00                	push   $0x0
+80106881:	6a 18                	push   $0x18
+80106883:	e9 3d fa ff ff       	jmp    801062c5 <alltraps>
+
+80106888 <vector25>:
+80106888:	6a 00                	push   $0x0
+8010688a:	6a 19                	push   $0x19
+8010688c:	e9 34 fa ff ff       	jmp    801062c5 <alltraps>
+
+80106891 <vector26>:
+80106891:	6a 00                	push   $0x0
+80106893:	6a 1a                	push   $0x1a
+80106895:	e9 2b fa ff ff       	jmp    801062c5 <alltraps>
+
+8010689a <vector27>:
+8010689a:	6a 00                	push   $0x0
+8010689c:	6a 1b                	push   $0x1b
+8010689e:	e9 22 fa ff ff       	jmp    801062c5 <alltraps>
+
+801068a3 <vector28>:
+801068a3:	6a 00                	push   $0x0
+801068a5:	6a 1c                	push   $0x1c
+801068a7:	e9 19 fa ff ff       	jmp    801062c5 <alltraps>
+
+801068ac <vector29>:
+801068ac:	6a 00                	push   $0x0
+801068ae:	6a 1d                	push   $0x1d
+801068b0:	e9 10 fa ff ff       	jmp    801062c5 <alltraps>
+
+801068b5 <vector30>:
+801068b5:	6a 00                	push   $0x0
+801068b7:	6a 1e                	push   $0x1e
+801068b9:	e9 07 fa ff ff       	jmp    801062c5 <alltraps>
+
+801068be <vector31>:
+801068be:	6a 00                	push   $0x0
+801068c0:	6a 1f                	push   $0x1f
+801068c2:	e9 fe f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068c7 <vector32>:
+801068c7:	6a 00                	push   $0x0
+801068c9:	6a 20                	push   $0x20
+801068cb:	e9 f5 f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068d0 <vector33>:
+801068d0:	6a 00                	push   $0x0
+801068d2:	6a 21                	push   $0x21
+801068d4:	e9 ec f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068d9 <vector34>:
+801068d9:	6a 00                	push   $0x0
+801068db:	6a 22                	push   $0x22
+801068dd:	e9 e3 f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068e2 <vector35>:
+801068e2:	6a 00                	push   $0x0
+801068e4:	6a 23                	push   $0x23
+801068e6:	e9 da f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068eb <vector36>:
+801068eb:	6a 00                	push   $0x0
+801068ed:	6a 24                	push   $0x24
+801068ef:	e9 d1 f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068f4 <vector37>:
 801068f4:	6a 00                	push   $0x0
-801068f6:	6a 09                	push   $0x9
-801068f8:	e9 b8 fa ff ff       	jmp    801063b5 <alltraps>
-
-801068fd <vector10>:
-801068fd:	6a 0a                	push   $0xa
-801068ff:	e9 b1 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106904 <vector11>:
-80106904:	6a 0b                	push   $0xb
-80106906:	e9 aa fa ff ff       	jmp    801063b5 <alltraps>
-
-8010690b <vector12>:
-8010690b:	6a 0c                	push   $0xc
-8010690d:	e9 a3 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106912 <vector13>:
-80106912:	6a 0d                	push   $0xd
-80106914:	e9 9c fa ff ff       	jmp    801063b5 <alltraps>
-
-80106919 <vector14>:
-80106919:	6a 0e                	push   $0xe
-8010691b:	e9 95 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106920 <vector15>:
-80106920:	6a 00                	push   $0x0
-80106922:	6a 0f                	push   $0xf
-80106924:	e9 8c fa ff ff       	jmp    801063b5 <alltraps>
-
-80106929 <vector16>:
-80106929:	6a 00                	push   $0x0
-8010692b:	6a 10                	push   $0x10
-8010692d:	e9 83 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106932 <vector17>:
-80106932:	6a 11                	push   $0x11
-80106934:	e9 7c fa ff ff       	jmp    801063b5 <alltraps>
-
-80106939 <vector18>:
-80106939:	6a 00                	push   $0x0
-8010693b:	6a 12                	push   $0x12
-8010693d:	e9 73 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106942 <vector19>:
-80106942:	6a 00                	push   $0x0
-80106944:	6a 13                	push   $0x13
-80106946:	e9 6a fa ff ff       	jmp    801063b5 <alltraps>
-
-8010694b <vector20>:
-8010694b:	6a 00                	push   $0x0
-8010694d:	6a 14                	push   $0x14
-8010694f:	e9 61 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106954 <vector21>:
-80106954:	6a 00                	push   $0x0
-80106956:	6a 15                	push   $0x15
-80106958:	e9 58 fa ff ff       	jmp    801063b5 <alltraps>
-
-8010695d <vector22>:
-8010695d:	6a 00                	push   $0x0
-8010695f:	6a 16                	push   $0x16
-80106961:	e9 4f fa ff ff       	jmp    801063b5 <alltraps>
-
-80106966 <vector23>:
-80106966:	6a 00                	push   $0x0
-80106968:	6a 17                	push   $0x17
-8010696a:	e9 46 fa ff ff       	jmp    801063b5 <alltraps>
-
-8010696f <vector24>:
-8010696f:	6a 00                	push   $0x0
-80106971:	6a 18                	push   $0x18
-80106973:	e9 3d fa ff ff       	jmp    801063b5 <alltraps>
-
-80106978 <vector25>:
-80106978:	6a 00                	push   $0x0
-8010697a:	6a 19                	push   $0x19
-8010697c:	e9 34 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106981 <vector26>:
-80106981:	6a 00                	push   $0x0
-80106983:	6a 1a                	push   $0x1a
-80106985:	e9 2b fa ff ff       	jmp    801063b5 <alltraps>
-
-8010698a <vector27>:
-8010698a:	6a 00                	push   $0x0
-8010698c:	6a 1b                	push   $0x1b
-8010698e:	e9 22 fa ff ff       	jmp    801063b5 <alltraps>
-
-80106993 <vector28>:
-80106993:	6a 00                	push   $0x0
-80106995:	6a 1c                	push   $0x1c
-80106997:	e9 19 fa ff ff       	jmp    801063b5 <alltraps>
-
-8010699c <vector29>:
-8010699c:	6a 00                	push   $0x0
-8010699e:	6a 1d                	push   $0x1d
-801069a0:	e9 10 fa ff ff       	jmp    801063b5 <alltraps>
-
-801069a5 <vector30>:
-801069a5:	6a 00                	push   $0x0
-801069a7:	6a 1e                	push   $0x1e
-801069a9:	e9 07 fa ff ff       	jmp    801063b5 <alltraps>
-
-801069ae <vector31>:
-801069ae:	6a 00                	push   $0x0
-801069b0:	6a 1f                	push   $0x1f
-801069b2:	e9 fe f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069b7 <vector32>:
-801069b7:	6a 00                	push   $0x0
-801069b9:	6a 20                	push   $0x20
-801069bb:	e9 f5 f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069c0 <vector33>:
-801069c0:	6a 00                	push   $0x0
-801069c2:	6a 21                	push   $0x21
-801069c4:	e9 ec f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069c9 <vector34>:
-801069c9:	6a 00                	push   $0x0
-801069cb:	6a 22                	push   $0x22
-801069cd:	e9 e3 f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069d2 <vector35>:
-801069d2:	6a 00                	push   $0x0
-801069d4:	6a 23                	push   $0x23
-801069d6:	e9 da f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069db <vector36>:
-801069db:	6a 00                	push   $0x0
-801069dd:	6a 24                	push   $0x24
-801069df:	e9 d1 f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069e4 <vector37>:
-801069e4:	6a 00                	push   $0x0
-801069e6:	6a 25                	push   $0x25
-801069e8:	e9 c8 f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069ed <vector38>:
-801069ed:	6a 00                	push   $0x0
-801069ef:	6a 26                	push   $0x26
-801069f1:	e9 bf f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069f6 <vector39>:
-801069f6:	6a 00                	push   $0x0
-801069f8:	6a 27                	push   $0x27
-801069fa:	e9 b6 f9 ff ff       	jmp    801063b5 <alltraps>
-
-801069ff <vector40>:
-801069ff:	6a 00                	push   $0x0
-80106a01:	6a 28                	push   $0x28
-80106a03:	e9 ad f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a08 <vector41>:
-80106a08:	6a 00                	push   $0x0
-80106a0a:	6a 29                	push   $0x29
-80106a0c:	e9 a4 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a11 <vector42>:
-80106a11:	6a 00                	push   $0x0
-80106a13:	6a 2a                	push   $0x2a
-80106a15:	e9 9b f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a1a <vector43>:
-80106a1a:	6a 00                	push   $0x0
-80106a1c:	6a 2b                	push   $0x2b
-80106a1e:	e9 92 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a23 <vector44>:
-80106a23:	6a 00                	push   $0x0
-80106a25:	6a 2c                	push   $0x2c
-80106a27:	e9 89 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a2c <vector45>:
-80106a2c:	6a 00                	push   $0x0
-80106a2e:	6a 2d                	push   $0x2d
-80106a30:	e9 80 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a35 <vector46>:
-80106a35:	6a 00                	push   $0x0
-80106a37:	6a 2e                	push   $0x2e
-80106a39:	e9 77 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a3e <vector47>:
-80106a3e:	6a 00                	push   $0x0
-80106a40:	6a 2f                	push   $0x2f
-80106a42:	e9 6e f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a47 <vector48>:
-80106a47:	6a 00                	push   $0x0
-80106a49:	6a 30                	push   $0x30
-80106a4b:	e9 65 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a50 <vector49>:
-80106a50:	6a 00                	push   $0x0
-80106a52:	6a 31                	push   $0x31
-80106a54:	e9 5c f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a59 <vector50>:
-80106a59:	6a 00                	push   $0x0
-80106a5b:	6a 32                	push   $0x32
-80106a5d:	e9 53 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a62 <vector51>:
-80106a62:	6a 00                	push   $0x0
-80106a64:	6a 33                	push   $0x33
-80106a66:	e9 4a f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a6b <vector52>:
-80106a6b:	6a 00                	push   $0x0
-80106a6d:	6a 34                	push   $0x34
-80106a6f:	e9 41 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a74 <vector53>:
-80106a74:	6a 00                	push   $0x0
-80106a76:	6a 35                	push   $0x35
-80106a78:	e9 38 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a7d <vector54>:
-80106a7d:	6a 00                	push   $0x0
-80106a7f:	6a 36                	push   $0x36
-80106a81:	e9 2f f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a86 <vector55>:
-80106a86:	6a 00                	push   $0x0
-80106a88:	6a 37                	push   $0x37
-80106a8a:	e9 26 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a8f <vector56>:
-80106a8f:	6a 00                	push   $0x0
-80106a91:	6a 38                	push   $0x38
-80106a93:	e9 1d f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106a98 <vector57>:
-80106a98:	6a 00                	push   $0x0
-80106a9a:	6a 39                	push   $0x39
-80106a9c:	e9 14 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106aa1 <vector58>:
-80106aa1:	6a 00                	push   $0x0
-80106aa3:	6a 3a                	push   $0x3a
-80106aa5:	e9 0b f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106aaa <vector59>:
-80106aaa:	6a 00                	push   $0x0
-80106aac:	6a 3b                	push   $0x3b
-80106aae:	e9 02 f9 ff ff       	jmp    801063b5 <alltraps>
-
-80106ab3 <vector60>:
-80106ab3:	6a 00                	push   $0x0
-80106ab5:	6a 3c                	push   $0x3c
-80106ab7:	e9 f9 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106abc <vector61>:
-80106abc:	6a 00                	push   $0x0
-80106abe:	6a 3d                	push   $0x3d
-80106ac0:	e9 f0 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106ac5 <vector62>:
-80106ac5:	6a 00                	push   $0x0
-80106ac7:	6a 3e                	push   $0x3e
-80106ac9:	e9 e7 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106ace <vector63>:
-80106ace:	6a 00                	push   $0x0
-80106ad0:	6a 3f                	push   $0x3f
-80106ad2:	e9 de f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106ad7 <vector64>:
-80106ad7:	6a 00                	push   $0x0
-80106ad9:	6a 40                	push   $0x40
-80106adb:	e9 d5 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106ae0 <vector65>:
-80106ae0:	6a 00                	push   $0x0
-80106ae2:	6a 41                	push   $0x41
-80106ae4:	e9 cc f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106ae9 <vector66>:
-80106ae9:	6a 00                	push   $0x0
-80106aeb:	6a 42                	push   $0x42
-80106aed:	e9 c3 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106af2 <vector67>:
-80106af2:	6a 00                	push   $0x0
-80106af4:	6a 43                	push   $0x43
-80106af6:	e9 ba f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106afb <vector68>:
-80106afb:	6a 00                	push   $0x0
-80106afd:	6a 44                	push   $0x44
-80106aff:	e9 b1 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b04 <vector69>:
-80106b04:	6a 00                	push   $0x0
-80106b06:	6a 45                	push   $0x45
-80106b08:	e9 a8 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b0d <vector70>:
-80106b0d:	6a 00                	push   $0x0
-80106b0f:	6a 46                	push   $0x46
-80106b11:	e9 9f f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b16 <vector71>:
-80106b16:	6a 00                	push   $0x0
-80106b18:	6a 47                	push   $0x47
-80106b1a:	e9 96 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b1f <vector72>:
-80106b1f:	6a 00                	push   $0x0
-80106b21:	6a 48                	push   $0x48
-80106b23:	e9 8d f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b28 <vector73>:
-80106b28:	6a 00                	push   $0x0
-80106b2a:	6a 49                	push   $0x49
-80106b2c:	e9 84 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b31 <vector74>:
-80106b31:	6a 00                	push   $0x0
-80106b33:	6a 4a                	push   $0x4a
-80106b35:	e9 7b f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b3a <vector75>:
-80106b3a:	6a 00                	push   $0x0
-80106b3c:	6a 4b                	push   $0x4b
-80106b3e:	e9 72 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b43 <vector76>:
-80106b43:	6a 00                	push   $0x0
-80106b45:	6a 4c                	push   $0x4c
-80106b47:	e9 69 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b4c <vector77>:
-80106b4c:	6a 00                	push   $0x0
-80106b4e:	6a 4d                	push   $0x4d
-80106b50:	e9 60 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b55 <vector78>:
-80106b55:	6a 00                	push   $0x0
-80106b57:	6a 4e                	push   $0x4e
-80106b59:	e9 57 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b5e <vector79>:
-80106b5e:	6a 00                	push   $0x0
-80106b60:	6a 4f                	push   $0x4f
-80106b62:	e9 4e f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b67 <vector80>:
-80106b67:	6a 00                	push   $0x0
-80106b69:	6a 50                	push   $0x50
-80106b6b:	e9 45 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b70 <vector81>:
-80106b70:	6a 00                	push   $0x0
-80106b72:	6a 51                	push   $0x51
-80106b74:	e9 3c f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b79 <vector82>:
-80106b79:	6a 00                	push   $0x0
-80106b7b:	6a 52                	push   $0x52
-80106b7d:	e9 33 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b82 <vector83>:
-80106b82:	6a 00                	push   $0x0
-80106b84:	6a 53                	push   $0x53
-80106b86:	e9 2a f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b8b <vector84>:
-80106b8b:	6a 00                	push   $0x0
-80106b8d:	6a 54                	push   $0x54
-80106b8f:	e9 21 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b94 <vector85>:
-80106b94:	6a 00                	push   $0x0
-80106b96:	6a 55                	push   $0x55
-80106b98:	e9 18 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106b9d <vector86>:
-80106b9d:	6a 00                	push   $0x0
-80106b9f:	6a 56                	push   $0x56
-80106ba1:	e9 0f f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106ba6 <vector87>:
-80106ba6:	6a 00                	push   $0x0
-80106ba8:	6a 57                	push   $0x57
-80106baa:	e9 06 f8 ff ff       	jmp    801063b5 <alltraps>
-
-80106baf <vector88>:
-80106baf:	6a 00                	push   $0x0
-80106bb1:	6a 58                	push   $0x58
-80106bb3:	e9 fd f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bb8 <vector89>:
-80106bb8:	6a 00                	push   $0x0
-80106bba:	6a 59                	push   $0x59
-80106bbc:	e9 f4 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bc1 <vector90>:
-80106bc1:	6a 00                	push   $0x0
-80106bc3:	6a 5a                	push   $0x5a
-80106bc5:	e9 eb f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bca <vector91>:
-80106bca:	6a 00                	push   $0x0
-80106bcc:	6a 5b                	push   $0x5b
-80106bce:	e9 e2 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bd3 <vector92>:
-80106bd3:	6a 00                	push   $0x0
-80106bd5:	6a 5c                	push   $0x5c
-80106bd7:	e9 d9 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bdc <vector93>:
-80106bdc:	6a 00                	push   $0x0
-80106bde:	6a 5d                	push   $0x5d
-80106be0:	e9 d0 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106be5 <vector94>:
-80106be5:	6a 00                	push   $0x0
-80106be7:	6a 5e                	push   $0x5e
-80106be9:	e9 c7 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bee <vector95>:
-80106bee:	6a 00                	push   $0x0
-80106bf0:	6a 5f                	push   $0x5f
-80106bf2:	e9 be f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106bf7 <vector96>:
-80106bf7:	6a 00                	push   $0x0
-80106bf9:	6a 60                	push   $0x60
-80106bfb:	e9 b5 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c00 <vector97>:
-80106c00:	6a 00                	push   $0x0
-80106c02:	6a 61                	push   $0x61
-80106c04:	e9 ac f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c09 <vector98>:
-80106c09:	6a 00                	push   $0x0
-80106c0b:	6a 62                	push   $0x62
-80106c0d:	e9 a3 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c12 <vector99>:
-80106c12:	6a 00                	push   $0x0
-80106c14:	6a 63                	push   $0x63
-80106c16:	e9 9a f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c1b <vector100>:
-80106c1b:	6a 00                	push   $0x0
-80106c1d:	6a 64                	push   $0x64
-80106c1f:	e9 91 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c24 <vector101>:
-80106c24:	6a 00                	push   $0x0
-80106c26:	6a 65                	push   $0x65
-80106c28:	e9 88 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c2d <vector102>:
-80106c2d:	6a 00                	push   $0x0
-80106c2f:	6a 66                	push   $0x66
-80106c31:	e9 7f f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c36 <vector103>:
-80106c36:	6a 00                	push   $0x0
-80106c38:	6a 67                	push   $0x67
-80106c3a:	e9 76 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c3f <vector104>:
+801068f6:	6a 25                	push   $0x25
+801068f8:	e9 c8 f9 ff ff       	jmp    801062c5 <alltraps>
+
+801068fd <vector38>:
+801068fd:	6a 00                	push   $0x0
+801068ff:	6a 26                	push   $0x26
+80106901:	e9 bf f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106906 <vector39>:
+80106906:	6a 00                	push   $0x0
+80106908:	6a 27                	push   $0x27
+8010690a:	e9 b6 f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010690f <vector40>:
+8010690f:	6a 00                	push   $0x0
+80106911:	6a 28                	push   $0x28
+80106913:	e9 ad f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106918 <vector41>:
+80106918:	6a 00                	push   $0x0
+8010691a:	6a 29                	push   $0x29
+8010691c:	e9 a4 f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106921 <vector42>:
+80106921:	6a 00                	push   $0x0
+80106923:	6a 2a                	push   $0x2a
+80106925:	e9 9b f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010692a <vector43>:
+8010692a:	6a 00                	push   $0x0
+8010692c:	6a 2b                	push   $0x2b
+8010692e:	e9 92 f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106933 <vector44>:
+80106933:	6a 00                	push   $0x0
+80106935:	6a 2c                	push   $0x2c
+80106937:	e9 89 f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010693c <vector45>:
+8010693c:	6a 00                	push   $0x0
+8010693e:	6a 2d                	push   $0x2d
+80106940:	e9 80 f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106945 <vector46>:
+80106945:	6a 00                	push   $0x0
+80106947:	6a 2e                	push   $0x2e
+80106949:	e9 77 f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010694e <vector47>:
+8010694e:	6a 00                	push   $0x0
+80106950:	6a 2f                	push   $0x2f
+80106952:	e9 6e f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106957 <vector48>:
+80106957:	6a 00                	push   $0x0
+80106959:	6a 30                	push   $0x30
+8010695b:	e9 65 f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106960 <vector49>:
+80106960:	6a 00                	push   $0x0
+80106962:	6a 31                	push   $0x31
+80106964:	e9 5c f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106969 <vector50>:
+80106969:	6a 00                	push   $0x0
+8010696b:	6a 32                	push   $0x32
+8010696d:	e9 53 f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106972 <vector51>:
+80106972:	6a 00                	push   $0x0
+80106974:	6a 33                	push   $0x33
+80106976:	e9 4a f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010697b <vector52>:
+8010697b:	6a 00                	push   $0x0
+8010697d:	6a 34                	push   $0x34
+8010697f:	e9 41 f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106984 <vector53>:
+80106984:	6a 00                	push   $0x0
+80106986:	6a 35                	push   $0x35
+80106988:	e9 38 f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010698d <vector54>:
+8010698d:	6a 00                	push   $0x0
+8010698f:	6a 36                	push   $0x36
+80106991:	e9 2f f9 ff ff       	jmp    801062c5 <alltraps>
+
+80106996 <vector55>:
+80106996:	6a 00                	push   $0x0
+80106998:	6a 37                	push   $0x37
+8010699a:	e9 26 f9 ff ff       	jmp    801062c5 <alltraps>
+
+8010699f <vector56>:
+8010699f:	6a 00                	push   $0x0
+801069a1:	6a 38                	push   $0x38
+801069a3:	e9 1d f9 ff ff       	jmp    801062c5 <alltraps>
+
+801069a8 <vector57>:
+801069a8:	6a 00                	push   $0x0
+801069aa:	6a 39                	push   $0x39
+801069ac:	e9 14 f9 ff ff       	jmp    801062c5 <alltraps>
+
+801069b1 <vector58>:
+801069b1:	6a 00                	push   $0x0
+801069b3:	6a 3a                	push   $0x3a
+801069b5:	e9 0b f9 ff ff       	jmp    801062c5 <alltraps>
+
+801069ba <vector59>:
+801069ba:	6a 00                	push   $0x0
+801069bc:	6a 3b                	push   $0x3b
+801069be:	e9 02 f9 ff ff       	jmp    801062c5 <alltraps>
+
+801069c3 <vector60>:
+801069c3:	6a 00                	push   $0x0
+801069c5:	6a 3c                	push   $0x3c
+801069c7:	e9 f9 f8 ff ff       	jmp    801062c5 <alltraps>
+
+801069cc <vector61>:
+801069cc:	6a 00                	push   $0x0
+801069ce:	6a 3d                	push   $0x3d
+801069d0:	e9 f0 f8 ff ff       	jmp    801062c5 <alltraps>
+
+801069d5 <vector62>:
+801069d5:	6a 00                	push   $0x0
+801069d7:	6a 3e                	push   $0x3e
+801069d9:	e9 e7 f8 ff ff       	jmp    801062c5 <alltraps>
+
+801069de <vector63>:
+801069de:	6a 00                	push   $0x0
+801069e0:	6a 3f                	push   $0x3f
+801069e2:	e9 de f8 ff ff       	jmp    801062c5 <alltraps>
+
+801069e7 <vector64>:
+801069e7:	6a 00                	push   $0x0
+801069e9:	6a 40                	push   $0x40
+801069eb:	e9 d5 f8 ff ff       	jmp    801062c5 <alltraps>
+
+801069f0 <vector65>:
+801069f0:	6a 00                	push   $0x0
+801069f2:	6a 41                	push   $0x41
+801069f4:	e9 cc f8 ff ff       	jmp    801062c5 <alltraps>
+
+801069f9 <vector66>:
+801069f9:	6a 00                	push   $0x0
+801069fb:	6a 42                	push   $0x42
+801069fd:	e9 c3 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a02 <vector67>:
+80106a02:	6a 00                	push   $0x0
+80106a04:	6a 43                	push   $0x43
+80106a06:	e9 ba f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a0b <vector68>:
+80106a0b:	6a 00                	push   $0x0
+80106a0d:	6a 44                	push   $0x44
+80106a0f:	e9 b1 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a14 <vector69>:
+80106a14:	6a 00                	push   $0x0
+80106a16:	6a 45                	push   $0x45
+80106a18:	e9 a8 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a1d <vector70>:
+80106a1d:	6a 00                	push   $0x0
+80106a1f:	6a 46                	push   $0x46
+80106a21:	e9 9f f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a26 <vector71>:
+80106a26:	6a 00                	push   $0x0
+80106a28:	6a 47                	push   $0x47
+80106a2a:	e9 96 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a2f <vector72>:
+80106a2f:	6a 00                	push   $0x0
+80106a31:	6a 48                	push   $0x48
+80106a33:	e9 8d f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a38 <vector73>:
+80106a38:	6a 00                	push   $0x0
+80106a3a:	6a 49                	push   $0x49
+80106a3c:	e9 84 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a41 <vector74>:
+80106a41:	6a 00                	push   $0x0
+80106a43:	6a 4a                	push   $0x4a
+80106a45:	e9 7b f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a4a <vector75>:
+80106a4a:	6a 00                	push   $0x0
+80106a4c:	6a 4b                	push   $0x4b
+80106a4e:	e9 72 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a53 <vector76>:
+80106a53:	6a 00                	push   $0x0
+80106a55:	6a 4c                	push   $0x4c
+80106a57:	e9 69 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a5c <vector77>:
+80106a5c:	6a 00                	push   $0x0
+80106a5e:	6a 4d                	push   $0x4d
+80106a60:	e9 60 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a65 <vector78>:
+80106a65:	6a 00                	push   $0x0
+80106a67:	6a 4e                	push   $0x4e
+80106a69:	e9 57 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a6e <vector79>:
+80106a6e:	6a 00                	push   $0x0
+80106a70:	6a 4f                	push   $0x4f
+80106a72:	e9 4e f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a77 <vector80>:
+80106a77:	6a 00                	push   $0x0
+80106a79:	6a 50                	push   $0x50
+80106a7b:	e9 45 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a80 <vector81>:
+80106a80:	6a 00                	push   $0x0
+80106a82:	6a 51                	push   $0x51
+80106a84:	e9 3c f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a89 <vector82>:
+80106a89:	6a 00                	push   $0x0
+80106a8b:	6a 52                	push   $0x52
+80106a8d:	e9 33 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a92 <vector83>:
+80106a92:	6a 00                	push   $0x0
+80106a94:	6a 53                	push   $0x53
+80106a96:	e9 2a f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106a9b <vector84>:
+80106a9b:	6a 00                	push   $0x0
+80106a9d:	6a 54                	push   $0x54
+80106a9f:	e9 21 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106aa4 <vector85>:
+80106aa4:	6a 00                	push   $0x0
+80106aa6:	6a 55                	push   $0x55
+80106aa8:	e9 18 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106aad <vector86>:
+80106aad:	6a 00                	push   $0x0
+80106aaf:	6a 56                	push   $0x56
+80106ab1:	e9 0f f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106ab6 <vector87>:
+80106ab6:	6a 00                	push   $0x0
+80106ab8:	6a 57                	push   $0x57
+80106aba:	e9 06 f8 ff ff       	jmp    801062c5 <alltraps>
+
+80106abf <vector88>:
+80106abf:	6a 00                	push   $0x0
+80106ac1:	6a 58                	push   $0x58
+80106ac3:	e9 fd f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106ac8 <vector89>:
+80106ac8:	6a 00                	push   $0x0
+80106aca:	6a 59                	push   $0x59
+80106acc:	e9 f4 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106ad1 <vector90>:
+80106ad1:	6a 00                	push   $0x0
+80106ad3:	6a 5a                	push   $0x5a
+80106ad5:	e9 eb f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106ada <vector91>:
+80106ada:	6a 00                	push   $0x0
+80106adc:	6a 5b                	push   $0x5b
+80106ade:	e9 e2 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106ae3 <vector92>:
+80106ae3:	6a 00                	push   $0x0
+80106ae5:	6a 5c                	push   $0x5c
+80106ae7:	e9 d9 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106aec <vector93>:
+80106aec:	6a 00                	push   $0x0
+80106aee:	6a 5d                	push   $0x5d
+80106af0:	e9 d0 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106af5 <vector94>:
+80106af5:	6a 00                	push   $0x0
+80106af7:	6a 5e                	push   $0x5e
+80106af9:	e9 c7 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106afe <vector95>:
+80106afe:	6a 00                	push   $0x0
+80106b00:	6a 5f                	push   $0x5f
+80106b02:	e9 be f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b07 <vector96>:
+80106b07:	6a 00                	push   $0x0
+80106b09:	6a 60                	push   $0x60
+80106b0b:	e9 b5 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b10 <vector97>:
+80106b10:	6a 00                	push   $0x0
+80106b12:	6a 61                	push   $0x61
+80106b14:	e9 ac f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b19 <vector98>:
+80106b19:	6a 00                	push   $0x0
+80106b1b:	6a 62                	push   $0x62
+80106b1d:	e9 a3 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b22 <vector99>:
+80106b22:	6a 00                	push   $0x0
+80106b24:	6a 63                	push   $0x63
+80106b26:	e9 9a f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b2b <vector100>:
+80106b2b:	6a 00                	push   $0x0
+80106b2d:	6a 64                	push   $0x64
+80106b2f:	e9 91 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b34 <vector101>:
+80106b34:	6a 00                	push   $0x0
+80106b36:	6a 65                	push   $0x65
+80106b38:	e9 88 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b3d <vector102>:
+80106b3d:	6a 00                	push   $0x0
+80106b3f:	6a 66                	push   $0x66
+80106b41:	e9 7f f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b46 <vector103>:
+80106b46:	6a 00                	push   $0x0
+80106b48:	6a 67                	push   $0x67
+80106b4a:	e9 76 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b4f <vector104>:
+80106b4f:	6a 00                	push   $0x0
+80106b51:	6a 68                	push   $0x68
+80106b53:	e9 6d f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b58 <vector105>:
+80106b58:	6a 00                	push   $0x0
+80106b5a:	6a 69                	push   $0x69
+80106b5c:	e9 64 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b61 <vector106>:
+80106b61:	6a 00                	push   $0x0
+80106b63:	6a 6a                	push   $0x6a
+80106b65:	e9 5b f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b6a <vector107>:
+80106b6a:	6a 00                	push   $0x0
+80106b6c:	6a 6b                	push   $0x6b
+80106b6e:	e9 52 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b73 <vector108>:
+80106b73:	6a 00                	push   $0x0
+80106b75:	6a 6c                	push   $0x6c
+80106b77:	e9 49 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b7c <vector109>:
+80106b7c:	6a 00                	push   $0x0
+80106b7e:	6a 6d                	push   $0x6d
+80106b80:	e9 40 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b85 <vector110>:
+80106b85:	6a 00                	push   $0x0
+80106b87:	6a 6e                	push   $0x6e
+80106b89:	e9 37 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b8e <vector111>:
+80106b8e:	6a 00                	push   $0x0
+80106b90:	6a 6f                	push   $0x6f
+80106b92:	e9 2e f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106b97 <vector112>:
+80106b97:	6a 00                	push   $0x0
+80106b99:	6a 70                	push   $0x70
+80106b9b:	e9 25 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106ba0 <vector113>:
+80106ba0:	6a 00                	push   $0x0
+80106ba2:	6a 71                	push   $0x71
+80106ba4:	e9 1c f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106ba9 <vector114>:
+80106ba9:	6a 00                	push   $0x0
+80106bab:	6a 72                	push   $0x72
+80106bad:	e9 13 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106bb2 <vector115>:
+80106bb2:	6a 00                	push   $0x0
+80106bb4:	6a 73                	push   $0x73
+80106bb6:	e9 0a f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106bbb <vector116>:
+80106bbb:	6a 00                	push   $0x0
+80106bbd:	6a 74                	push   $0x74
+80106bbf:	e9 01 f7 ff ff       	jmp    801062c5 <alltraps>
+
+80106bc4 <vector117>:
+80106bc4:	6a 00                	push   $0x0
+80106bc6:	6a 75                	push   $0x75
+80106bc8:	e9 f8 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106bcd <vector118>:
+80106bcd:	6a 00                	push   $0x0
+80106bcf:	6a 76                	push   $0x76
+80106bd1:	e9 ef f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106bd6 <vector119>:
+80106bd6:	6a 00                	push   $0x0
+80106bd8:	6a 77                	push   $0x77
+80106bda:	e9 e6 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106bdf <vector120>:
+80106bdf:	6a 00                	push   $0x0
+80106be1:	6a 78                	push   $0x78
+80106be3:	e9 dd f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106be8 <vector121>:
+80106be8:	6a 00                	push   $0x0
+80106bea:	6a 79                	push   $0x79
+80106bec:	e9 d4 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106bf1 <vector122>:
+80106bf1:	6a 00                	push   $0x0
+80106bf3:	6a 7a                	push   $0x7a
+80106bf5:	e9 cb f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106bfa <vector123>:
+80106bfa:	6a 00                	push   $0x0
+80106bfc:	6a 7b                	push   $0x7b
+80106bfe:	e9 c2 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c03 <vector124>:
+80106c03:	6a 00                	push   $0x0
+80106c05:	6a 7c                	push   $0x7c
+80106c07:	e9 b9 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c0c <vector125>:
+80106c0c:	6a 00                	push   $0x0
+80106c0e:	6a 7d                	push   $0x7d
+80106c10:	e9 b0 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c15 <vector126>:
+80106c15:	6a 00                	push   $0x0
+80106c17:	6a 7e                	push   $0x7e
+80106c19:	e9 a7 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c1e <vector127>:
+80106c1e:	6a 00                	push   $0x0
+80106c20:	6a 7f                	push   $0x7f
+80106c22:	e9 9e f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c27 <vector128>:
+80106c27:	6a 00                	push   $0x0
+80106c29:	68 80 00 00 00       	push   $0x80
+80106c2e:	e9 92 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c33 <vector129>:
+80106c33:	6a 00                	push   $0x0
+80106c35:	68 81 00 00 00       	push   $0x81
+80106c3a:	e9 86 f6 ff ff       	jmp    801062c5 <alltraps>
+
+80106c3f <vector130>:
 80106c3f:	6a 00                	push   $0x0
-80106c41:	6a 68                	push   $0x68
-80106c43:	e9 6d f7 ff ff       	jmp    801063b5 <alltraps>
+80106c41:	68 82 00 00 00       	push   $0x82
+80106c46:	e9 7a f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c48 <vector105>:
-80106c48:	6a 00                	push   $0x0
-80106c4a:	6a 69                	push   $0x69
-80106c4c:	e9 64 f7 ff ff       	jmp    801063b5 <alltraps>
+80106c4b <vector131>:
+80106c4b:	6a 00                	push   $0x0
+80106c4d:	68 83 00 00 00       	push   $0x83
+80106c52:	e9 6e f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c51 <vector106>:
-80106c51:	6a 00                	push   $0x0
-80106c53:	6a 6a                	push   $0x6a
-80106c55:	e9 5b f7 ff ff       	jmp    801063b5 <alltraps>
+80106c57 <vector132>:
+80106c57:	6a 00                	push   $0x0
+80106c59:	68 84 00 00 00       	push   $0x84
+80106c5e:	e9 62 f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c5a <vector107>:
-80106c5a:	6a 00                	push   $0x0
-80106c5c:	6a 6b                	push   $0x6b
-80106c5e:	e9 52 f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c63 <vector108>:
+80106c63 <vector133>:
 80106c63:	6a 00                	push   $0x0
-80106c65:	6a 6c                	push   $0x6c
-80106c67:	e9 49 f7 ff ff       	jmp    801063b5 <alltraps>
+80106c65:	68 85 00 00 00       	push   $0x85
+80106c6a:	e9 56 f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c6c <vector109>:
-80106c6c:	6a 00                	push   $0x0
-80106c6e:	6a 6d                	push   $0x6d
-80106c70:	e9 40 f7 ff ff       	jmp    801063b5 <alltraps>
+80106c6f <vector134>:
+80106c6f:	6a 00                	push   $0x0
+80106c71:	68 86 00 00 00       	push   $0x86
+80106c76:	e9 4a f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c75 <vector110>:
-80106c75:	6a 00                	push   $0x0
-80106c77:	6a 6e                	push   $0x6e
-80106c79:	e9 37 f7 ff ff       	jmp    801063b5 <alltraps>
+80106c7b <vector135>:
+80106c7b:	6a 00                	push   $0x0
+80106c7d:	68 87 00 00 00       	push   $0x87
+80106c82:	e9 3e f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c7e <vector111>:
-80106c7e:	6a 00                	push   $0x0
-80106c80:	6a 6f                	push   $0x6f
-80106c82:	e9 2e f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106c87 <vector112>:
+80106c87 <vector136>:
 80106c87:	6a 00                	push   $0x0
-80106c89:	6a 70                	push   $0x70
-80106c8b:	e9 25 f7 ff ff       	jmp    801063b5 <alltraps>
+80106c89:	68 88 00 00 00       	push   $0x88
+80106c8e:	e9 32 f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c90 <vector113>:
-80106c90:	6a 00                	push   $0x0
-80106c92:	6a 71                	push   $0x71
-80106c94:	e9 1c f7 ff ff       	jmp    801063b5 <alltraps>
+80106c93 <vector137>:
+80106c93:	6a 00                	push   $0x0
+80106c95:	68 89 00 00 00       	push   $0x89
+80106c9a:	e9 26 f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106c99 <vector114>:
-80106c99:	6a 00                	push   $0x0
-80106c9b:	6a 72                	push   $0x72
-80106c9d:	e9 13 f7 ff ff       	jmp    801063b5 <alltraps>
+80106c9f <vector138>:
+80106c9f:	6a 00                	push   $0x0
+80106ca1:	68 8a 00 00 00       	push   $0x8a
+80106ca6:	e9 1a f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106ca2 <vector115>:
-80106ca2:	6a 00                	push   $0x0
-80106ca4:	6a 73                	push   $0x73
-80106ca6:	e9 0a f7 ff ff       	jmp    801063b5 <alltraps>
-
-80106cab <vector116>:
+80106cab <vector139>:
 80106cab:	6a 00                	push   $0x0
-80106cad:	6a 74                	push   $0x74
-80106caf:	e9 01 f7 ff ff       	jmp    801063b5 <alltraps>
+80106cad:	68 8b 00 00 00       	push   $0x8b
+80106cb2:	e9 0e f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106cb4 <vector117>:
-80106cb4:	6a 00                	push   $0x0
-80106cb6:	6a 75                	push   $0x75
-80106cb8:	e9 f8 f6 ff ff       	jmp    801063b5 <alltraps>
+80106cb7 <vector140>:
+80106cb7:	6a 00                	push   $0x0
+80106cb9:	68 8c 00 00 00       	push   $0x8c
+80106cbe:	e9 02 f6 ff ff       	jmp    801062c5 <alltraps>
 
-80106cbd <vector118>:
-80106cbd:	6a 00                	push   $0x0
-80106cbf:	6a 76                	push   $0x76
-80106cc1:	e9 ef f6 ff ff       	jmp    801063b5 <alltraps>
+80106cc3 <vector141>:
+80106cc3:	6a 00                	push   $0x0
+80106cc5:	68 8d 00 00 00       	push   $0x8d
+80106cca:	e9 f6 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106cc6 <vector119>:
-80106cc6:	6a 00                	push   $0x0
-80106cc8:	6a 77                	push   $0x77
-80106cca:	e9 e6 f6 ff ff       	jmp    801063b5 <alltraps>
-
-80106ccf <vector120>:
+80106ccf <vector142>:
 80106ccf:	6a 00                	push   $0x0
-80106cd1:	6a 78                	push   $0x78
-80106cd3:	e9 dd f6 ff ff       	jmp    801063b5 <alltraps>
+80106cd1:	68 8e 00 00 00       	push   $0x8e
+80106cd6:	e9 ea f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106cd8 <vector121>:
-80106cd8:	6a 00                	push   $0x0
-80106cda:	6a 79                	push   $0x79
-80106cdc:	e9 d4 f6 ff ff       	jmp    801063b5 <alltraps>
+80106cdb <vector143>:
+80106cdb:	6a 00                	push   $0x0
+80106cdd:	68 8f 00 00 00       	push   $0x8f
+80106ce2:	e9 de f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106ce1 <vector122>:
-80106ce1:	6a 00                	push   $0x0
-80106ce3:	6a 7a                	push   $0x7a
-80106ce5:	e9 cb f6 ff ff       	jmp    801063b5 <alltraps>
+80106ce7 <vector144>:
+80106ce7:	6a 00                	push   $0x0
+80106ce9:	68 90 00 00 00       	push   $0x90
+80106cee:	e9 d2 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106cea <vector123>:
-80106cea:	6a 00                	push   $0x0
-80106cec:	6a 7b                	push   $0x7b
-80106cee:	e9 c2 f6 ff ff       	jmp    801063b5 <alltraps>
-
-80106cf3 <vector124>:
+80106cf3 <vector145>:
 80106cf3:	6a 00                	push   $0x0
-80106cf5:	6a 7c                	push   $0x7c
-80106cf7:	e9 b9 f6 ff ff       	jmp    801063b5 <alltraps>
+80106cf5:	68 91 00 00 00       	push   $0x91
+80106cfa:	e9 c6 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106cfc <vector125>:
-80106cfc:	6a 00                	push   $0x0
-80106cfe:	6a 7d                	push   $0x7d
-80106d00:	e9 b0 f6 ff ff       	jmp    801063b5 <alltraps>
+80106cff <vector146>:
+80106cff:	6a 00                	push   $0x0
+80106d01:	68 92 00 00 00       	push   $0x92
+80106d06:	e9 ba f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d05 <vector126>:
-80106d05:	6a 00                	push   $0x0
-80106d07:	6a 7e                	push   $0x7e
-80106d09:	e9 a7 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d0b <vector147>:
+80106d0b:	6a 00                	push   $0x0
+80106d0d:	68 93 00 00 00       	push   $0x93
+80106d12:	e9 ae f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d0e <vector127>:
-80106d0e:	6a 00                	push   $0x0
-80106d10:	6a 7f                	push   $0x7f
-80106d12:	e9 9e f6 ff ff       	jmp    801063b5 <alltraps>
-
-80106d17 <vector128>:
+80106d17 <vector148>:
 80106d17:	6a 00                	push   $0x0
-80106d19:	68 80 00 00 00       	push   $0x80
-80106d1e:	e9 92 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d19:	68 94 00 00 00       	push   $0x94
+80106d1e:	e9 a2 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d23 <vector129>:
+80106d23 <vector149>:
 80106d23:	6a 00                	push   $0x0
-80106d25:	68 81 00 00 00       	push   $0x81
-80106d2a:	e9 86 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d25:	68 95 00 00 00       	push   $0x95
+80106d2a:	e9 96 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d2f <vector130>:
+80106d2f <vector150>:
 80106d2f:	6a 00                	push   $0x0
-80106d31:	68 82 00 00 00       	push   $0x82
-80106d36:	e9 7a f6 ff ff       	jmp    801063b5 <alltraps>
+80106d31:	68 96 00 00 00       	push   $0x96
+80106d36:	e9 8a f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d3b <vector131>:
+80106d3b <vector151>:
 80106d3b:	6a 00                	push   $0x0
-80106d3d:	68 83 00 00 00       	push   $0x83
-80106d42:	e9 6e f6 ff ff       	jmp    801063b5 <alltraps>
+80106d3d:	68 97 00 00 00       	push   $0x97
+80106d42:	e9 7e f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d47 <vector132>:
+80106d47 <vector152>:
 80106d47:	6a 00                	push   $0x0
-80106d49:	68 84 00 00 00       	push   $0x84
-80106d4e:	e9 62 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d49:	68 98 00 00 00       	push   $0x98
+80106d4e:	e9 72 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d53 <vector133>:
+80106d53 <vector153>:
 80106d53:	6a 00                	push   $0x0
-80106d55:	68 85 00 00 00       	push   $0x85
-80106d5a:	e9 56 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d55:	68 99 00 00 00       	push   $0x99
+80106d5a:	e9 66 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d5f <vector134>:
+80106d5f <vector154>:
 80106d5f:	6a 00                	push   $0x0
-80106d61:	68 86 00 00 00       	push   $0x86
-80106d66:	e9 4a f6 ff ff       	jmp    801063b5 <alltraps>
+80106d61:	68 9a 00 00 00       	push   $0x9a
+80106d66:	e9 5a f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d6b <vector135>:
+80106d6b <vector155>:
 80106d6b:	6a 00                	push   $0x0
-80106d6d:	68 87 00 00 00       	push   $0x87
-80106d72:	e9 3e f6 ff ff       	jmp    801063b5 <alltraps>
+80106d6d:	68 9b 00 00 00       	push   $0x9b
+80106d72:	e9 4e f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d77 <vector136>:
+80106d77 <vector156>:
 80106d77:	6a 00                	push   $0x0
-80106d79:	68 88 00 00 00       	push   $0x88
-80106d7e:	e9 32 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d79:	68 9c 00 00 00       	push   $0x9c
+80106d7e:	e9 42 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d83 <vector137>:
+80106d83 <vector157>:
 80106d83:	6a 00                	push   $0x0
-80106d85:	68 89 00 00 00       	push   $0x89
-80106d8a:	e9 26 f6 ff ff       	jmp    801063b5 <alltraps>
+80106d85:	68 9d 00 00 00       	push   $0x9d
+80106d8a:	e9 36 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d8f <vector138>:
+80106d8f <vector158>:
 80106d8f:	6a 00                	push   $0x0
-80106d91:	68 8a 00 00 00       	push   $0x8a
-80106d96:	e9 1a f6 ff ff       	jmp    801063b5 <alltraps>
+80106d91:	68 9e 00 00 00       	push   $0x9e
+80106d96:	e9 2a f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106d9b <vector139>:
+80106d9b <vector159>:
 80106d9b:	6a 00                	push   $0x0
-80106d9d:	68 8b 00 00 00       	push   $0x8b
-80106da2:	e9 0e f6 ff ff       	jmp    801063b5 <alltraps>
+80106d9d:	68 9f 00 00 00       	push   $0x9f
+80106da2:	e9 1e f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106da7 <vector140>:
+80106da7 <vector160>:
 80106da7:	6a 00                	push   $0x0
-80106da9:	68 8c 00 00 00       	push   $0x8c
-80106dae:	e9 02 f6 ff ff       	jmp    801063b5 <alltraps>
+80106da9:	68 a0 00 00 00       	push   $0xa0
+80106dae:	e9 12 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106db3 <vector141>:
+80106db3 <vector161>:
 80106db3:	6a 00                	push   $0x0
-80106db5:	68 8d 00 00 00       	push   $0x8d
-80106dba:	e9 f6 f5 ff ff       	jmp    801063b5 <alltraps>
+80106db5:	68 a1 00 00 00       	push   $0xa1
+80106dba:	e9 06 f5 ff ff       	jmp    801062c5 <alltraps>
 
-80106dbf <vector142>:
+80106dbf <vector162>:
 80106dbf:	6a 00                	push   $0x0
-80106dc1:	68 8e 00 00 00       	push   $0x8e
-80106dc6:	e9 ea f5 ff ff       	jmp    801063b5 <alltraps>
+80106dc1:	68 a2 00 00 00       	push   $0xa2
+80106dc6:	e9 fa f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106dcb <vector143>:
+80106dcb <vector163>:
 80106dcb:	6a 00                	push   $0x0
-80106dcd:	68 8f 00 00 00       	push   $0x8f
-80106dd2:	e9 de f5 ff ff       	jmp    801063b5 <alltraps>
+80106dcd:	68 a3 00 00 00       	push   $0xa3
+80106dd2:	e9 ee f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106dd7 <vector144>:
+80106dd7 <vector164>:
 80106dd7:	6a 00                	push   $0x0
-80106dd9:	68 90 00 00 00       	push   $0x90
-80106dde:	e9 d2 f5 ff ff       	jmp    801063b5 <alltraps>
+80106dd9:	68 a4 00 00 00       	push   $0xa4
+80106dde:	e9 e2 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106de3 <vector145>:
+80106de3 <vector165>:
 80106de3:	6a 00                	push   $0x0
-80106de5:	68 91 00 00 00       	push   $0x91
-80106dea:	e9 c6 f5 ff ff       	jmp    801063b5 <alltraps>
+80106de5:	68 a5 00 00 00       	push   $0xa5
+80106dea:	e9 d6 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106def <vector146>:
+80106def <vector166>:
 80106def:	6a 00                	push   $0x0
-80106df1:	68 92 00 00 00       	push   $0x92
-80106df6:	e9 ba f5 ff ff       	jmp    801063b5 <alltraps>
+80106df1:	68 a6 00 00 00       	push   $0xa6
+80106df6:	e9 ca f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106dfb <vector147>:
+80106dfb <vector167>:
 80106dfb:	6a 00                	push   $0x0
-80106dfd:	68 93 00 00 00       	push   $0x93
-80106e02:	e9 ae f5 ff ff       	jmp    801063b5 <alltraps>
+80106dfd:	68 a7 00 00 00       	push   $0xa7
+80106e02:	e9 be f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e07 <vector148>:
+80106e07 <vector168>:
 80106e07:	6a 00                	push   $0x0
-80106e09:	68 94 00 00 00       	push   $0x94
-80106e0e:	e9 a2 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e09:	68 a8 00 00 00       	push   $0xa8
+80106e0e:	e9 b2 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e13 <vector149>:
+80106e13 <vector169>:
 80106e13:	6a 00                	push   $0x0
-80106e15:	68 95 00 00 00       	push   $0x95
-80106e1a:	e9 96 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e15:	68 a9 00 00 00       	push   $0xa9
+80106e1a:	e9 a6 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e1f <vector150>:
+80106e1f <vector170>:
 80106e1f:	6a 00                	push   $0x0
-80106e21:	68 96 00 00 00       	push   $0x96
-80106e26:	e9 8a f5 ff ff       	jmp    801063b5 <alltraps>
+80106e21:	68 aa 00 00 00       	push   $0xaa
+80106e26:	e9 9a f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e2b <vector151>:
+80106e2b <vector171>:
 80106e2b:	6a 00                	push   $0x0
-80106e2d:	68 97 00 00 00       	push   $0x97
-80106e32:	e9 7e f5 ff ff       	jmp    801063b5 <alltraps>
+80106e2d:	68 ab 00 00 00       	push   $0xab
+80106e32:	e9 8e f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e37 <vector152>:
+80106e37 <vector172>:
 80106e37:	6a 00                	push   $0x0
-80106e39:	68 98 00 00 00       	push   $0x98
-80106e3e:	e9 72 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e39:	68 ac 00 00 00       	push   $0xac
+80106e3e:	e9 82 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e43 <vector153>:
+80106e43 <vector173>:
 80106e43:	6a 00                	push   $0x0
-80106e45:	68 99 00 00 00       	push   $0x99
-80106e4a:	e9 66 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e45:	68 ad 00 00 00       	push   $0xad
+80106e4a:	e9 76 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e4f <vector154>:
+80106e4f <vector174>:
 80106e4f:	6a 00                	push   $0x0
-80106e51:	68 9a 00 00 00       	push   $0x9a
-80106e56:	e9 5a f5 ff ff       	jmp    801063b5 <alltraps>
+80106e51:	68 ae 00 00 00       	push   $0xae
+80106e56:	e9 6a f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e5b <vector155>:
+80106e5b <vector175>:
 80106e5b:	6a 00                	push   $0x0
-80106e5d:	68 9b 00 00 00       	push   $0x9b
-80106e62:	e9 4e f5 ff ff       	jmp    801063b5 <alltraps>
+80106e5d:	68 af 00 00 00       	push   $0xaf
+80106e62:	e9 5e f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e67 <vector156>:
+80106e67 <vector176>:
 80106e67:	6a 00                	push   $0x0
-80106e69:	68 9c 00 00 00       	push   $0x9c
-80106e6e:	e9 42 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e69:	68 b0 00 00 00       	push   $0xb0
+80106e6e:	e9 52 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e73 <vector157>:
+80106e73 <vector177>:
 80106e73:	6a 00                	push   $0x0
-80106e75:	68 9d 00 00 00       	push   $0x9d
-80106e7a:	e9 36 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e75:	68 b1 00 00 00       	push   $0xb1
+80106e7a:	e9 46 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e7f <vector158>:
+80106e7f <vector178>:
 80106e7f:	6a 00                	push   $0x0
-80106e81:	68 9e 00 00 00       	push   $0x9e
-80106e86:	e9 2a f5 ff ff       	jmp    801063b5 <alltraps>
+80106e81:	68 b2 00 00 00       	push   $0xb2
+80106e86:	e9 3a f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e8b <vector159>:
+80106e8b <vector179>:
 80106e8b:	6a 00                	push   $0x0
-80106e8d:	68 9f 00 00 00       	push   $0x9f
-80106e92:	e9 1e f5 ff ff       	jmp    801063b5 <alltraps>
+80106e8d:	68 b3 00 00 00       	push   $0xb3
+80106e92:	e9 2e f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106e97 <vector160>:
+80106e97 <vector180>:
 80106e97:	6a 00                	push   $0x0
-80106e99:	68 a0 00 00 00       	push   $0xa0
-80106e9e:	e9 12 f5 ff ff       	jmp    801063b5 <alltraps>
+80106e99:	68 b4 00 00 00       	push   $0xb4
+80106e9e:	e9 22 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106ea3 <vector161>:
+80106ea3 <vector181>:
 80106ea3:	6a 00                	push   $0x0
-80106ea5:	68 a1 00 00 00       	push   $0xa1
-80106eaa:	e9 06 f5 ff ff       	jmp    801063b5 <alltraps>
+80106ea5:	68 b5 00 00 00       	push   $0xb5
+80106eaa:	e9 16 f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106eaf <vector162>:
+80106eaf <vector182>:
 80106eaf:	6a 00                	push   $0x0
-80106eb1:	68 a2 00 00 00       	push   $0xa2
-80106eb6:	e9 fa f4 ff ff       	jmp    801063b5 <alltraps>
+80106eb1:	68 b6 00 00 00       	push   $0xb6
+80106eb6:	e9 0a f4 ff ff       	jmp    801062c5 <alltraps>
 
-80106ebb <vector163>:
+80106ebb <vector183>:
 80106ebb:	6a 00                	push   $0x0
-80106ebd:	68 a3 00 00 00       	push   $0xa3
-80106ec2:	e9 ee f4 ff ff       	jmp    801063b5 <alltraps>
+80106ebd:	68 b7 00 00 00       	push   $0xb7
+80106ec2:	e9 fe f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106ec7 <vector164>:
+80106ec7 <vector184>:
 80106ec7:	6a 00                	push   $0x0
-80106ec9:	68 a4 00 00 00       	push   $0xa4
-80106ece:	e9 e2 f4 ff ff       	jmp    801063b5 <alltraps>
+80106ec9:	68 b8 00 00 00       	push   $0xb8
+80106ece:	e9 f2 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106ed3 <vector165>:
+80106ed3 <vector185>:
 80106ed3:	6a 00                	push   $0x0
-80106ed5:	68 a5 00 00 00       	push   $0xa5
-80106eda:	e9 d6 f4 ff ff       	jmp    801063b5 <alltraps>
+80106ed5:	68 b9 00 00 00       	push   $0xb9
+80106eda:	e9 e6 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106edf <vector166>:
+80106edf <vector186>:
 80106edf:	6a 00                	push   $0x0
-80106ee1:	68 a6 00 00 00       	push   $0xa6
-80106ee6:	e9 ca f4 ff ff       	jmp    801063b5 <alltraps>
+80106ee1:	68 ba 00 00 00       	push   $0xba
+80106ee6:	e9 da f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106eeb <vector167>:
+80106eeb <vector187>:
 80106eeb:	6a 00                	push   $0x0
-80106eed:	68 a7 00 00 00       	push   $0xa7
-80106ef2:	e9 be f4 ff ff       	jmp    801063b5 <alltraps>
+80106eed:	68 bb 00 00 00       	push   $0xbb
+80106ef2:	e9 ce f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106ef7 <vector168>:
+80106ef7 <vector188>:
 80106ef7:	6a 00                	push   $0x0
-80106ef9:	68 a8 00 00 00       	push   $0xa8
-80106efe:	e9 b2 f4 ff ff       	jmp    801063b5 <alltraps>
+80106ef9:	68 bc 00 00 00       	push   $0xbc
+80106efe:	e9 c2 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f03 <vector169>:
+80106f03 <vector189>:
 80106f03:	6a 00                	push   $0x0
-80106f05:	68 a9 00 00 00       	push   $0xa9
-80106f0a:	e9 a6 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f05:	68 bd 00 00 00       	push   $0xbd
+80106f0a:	e9 b6 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f0f <vector170>:
+80106f0f <vector190>:
 80106f0f:	6a 00                	push   $0x0
-80106f11:	68 aa 00 00 00       	push   $0xaa
-80106f16:	e9 9a f4 ff ff       	jmp    801063b5 <alltraps>
+80106f11:	68 be 00 00 00       	push   $0xbe
+80106f16:	e9 aa f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f1b <vector171>:
+80106f1b <vector191>:
 80106f1b:	6a 00                	push   $0x0
-80106f1d:	68 ab 00 00 00       	push   $0xab
-80106f22:	e9 8e f4 ff ff       	jmp    801063b5 <alltraps>
+80106f1d:	68 bf 00 00 00       	push   $0xbf
+80106f22:	e9 9e f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f27 <vector172>:
+80106f27 <vector192>:
 80106f27:	6a 00                	push   $0x0
-80106f29:	68 ac 00 00 00       	push   $0xac
-80106f2e:	e9 82 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f29:	68 c0 00 00 00       	push   $0xc0
+80106f2e:	e9 92 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f33 <vector173>:
+80106f33 <vector193>:
 80106f33:	6a 00                	push   $0x0
-80106f35:	68 ad 00 00 00       	push   $0xad
-80106f3a:	e9 76 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f35:	68 c1 00 00 00       	push   $0xc1
+80106f3a:	e9 86 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f3f <vector174>:
+80106f3f <vector194>:
 80106f3f:	6a 00                	push   $0x0
-80106f41:	68 ae 00 00 00       	push   $0xae
-80106f46:	e9 6a f4 ff ff       	jmp    801063b5 <alltraps>
+80106f41:	68 c2 00 00 00       	push   $0xc2
+80106f46:	e9 7a f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f4b <vector175>:
+80106f4b <vector195>:
 80106f4b:	6a 00                	push   $0x0
-80106f4d:	68 af 00 00 00       	push   $0xaf
-80106f52:	e9 5e f4 ff ff       	jmp    801063b5 <alltraps>
+80106f4d:	68 c3 00 00 00       	push   $0xc3
+80106f52:	e9 6e f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f57 <vector176>:
+80106f57 <vector196>:
 80106f57:	6a 00                	push   $0x0
-80106f59:	68 b0 00 00 00       	push   $0xb0
-80106f5e:	e9 52 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f59:	68 c4 00 00 00       	push   $0xc4
+80106f5e:	e9 62 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f63 <vector177>:
+80106f63 <vector197>:
 80106f63:	6a 00                	push   $0x0
-80106f65:	68 b1 00 00 00       	push   $0xb1
-80106f6a:	e9 46 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f65:	68 c5 00 00 00       	push   $0xc5
+80106f6a:	e9 56 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f6f <vector178>:
+80106f6f <vector198>:
 80106f6f:	6a 00                	push   $0x0
-80106f71:	68 b2 00 00 00       	push   $0xb2
-80106f76:	e9 3a f4 ff ff       	jmp    801063b5 <alltraps>
+80106f71:	68 c6 00 00 00       	push   $0xc6
+80106f76:	e9 4a f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f7b <vector179>:
+80106f7b <vector199>:
 80106f7b:	6a 00                	push   $0x0
-80106f7d:	68 b3 00 00 00       	push   $0xb3
-80106f82:	e9 2e f4 ff ff       	jmp    801063b5 <alltraps>
+80106f7d:	68 c7 00 00 00       	push   $0xc7
+80106f82:	e9 3e f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f87 <vector180>:
+80106f87 <vector200>:
 80106f87:	6a 00                	push   $0x0
-80106f89:	68 b4 00 00 00       	push   $0xb4
-80106f8e:	e9 22 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f89:	68 c8 00 00 00       	push   $0xc8
+80106f8e:	e9 32 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f93 <vector181>:
+80106f93 <vector201>:
 80106f93:	6a 00                	push   $0x0
-80106f95:	68 b5 00 00 00       	push   $0xb5
-80106f9a:	e9 16 f4 ff ff       	jmp    801063b5 <alltraps>
+80106f95:	68 c9 00 00 00       	push   $0xc9
+80106f9a:	e9 26 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106f9f <vector182>:
+80106f9f <vector202>:
 80106f9f:	6a 00                	push   $0x0
-80106fa1:	68 b6 00 00 00       	push   $0xb6
-80106fa6:	e9 0a f4 ff ff       	jmp    801063b5 <alltraps>
+80106fa1:	68 ca 00 00 00       	push   $0xca
+80106fa6:	e9 1a f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106fab <vector183>:
+80106fab <vector203>:
 80106fab:	6a 00                	push   $0x0
-80106fad:	68 b7 00 00 00       	push   $0xb7
-80106fb2:	e9 fe f3 ff ff       	jmp    801063b5 <alltraps>
+80106fad:	68 cb 00 00 00       	push   $0xcb
+80106fb2:	e9 0e f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106fb7 <vector184>:
+80106fb7 <vector204>:
 80106fb7:	6a 00                	push   $0x0
-80106fb9:	68 b8 00 00 00       	push   $0xb8
-80106fbe:	e9 f2 f3 ff ff       	jmp    801063b5 <alltraps>
+80106fb9:	68 cc 00 00 00       	push   $0xcc
+80106fbe:	e9 02 f3 ff ff       	jmp    801062c5 <alltraps>
 
-80106fc3 <vector185>:
+80106fc3 <vector205>:
 80106fc3:	6a 00                	push   $0x0
-80106fc5:	68 b9 00 00 00       	push   $0xb9
-80106fca:	e9 e6 f3 ff ff       	jmp    801063b5 <alltraps>
+80106fc5:	68 cd 00 00 00       	push   $0xcd
+80106fca:	e9 f6 f2 ff ff       	jmp    801062c5 <alltraps>
 
-80106fcf <vector186>:
+80106fcf <vector206>:
 80106fcf:	6a 00                	push   $0x0
-80106fd1:	68 ba 00 00 00       	push   $0xba
-80106fd6:	e9 da f3 ff ff       	jmp    801063b5 <alltraps>
+80106fd1:	68 ce 00 00 00       	push   $0xce
+80106fd6:	e9 ea f2 ff ff       	jmp    801062c5 <alltraps>
 
-80106fdb <vector187>:
+80106fdb <vector207>:
 80106fdb:	6a 00                	push   $0x0
-80106fdd:	68 bb 00 00 00       	push   $0xbb
-80106fe2:	e9 ce f3 ff ff       	jmp    801063b5 <alltraps>
+80106fdd:	68 cf 00 00 00       	push   $0xcf
+80106fe2:	e9 de f2 ff ff       	jmp    801062c5 <alltraps>
 
-80106fe7 <vector188>:
+80106fe7 <vector208>:
 80106fe7:	6a 00                	push   $0x0
-80106fe9:	68 bc 00 00 00       	push   $0xbc
-80106fee:	e9 c2 f3 ff ff       	jmp    801063b5 <alltraps>
+80106fe9:	68 d0 00 00 00       	push   $0xd0
+80106fee:	e9 d2 f2 ff ff       	jmp    801062c5 <alltraps>
 
-80106ff3 <vector189>:
+80106ff3 <vector209>:
 80106ff3:	6a 00                	push   $0x0
-80106ff5:	68 bd 00 00 00       	push   $0xbd
-80106ffa:	e9 b6 f3 ff ff       	jmp    801063b5 <alltraps>
+80106ff5:	68 d1 00 00 00       	push   $0xd1
+80106ffa:	e9 c6 f2 ff ff       	jmp    801062c5 <alltraps>
 
-80106fff <vector190>:
+80106fff <vector210>:
 80106fff:	6a 00                	push   $0x0
-80107001:	68 be 00 00 00       	push   $0xbe
-80107006:	e9 aa f3 ff ff       	jmp    801063b5 <alltraps>
+80107001:	68 d2 00 00 00       	push   $0xd2
+80107006:	e9 ba f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010700b <vector191>:
+8010700b <vector211>:
 8010700b:	6a 00                	push   $0x0
-8010700d:	68 bf 00 00 00       	push   $0xbf
-80107012:	e9 9e f3 ff ff       	jmp    801063b5 <alltraps>
+8010700d:	68 d3 00 00 00       	push   $0xd3
+80107012:	e9 ae f2 ff ff       	jmp    801062c5 <alltraps>
 
-80107017 <vector192>:
+80107017 <vector212>:
 80107017:	6a 00                	push   $0x0
-80107019:	68 c0 00 00 00       	push   $0xc0
-8010701e:	e9 92 f3 ff ff       	jmp    801063b5 <alltraps>
+80107019:	68 d4 00 00 00       	push   $0xd4
+8010701e:	e9 a2 f2 ff ff       	jmp    801062c5 <alltraps>
 
-80107023 <vector193>:
+80107023 <vector213>:
 80107023:	6a 00                	push   $0x0
-80107025:	68 c1 00 00 00       	push   $0xc1
-8010702a:	e9 86 f3 ff ff       	jmp    801063b5 <alltraps>
+80107025:	68 d5 00 00 00       	push   $0xd5
+8010702a:	e9 96 f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010702f <vector194>:
+8010702f <vector214>:
 8010702f:	6a 00                	push   $0x0
-80107031:	68 c2 00 00 00       	push   $0xc2
-80107036:	e9 7a f3 ff ff       	jmp    801063b5 <alltraps>
+80107031:	68 d6 00 00 00       	push   $0xd6
+80107036:	e9 8a f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010703b <vector195>:
+8010703b <vector215>:
 8010703b:	6a 00                	push   $0x0
-8010703d:	68 c3 00 00 00       	push   $0xc3
-80107042:	e9 6e f3 ff ff       	jmp    801063b5 <alltraps>
+8010703d:	68 d7 00 00 00       	push   $0xd7
+80107042:	e9 7e f2 ff ff       	jmp    801062c5 <alltraps>
 
-80107047 <vector196>:
+80107047 <vector216>:
 80107047:	6a 00                	push   $0x0
-80107049:	68 c4 00 00 00       	push   $0xc4
-8010704e:	e9 62 f3 ff ff       	jmp    801063b5 <alltraps>
+80107049:	68 d8 00 00 00       	push   $0xd8
+8010704e:	e9 72 f2 ff ff       	jmp    801062c5 <alltraps>
 
-80107053 <vector197>:
+80107053 <vector217>:
 80107053:	6a 00                	push   $0x0
-80107055:	68 c5 00 00 00       	push   $0xc5
-8010705a:	e9 56 f3 ff ff       	jmp    801063b5 <alltraps>
+80107055:	68 d9 00 00 00       	push   $0xd9
+8010705a:	e9 66 f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010705f <vector198>:
+8010705f <vector218>:
 8010705f:	6a 00                	push   $0x0
-80107061:	68 c6 00 00 00       	push   $0xc6
-80107066:	e9 4a f3 ff ff       	jmp    801063b5 <alltraps>
+80107061:	68 da 00 00 00       	push   $0xda
+80107066:	e9 5a f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010706b <vector199>:
+8010706b <vector219>:
 8010706b:	6a 00                	push   $0x0
-8010706d:	68 c7 00 00 00       	push   $0xc7
-80107072:	e9 3e f3 ff ff       	jmp    801063b5 <alltraps>
+8010706d:	68 db 00 00 00       	push   $0xdb
+80107072:	e9 4e f2 ff ff       	jmp    801062c5 <alltraps>
 
-80107077 <vector200>:
+80107077 <vector220>:
 80107077:	6a 00                	push   $0x0
-80107079:	68 c8 00 00 00       	push   $0xc8
-8010707e:	e9 32 f3 ff ff       	jmp    801063b5 <alltraps>
+80107079:	68 dc 00 00 00       	push   $0xdc
+8010707e:	e9 42 f2 ff ff       	jmp    801062c5 <alltraps>
 
-80107083 <vector201>:
+80107083 <vector221>:
 80107083:	6a 00                	push   $0x0
-80107085:	68 c9 00 00 00       	push   $0xc9
-8010708a:	e9 26 f3 ff ff       	jmp    801063b5 <alltraps>
+80107085:	68 dd 00 00 00       	push   $0xdd
+8010708a:	e9 36 f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010708f <vector202>:
+8010708f <vector222>:
 8010708f:	6a 00                	push   $0x0
-80107091:	68 ca 00 00 00       	push   $0xca
-80107096:	e9 1a f3 ff ff       	jmp    801063b5 <alltraps>
+80107091:	68 de 00 00 00       	push   $0xde
+80107096:	e9 2a f2 ff ff       	jmp    801062c5 <alltraps>
 
-8010709b <vector203>:
+8010709b <vector223>:
 8010709b:	6a 00                	push   $0x0
-8010709d:	68 cb 00 00 00       	push   $0xcb
-801070a2:	e9 0e f3 ff ff       	jmp    801063b5 <alltraps>
+8010709d:	68 df 00 00 00       	push   $0xdf
+801070a2:	e9 1e f2 ff ff       	jmp    801062c5 <alltraps>
 
-801070a7 <vector204>:
+801070a7 <vector224>:
 801070a7:	6a 00                	push   $0x0
-801070a9:	68 cc 00 00 00       	push   $0xcc
-801070ae:	e9 02 f3 ff ff       	jmp    801063b5 <alltraps>
+801070a9:	68 e0 00 00 00       	push   $0xe0
+801070ae:	e9 12 f2 ff ff       	jmp    801062c5 <alltraps>
 
-801070b3 <vector205>:
+801070b3 <vector225>:
 801070b3:	6a 00                	push   $0x0
-801070b5:	68 cd 00 00 00       	push   $0xcd
-801070ba:	e9 f6 f2 ff ff       	jmp    801063b5 <alltraps>
+801070b5:	68 e1 00 00 00       	push   $0xe1
+801070ba:	e9 06 f2 ff ff       	jmp    801062c5 <alltraps>
 
-801070bf <vector206>:
+801070bf <vector226>:
 801070bf:	6a 00                	push   $0x0
-801070c1:	68 ce 00 00 00       	push   $0xce
-801070c6:	e9 ea f2 ff ff       	jmp    801063b5 <alltraps>
+801070c1:	68 e2 00 00 00       	push   $0xe2
+801070c6:	e9 fa f1 ff ff       	jmp    801062c5 <alltraps>
 
-801070cb <vector207>:
+801070cb <vector227>:
 801070cb:	6a 00                	push   $0x0
-801070cd:	68 cf 00 00 00       	push   $0xcf
-801070d2:	e9 de f2 ff ff       	jmp    801063b5 <alltraps>
+801070cd:	68 e3 00 00 00       	push   $0xe3
+801070d2:	e9 ee f1 ff ff       	jmp    801062c5 <alltraps>
 
-801070d7 <vector208>:
+801070d7 <vector228>:
 801070d7:	6a 00                	push   $0x0
-801070d9:	68 d0 00 00 00       	push   $0xd0
-801070de:	e9 d2 f2 ff ff       	jmp    801063b5 <alltraps>
+801070d9:	68 e4 00 00 00       	push   $0xe4
+801070de:	e9 e2 f1 ff ff       	jmp    801062c5 <alltraps>
 
-801070e3 <vector209>:
+801070e3 <vector229>:
 801070e3:	6a 00                	push   $0x0
-801070e5:	68 d1 00 00 00       	push   $0xd1
-801070ea:	e9 c6 f2 ff ff       	jmp    801063b5 <alltraps>
+801070e5:	68 e5 00 00 00       	push   $0xe5
+801070ea:	e9 d6 f1 ff ff       	jmp    801062c5 <alltraps>
 
-801070ef <vector210>:
+801070ef <vector230>:
 801070ef:	6a 00                	push   $0x0
-801070f1:	68 d2 00 00 00       	push   $0xd2
-801070f6:	e9 ba f2 ff ff       	jmp    801063b5 <alltraps>
+801070f1:	68 e6 00 00 00       	push   $0xe6
+801070f6:	e9 ca f1 ff ff       	jmp    801062c5 <alltraps>
 
-801070fb <vector211>:
+801070fb <vector231>:
 801070fb:	6a 00                	push   $0x0
-801070fd:	68 d3 00 00 00       	push   $0xd3
-80107102:	e9 ae f2 ff ff       	jmp    801063b5 <alltraps>
+801070fd:	68 e7 00 00 00       	push   $0xe7
+80107102:	e9 be f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107107 <vector212>:
+80107107 <vector232>:
 80107107:	6a 00                	push   $0x0
-80107109:	68 d4 00 00 00       	push   $0xd4
-8010710e:	e9 a2 f2 ff ff       	jmp    801063b5 <alltraps>
+80107109:	68 e8 00 00 00       	push   $0xe8
+8010710e:	e9 b2 f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107113 <vector213>:
+80107113 <vector233>:
 80107113:	6a 00                	push   $0x0
-80107115:	68 d5 00 00 00       	push   $0xd5
-8010711a:	e9 96 f2 ff ff       	jmp    801063b5 <alltraps>
+80107115:	68 e9 00 00 00       	push   $0xe9
+8010711a:	e9 a6 f1 ff ff       	jmp    801062c5 <alltraps>
 
-8010711f <vector214>:
+8010711f <vector234>:
 8010711f:	6a 00                	push   $0x0
-80107121:	68 d6 00 00 00       	push   $0xd6
-80107126:	e9 8a f2 ff ff       	jmp    801063b5 <alltraps>
+80107121:	68 ea 00 00 00       	push   $0xea
+80107126:	e9 9a f1 ff ff       	jmp    801062c5 <alltraps>
 
-8010712b <vector215>:
+8010712b <vector235>:
 8010712b:	6a 00                	push   $0x0
-8010712d:	68 d7 00 00 00       	push   $0xd7
-80107132:	e9 7e f2 ff ff       	jmp    801063b5 <alltraps>
+8010712d:	68 eb 00 00 00       	push   $0xeb
+80107132:	e9 8e f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107137 <vector216>:
+80107137 <vector236>:
 80107137:	6a 00                	push   $0x0
-80107139:	68 d8 00 00 00       	push   $0xd8
-8010713e:	e9 72 f2 ff ff       	jmp    801063b5 <alltraps>
+80107139:	68 ec 00 00 00       	push   $0xec
+8010713e:	e9 82 f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107143 <vector217>:
+80107143 <vector237>:
 80107143:	6a 00                	push   $0x0
-80107145:	68 d9 00 00 00       	push   $0xd9
-8010714a:	e9 66 f2 ff ff       	jmp    801063b5 <alltraps>
+80107145:	68 ed 00 00 00       	push   $0xed
+8010714a:	e9 76 f1 ff ff       	jmp    801062c5 <alltraps>
 
-8010714f <vector218>:
+8010714f <vector238>:
 8010714f:	6a 00                	push   $0x0
-80107151:	68 da 00 00 00       	push   $0xda
-80107156:	e9 5a f2 ff ff       	jmp    801063b5 <alltraps>
+80107151:	68 ee 00 00 00       	push   $0xee
+80107156:	e9 6a f1 ff ff       	jmp    801062c5 <alltraps>
 
-8010715b <vector219>:
+8010715b <vector239>:
 8010715b:	6a 00                	push   $0x0
-8010715d:	68 db 00 00 00       	push   $0xdb
-80107162:	e9 4e f2 ff ff       	jmp    801063b5 <alltraps>
+8010715d:	68 ef 00 00 00       	push   $0xef
+80107162:	e9 5e f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107167 <vector220>:
+80107167 <vector240>:
 80107167:	6a 00                	push   $0x0
-80107169:	68 dc 00 00 00       	push   $0xdc
-8010716e:	e9 42 f2 ff ff       	jmp    801063b5 <alltraps>
+80107169:	68 f0 00 00 00       	push   $0xf0
+8010716e:	e9 52 f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107173 <vector221>:
+80107173 <vector241>:
 80107173:	6a 00                	push   $0x0
-80107175:	68 dd 00 00 00       	push   $0xdd
-8010717a:	e9 36 f2 ff ff       	jmp    801063b5 <alltraps>
+80107175:	68 f1 00 00 00       	push   $0xf1
+8010717a:	e9 46 f1 ff ff       	jmp    801062c5 <alltraps>
 
-8010717f <vector222>:
+8010717f <vector242>:
 8010717f:	6a 00                	push   $0x0
-80107181:	68 de 00 00 00       	push   $0xde
-80107186:	e9 2a f2 ff ff       	jmp    801063b5 <alltraps>
+80107181:	68 f2 00 00 00       	push   $0xf2
+80107186:	e9 3a f1 ff ff       	jmp    801062c5 <alltraps>
 
-8010718b <vector223>:
+8010718b <vector243>:
 8010718b:	6a 00                	push   $0x0
-8010718d:	68 df 00 00 00       	push   $0xdf
-80107192:	e9 1e f2 ff ff       	jmp    801063b5 <alltraps>
+8010718d:	68 f3 00 00 00       	push   $0xf3
+80107192:	e9 2e f1 ff ff       	jmp    801062c5 <alltraps>
 
-80107197 <vector224>:
+80107197 <vector244>:
 80107197:	6a 00                	push   $0x0
-80107199:	68 e0 00 00 00       	push   $0xe0
-8010719e:	e9 12 f2 ff ff       	jmp    801063b5 <alltraps>
+80107199:	68 f4 00 00 00       	push   $0xf4
+8010719e:	e9 22 f1 ff ff       	jmp    801062c5 <alltraps>
 
-801071a3 <vector225>:
+801071a3 <vector245>:
 801071a3:	6a 00                	push   $0x0
-801071a5:	68 e1 00 00 00       	push   $0xe1
-801071aa:	e9 06 f2 ff ff       	jmp    801063b5 <alltraps>
+801071a5:	68 f5 00 00 00       	push   $0xf5
+801071aa:	e9 16 f1 ff ff       	jmp    801062c5 <alltraps>
 
-801071af <vector226>:
+801071af <vector246>:
 801071af:	6a 00                	push   $0x0
-801071b1:	68 e2 00 00 00       	push   $0xe2
-801071b6:	e9 fa f1 ff ff       	jmp    801063b5 <alltraps>
+801071b1:	68 f6 00 00 00       	push   $0xf6
+801071b6:	e9 0a f1 ff ff       	jmp    801062c5 <alltraps>
 
-801071bb <vector227>:
+801071bb <vector247>:
 801071bb:	6a 00                	push   $0x0
-801071bd:	68 e3 00 00 00       	push   $0xe3
-801071c2:	e9 ee f1 ff ff       	jmp    801063b5 <alltraps>
+801071bd:	68 f7 00 00 00       	push   $0xf7
+801071c2:	e9 fe f0 ff ff       	jmp    801062c5 <alltraps>
 
-801071c7 <vector228>:
+801071c7 <vector248>:
 801071c7:	6a 00                	push   $0x0
-801071c9:	68 e4 00 00 00       	push   $0xe4
-801071ce:	e9 e2 f1 ff ff       	jmp    801063b5 <alltraps>
+801071c9:	68 f8 00 00 00       	push   $0xf8
+801071ce:	e9 f2 f0 ff ff       	jmp    801062c5 <alltraps>
 
-801071d3 <vector229>:
+801071d3 <vector249>:
 801071d3:	6a 00                	push   $0x0
-801071d5:	68 e5 00 00 00       	push   $0xe5
-801071da:	e9 d6 f1 ff ff       	jmp    801063b5 <alltraps>
+801071d5:	68 f9 00 00 00       	push   $0xf9
+801071da:	e9 e6 f0 ff ff       	jmp    801062c5 <alltraps>
 
-801071df <vector230>:
+801071df <vector250>:
 801071df:	6a 00                	push   $0x0
-801071e1:	68 e6 00 00 00       	push   $0xe6
-801071e6:	e9 ca f1 ff ff       	jmp    801063b5 <alltraps>
+801071e1:	68 fa 00 00 00       	push   $0xfa
+801071e6:	e9 da f0 ff ff       	jmp    801062c5 <alltraps>
 
-801071eb <vector231>:
+801071eb <vector251>:
 801071eb:	6a 00                	push   $0x0
-801071ed:	68 e7 00 00 00       	push   $0xe7
-801071f2:	e9 be f1 ff ff       	jmp    801063b5 <alltraps>
+801071ed:	68 fb 00 00 00       	push   $0xfb
+801071f2:	e9 ce f0 ff ff       	jmp    801062c5 <alltraps>
 
-801071f7 <vector232>:
+801071f7 <vector252>:
 801071f7:	6a 00                	push   $0x0
-801071f9:	68 e8 00 00 00       	push   $0xe8
-801071fe:	e9 b2 f1 ff ff       	jmp    801063b5 <alltraps>
+801071f9:	68 fc 00 00 00       	push   $0xfc
+801071fe:	e9 c2 f0 ff ff       	jmp    801062c5 <alltraps>
 
-80107203 <vector233>:
+80107203 <vector253>:
 80107203:	6a 00                	push   $0x0
-80107205:	68 e9 00 00 00       	push   $0xe9
-8010720a:	e9 a6 f1 ff ff       	jmp    801063b5 <alltraps>
+80107205:	68 fd 00 00 00       	push   $0xfd
+8010720a:	e9 b6 f0 ff ff       	jmp    801062c5 <alltraps>
 
-8010720f <vector234>:
+8010720f <vector254>:
 8010720f:	6a 00                	push   $0x0
-80107211:	68 ea 00 00 00       	push   $0xea
-80107216:	e9 9a f1 ff ff       	jmp    801063b5 <alltraps>
+80107211:	68 fe 00 00 00       	push   $0xfe
+80107216:	e9 aa f0 ff ff       	jmp    801062c5 <alltraps>
 
-8010721b <vector235>:
+8010721b <vector255>:
 8010721b:	6a 00                	push   $0x0
-8010721d:	68 eb 00 00 00       	push   $0xeb
-80107222:	e9 8e f1 ff ff       	jmp    801063b5 <alltraps>
+8010721d:	68 ff 00 00 00       	push   $0xff
+80107222:	e9 9e f0 ff ff       	jmp    801062c5 <alltraps>
+80107227:	66 90                	xchg   %ax,%ax
+80107229:	66 90                	xchg   %ax,%ax
+8010722b:	66 90                	xchg   %ax,%ax
+8010722d:	66 90                	xchg   %ax,%ax
+8010722f:	90                   	nop
 
-80107227 <vector236>:
-80107227:	6a 00                	push   $0x0
-80107229:	68 ec 00 00 00       	push   $0xec
-8010722e:	e9 82 f1 ff ff       	jmp    801063b5 <alltraps>
-
-80107233 <vector237>:
-80107233:	6a 00                	push   $0x0
-80107235:	68 ed 00 00 00       	push   $0xed
-8010723a:	e9 76 f1 ff ff       	jmp    801063b5 <alltraps>
-
-8010723f <vector238>:
-8010723f:	6a 00                	push   $0x0
-80107241:	68 ee 00 00 00       	push   $0xee
-80107246:	e9 6a f1 ff ff       	jmp    801063b5 <alltraps>
-
-8010724b <vector239>:
-8010724b:	6a 00                	push   $0x0
-8010724d:	68 ef 00 00 00       	push   $0xef
-80107252:	e9 5e f1 ff ff       	jmp    801063b5 <alltraps>
-
-80107257 <vector240>:
-80107257:	6a 00                	push   $0x0
-80107259:	68 f0 00 00 00       	push   $0xf0
-8010725e:	e9 52 f1 ff ff       	jmp    801063b5 <alltraps>
-
-80107263 <vector241>:
-80107263:	6a 00                	push   $0x0
-80107265:	68 f1 00 00 00       	push   $0xf1
-8010726a:	e9 46 f1 ff ff       	jmp    801063b5 <alltraps>
-
-8010726f <vector242>:
-8010726f:	6a 00                	push   $0x0
-80107271:	68 f2 00 00 00       	push   $0xf2
-80107276:	e9 3a f1 ff ff       	jmp    801063b5 <alltraps>
-
-8010727b <vector243>:
-8010727b:	6a 00                	push   $0x0
-8010727d:	68 f3 00 00 00       	push   $0xf3
-80107282:	e9 2e f1 ff ff       	jmp    801063b5 <alltraps>
-
-80107287 <vector244>:
-80107287:	6a 00                	push   $0x0
-80107289:	68 f4 00 00 00       	push   $0xf4
-8010728e:	e9 22 f1 ff ff       	jmp    801063b5 <alltraps>
-
-80107293 <vector245>:
-80107293:	6a 00                	push   $0x0
-80107295:	68 f5 00 00 00       	push   $0xf5
-8010729a:	e9 16 f1 ff ff       	jmp    801063b5 <alltraps>
-
-8010729f <vector246>:
-8010729f:	6a 00                	push   $0x0
-801072a1:	68 f6 00 00 00       	push   $0xf6
-801072a6:	e9 0a f1 ff ff       	jmp    801063b5 <alltraps>
-
-801072ab <vector247>:
-801072ab:	6a 00                	push   $0x0
-801072ad:	68 f7 00 00 00       	push   $0xf7
-801072b2:	e9 fe f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072b7 <vector248>:
-801072b7:	6a 00                	push   $0x0
-801072b9:	68 f8 00 00 00       	push   $0xf8
-801072be:	e9 f2 f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072c3 <vector249>:
-801072c3:	6a 00                	push   $0x0
-801072c5:	68 f9 00 00 00       	push   $0xf9
-801072ca:	e9 e6 f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072cf <vector250>:
-801072cf:	6a 00                	push   $0x0
-801072d1:	68 fa 00 00 00       	push   $0xfa
-801072d6:	e9 da f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072db <vector251>:
-801072db:	6a 00                	push   $0x0
-801072dd:	68 fb 00 00 00       	push   $0xfb
-801072e2:	e9 ce f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072e7 <vector252>:
-801072e7:	6a 00                	push   $0x0
-801072e9:	68 fc 00 00 00       	push   $0xfc
-801072ee:	e9 c2 f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072f3 <vector253>:
-801072f3:	6a 00                	push   $0x0
-801072f5:	68 fd 00 00 00       	push   $0xfd
-801072fa:	e9 b6 f0 ff ff       	jmp    801063b5 <alltraps>
-
-801072ff <vector254>:
-801072ff:	6a 00                	push   $0x0
-80107301:	68 fe 00 00 00       	push   $0xfe
-80107306:	e9 aa f0 ff ff       	jmp    801063b5 <alltraps>
-
-8010730b <vector255>:
-8010730b:	6a 00                	push   $0x0
-8010730d:	68 ff 00 00 00       	push   $0xff
-80107312:	e9 9e f0 ff ff       	jmp    801063b5 <alltraps>
-80107317:	66 90                	xchg   %ax,%ax
-80107319:	66 90                	xchg   %ax,%ax
-8010731b:	66 90                	xchg   %ax,%ax
-8010731d:	66 90                	xchg   %ax,%ax
-8010731f:	90                   	nop
-
-80107320 <deallocuvm.part.0>:
+80107230 <deallocuvm.part.0>:
 // Deallocate user pages to bring the process size from oldsz to
 // newsz.  oldsz and newsz need not be page-aligned, nor does newsz
 // need to be less than oldsz.  oldsz can be larger than the actual
 // process size.  Returns the new process size.
 int
 deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
-80107320:	55                   	push   %ebp
-80107321:	89 e5                	mov    %esp,%ebp
-80107323:	57                   	push   %edi
-80107324:	56                   	push   %esi
-80107325:	53                   	push   %ebx
+80107230:	55                   	push   %ebp
+80107231:	89 e5                	mov    %esp,%ebp
+80107233:	57                   	push   %edi
+80107234:	56                   	push   %esi
+80107235:	53                   	push   %ebx
   uint a, pa;
 
   if(newsz >= oldsz)
     return oldsz;
 
   a = PGROUNDUP(newsz);
-80107326:	8d 99 ff 0f 00 00    	lea    0xfff(%ecx),%ebx
-8010732c:	81 e3 00 f0 ff ff    	and    $0xfffff000,%ebx
+80107236:	8d 99 ff 0f 00 00    	lea    0xfff(%ecx),%ebx
+8010723c:	81 e3 00 f0 ff ff    	and    $0xfffff000,%ebx
 deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
-80107332:	83 ec 1c             	sub    $0x1c,%esp
-80107335:	89 4d e0             	mov    %ecx,-0x20(%ebp)
+80107242:	83 ec 1c             	sub    $0x1c,%esp
+80107245:	89 4d e0             	mov    %ecx,-0x20(%ebp)
   for(; a  < oldsz; a += PGSIZE){
-80107338:	39 d3                	cmp    %edx,%ebx
-8010733a:	73 49                	jae    80107385 <deallocuvm.part.0+0x65>
-8010733c:	89 c7                	mov    %eax,%edi
-8010733e:	eb 0c                	jmp    8010734c <deallocuvm.part.0+0x2c>
+80107248:	39 d3                	cmp    %edx,%ebx
+8010724a:	73 49                	jae    80107295 <deallocuvm.part.0+0x65>
+8010724c:	89 c7                	mov    %eax,%edi
+8010724e:	eb 0c                	jmp    8010725c <deallocuvm.part.0+0x2c>
     pte = walkpgdir(pgdir, (char*)a, 0);
     if(!pte)
       a = PGADDR(PDX(a) + 1, 0, 0) - PGSIZE;
-80107340:	83 c0 01             	add    $0x1,%eax
-80107343:	c1 e0 16             	shl    $0x16,%eax
-80107346:	89 c3                	mov    %eax,%ebx
+80107250:	83 c0 01             	add    $0x1,%eax
+80107253:	c1 e0 16             	shl    $0x16,%eax
+80107256:	89 c3                	mov    %eax,%ebx
   for(; a  < oldsz; a += PGSIZE){
-80107348:	39 da                	cmp    %ebx,%edx
-8010734a:	76 39                	jbe    80107385 <deallocuvm.part.0+0x65>
+80107258:	39 da                	cmp    %ebx,%edx
+8010725a:	76 39                	jbe    80107295 <deallocuvm.part.0+0x65>
   pde = &pgdir[PDX(va)];
-8010734c:	89 d8                	mov    %ebx,%eax
-8010734e:	c1 e8 16             	shr    $0x16,%eax
+8010725c:	89 d8                	mov    %ebx,%eax
+8010725e:	c1 e8 16             	shr    $0x16,%eax
   if(*pde & PTE_P){
-80107351:	8b 0c 87             	mov    (%edi,%eax,4),%ecx
-80107354:	f6 c1 01             	test   $0x1,%cl
-80107357:	74 e7                	je     80107340 <deallocuvm.part.0+0x20>
+80107261:	8b 0c 87             	mov    (%edi,%eax,4),%ecx
+80107264:	f6 c1 01             	test   $0x1,%cl
+80107267:	74 e7                	je     80107250 <deallocuvm.part.0+0x20>
   return &pgtab[PTX(va)];
-80107359:	89 de                	mov    %ebx,%esi
+80107269:	89 de                	mov    %ebx,%esi
     pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-8010735b:	81 e1 00 f0 ff ff    	and    $0xfffff000,%ecx
+8010726b:	81 e1 00 f0 ff ff    	and    $0xfffff000,%ecx
   return &pgtab[PTX(va)];
-80107361:	c1 ee 0a             	shr    $0xa,%esi
-80107364:	81 e6 fc 0f 00 00    	and    $0xffc,%esi
-8010736a:	8d b4 31 00 00 00 80 	lea    -0x80000000(%ecx,%esi,1),%esi
+80107271:	c1 ee 0a             	shr    $0xa,%esi
+80107274:	81 e6 fc 0f 00 00    	and    $0xffc,%esi
+8010727a:	8d b4 31 00 00 00 80 	lea    -0x80000000(%ecx,%esi,1),%esi
     if(!pte)
-80107371:	85 f6                	test   %esi,%esi
-80107373:	74 cb                	je     80107340 <deallocuvm.part.0+0x20>
+80107281:	85 f6                	test   %esi,%esi
+80107283:	74 cb                	je     80107250 <deallocuvm.part.0+0x20>
     else if((*pte & PTE_P) != 0){
-80107375:	8b 06                	mov    (%esi),%eax
-80107377:	a8 01                	test   $0x1,%al
-80107379:	75 15                	jne    80107390 <deallocuvm.part.0+0x70>
+80107285:	8b 06                	mov    (%esi),%eax
+80107287:	a8 01                	test   $0x1,%al
+80107289:	75 15                	jne    801072a0 <deallocuvm.part.0+0x70>
   for(; a  < oldsz; a += PGSIZE){
-8010737b:	81 c3 00 10 00 00    	add    $0x1000,%ebx
-80107381:	39 da                	cmp    %ebx,%edx
-80107383:	77 c7                	ja     8010734c <deallocuvm.part.0+0x2c>
+8010728b:	81 c3 00 10 00 00    	add    $0x1000,%ebx
+80107291:	39 da                	cmp    %ebx,%edx
+80107293:	77 c7                	ja     8010725c <deallocuvm.part.0+0x2c>
       kfree(v);
       *pte = 0;
     }
   }
   return newsz;
 }
-80107385:	8b 45 e0             	mov    -0x20(%ebp),%eax
-80107388:	8d 65 f4             	lea    -0xc(%ebp),%esp
-8010738b:	5b                   	pop    %ebx
-8010738c:	5e                   	pop    %esi
-8010738d:	5f                   	pop    %edi
-8010738e:	5d                   	pop    %ebp
-8010738f:	c3                   	ret    
+80107295:	8b 45 e0             	mov    -0x20(%ebp),%eax
+80107298:	8d 65 f4             	lea    -0xc(%ebp),%esp
+8010729b:	5b                   	pop    %ebx
+8010729c:	5e                   	pop    %esi
+8010729d:	5f                   	pop    %edi
+8010729e:	5d                   	pop    %ebp
+8010729f:	c3                   	ret    
       if(pa == 0)
-80107390:	25 00 f0 ff ff       	and    $0xfffff000,%eax
-80107395:	74 25                	je     801073bc <deallocuvm.part.0+0x9c>
+801072a0:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+801072a5:	74 25                	je     801072cc <deallocuvm.part.0+0x9c>
       kfree(v);
-80107397:	83 ec 0c             	sub    $0xc,%esp
+801072a7:	83 ec 0c             	sub    $0xc,%esp
       char *v = P2V(pa);
-8010739a:	05 00 00 00 80       	add    $0x80000000,%eax
-8010739f:	89 55 e4             	mov    %edx,-0x1c(%ebp)
+801072aa:	05 00 00 00 80       	add    $0x80000000,%eax
+801072af:	89 55 e4             	mov    %edx,-0x1c(%ebp)
   for(; a  < oldsz; a += PGSIZE){
-801073a2:	81 c3 00 10 00 00    	add    $0x1000,%ebx
+801072b2:	81 c3 00 10 00 00    	add    $0x1000,%ebx
       kfree(v);
-801073a8:	50                   	push   %eax
-801073a9:	e8 e2 b8 ff ff       	call   80102c90 <kfree>
+801072b8:	50                   	push   %eax
+801072b9:	e8 d2 b9 ff ff       	call   80102c90 <kfree>
       *pte = 0;
-801073ae:	c7 06 00 00 00 00    	movl   $0x0,(%esi)
+801072be:	c7 06 00 00 00 00    	movl   $0x0,(%esi)
   for(; a  < oldsz; a += PGSIZE){
-801073b4:	8b 55 e4             	mov    -0x1c(%ebp),%edx
-801073b7:	83 c4 10             	add    $0x10,%esp
-801073ba:	eb 8c                	jmp    80107348 <deallocuvm.part.0+0x28>
+801072c4:	8b 55 e4             	mov    -0x1c(%ebp),%edx
+801072c7:	83 c4 10             	add    $0x10,%esp
+801072ca:	eb 8c                	jmp    80107258 <deallocuvm.part.0+0x28>
         panic("kfree");
-801073bc:	83 ec 0c             	sub    $0xc,%esp
-801073bf:	68 de 7f 10 80       	push   $0x80107fde
-801073c4:	e8 d7 8f ff ff       	call   801003a0 <panic>
-801073c9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801072cc:	83 ec 0c             	sub    $0xc,%esp
+801072cf:	68 de 7e 10 80       	push   $0x80107ede
+801072d4:	e8 c7 90 ff ff       	call   801003a0 <panic>
+801072d9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-801073d0 <mappages>:
+801072e0 <mappages>:
+{
+801072e0:	55                   	push   %ebp
+801072e1:	89 e5                	mov    %esp,%ebp
+801072e3:	57                   	push   %edi
+801072e4:	56                   	push   %esi
+801072e5:	53                   	push   %ebx
+  a = (char*)PGROUNDDOWN((uint)va);
+801072e6:	89 d3                	mov    %edx,%ebx
+801072e8:	81 e3 00 f0 ff ff    	and    $0xfffff000,%ebx
+{
+801072ee:	83 ec 1c             	sub    $0x1c,%esp
+801072f1:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+  last = (char*)PGROUNDDOWN(((uint)va) + size - 1);
+801072f4:	8d 44 0a ff          	lea    -0x1(%edx,%ecx,1),%eax
+801072f8:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+801072fd:	89 45 dc             	mov    %eax,-0x24(%ebp)
+80107300:	8b 45 08             	mov    0x8(%ebp),%eax
+80107303:	29 d8                	sub    %ebx,%eax
+80107305:	89 45 e0             	mov    %eax,-0x20(%ebp)
+80107308:	eb 3d                	jmp    80107347 <mappages+0x67>
+8010730a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  return &pgtab[PTX(va)];
+80107310:	89 da                	mov    %ebx,%edx
+    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
+80107312:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+  return &pgtab[PTX(va)];
+80107317:	c1 ea 0a             	shr    $0xa,%edx
+8010731a:	81 e2 fc 0f 00 00    	and    $0xffc,%edx
+80107320:	8d 84 10 00 00 00 80 	lea    -0x80000000(%eax,%edx,1),%eax
+    if((pte = walkpgdir(pgdir, a, 1)) == 0)
+80107327:	85 c0                	test   %eax,%eax
+80107329:	74 75                	je     801073a0 <mappages+0xc0>
+    if(*pte & PTE_P)
+8010732b:	f6 00 01             	testb  $0x1,(%eax)
+8010732e:	0f 85 86 00 00 00    	jne    801073ba <mappages+0xda>
+    *pte = pa | perm | PTE_P;
+80107334:	0b 75 0c             	or     0xc(%ebp),%esi
+80107337:	83 ce 01             	or     $0x1,%esi
+8010733a:	89 30                	mov    %esi,(%eax)
+    if(a == last)
+8010733c:	3b 5d dc             	cmp    -0x24(%ebp),%ebx
+8010733f:	74 6f                	je     801073b0 <mappages+0xd0>
+    a += PGSIZE;
+80107341:	81 c3 00 10 00 00    	add    $0x1000,%ebx
+  for(;;){
+80107347:	8b 45 e0             	mov    -0x20(%ebp),%eax
+  pde = &pgdir[PDX(va)];
+8010734a:	8b 4d e4             	mov    -0x1c(%ebp),%ecx
+8010734d:	8d 34 18             	lea    (%eax,%ebx,1),%esi
+80107350:	89 d8                	mov    %ebx,%eax
+80107352:	c1 e8 16             	shr    $0x16,%eax
+80107355:	8d 3c 81             	lea    (%ecx,%eax,4),%edi
+  if(*pde & PTE_P){
+80107358:	8b 07                	mov    (%edi),%eax
+8010735a:	a8 01                	test   $0x1,%al
+8010735c:	75 b2                	jne    80107310 <mappages+0x30>
+    if(!alloc || (pgtab = (pte_t*)kalloc()) == 0)
+8010735e:	e8 ed ba ff ff       	call   80102e50 <kalloc>
+80107363:	85 c0                	test   %eax,%eax
+80107365:	74 39                	je     801073a0 <mappages+0xc0>
+    memset(pgtab, 0, PGSIZE);
+80107367:	83 ec 04             	sub    $0x4,%esp
+8010736a:	89 45 d8             	mov    %eax,-0x28(%ebp)
+8010736d:	68 00 10 00 00       	push   $0x1000
+80107372:	6a 00                	push   $0x0
+80107374:	50                   	push   %eax
+80107375:	e8 b6 da ff ff       	call   80104e30 <memset>
+    *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
+8010737a:	8b 55 d8             	mov    -0x28(%ebp),%edx
+  return &pgtab[PTX(va)];
+8010737d:	83 c4 10             	add    $0x10,%esp
+    *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
+80107380:	8d 82 00 00 00 80    	lea    -0x80000000(%edx),%eax
+80107386:	83 c8 07             	or     $0x7,%eax
+80107389:	89 07                	mov    %eax,(%edi)
+  return &pgtab[PTX(va)];
+8010738b:	89 d8                	mov    %ebx,%eax
+8010738d:	c1 e8 0a             	shr    $0xa,%eax
+80107390:	25 fc 0f 00 00       	and    $0xffc,%eax
+80107395:	01 d0                	add    %edx,%eax
+80107397:	eb 92                	jmp    8010732b <mappages+0x4b>
+80107399:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+}
+801073a0:	8d 65 f4             	lea    -0xc(%ebp),%esp
+      return -1;
+801073a3:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+}
+801073a8:	5b                   	pop    %ebx
+801073a9:	5e                   	pop    %esi
+801073aa:	5f                   	pop    %edi
+801073ab:	5d                   	pop    %ebp
+801073ac:	c3                   	ret    
+801073ad:	8d 76 00             	lea    0x0(%esi),%esi
+801073b0:	8d 65 f4             	lea    -0xc(%ebp),%esp
+  return 0;
+801073b3:	31 c0                	xor    %eax,%eax
+}
+801073b5:	5b                   	pop    %ebx
+801073b6:	5e                   	pop    %esi
+801073b7:	5f                   	pop    %edi
+801073b8:	5d                   	pop    %ebp
+801073b9:	c3                   	ret    
+      panic("remap");
+801073ba:	83 ec 0c             	sub    $0xc,%esp
+801073bd:	68 a8 85 10 80       	push   $0x801085a8
+801073c2:	e8 d9 8f ff ff       	call   801003a0 <panic>
+801073c7:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801073ce:	66 90                	xchg   %ax,%ax
+
+801073d0 <seginit>:
 {
 801073d0:	55                   	push   %ebp
 801073d1:	89 e5                	mov    %esp,%ebp
-801073d3:	57                   	push   %edi
-801073d4:	56                   	push   %esi
-801073d5:	53                   	push   %ebx
-  a = (char*)PGROUNDDOWN((uint)va);
-801073d6:	89 d3                	mov    %edx,%ebx
-801073d8:	81 e3 00 f0 ff ff    	and    $0xfffff000,%ebx
-{
-801073de:	83 ec 1c             	sub    $0x1c,%esp
-801073e1:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-  last = (char*)PGROUNDDOWN(((uint)va) + size - 1);
-801073e4:	8d 44 0a ff          	lea    -0x1(%edx,%ecx,1),%eax
-801073e8:	25 00 f0 ff ff       	and    $0xfffff000,%eax
-801073ed:	89 45 dc             	mov    %eax,-0x24(%ebp)
-801073f0:	8b 45 08             	mov    0x8(%ebp),%eax
-801073f3:	29 d8                	sub    %ebx,%eax
-801073f5:	89 45 e0             	mov    %eax,-0x20(%ebp)
-801073f8:	eb 3d                	jmp    80107437 <mappages+0x67>
-801073fa:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  return &pgtab[PTX(va)];
-80107400:	89 da                	mov    %ebx,%edx
-    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-80107402:	25 00 f0 ff ff       	and    $0xfffff000,%eax
-  return &pgtab[PTX(va)];
-80107407:	c1 ea 0a             	shr    $0xa,%edx
-8010740a:	81 e2 fc 0f 00 00    	and    $0xffc,%edx
-80107410:	8d 84 10 00 00 00 80 	lea    -0x80000000(%eax,%edx,1),%eax
-    if((pte = walkpgdir(pgdir, a, 1)) == 0)
-80107417:	85 c0                	test   %eax,%eax
-80107419:	74 75                	je     80107490 <mappages+0xc0>
-    if(*pte & PTE_P)
-8010741b:	f6 00 01             	testb  $0x1,(%eax)
-8010741e:	0f 85 86 00 00 00    	jne    801074aa <mappages+0xda>
-    *pte = pa | perm | PTE_P;
-80107424:	0b 75 0c             	or     0xc(%ebp),%esi
-80107427:	83 ce 01             	or     $0x1,%esi
-8010742a:	89 30                	mov    %esi,(%eax)
-    if(a == last)
-8010742c:	3b 5d dc             	cmp    -0x24(%ebp),%ebx
-8010742f:	74 6f                	je     801074a0 <mappages+0xd0>
-    a += PGSIZE;
-80107431:	81 c3 00 10 00 00    	add    $0x1000,%ebx
-  for(;;){
-80107437:	8b 45 e0             	mov    -0x20(%ebp),%eax
-  pde = &pgdir[PDX(va)];
-8010743a:	8b 4d e4             	mov    -0x1c(%ebp),%ecx
-8010743d:	8d 34 18             	lea    (%eax,%ebx,1),%esi
-80107440:	89 d8                	mov    %ebx,%eax
-80107442:	c1 e8 16             	shr    $0x16,%eax
-80107445:	8d 3c 81             	lea    (%ecx,%eax,4),%edi
-  if(*pde & PTE_P){
-80107448:	8b 07                	mov    (%edi),%eax
-8010744a:	a8 01                	test   $0x1,%al
-8010744c:	75 b2                	jne    80107400 <mappages+0x30>
-    if(!alloc || (pgtab = (pte_t*)kalloc()) == 0)
-8010744e:	e8 fd b9 ff ff       	call   80102e50 <kalloc>
-80107453:	85 c0                	test   %eax,%eax
-80107455:	74 39                	je     80107490 <mappages+0xc0>
-    memset(pgtab, 0, PGSIZE);
-80107457:	83 ec 04             	sub    $0x4,%esp
-8010745a:	89 45 d8             	mov    %eax,-0x28(%ebp)
-8010745d:	68 00 10 00 00       	push   $0x1000
-80107462:	6a 00                	push   $0x0
-80107464:	50                   	push   %eax
-80107465:	e8 c6 d9 ff ff       	call   80104e30 <memset>
-    *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
-8010746a:	8b 55 d8             	mov    -0x28(%ebp),%edx
-  return &pgtab[PTX(va)];
-8010746d:	83 c4 10             	add    $0x10,%esp
-    *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
-80107470:	8d 82 00 00 00 80    	lea    -0x80000000(%edx),%eax
-80107476:	83 c8 07             	or     $0x7,%eax
-80107479:	89 07                	mov    %eax,(%edi)
-  return &pgtab[PTX(va)];
-8010747b:	89 d8                	mov    %ebx,%eax
-8010747d:	c1 e8 0a             	shr    $0xa,%eax
-80107480:	25 fc 0f 00 00       	and    $0xffc,%eax
-80107485:	01 d0                	add    %edx,%eax
-80107487:	eb 92                	jmp    8010741b <mappages+0x4b>
-80107489:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-}
-80107490:	8d 65 f4             	lea    -0xc(%ebp),%esp
-      return -1;
-80107493:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-80107498:	5b                   	pop    %ebx
-80107499:	5e                   	pop    %esi
-8010749a:	5f                   	pop    %edi
-8010749b:	5d                   	pop    %ebp
-8010749c:	c3                   	ret    
-8010749d:	8d 76 00             	lea    0x0(%esi),%esi
-801074a0:	8d 65 f4             	lea    -0xc(%ebp),%esp
-  return 0;
-801074a3:	31 c0                	xor    %eax,%eax
-}
-801074a5:	5b                   	pop    %ebx
-801074a6:	5e                   	pop    %esi
-801074a7:	5f                   	pop    %edi
-801074a8:	5d                   	pop    %ebp
-801074a9:	c3                   	ret    
-      panic("remap");
-801074aa:	83 ec 0c             	sub    $0xc,%esp
-801074ad:	68 30 86 10 80       	push   $0x80108630
-801074b2:	e8 e9 8e ff ff       	call   801003a0 <panic>
-801074b7:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801074be:	66 90                	xchg   %ax,%ax
-
-801074c0 <seginit>:
-{
-801074c0:	55                   	push   %ebp
-801074c1:	89 e5                	mov    %esp,%ebp
-801074c3:	83 ec 18             	sub    $0x18,%esp
+801073d3:	83 ec 18             	sub    $0x18,%esp
   c = &cpus[cpuid()];
-801074c6:	e8 55 cc ff ff       	call   80104120 <cpuid>
+801073d6:	e8 45 cd ff ff       	call   80104120 <cpuid>
   pd[0] = size - 1;
-801074cb:	ba 2f 00 00 00       	mov    $0x2f,%edx
-801074d0:	69 c0 b0 00 00 00    	imul   $0xb0,%eax,%eax
-801074d6:	66 89 55 f2          	mov    %dx,-0xe(%ebp)
+801073db:	ba 2f 00 00 00       	mov    $0x2f,%edx
+801073e0:	69 c0 b0 00 00 00    	imul   $0xb0,%eax,%eax
+801073e6:	66 89 55 f2          	mov    %dx,-0xe(%ebp)
   c->gdt[SEG_KCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, 0);
-801074da:	c7 80 58 34 11 80 ff 	movl   $0xffff,-0x7feecba8(%eax)
-801074e1:	ff 00 00 
-801074e4:	c7 80 5c 34 11 80 00 	movl   $0xcf9a00,-0x7feecba4(%eax)
-801074eb:	9a cf 00 
+801073ea:	c7 80 58 34 11 80 ff 	movl   $0xffff,-0x7feecba8(%eax)
+801073f1:	ff 00 00 
+801073f4:	c7 80 5c 34 11 80 00 	movl   $0xcf9a00,-0x7feecba4(%eax)
+801073fb:	9a cf 00 
   c->gdt[SEG_KDATA] = SEG(STA_W, 0, 0xffffffff, 0);
-801074ee:	c7 80 60 34 11 80 ff 	movl   $0xffff,-0x7feecba0(%eax)
-801074f5:	ff 00 00 
-801074f8:	c7 80 64 34 11 80 00 	movl   $0xcf9200,-0x7feecb9c(%eax)
-801074ff:	92 cf 00 
+801073fe:	c7 80 60 34 11 80 ff 	movl   $0xffff,-0x7feecba0(%eax)
+80107405:	ff 00 00 
+80107408:	c7 80 64 34 11 80 00 	movl   $0xcf9200,-0x7feecb9c(%eax)
+8010740f:	92 cf 00 
   c->gdt[SEG_UCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, DPL_USER);
-80107502:	c7 80 68 34 11 80 ff 	movl   $0xffff,-0x7feecb98(%eax)
-80107509:	ff 00 00 
-8010750c:	c7 80 6c 34 11 80 00 	movl   $0xcffa00,-0x7feecb94(%eax)
-80107513:	fa cf 00 
+80107412:	c7 80 68 34 11 80 ff 	movl   $0xffff,-0x7feecb98(%eax)
+80107419:	ff 00 00 
+8010741c:	c7 80 6c 34 11 80 00 	movl   $0xcffa00,-0x7feecb94(%eax)
+80107423:	fa cf 00 
   c->gdt[SEG_UDATA] = SEG(STA_W, 0, 0xffffffff, DPL_USER);
-80107516:	c7 80 70 34 11 80 ff 	movl   $0xffff,-0x7feecb90(%eax)
-8010751d:	ff 00 00 
-80107520:	c7 80 74 34 11 80 00 	movl   $0xcff200,-0x7feecb8c(%eax)
-80107527:	f2 cf 00 
+80107426:	c7 80 70 34 11 80 ff 	movl   $0xffff,-0x7feecb90(%eax)
+8010742d:	ff 00 00 
+80107430:	c7 80 74 34 11 80 00 	movl   $0xcff200,-0x7feecb8c(%eax)
+80107437:	f2 cf 00 
   lgdt(c->gdt, sizeof(c->gdt));
-8010752a:	05 50 34 11 80       	add    $0x80113450,%eax
+8010743a:	05 50 34 11 80       	add    $0x80113450,%eax
   pd[1] = (uint)p;
-8010752f:	66 89 45 f4          	mov    %ax,-0xc(%ebp)
+8010743f:	66 89 45 f4          	mov    %ax,-0xc(%ebp)
   pd[2] = (uint)p >> 16;
-80107533:	c1 e8 10             	shr    $0x10,%eax
-80107536:	66 89 45 f6          	mov    %ax,-0xa(%ebp)
+80107443:	c1 e8 10             	shr    $0x10,%eax
+80107446:	66 89 45 f6          	mov    %ax,-0xa(%ebp)
   asm volatile("lgdt (%0)" : : "r"(pd));
-8010753a:	8d 45 f2             	lea    -0xe(%ebp),%eax
-8010753d:	0f 01 10             	lgdtl  (%eax)
+8010744a:	8d 45 f2             	lea    -0xe(%ebp),%eax
+8010744d:	0f 01 10             	lgdtl  (%eax)
 }
-80107540:	c9                   	leave  
-80107541:	c3                   	ret    
-80107542:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107549:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80107450:	c9                   	leave  
+80107451:	c3                   	ret    
+80107452:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80107459:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
 
-80107550 <switchkvm>:
+80107460 <switchkvm>:
   lcr3(V2P(kpgdir));   // switch to the kernel page table
-80107550:	a1 04 61 11 80       	mov    0x80116104,%eax
-80107555:	05 00 00 00 80       	add    $0x80000000,%eax
+80107460:	a1 04 61 11 80       	mov    0x80116104,%eax
+80107465:	05 00 00 00 80       	add    $0x80000000,%eax
 }
 
 static inline void
 lcr3(uint val)
 {
   asm volatile("movl %0,%%cr3" : : "r"(val));
-8010755a:	0f 22 d8             	mov    %eax,%cr3
+8010746a:	0f 22 d8             	mov    %eax,%cr3
 }
-8010755d:	c3                   	ret    
-8010755e:	66 90                	xchg   %ax,%ax
+8010746d:	c3                   	ret    
+8010746e:	66 90                	xchg   %ax,%ax
 
-80107560 <switchuvm>:
+80107470 <switchuvm>:
 {
-80107560:	55                   	push   %ebp
-80107561:	89 e5                	mov    %esp,%ebp
-80107563:	57                   	push   %edi
-80107564:	56                   	push   %esi
-80107565:	53                   	push   %ebx
-80107566:	83 ec 1c             	sub    $0x1c,%esp
-80107569:	8b 75 08             	mov    0x8(%ebp),%esi
+80107470:	55                   	push   %ebp
+80107471:	89 e5                	mov    %esp,%ebp
+80107473:	57                   	push   %edi
+80107474:	56                   	push   %esi
+80107475:	53                   	push   %ebx
+80107476:	83 ec 1c             	sub    $0x1c,%esp
+80107479:	8b 75 08             	mov    0x8(%ebp),%esi
   if(p == 0)
-8010756c:	85 f6                	test   %esi,%esi
-8010756e:	0f 84 cb 00 00 00    	je     8010763f <switchuvm+0xdf>
+8010747c:	85 f6                	test   %esi,%esi
+8010747e:	0f 84 cb 00 00 00    	je     8010754f <switchuvm+0xdf>
   if(p->kstack == 0)
-80107574:	8b 46 08             	mov    0x8(%esi),%eax
-80107577:	85 c0                	test   %eax,%eax
-80107579:	0f 84 da 00 00 00    	je     80107659 <switchuvm+0xf9>
+80107484:	8b 46 08             	mov    0x8(%esi),%eax
+80107487:	85 c0                	test   %eax,%eax
+80107489:	0f 84 da 00 00 00    	je     80107569 <switchuvm+0xf9>
   if(p->pgdir == 0)
-8010757f:	8b 46 04             	mov    0x4(%esi),%eax
-80107582:	85 c0                	test   %eax,%eax
-80107584:	0f 84 c2 00 00 00    	je     8010764c <switchuvm+0xec>
+8010748f:	8b 46 04             	mov    0x4(%esi),%eax
+80107492:	85 c0                	test   %eax,%eax
+80107494:	0f 84 c2 00 00 00    	je     8010755c <switchuvm+0xec>
   pushcli();
-8010758a:	e8 91 d6 ff ff       	call   80104c20 <pushcli>
+8010749a:	e8 81 d7 ff ff       	call   80104c20 <pushcli>
   mycpu()->gdt[SEG_TSS] = SEG16(STS_T32A, &mycpu()->ts,
-8010758f:	e8 2c cb ff ff       	call   801040c0 <mycpu>
-80107594:	89 c3                	mov    %eax,%ebx
-80107596:	e8 25 cb ff ff       	call   801040c0 <mycpu>
-8010759b:	89 c7                	mov    %eax,%edi
-8010759d:	e8 1e cb ff ff       	call   801040c0 <mycpu>
-801075a2:	83 c7 08             	add    $0x8,%edi
-801075a5:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-801075a8:	e8 13 cb ff ff       	call   801040c0 <mycpu>
-801075ad:	8b 4d e4             	mov    -0x1c(%ebp),%ecx
-801075b0:	ba 67 00 00 00       	mov    $0x67,%edx
-801075b5:	66 89 bb 9a 00 00 00 	mov    %di,0x9a(%ebx)
-801075bc:	83 c0 08             	add    $0x8,%eax
-801075bf:	66 89 93 98 00 00 00 	mov    %dx,0x98(%ebx)
+8010749f:	e8 1c cc ff ff       	call   801040c0 <mycpu>
+801074a4:	89 c3                	mov    %eax,%ebx
+801074a6:	e8 15 cc ff ff       	call   801040c0 <mycpu>
+801074ab:	89 c7                	mov    %eax,%edi
+801074ad:	e8 0e cc ff ff       	call   801040c0 <mycpu>
+801074b2:	83 c7 08             	add    $0x8,%edi
+801074b5:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+801074b8:	e8 03 cc ff ff       	call   801040c0 <mycpu>
+801074bd:	8b 4d e4             	mov    -0x1c(%ebp),%ecx
+801074c0:	ba 67 00 00 00       	mov    $0x67,%edx
+801074c5:	66 89 bb 9a 00 00 00 	mov    %di,0x9a(%ebx)
+801074cc:	83 c0 08             	add    $0x8,%eax
+801074cf:	66 89 93 98 00 00 00 	mov    %dx,0x98(%ebx)
   mycpu()->ts.iomb = (ushort) 0xFFFF;
-801075c6:	bf ff ff ff ff       	mov    $0xffffffff,%edi
+801074d6:	bf ff ff ff ff       	mov    $0xffffffff,%edi
   mycpu()->gdt[SEG_TSS] = SEG16(STS_T32A, &mycpu()->ts,
-801075cb:	83 c1 08             	add    $0x8,%ecx
-801075ce:	c1 e8 18             	shr    $0x18,%eax
-801075d1:	c1 e9 10             	shr    $0x10,%ecx
-801075d4:	88 83 9f 00 00 00    	mov    %al,0x9f(%ebx)
-801075da:	88 8b 9c 00 00 00    	mov    %cl,0x9c(%ebx)
-801075e0:	b9 99 40 00 00       	mov    $0x4099,%ecx
-801075e5:	66 89 8b 9d 00 00 00 	mov    %cx,0x9d(%ebx)
+801074db:	83 c1 08             	add    $0x8,%ecx
+801074de:	c1 e8 18             	shr    $0x18,%eax
+801074e1:	c1 e9 10             	shr    $0x10,%ecx
+801074e4:	88 83 9f 00 00 00    	mov    %al,0x9f(%ebx)
+801074ea:	88 8b 9c 00 00 00    	mov    %cl,0x9c(%ebx)
+801074f0:	b9 99 40 00 00       	mov    $0x4099,%ecx
+801074f5:	66 89 8b 9d 00 00 00 	mov    %cx,0x9d(%ebx)
   mycpu()->ts.ss0 = SEG_KDATA << 3;
-801075ec:	bb 10 00 00 00       	mov    $0x10,%ebx
+801074fc:	bb 10 00 00 00       	mov    $0x10,%ebx
   mycpu()->gdt[SEG_TSS].s = 0;
-801075f1:	e8 ca ca ff ff       	call   801040c0 <mycpu>
-801075f6:	80 a0 9d 00 00 00 ef 	andb   $0xef,0x9d(%eax)
+80107501:	e8 ba cb ff ff       	call   801040c0 <mycpu>
+80107506:	80 a0 9d 00 00 00 ef 	andb   $0xef,0x9d(%eax)
   mycpu()->ts.ss0 = SEG_KDATA << 3;
-801075fd:	e8 be ca ff ff       	call   801040c0 <mycpu>
-80107602:	66 89 58 10          	mov    %bx,0x10(%eax)
+8010750d:	e8 ae cb ff ff       	call   801040c0 <mycpu>
+80107512:	66 89 58 10          	mov    %bx,0x10(%eax)
   mycpu()->ts.esp0 = (uint)p->kstack + KSTACKSIZE;
-80107606:	8b 5e 08             	mov    0x8(%esi),%ebx
-80107609:	81 c3 00 10 00 00    	add    $0x1000,%ebx
-8010760f:	e8 ac ca ff ff       	call   801040c0 <mycpu>
-80107614:	89 58 0c             	mov    %ebx,0xc(%eax)
+80107516:	8b 5e 08             	mov    0x8(%esi),%ebx
+80107519:	81 c3 00 10 00 00    	add    $0x1000,%ebx
+8010751f:	e8 9c cb ff ff       	call   801040c0 <mycpu>
+80107524:	89 58 0c             	mov    %ebx,0xc(%eax)
   mycpu()->ts.iomb = (ushort) 0xFFFF;
-80107617:	e8 a4 ca ff ff       	call   801040c0 <mycpu>
-8010761c:	66 89 78 6e          	mov    %di,0x6e(%eax)
+80107527:	e8 94 cb ff ff       	call   801040c0 <mycpu>
+8010752c:	66 89 78 6e          	mov    %di,0x6e(%eax)
   asm volatile("ltr %0" : : "r"(sel));
-80107620:	b8 28 00 00 00       	mov    $0x28,%eax
-80107625:	0f 00 d8             	ltr    %ax
+80107530:	b8 28 00 00 00       	mov    $0x28,%eax
+80107535:	0f 00 d8             	ltr    %ax
   lcr3(V2P(p->pgdir));  // switch to process's address space
-80107628:	8b 46 04             	mov    0x4(%esi),%eax
-8010762b:	05 00 00 00 80       	add    $0x80000000,%eax
+80107538:	8b 46 04             	mov    0x4(%esi),%eax
+8010753b:	05 00 00 00 80       	add    $0x80000000,%eax
   asm volatile("movl %0,%%cr3" : : "r"(val));
-80107630:	0f 22 d8             	mov    %eax,%cr3
+80107540:	0f 22 d8             	mov    %eax,%cr3
 }
-80107633:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80107636:	5b                   	pop    %ebx
-80107637:	5e                   	pop    %esi
-80107638:	5f                   	pop    %edi
-80107639:	5d                   	pop    %ebp
+80107543:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80107546:	5b                   	pop    %ebx
+80107547:	5e                   	pop    %esi
+80107548:	5f                   	pop    %edi
+80107549:	5d                   	pop    %ebp
   popcli();
-8010763a:	e9 31 d6 ff ff       	jmp    80104c70 <popcli>
+8010754a:	e9 21 d7 ff ff       	jmp    80104c70 <popcli>
     panic("switchuvm: no process");
-8010763f:	83 ec 0c             	sub    $0xc,%esp
-80107642:	68 36 86 10 80       	push   $0x80108636
-80107647:	e8 54 8d ff ff       	call   801003a0 <panic>
+8010754f:	83 ec 0c             	sub    $0xc,%esp
+80107552:	68 ae 85 10 80       	push   $0x801085ae
+80107557:	e8 44 8e ff ff       	call   801003a0 <panic>
     panic("switchuvm: no pgdir");
-8010764c:	83 ec 0c             	sub    $0xc,%esp
-8010764f:	68 61 86 10 80       	push   $0x80108661
-80107654:	e8 47 8d ff ff       	call   801003a0 <panic>
+8010755c:	83 ec 0c             	sub    $0xc,%esp
+8010755f:	68 d9 85 10 80       	push   $0x801085d9
+80107564:	e8 37 8e ff ff       	call   801003a0 <panic>
     panic("switchuvm: no kstack");
-80107659:	83 ec 0c             	sub    $0xc,%esp
-8010765c:	68 4c 86 10 80       	push   $0x8010864c
-80107661:	e8 3a 8d ff ff       	call   801003a0 <panic>
-80107666:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010766d:	8d 76 00             	lea    0x0(%esi),%esi
+80107569:	83 ec 0c             	sub    $0xc,%esp
+8010756c:	68 c4 85 10 80       	push   $0x801085c4
+80107571:	e8 2a 8e ff ff       	call   801003a0 <panic>
+80107576:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010757d:	8d 76 00             	lea    0x0(%esi),%esi
 
-80107670 <inituvm>:
+80107580 <inituvm>:
 {
-80107670:	55                   	push   %ebp
-80107671:	89 e5                	mov    %esp,%ebp
-80107673:	57                   	push   %edi
-80107674:	56                   	push   %esi
-80107675:	53                   	push   %ebx
-80107676:	83 ec 1c             	sub    $0x1c,%esp
-80107679:	8b 45 0c             	mov    0xc(%ebp),%eax
-8010767c:	8b 75 10             	mov    0x10(%ebp),%esi
-8010767f:	8b 7d 08             	mov    0x8(%ebp),%edi
-80107682:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+80107580:	55                   	push   %ebp
+80107581:	89 e5                	mov    %esp,%ebp
+80107583:	57                   	push   %edi
+80107584:	56                   	push   %esi
+80107585:	53                   	push   %ebx
+80107586:	83 ec 1c             	sub    $0x1c,%esp
+80107589:	8b 45 0c             	mov    0xc(%ebp),%eax
+8010758c:	8b 75 10             	mov    0x10(%ebp),%esi
+8010758f:	8b 7d 08             	mov    0x8(%ebp),%edi
+80107592:	89 45 e4             	mov    %eax,-0x1c(%ebp)
   if(sz >= PGSIZE)
-80107685:	81 fe ff 0f 00 00    	cmp    $0xfff,%esi
-8010768b:	77 4b                	ja     801076d8 <inituvm+0x68>
+80107595:	81 fe ff 0f 00 00    	cmp    $0xfff,%esi
+8010759b:	77 4b                	ja     801075e8 <inituvm+0x68>
   mem = kalloc();
-8010768d:	e8 be b7 ff ff       	call   80102e50 <kalloc>
+8010759d:	e8 ae b8 ff ff       	call   80102e50 <kalloc>
   memset(mem, 0, PGSIZE);
-80107692:	83 ec 04             	sub    $0x4,%esp
-80107695:	68 00 10 00 00       	push   $0x1000
+801075a2:	83 ec 04             	sub    $0x4,%esp
+801075a5:	68 00 10 00 00       	push   $0x1000
   mem = kalloc();
-8010769a:	89 c3                	mov    %eax,%ebx
+801075aa:	89 c3                	mov    %eax,%ebx
   memset(mem, 0, PGSIZE);
-8010769c:	6a 00                	push   $0x0
-8010769e:	50                   	push   %eax
-8010769f:	e8 8c d7 ff ff       	call   80104e30 <memset>
+801075ac:	6a 00                	push   $0x0
+801075ae:	50                   	push   %eax
+801075af:	e8 7c d8 ff ff       	call   80104e30 <memset>
   mappages(pgdir, 0, PGSIZE, V2P(mem), PTE_W|PTE_U);
-801076a4:	58                   	pop    %eax
-801076a5:	8d 83 00 00 00 80    	lea    -0x80000000(%ebx),%eax
-801076ab:	5a                   	pop    %edx
-801076ac:	6a 06                	push   $0x6
-801076ae:	b9 00 10 00 00       	mov    $0x1000,%ecx
-801076b3:	31 d2                	xor    %edx,%edx
-801076b5:	50                   	push   %eax
-801076b6:	89 f8                	mov    %edi,%eax
-801076b8:	e8 13 fd ff ff       	call   801073d0 <mappages>
+801075b4:	58                   	pop    %eax
+801075b5:	8d 83 00 00 00 80    	lea    -0x80000000(%ebx),%eax
+801075bb:	5a                   	pop    %edx
+801075bc:	6a 06                	push   $0x6
+801075be:	b9 00 10 00 00       	mov    $0x1000,%ecx
+801075c3:	31 d2                	xor    %edx,%edx
+801075c5:	50                   	push   %eax
+801075c6:	89 f8                	mov    %edi,%eax
+801075c8:	e8 13 fd ff ff       	call   801072e0 <mappages>
   memmove(mem, init, sz);
-801076bd:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-801076c0:	89 75 10             	mov    %esi,0x10(%ebp)
-801076c3:	83 c4 10             	add    $0x10,%esp
-801076c6:	89 5d 08             	mov    %ebx,0x8(%ebp)
-801076c9:	89 45 0c             	mov    %eax,0xc(%ebp)
+801075cd:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+801075d0:	89 75 10             	mov    %esi,0x10(%ebp)
+801075d3:	83 c4 10             	add    $0x10,%esp
+801075d6:	89 5d 08             	mov    %ebx,0x8(%ebp)
+801075d9:	89 45 0c             	mov    %eax,0xc(%ebp)
 }
-801076cc:	8d 65 f4             	lea    -0xc(%ebp),%esp
-801076cf:	5b                   	pop    %ebx
-801076d0:	5e                   	pop    %esi
-801076d1:	5f                   	pop    %edi
-801076d2:	5d                   	pop    %ebp
+801075dc:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801075df:	5b                   	pop    %ebx
+801075e0:	5e                   	pop    %esi
+801075e1:	5f                   	pop    %edi
+801075e2:	5d                   	pop    %ebp
   memmove(mem, init, sz);
-801076d3:	e9 f8 d7 ff ff       	jmp    80104ed0 <memmove>
+801075e3:	e9 e8 d8 ff ff       	jmp    80104ed0 <memmove>
     panic("inituvm: more than a page");
-801076d8:	83 ec 0c             	sub    $0xc,%esp
-801076db:	68 75 86 10 80       	push   $0x80108675
-801076e0:	e8 bb 8c ff ff       	call   801003a0 <panic>
-801076e5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801076ec:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801075e8:	83 ec 0c             	sub    $0xc,%esp
+801075eb:	68 ed 85 10 80       	push   $0x801085ed
+801075f0:	e8 ab 8d ff ff       	call   801003a0 <panic>
+801075f5:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801075fc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
 
-801076f0 <loaduvm>:
+80107600 <loaduvm>:
+{
+80107600:	55                   	push   %ebp
+80107601:	89 e5                	mov    %esp,%ebp
+80107603:	57                   	push   %edi
+80107604:	56                   	push   %esi
+80107605:	53                   	push   %ebx
+80107606:	83 ec 1c             	sub    $0x1c,%esp
+80107609:	8b 45 0c             	mov    0xc(%ebp),%eax
+8010760c:	8b 75 18             	mov    0x18(%ebp),%esi
+  if((uint) addr % PGSIZE != 0)
+8010760f:	a9 ff 0f 00 00       	test   $0xfff,%eax
+80107614:	0f 85 bb 00 00 00    	jne    801076d5 <loaduvm+0xd5>
+  for(i = 0; i < sz; i += PGSIZE){
+8010761a:	01 f0                	add    %esi,%eax
+8010761c:	89 f3                	mov    %esi,%ebx
+8010761e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+    if(readi(ip, P2V(pa), offset+i, n) != n)
+80107621:	8b 45 14             	mov    0x14(%ebp),%eax
+80107624:	01 f0                	add    %esi,%eax
+80107626:	89 45 e0             	mov    %eax,-0x20(%ebp)
+  for(i = 0; i < sz; i += PGSIZE){
+80107629:	85 f6                	test   %esi,%esi
+8010762b:	0f 84 87 00 00 00    	je     801076b8 <loaduvm+0xb8>
+80107631:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+  pde = &pgdir[PDX(va)];
+80107638:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+  if(*pde & PTE_P){
+8010763b:	8b 4d 08             	mov    0x8(%ebp),%ecx
+8010763e:	29 d8                	sub    %ebx,%eax
+  pde = &pgdir[PDX(va)];
+80107640:	89 c2                	mov    %eax,%edx
+80107642:	c1 ea 16             	shr    $0x16,%edx
+  if(*pde & PTE_P){
+80107645:	8b 14 91             	mov    (%ecx,%edx,4),%edx
+80107648:	f6 c2 01             	test   $0x1,%dl
+8010764b:	75 13                	jne    80107660 <loaduvm+0x60>
+      panic("loaduvm: address should exist");
+8010764d:	83 ec 0c             	sub    $0xc,%esp
+80107650:	68 07 86 10 80       	push   $0x80108607
+80107655:	e8 46 8d ff ff       	call   801003a0 <panic>
+8010765a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+  return &pgtab[PTX(va)];
+80107660:	c1 e8 0a             	shr    $0xa,%eax
+    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
+80107663:	81 e2 00 f0 ff ff    	and    $0xfffff000,%edx
+  return &pgtab[PTX(va)];
+80107669:	25 fc 0f 00 00       	and    $0xffc,%eax
+8010766e:	8d 84 02 00 00 00 80 	lea    -0x80000000(%edx,%eax,1),%eax
+    if((pte = walkpgdir(pgdir, addr+i, 0)) == 0)
+80107675:	85 c0                	test   %eax,%eax
+80107677:	74 d4                	je     8010764d <loaduvm+0x4d>
+    pa = PTE_ADDR(*pte);
+80107679:	8b 00                	mov    (%eax),%eax
+    if(readi(ip, P2V(pa), offset+i, n) != n)
+8010767b:	8b 4d e0             	mov    -0x20(%ebp),%ecx
+    if(sz - i < PGSIZE)
+8010767e:	bf 00 10 00 00       	mov    $0x1000,%edi
+    pa = PTE_ADDR(*pte);
+80107683:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+    if(sz - i < PGSIZE)
+80107688:	81 fb ff 0f 00 00    	cmp    $0xfff,%ebx
+8010768e:	0f 46 fb             	cmovbe %ebx,%edi
+    if(readi(ip, P2V(pa), offset+i, n) != n)
+80107691:	29 d9                	sub    %ebx,%ecx
+80107693:	05 00 00 00 80       	add    $0x80000000,%eax
+80107698:	57                   	push   %edi
+80107699:	51                   	push   %ecx
+8010769a:	50                   	push   %eax
+8010769b:	ff 75 10             	push   0x10(%ebp)
+8010769e:	e8 bd ab ff ff       	call   80102260 <readi>
+801076a3:	83 c4 10             	add    $0x10,%esp
+801076a6:	39 f8                	cmp    %edi,%eax
+801076a8:	75 1e                	jne    801076c8 <loaduvm+0xc8>
+  for(i = 0; i < sz; i += PGSIZE){
+801076aa:	81 eb 00 10 00 00    	sub    $0x1000,%ebx
+801076b0:	89 f0                	mov    %esi,%eax
+801076b2:	29 d8                	sub    %ebx,%eax
+801076b4:	39 c6                	cmp    %eax,%esi
+801076b6:	77 80                	ja     80107638 <loaduvm+0x38>
+}
+801076b8:	8d 65 f4             	lea    -0xc(%ebp),%esp
+  return 0;
+801076bb:	31 c0                	xor    %eax,%eax
+}
+801076bd:	5b                   	pop    %ebx
+801076be:	5e                   	pop    %esi
+801076bf:	5f                   	pop    %edi
+801076c0:	5d                   	pop    %ebp
+801076c1:	c3                   	ret    
+801076c2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+801076c8:	8d 65 f4             	lea    -0xc(%ebp),%esp
+      return -1;
+801076cb:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+}
+801076d0:	5b                   	pop    %ebx
+801076d1:	5e                   	pop    %esi
+801076d2:	5f                   	pop    %edi
+801076d3:	5d                   	pop    %ebp
+801076d4:	c3                   	ret    
+    panic("loaduvm: addr must be page aligned");
+801076d5:	83 ec 0c             	sub    $0xc,%esp
+801076d8:	68 a8 86 10 80       	push   $0x801086a8
+801076dd:	e8 be 8c ff ff       	call   801003a0 <panic>
+801076e2:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801076e9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+
+801076f0 <allocuvm>:
 {
 801076f0:	55                   	push   %ebp
 801076f1:	89 e5                	mov    %esp,%ebp
@@ -14470,780 +14433,673 @@ lcr3(uint val)
 801076f4:	56                   	push   %esi
 801076f5:	53                   	push   %ebx
 801076f6:	83 ec 1c             	sub    $0x1c,%esp
-801076f9:	8b 45 0c             	mov    0xc(%ebp),%eax
-801076fc:	8b 75 18             	mov    0x18(%ebp),%esi
-  if((uint) addr % PGSIZE != 0)
-801076ff:	a9 ff 0f 00 00       	test   $0xfff,%eax
-80107704:	0f 85 bb 00 00 00    	jne    801077c5 <loaduvm+0xd5>
-  for(i = 0; i < sz; i += PGSIZE){
-8010770a:	01 f0                	add    %esi,%eax
-8010770c:	89 f3                	mov    %esi,%ebx
-8010770e:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-    if(readi(ip, P2V(pa), offset+i, n) != n)
-80107711:	8b 45 14             	mov    0x14(%ebp),%eax
-80107714:	01 f0                	add    %esi,%eax
-80107716:	89 45 e0             	mov    %eax,-0x20(%ebp)
-  for(i = 0; i < sz; i += PGSIZE){
-80107719:	85 f6                	test   %esi,%esi
-8010771b:	0f 84 87 00 00 00    	je     801077a8 <loaduvm+0xb8>
-80107721:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-  pde = &pgdir[PDX(va)];
-80107728:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-  if(*pde & PTE_P){
-8010772b:	8b 4d 08             	mov    0x8(%ebp),%ecx
-8010772e:	29 d8                	sub    %ebx,%eax
-  pde = &pgdir[PDX(va)];
-80107730:	89 c2                	mov    %eax,%edx
-80107732:	c1 ea 16             	shr    $0x16,%edx
-  if(*pde & PTE_P){
-80107735:	8b 14 91             	mov    (%ecx,%edx,4),%edx
-80107738:	f6 c2 01             	test   $0x1,%dl
-8010773b:	75 13                	jne    80107750 <loaduvm+0x60>
-      panic("loaduvm: address should exist");
-8010773d:	83 ec 0c             	sub    $0xc,%esp
-80107740:	68 8f 86 10 80       	push   $0x8010868f
-80107745:	e8 56 8c ff ff       	call   801003a0 <panic>
-8010774a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-  return &pgtab[PTX(va)];
-80107750:	c1 e8 0a             	shr    $0xa,%eax
-    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-80107753:	81 e2 00 f0 ff ff    	and    $0xfffff000,%edx
-  return &pgtab[PTX(va)];
-80107759:	25 fc 0f 00 00       	and    $0xffc,%eax
-8010775e:	8d 84 02 00 00 00 80 	lea    -0x80000000(%edx,%eax,1),%eax
-    if((pte = walkpgdir(pgdir, addr+i, 0)) == 0)
-80107765:	85 c0                	test   %eax,%eax
-80107767:	74 d4                	je     8010773d <loaduvm+0x4d>
-    pa = PTE_ADDR(*pte);
-80107769:	8b 00                	mov    (%eax),%eax
-    if(readi(ip, P2V(pa), offset+i, n) != n)
-8010776b:	8b 4d e0             	mov    -0x20(%ebp),%ecx
-    if(sz - i < PGSIZE)
-8010776e:	bf 00 10 00 00       	mov    $0x1000,%edi
-    pa = PTE_ADDR(*pte);
-80107773:	25 00 f0 ff ff       	and    $0xfffff000,%eax
-    if(sz - i < PGSIZE)
-80107778:	81 fb ff 0f 00 00    	cmp    $0xfff,%ebx
-8010777e:	0f 46 fb             	cmovbe %ebx,%edi
-    if(readi(ip, P2V(pa), offset+i, n) != n)
-80107781:	29 d9                	sub    %ebx,%ecx
-80107783:	05 00 00 00 80       	add    $0x80000000,%eax
-80107788:	57                   	push   %edi
-80107789:	51                   	push   %ecx
-8010778a:	50                   	push   %eax
-8010778b:	ff 75 10             	push   0x10(%ebp)
-8010778e:	e8 cd aa ff ff       	call   80102260 <readi>
-80107793:	83 c4 10             	add    $0x10,%esp
-80107796:	39 f8                	cmp    %edi,%eax
-80107798:	75 1e                	jne    801077b8 <loaduvm+0xc8>
-  for(i = 0; i < sz; i += PGSIZE){
-8010779a:	81 eb 00 10 00 00    	sub    $0x1000,%ebx
-801077a0:	89 f0                	mov    %esi,%eax
-801077a2:	29 d8                	sub    %ebx,%eax
-801077a4:	39 c6                	cmp    %eax,%esi
-801077a6:	77 80                	ja     80107728 <loaduvm+0x38>
-}
-801077a8:	8d 65 f4             	lea    -0xc(%ebp),%esp
-  return 0;
-801077ab:	31 c0                	xor    %eax,%eax
-}
-801077ad:	5b                   	pop    %ebx
-801077ae:	5e                   	pop    %esi
-801077af:	5f                   	pop    %edi
-801077b0:	5d                   	pop    %ebp
-801077b1:	c3                   	ret    
-801077b2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
-801077b8:	8d 65 f4             	lea    -0xc(%ebp),%esp
-      return -1;
-801077bb:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
-}
-801077c0:	5b                   	pop    %ebx
-801077c1:	5e                   	pop    %esi
-801077c2:	5f                   	pop    %edi
-801077c3:	5d                   	pop    %ebp
-801077c4:	c3                   	ret    
-    panic("loaduvm: addr must be page aligned");
-801077c5:	83 ec 0c             	sub    $0xc,%esp
-801077c8:	68 30 87 10 80       	push   $0x80108730
-801077cd:	e8 ce 8b ff ff       	call   801003a0 <panic>
-801077d2:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801077d9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-
-801077e0 <allocuvm>:
-{
-801077e0:	55                   	push   %ebp
-801077e1:	89 e5                	mov    %esp,%ebp
-801077e3:	57                   	push   %edi
-801077e4:	56                   	push   %esi
-801077e5:	53                   	push   %ebx
-801077e6:	83 ec 1c             	sub    $0x1c,%esp
   if(newsz >= KERNBASE)
-801077e9:	8b 45 10             	mov    0x10(%ebp),%eax
+801076f9:	8b 45 10             	mov    0x10(%ebp),%eax
 {
-801077ec:	8b 7d 08             	mov    0x8(%ebp),%edi
+801076fc:	8b 7d 08             	mov    0x8(%ebp),%edi
   if(newsz >= KERNBASE)
-801077ef:	89 45 e4             	mov    %eax,-0x1c(%ebp)
-801077f2:	85 c0                	test   %eax,%eax
-801077f4:	0f 88 b6 00 00 00    	js     801078b0 <allocuvm+0xd0>
+801076ff:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+80107702:	85 c0                	test   %eax,%eax
+80107704:	0f 88 b6 00 00 00    	js     801077c0 <allocuvm+0xd0>
   if(newsz < oldsz)
-801077fa:	3b 45 0c             	cmp    0xc(%ebp),%eax
+8010770a:	3b 45 0c             	cmp    0xc(%ebp),%eax
     return oldsz;
-801077fd:	8b 45 0c             	mov    0xc(%ebp),%eax
+8010770d:	8b 45 0c             	mov    0xc(%ebp),%eax
   if(newsz < oldsz)
-80107800:	0f 82 9a 00 00 00    	jb     801078a0 <allocuvm+0xc0>
+80107710:	0f 82 9a 00 00 00    	jb     801077b0 <allocuvm+0xc0>
   a = PGROUNDUP(oldsz);
-80107806:	8d b0 ff 0f 00 00    	lea    0xfff(%eax),%esi
-8010780c:	81 e6 00 f0 ff ff    	and    $0xfffff000,%esi
+80107716:	8d b0 ff 0f 00 00    	lea    0xfff(%eax),%esi
+8010771c:	81 e6 00 f0 ff ff    	and    $0xfffff000,%esi
   for(; a < newsz; a += PGSIZE){
-80107812:	39 75 10             	cmp    %esi,0x10(%ebp)
-80107815:	77 44                	ja     8010785b <allocuvm+0x7b>
-80107817:	e9 87 00 00 00       	jmp    801078a3 <allocuvm+0xc3>
-8010781c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80107722:	39 75 10             	cmp    %esi,0x10(%ebp)
+80107725:	77 44                	ja     8010776b <allocuvm+0x7b>
+80107727:	e9 87 00 00 00       	jmp    801077b3 <allocuvm+0xc3>
+8010772c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     memset(mem, 0, PGSIZE);
-80107820:	83 ec 04             	sub    $0x4,%esp
-80107823:	68 00 10 00 00       	push   $0x1000
-80107828:	6a 00                	push   $0x0
-8010782a:	50                   	push   %eax
-8010782b:	e8 00 d6 ff ff       	call   80104e30 <memset>
+80107730:	83 ec 04             	sub    $0x4,%esp
+80107733:	68 00 10 00 00       	push   $0x1000
+80107738:	6a 00                	push   $0x0
+8010773a:	50                   	push   %eax
+8010773b:	e8 f0 d6 ff ff       	call   80104e30 <memset>
     if(mappages(pgdir, (char*)a, PGSIZE, V2P(mem), PTE_W|PTE_U) < 0){
-80107830:	58                   	pop    %eax
-80107831:	8d 83 00 00 00 80    	lea    -0x80000000(%ebx),%eax
-80107837:	5a                   	pop    %edx
-80107838:	6a 06                	push   $0x6
-8010783a:	b9 00 10 00 00       	mov    $0x1000,%ecx
-8010783f:	89 f2                	mov    %esi,%edx
-80107841:	50                   	push   %eax
-80107842:	89 f8                	mov    %edi,%eax
-80107844:	e8 87 fb ff ff       	call   801073d0 <mappages>
-80107849:	83 c4 10             	add    $0x10,%esp
-8010784c:	85 c0                	test   %eax,%eax
-8010784e:	78 78                	js     801078c8 <allocuvm+0xe8>
+80107740:	58                   	pop    %eax
+80107741:	8d 83 00 00 00 80    	lea    -0x80000000(%ebx),%eax
+80107747:	5a                   	pop    %edx
+80107748:	6a 06                	push   $0x6
+8010774a:	b9 00 10 00 00       	mov    $0x1000,%ecx
+8010774f:	89 f2                	mov    %esi,%edx
+80107751:	50                   	push   %eax
+80107752:	89 f8                	mov    %edi,%eax
+80107754:	e8 87 fb ff ff       	call   801072e0 <mappages>
+80107759:	83 c4 10             	add    $0x10,%esp
+8010775c:	85 c0                	test   %eax,%eax
+8010775e:	78 78                	js     801077d8 <allocuvm+0xe8>
   for(; a < newsz; a += PGSIZE){
-80107850:	81 c6 00 10 00 00    	add    $0x1000,%esi
-80107856:	39 75 10             	cmp    %esi,0x10(%ebp)
-80107859:	76 48                	jbe    801078a3 <allocuvm+0xc3>
+80107760:	81 c6 00 10 00 00    	add    $0x1000,%esi
+80107766:	39 75 10             	cmp    %esi,0x10(%ebp)
+80107769:	76 48                	jbe    801077b3 <allocuvm+0xc3>
     mem = kalloc();
-8010785b:	e8 f0 b5 ff ff       	call   80102e50 <kalloc>
-80107860:	89 c3                	mov    %eax,%ebx
+8010776b:	e8 e0 b6 ff ff       	call   80102e50 <kalloc>
+80107770:	89 c3                	mov    %eax,%ebx
     if(mem == 0){
-80107862:	85 c0                	test   %eax,%eax
-80107864:	75 ba                	jne    80107820 <allocuvm+0x40>
+80107772:	85 c0                	test   %eax,%eax
+80107774:	75 ba                	jne    80107730 <allocuvm+0x40>
       cprintf("allocuvm out of memory\n");
-80107866:	83 ec 0c             	sub    $0xc,%esp
-80107869:	68 ad 86 10 80       	push   $0x801086ad
-8010786e:	e8 dd 8e ff ff       	call   80100750 <cprintf>
+80107776:	83 ec 0c             	sub    $0xc,%esp
+80107779:	68 25 86 10 80       	push   $0x80108625
+8010777e:	e8 cd 8f ff ff       	call   80100750 <cprintf>
   if(newsz >= oldsz)
-80107873:	8b 45 0c             	mov    0xc(%ebp),%eax
-80107876:	83 c4 10             	add    $0x10,%esp
-80107879:	39 45 10             	cmp    %eax,0x10(%ebp)
-8010787c:	74 32                	je     801078b0 <allocuvm+0xd0>
-8010787e:	8b 55 10             	mov    0x10(%ebp),%edx
-80107881:	89 c1                	mov    %eax,%ecx
-80107883:	89 f8                	mov    %edi,%eax
-80107885:	e8 96 fa ff ff       	call   80107320 <deallocuvm.part.0>
+80107783:	8b 45 0c             	mov    0xc(%ebp),%eax
+80107786:	83 c4 10             	add    $0x10,%esp
+80107789:	39 45 10             	cmp    %eax,0x10(%ebp)
+8010778c:	74 32                	je     801077c0 <allocuvm+0xd0>
+8010778e:	8b 55 10             	mov    0x10(%ebp),%edx
+80107791:	89 c1                	mov    %eax,%ecx
+80107793:	89 f8                	mov    %edi,%eax
+80107795:	e8 96 fa ff ff       	call   80107230 <deallocuvm.part.0>
       return 0;
-8010788a:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+8010779a:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
 }
-80107891:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-80107894:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80107897:	5b                   	pop    %ebx
-80107898:	5e                   	pop    %esi
-80107899:	5f                   	pop    %edi
-8010789a:	5d                   	pop    %ebp
-8010789b:	c3                   	ret    
-8010789c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801077a1:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+801077a4:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801077a7:	5b                   	pop    %ebx
+801077a8:	5e                   	pop    %esi
+801077a9:	5f                   	pop    %edi
+801077aa:	5d                   	pop    %ebp
+801077ab:	c3                   	ret    
+801077ac:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
     return oldsz;
-801078a0:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+801077b0:	89 45 e4             	mov    %eax,-0x1c(%ebp)
 }
-801078a3:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-801078a6:	8d 65 f4             	lea    -0xc(%ebp),%esp
-801078a9:	5b                   	pop    %ebx
-801078aa:	5e                   	pop    %esi
-801078ab:	5f                   	pop    %edi
-801078ac:	5d                   	pop    %ebp
-801078ad:	c3                   	ret    
-801078ae:	66 90                	xchg   %ax,%ax
+801077b3:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+801077b6:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801077b9:	5b                   	pop    %ebx
+801077ba:	5e                   	pop    %esi
+801077bb:	5f                   	pop    %edi
+801077bc:	5d                   	pop    %ebp
+801077bd:	c3                   	ret    
+801077be:	66 90                	xchg   %ax,%ax
     return 0;
-801078b0:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+801077c0:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
 }
-801078b7:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-801078ba:	8d 65 f4             	lea    -0xc(%ebp),%esp
-801078bd:	5b                   	pop    %ebx
-801078be:	5e                   	pop    %esi
-801078bf:	5f                   	pop    %edi
-801078c0:	5d                   	pop    %ebp
-801078c1:	c3                   	ret    
-801078c2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+801077c7:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+801077ca:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801077cd:	5b                   	pop    %ebx
+801077ce:	5e                   	pop    %esi
+801077cf:	5f                   	pop    %edi
+801077d0:	5d                   	pop    %ebp
+801077d1:	c3                   	ret    
+801077d2:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
       cprintf("allocuvm out of memory (2)\n");
-801078c8:	83 ec 0c             	sub    $0xc,%esp
-801078cb:	68 c5 86 10 80       	push   $0x801086c5
-801078d0:	e8 7b 8e ff ff       	call   80100750 <cprintf>
+801077d8:	83 ec 0c             	sub    $0xc,%esp
+801077db:	68 3d 86 10 80       	push   $0x8010863d
+801077e0:	e8 6b 8f ff ff       	call   80100750 <cprintf>
   if(newsz >= oldsz)
-801078d5:	8b 45 0c             	mov    0xc(%ebp),%eax
-801078d8:	83 c4 10             	add    $0x10,%esp
-801078db:	39 45 10             	cmp    %eax,0x10(%ebp)
-801078de:	74 0c                	je     801078ec <allocuvm+0x10c>
-801078e0:	8b 55 10             	mov    0x10(%ebp),%edx
-801078e3:	89 c1                	mov    %eax,%ecx
-801078e5:	89 f8                	mov    %edi,%eax
-801078e7:	e8 34 fa ff ff       	call   80107320 <deallocuvm.part.0>
+801077e5:	8b 45 0c             	mov    0xc(%ebp),%eax
+801077e8:	83 c4 10             	add    $0x10,%esp
+801077eb:	39 45 10             	cmp    %eax,0x10(%ebp)
+801077ee:	74 0c                	je     801077fc <allocuvm+0x10c>
+801077f0:	8b 55 10             	mov    0x10(%ebp),%edx
+801077f3:	89 c1                	mov    %eax,%ecx
+801077f5:	89 f8                	mov    %edi,%eax
+801077f7:	e8 34 fa ff ff       	call   80107230 <deallocuvm.part.0>
       kfree(mem);
-801078ec:	83 ec 0c             	sub    $0xc,%esp
-801078ef:	53                   	push   %ebx
-801078f0:	e8 9b b3 ff ff       	call   80102c90 <kfree>
+801077fc:	83 ec 0c             	sub    $0xc,%esp
+801077ff:	53                   	push   %ebx
+80107800:	e8 8b b4 ff ff       	call   80102c90 <kfree>
       return 0;
-801078f5:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
-801078fc:	83 c4 10             	add    $0x10,%esp
+80107805:	c7 45 e4 00 00 00 00 	movl   $0x0,-0x1c(%ebp)
+8010780c:	83 c4 10             	add    $0x10,%esp
 }
-801078ff:	8b 45 e4             	mov    -0x1c(%ebp),%eax
-80107902:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80107905:	5b                   	pop    %ebx
-80107906:	5e                   	pop    %esi
-80107907:	5f                   	pop    %edi
-80107908:	5d                   	pop    %ebp
-80107909:	c3                   	ret    
-8010790a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+8010780f:	8b 45 e4             	mov    -0x1c(%ebp),%eax
+80107812:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80107815:	5b                   	pop    %ebx
+80107816:	5e                   	pop    %esi
+80107817:	5f                   	pop    %edi
+80107818:	5d                   	pop    %ebp
+80107819:	c3                   	ret    
+8010781a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-80107910 <deallocuvm>:
+80107820 <deallocuvm>:
 {
-80107910:	55                   	push   %ebp
-80107911:	89 e5                	mov    %esp,%ebp
-80107913:	8b 55 0c             	mov    0xc(%ebp),%edx
-80107916:	8b 4d 10             	mov    0x10(%ebp),%ecx
-80107919:	8b 45 08             	mov    0x8(%ebp),%eax
+80107820:	55                   	push   %ebp
+80107821:	89 e5                	mov    %esp,%ebp
+80107823:	8b 55 0c             	mov    0xc(%ebp),%edx
+80107826:	8b 4d 10             	mov    0x10(%ebp),%ecx
+80107829:	8b 45 08             	mov    0x8(%ebp),%eax
   if(newsz >= oldsz)
-8010791c:	39 d1                	cmp    %edx,%ecx
-8010791e:	73 10                	jae    80107930 <deallocuvm+0x20>
+8010782c:	39 d1                	cmp    %edx,%ecx
+8010782e:	73 10                	jae    80107840 <deallocuvm+0x20>
 }
-80107920:	5d                   	pop    %ebp
-80107921:	e9 fa f9 ff ff       	jmp    80107320 <deallocuvm.part.0>
-80107926:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010792d:	8d 76 00             	lea    0x0(%esi),%esi
-80107930:	89 d0                	mov    %edx,%eax
-80107932:	5d                   	pop    %ebp
-80107933:	c3                   	ret    
-80107934:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010793b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-8010793f:	90                   	nop
+80107830:	5d                   	pop    %ebp
+80107831:	e9 fa f9 ff ff       	jmp    80107230 <deallocuvm.part.0>
+80107836:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010783d:	8d 76 00             	lea    0x0(%esi),%esi
+80107840:	89 d0                	mov    %edx,%eax
+80107842:	5d                   	pop    %ebp
+80107843:	c3                   	ret    
+80107844:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010784b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+8010784f:	90                   	nop
 
-80107940 <freevm>:
+80107850 <freevm>:
 
 // Free a page table and all the physical memory pages
 // in the user part.
 void
 freevm(pde_t *pgdir)
 {
-80107940:	55                   	push   %ebp
-80107941:	89 e5                	mov    %esp,%ebp
-80107943:	57                   	push   %edi
-80107944:	56                   	push   %esi
-80107945:	53                   	push   %ebx
-80107946:	83 ec 0c             	sub    $0xc,%esp
-80107949:	8b 75 08             	mov    0x8(%ebp),%esi
+80107850:	55                   	push   %ebp
+80107851:	89 e5                	mov    %esp,%ebp
+80107853:	57                   	push   %edi
+80107854:	56                   	push   %esi
+80107855:	53                   	push   %ebx
+80107856:	83 ec 0c             	sub    $0xc,%esp
+80107859:	8b 75 08             	mov    0x8(%ebp),%esi
   uint i;
 
   if(pgdir == 0)
-8010794c:	85 f6                	test   %esi,%esi
-8010794e:	74 59                	je     801079a9 <freevm+0x69>
+8010785c:	85 f6                	test   %esi,%esi
+8010785e:	74 59                	je     801078b9 <freevm+0x69>
   if(newsz >= oldsz)
-80107950:	31 c9                	xor    %ecx,%ecx
-80107952:	ba 00 00 00 80       	mov    $0x80000000,%edx
-80107957:	89 f0                	mov    %esi,%eax
-80107959:	89 f3                	mov    %esi,%ebx
-8010795b:	e8 c0 f9 ff ff       	call   80107320 <deallocuvm.part.0>
+80107860:	31 c9                	xor    %ecx,%ecx
+80107862:	ba 00 00 00 80       	mov    $0x80000000,%edx
+80107867:	89 f0                	mov    %esi,%eax
+80107869:	89 f3                	mov    %esi,%ebx
+8010786b:	e8 c0 f9 ff ff       	call   80107230 <deallocuvm.part.0>
     panic("freevm: no pgdir");
   deallocuvm(pgdir, KERNBASE, 0);
   for(i = 0; i < NPDENTRIES; i++){
-80107960:	8d be 00 10 00 00    	lea    0x1000(%esi),%edi
-80107966:	eb 0f                	jmp    80107977 <freevm+0x37>
-80107968:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-8010796f:	90                   	nop
-80107970:	83 c3 04             	add    $0x4,%ebx
-80107973:	39 df                	cmp    %ebx,%edi
-80107975:	74 23                	je     8010799a <freevm+0x5a>
+80107870:	8d be 00 10 00 00    	lea    0x1000(%esi),%edi
+80107876:	eb 0f                	jmp    80107887 <freevm+0x37>
+80107878:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010787f:	90                   	nop
+80107880:	83 c3 04             	add    $0x4,%ebx
+80107883:	39 df                	cmp    %ebx,%edi
+80107885:	74 23                	je     801078aa <freevm+0x5a>
     if(pgdir[i] & PTE_P){
-80107977:	8b 03                	mov    (%ebx),%eax
-80107979:	a8 01                	test   $0x1,%al
-8010797b:	74 f3                	je     80107970 <freevm+0x30>
+80107887:	8b 03                	mov    (%ebx),%eax
+80107889:	a8 01                	test   $0x1,%al
+8010788b:	74 f3                	je     80107880 <freevm+0x30>
       char * v = P2V(PTE_ADDR(pgdir[i]));
-8010797d:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+8010788d:	25 00 f0 ff ff       	and    $0xfffff000,%eax
       kfree(v);
-80107982:	83 ec 0c             	sub    $0xc,%esp
+80107892:	83 ec 0c             	sub    $0xc,%esp
   for(i = 0; i < NPDENTRIES; i++){
-80107985:	83 c3 04             	add    $0x4,%ebx
+80107895:	83 c3 04             	add    $0x4,%ebx
       char * v = P2V(PTE_ADDR(pgdir[i]));
-80107988:	05 00 00 00 80       	add    $0x80000000,%eax
+80107898:	05 00 00 00 80       	add    $0x80000000,%eax
       kfree(v);
-8010798d:	50                   	push   %eax
-8010798e:	e8 fd b2 ff ff       	call   80102c90 <kfree>
-80107993:	83 c4 10             	add    $0x10,%esp
+8010789d:	50                   	push   %eax
+8010789e:	e8 ed b3 ff ff       	call   80102c90 <kfree>
+801078a3:	83 c4 10             	add    $0x10,%esp
   for(i = 0; i < NPDENTRIES; i++){
-80107996:	39 df                	cmp    %ebx,%edi
-80107998:	75 dd                	jne    80107977 <freevm+0x37>
+801078a6:	39 df                	cmp    %ebx,%edi
+801078a8:	75 dd                	jne    80107887 <freevm+0x37>
     }
   }
   kfree((char*)pgdir);
-8010799a:	89 75 08             	mov    %esi,0x8(%ebp)
+801078aa:	89 75 08             	mov    %esi,0x8(%ebp)
 }
-8010799d:	8d 65 f4             	lea    -0xc(%ebp),%esp
-801079a0:	5b                   	pop    %ebx
-801079a1:	5e                   	pop    %esi
-801079a2:	5f                   	pop    %edi
-801079a3:	5d                   	pop    %ebp
+801078ad:	8d 65 f4             	lea    -0xc(%ebp),%esp
+801078b0:	5b                   	pop    %ebx
+801078b1:	5e                   	pop    %esi
+801078b2:	5f                   	pop    %edi
+801078b3:	5d                   	pop    %ebp
   kfree((char*)pgdir);
-801079a4:	e9 e7 b2 ff ff       	jmp    80102c90 <kfree>
+801078b4:	e9 d7 b3 ff ff       	jmp    80102c90 <kfree>
     panic("freevm: no pgdir");
-801079a9:	83 ec 0c             	sub    $0xc,%esp
-801079ac:	68 e1 86 10 80       	push   $0x801086e1
-801079b1:	e8 ea 89 ff ff       	call   801003a0 <panic>
-801079b6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-801079bd:	8d 76 00             	lea    0x0(%esi),%esi
+801078b9:	83 ec 0c             	sub    $0xc,%esp
+801078bc:	68 59 86 10 80       	push   $0x80108659
+801078c1:	e8 da 8a ff ff       	call   801003a0 <panic>
+801078c6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801078cd:	8d 76 00             	lea    0x0(%esi),%esi
 
-801079c0 <setupkvm>:
+801078d0 <setupkvm>:
 {
-801079c0:	55                   	push   %ebp
-801079c1:	89 e5                	mov    %esp,%ebp
-801079c3:	56                   	push   %esi
-801079c4:	53                   	push   %ebx
+801078d0:	55                   	push   %ebp
+801078d1:	89 e5                	mov    %esp,%ebp
+801078d3:	56                   	push   %esi
+801078d4:	53                   	push   %ebx
   if((pgdir = (pde_t*)kalloc()) == 0)
-801079c5:	e8 86 b4 ff ff       	call   80102e50 <kalloc>
-801079ca:	89 c6                	mov    %eax,%esi
-801079cc:	85 c0                	test   %eax,%eax
-801079ce:	74 42                	je     80107a12 <setupkvm+0x52>
+801078d5:	e8 76 b5 ff ff       	call   80102e50 <kalloc>
+801078da:	89 c6                	mov    %eax,%esi
+801078dc:	85 c0                	test   %eax,%eax
+801078de:	74 42                	je     80107922 <setupkvm+0x52>
   memset(pgdir, 0, PGSIZE);
-801079d0:	83 ec 04             	sub    $0x4,%esp
+801078e0:	83 ec 04             	sub    $0x4,%esp
   for(k = kmap; k < &kmap[NELEM(kmap)]; k++)
-801079d3:	bb 20 b4 10 80       	mov    $0x8010b420,%ebx
+801078e3:	bb 20 b4 10 80       	mov    $0x8010b420,%ebx
   memset(pgdir, 0, PGSIZE);
-801079d8:	68 00 10 00 00       	push   $0x1000
-801079dd:	6a 00                	push   $0x0
-801079df:	50                   	push   %eax
-801079e0:	e8 4b d4 ff ff       	call   80104e30 <memset>
-801079e5:	83 c4 10             	add    $0x10,%esp
+801078e8:	68 00 10 00 00       	push   $0x1000
+801078ed:	6a 00                	push   $0x0
+801078ef:	50                   	push   %eax
+801078f0:	e8 3b d5 ff ff       	call   80104e30 <memset>
+801078f5:	83 c4 10             	add    $0x10,%esp
                 (uint)k->phys_start, k->perm) < 0) {
-801079e8:	8b 43 04             	mov    0x4(%ebx),%eax
+801078f8:	8b 43 04             	mov    0x4(%ebx),%eax
     if(mappages(pgdir, k->virt, k->phys_end - k->phys_start,
-801079eb:	83 ec 08             	sub    $0x8,%esp
-801079ee:	8b 4b 08             	mov    0x8(%ebx),%ecx
-801079f1:	ff 73 0c             	push   0xc(%ebx)
-801079f4:	8b 13                	mov    (%ebx),%edx
-801079f6:	50                   	push   %eax
-801079f7:	29 c1                	sub    %eax,%ecx
-801079f9:	89 f0                	mov    %esi,%eax
-801079fb:	e8 d0 f9 ff ff       	call   801073d0 <mappages>
-80107a00:	83 c4 10             	add    $0x10,%esp
-80107a03:	85 c0                	test   %eax,%eax
-80107a05:	78 19                	js     80107a20 <setupkvm+0x60>
+801078fb:	83 ec 08             	sub    $0x8,%esp
+801078fe:	8b 4b 08             	mov    0x8(%ebx),%ecx
+80107901:	ff 73 0c             	push   0xc(%ebx)
+80107904:	8b 13                	mov    (%ebx),%edx
+80107906:	50                   	push   %eax
+80107907:	29 c1                	sub    %eax,%ecx
+80107909:	89 f0                	mov    %esi,%eax
+8010790b:	e8 d0 f9 ff ff       	call   801072e0 <mappages>
+80107910:	83 c4 10             	add    $0x10,%esp
+80107913:	85 c0                	test   %eax,%eax
+80107915:	78 19                	js     80107930 <setupkvm+0x60>
   for(k = kmap; k < &kmap[NELEM(kmap)]; k++)
-80107a07:	83 c3 10             	add    $0x10,%ebx
-80107a0a:	81 fb 60 b4 10 80    	cmp    $0x8010b460,%ebx
-80107a10:	75 d6                	jne    801079e8 <setupkvm+0x28>
+80107917:	83 c3 10             	add    $0x10,%ebx
+8010791a:	81 fb 60 b4 10 80    	cmp    $0x8010b460,%ebx
+80107920:	75 d6                	jne    801078f8 <setupkvm+0x28>
 }
-80107a12:	8d 65 f8             	lea    -0x8(%ebp),%esp
-80107a15:	89 f0                	mov    %esi,%eax
-80107a17:	5b                   	pop    %ebx
-80107a18:	5e                   	pop    %esi
-80107a19:	5d                   	pop    %ebp
-80107a1a:	c3                   	ret    
-80107a1b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-80107a1f:	90                   	nop
+80107922:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80107925:	89 f0                	mov    %esi,%eax
+80107927:	5b                   	pop    %ebx
+80107928:	5e                   	pop    %esi
+80107929:	5d                   	pop    %ebp
+8010792a:	c3                   	ret    
+8010792b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+8010792f:	90                   	nop
       freevm(pgdir);
-80107a20:	83 ec 0c             	sub    $0xc,%esp
-80107a23:	56                   	push   %esi
+80107930:	83 ec 0c             	sub    $0xc,%esp
+80107933:	56                   	push   %esi
       return 0;
-80107a24:	31 f6                	xor    %esi,%esi
+80107934:	31 f6                	xor    %esi,%esi
       freevm(pgdir);
-80107a26:	e8 15 ff ff ff       	call   80107940 <freevm>
+80107936:	e8 15 ff ff ff       	call   80107850 <freevm>
       return 0;
-80107a2b:	83 c4 10             	add    $0x10,%esp
+8010793b:	83 c4 10             	add    $0x10,%esp
 }
-80107a2e:	8d 65 f8             	lea    -0x8(%ebp),%esp
-80107a31:	89 f0                	mov    %esi,%eax
-80107a33:	5b                   	pop    %ebx
-80107a34:	5e                   	pop    %esi
-80107a35:	5d                   	pop    %ebp
-80107a36:	c3                   	ret    
-80107a37:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107a3e:	66 90                	xchg   %ax,%ax
+8010793e:	8d 65 f8             	lea    -0x8(%ebp),%esp
+80107941:	89 f0                	mov    %esi,%eax
+80107943:	5b                   	pop    %ebx
+80107944:	5e                   	pop    %esi
+80107945:	5d                   	pop    %ebp
+80107946:	c3                   	ret    
+80107947:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010794e:	66 90                	xchg   %ax,%ax
 
-80107a40 <kvmalloc>:
+80107950 <kvmalloc>:
 {
-80107a40:	55                   	push   %ebp
-80107a41:	89 e5                	mov    %esp,%ebp
-80107a43:	83 ec 08             	sub    $0x8,%esp
+80107950:	55                   	push   %ebp
+80107951:	89 e5                	mov    %esp,%ebp
+80107953:	83 ec 08             	sub    $0x8,%esp
   kpgdir = setupkvm();
-80107a46:	e8 75 ff ff ff       	call   801079c0 <setupkvm>
-80107a4b:	a3 04 61 11 80       	mov    %eax,0x80116104
+80107956:	e8 75 ff ff ff       	call   801078d0 <setupkvm>
+8010795b:	a3 04 61 11 80       	mov    %eax,0x80116104
   lcr3(V2P(kpgdir));   // switch to the kernel page table
-80107a50:	05 00 00 00 80       	add    $0x80000000,%eax
-80107a55:	0f 22 d8             	mov    %eax,%cr3
+80107960:	05 00 00 00 80       	add    $0x80000000,%eax
+80107965:	0f 22 d8             	mov    %eax,%cr3
 }
-80107a58:	c9                   	leave  
-80107a59:	c3                   	ret    
-80107a5a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
+80107968:	c9                   	leave  
+80107969:	c3                   	ret    
+8010796a:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
 
-80107a60 <clearpteu>:
+80107970 <clearpteu>:
 
 // Clear PTE_U on a page. Used to create an inaccessible
 // page beneath the user stack.
 void
 clearpteu(pde_t *pgdir, char *uva)
 {
-80107a60:	55                   	push   %ebp
-80107a61:	89 e5                	mov    %esp,%ebp
-80107a63:	83 ec 08             	sub    $0x8,%esp
-80107a66:	8b 45 0c             	mov    0xc(%ebp),%eax
+80107970:	55                   	push   %ebp
+80107971:	89 e5                	mov    %esp,%ebp
+80107973:	83 ec 08             	sub    $0x8,%esp
+80107976:	8b 45 0c             	mov    0xc(%ebp),%eax
   if(*pde & PTE_P){
-80107a69:	8b 55 08             	mov    0x8(%ebp),%edx
+80107979:	8b 55 08             	mov    0x8(%ebp),%edx
   pde = &pgdir[PDX(va)];
-80107a6c:	89 c1                	mov    %eax,%ecx
-80107a6e:	c1 e9 16             	shr    $0x16,%ecx
+8010797c:	89 c1                	mov    %eax,%ecx
+8010797e:	c1 e9 16             	shr    $0x16,%ecx
   if(*pde & PTE_P){
-80107a71:	8b 14 8a             	mov    (%edx,%ecx,4),%edx
-80107a74:	f6 c2 01             	test   $0x1,%dl
-80107a77:	75 17                	jne    80107a90 <clearpteu+0x30>
+80107981:	8b 14 8a             	mov    (%edx,%ecx,4),%edx
+80107984:	f6 c2 01             	test   $0x1,%dl
+80107987:	75 17                	jne    801079a0 <clearpteu+0x30>
   pte_t *pte;
 
   pte = walkpgdir(pgdir, uva, 0);
   if(pte == 0)
     panic("clearpteu");
-80107a79:	83 ec 0c             	sub    $0xc,%esp
-80107a7c:	68 f2 86 10 80       	push   $0x801086f2
-80107a81:	e8 1a 89 ff ff       	call   801003a0 <panic>
-80107a86:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107a8d:	8d 76 00             	lea    0x0(%esi),%esi
+80107989:	83 ec 0c             	sub    $0xc,%esp
+8010798c:	68 6a 86 10 80       	push   $0x8010866a
+80107991:	e8 0a 8a ff ff       	call   801003a0 <panic>
+80107996:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+8010799d:	8d 76 00             	lea    0x0(%esi),%esi
   return &pgtab[PTX(va)];
-80107a90:	c1 e8 0a             	shr    $0xa,%eax
+801079a0:	c1 e8 0a             	shr    $0xa,%eax
     pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-80107a93:	81 e2 00 f0 ff ff    	and    $0xfffff000,%edx
+801079a3:	81 e2 00 f0 ff ff    	and    $0xfffff000,%edx
   return &pgtab[PTX(va)];
-80107a99:	25 fc 0f 00 00       	and    $0xffc,%eax
-80107a9e:	8d 84 02 00 00 00 80 	lea    -0x80000000(%edx,%eax,1),%eax
+801079a9:	25 fc 0f 00 00       	and    $0xffc,%eax
+801079ae:	8d 84 02 00 00 00 80 	lea    -0x80000000(%edx,%eax,1),%eax
   if(pte == 0)
-80107aa5:	85 c0                	test   %eax,%eax
-80107aa7:	74 d0                	je     80107a79 <clearpteu+0x19>
+801079b5:	85 c0                	test   %eax,%eax
+801079b7:	74 d0                	je     80107989 <clearpteu+0x19>
   *pte &= ~PTE_U;
-80107aa9:	83 20 fb             	andl   $0xfffffffb,(%eax)
+801079b9:	83 20 fb             	andl   $0xfffffffb,(%eax)
 }
-80107aac:	c9                   	leave  
-80107aad:	c3                   	ret    
-80107aae:	66 90                	xchg   %ax,%ax
+801079bc:	c9                   	leave  
+801079bd:	c3                   	ret    
+801079be:	66 90                	xchg   %ax,%ax
 
-80107ab0 <copyuvm>:
+801079c0 <copyuvm>:
 
 // Given a parent process's page table, create a copy
 // of it for a child.
 pde_t*
 copyuvm(pde_t *pgdir, uint sz)
 {
-80107ab0:	55                   	push   %ebp
-80107ab1:	89 e5                	mov    %esp,%ebp
-80107ab3:	57                   	push   %edi
-80107ab4:	56                   	push   %esi
-80107ab5:	53                   	push   %ebx
-80107ab6:	83 ec 1c             	sub    $0x1c,%esp
+801079c0:	55                   	push   %ebp
+801079c1:	89 e5                	mov    %esp,%ebp
+801079c3:	57                   	push   %edi
+801079c4:	56                   	push   %esi
+801079c5:	53                   	push   %ebx
+801079c6:	83 ec 1c             	sub    $0x1c,%esp
   pde_t *d;
   pte_t *pte;
   uint pa, i, flags;
   char *mem;
 
   if((d = setupkvm()) == 0)
-80107ab9:	e8 02 ff ff ff       	call   801079c0 <setupkvm>
-80107abe:	89 45 e0             	mov    %eax,-0x20(%ebp)
-80107ac1:	85 c0                	test   %eax,%eax
-80107ac3:	0f 84 bd 00 00 00    	je     80107b86 <copyuvm+0xd6>
+801079c9:	e8 02 ff ff ff       	call   801078d0 <setupkvm>
+801079ce:	89 45 e0             	mov    %eax,-0x20(%ebp)
+801079d1:	85 c0                	test   %eax,%eax
+801079d3:	0f 84 bd 00 00 00    	je     80107a96 <copyuvm+0xd6>
     return 0;
   for(i = 0; i < sz; i += PGSIZE){
-80107ac9:	8b 4d 0c             	mov    0xc(%ebp),%ecx
-80107acc:	85 c9                	test   %ecx,%ecx
-80107ace:	0f 84 b2 00 00 00    	je     80107b86 <copyuvm+0xd6>
-80107ad4:	31 f6                	xor    %esi,%esi
-80107ad6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107add:	8d 76 00             	lea    0x0(%esi),%esi
+801079d9:	8b 4d 0c             	mov    0xc(%ebp),%ecx
+801079dc:	85 c9                	test   %ecx,%ecx
+801079de:	0f 84 b2 00 00 00    	je     80107a96 <copyuvm+0xd6>
+801079e4:	31 f6                	xor    %esi,%esi
+801079e6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+801079ed:	8d 76 00             	lea    0x0(%esi),%esi
   if(*pde & PTE_P){
-80107ae0:	8b 4d 08             	mov    0x8(%ebp),%ecx
+801079f0:	8b 4d 08             	mov    0x8(%ebp),%ecx
   pde = &pgdir[PDX(va)];
-80107ae3:	89 f0                	mov    %esi,%eax
-80107ae5:	c1 e8 16             	shr    $0x16,%eax
+801079f3:	89 f0                	mov    %esi,%eax
+801079f5:	c1 e8 16             	shr    $0x16,%eax
   if(*pde & PTE_P){
-80107ae8:	8b 04 81             	mov    (%ecx,%eax,4),%eax
-80107aeb:	a8 01                	test   $0x1,%al
-80107aed:	75 11                	jne    80107b00 <copyuvm+0x50>
+801079f8:	8b 04 81             	mov    (%ecx,%eax,4),%eax
+801079fb:	a8 01                	test   $0x1,%al
+801079fd:	75 11                	jne    80107a10 <copyuvm+0x50>
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
       panic("copyuvm: pte should exist");
-80107aef:	83 ec 0c             	sub    $0xc,%esp
-80107af2:	68 fc 86 10 80       	push   $0x801086fc
-80107af7:	e8 a4 88 ff ff       	call   801003a0 <panic>
-80107afc:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+801079ff:	83 ec 0c             	sub    $0xc,%esp
+80107a02:	68 74 86 10 80       	push   $0x80108674
+80107a07:	e8 94 89 ff ff       	call   801003a0 <panic>
+80107a0c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
   return &pgtab[PTX(va)];
-80107b00:	89 f2                	mov    %esi,%edx
+80107a10:	89 f2                	mov    %esi,%edx
     pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-80107b02:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+80107a12:	25 00 f0 ff ff       	and    $0xfffff000,%eax
   return &pgtab[PTX(va)];
-80107b07:	c1 ea 0a             	shr    $0xa,%edx
-80107b0a:	81 e2 fc 0f 00 00    	and    $0xffc,%edx
-80107b10:	8d 84 10 00 00 00 80 	lea    -0x80000000(%eax,%edx,1),%eax
+80107a17:	c1 ea 0a             	shr    $0xa,%edx
+80107a1a:	81 e2 fc 0f 00 00    	and    $0xffc,%edx
+80107a20:	8d 84 10 00 00 00 80 	lea    -0x80000000(%eax,%edx,1),%eax
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
-80107b17:	85 c0                	test   %eax,%eax
-80107b19:	74 d4                	je     80107aef <copyuvm+0x3f>
+80107a27:	85 c0                	test   %eax,%eax
+80107a29:	74 d4                	je     801079ff <copyuvm+0x3f>
     if(!(*pte & PTE_P))
-80107b1b:	8b 00                	mov    (%eax),%eax
-80107b1d:	a8 01                	test   $0x1,%al
-80107b1f:	0f 84 9f 00 00 00    	je     80107bc4 <copyuvm+0x114>
+80107a2b:	8b 00                	mov    (%eax),%eax
+80107a2d:	a8 01                	test   $0x1,%al
+80107a2f:	0f 84 9f 00 00 00    	je     80107ad4 <copyuvm+0x114>
       panic("copyuvm: page not present");
     pa = PTE_ADDR(*pte);
-80107b25:	89 c7                	mov    %eax,%edi
+80107a35:	89 c7                	mov    %eax,%edi
     flags = PTE_FLAGS(*pte);
-80107b27:	25 ff 0f 00 00       	and    $0xfff,%eax
-80107b2c:	89 45 e4             	mov    %eax,-0x1c(%ebp)
+80107a37:	25 ff 0f 00 00       	and    $0xfff,%eax
+80107a3c:	89 45 e4             	mov    %eax,-0x1c(%ebp)
     pa = PTE_ADDR(*pte);
-80107b2f:	81 e7 00 f0 ff ff    	and    $0xfffff000,%edi
+80107a3f:	81 e7 00 f0 ff ff    	and    $0xfffff000,%edi
     if((mem = kalloc()) == 0)
-80107b35:	e8 16 b3 ff ff       	call   80102e50 <kalloc>
-80107b3a:	89 c3                	mov    %eax,%ebx
-80107b3c:	85 c0                	test   %eax,%eax
-80107b3e:	74 64                	je     80107ba4 <copyuvm+0xf4>
+80107a45:	e8 06 b4 ff ff       	call   80102e50 <kalloc>
+80107a4a:	89 c3                	mov    %eax,%ebx
+80107a4c:	85 c0                	test   %eax,%eax
+80107a4e:	74 64                	je     80107ab4 <copyuvm+0xf4>
       goto bad;
     memmove(mem, (char*)P2V(pa), PGSIZE);
-80107b40:	83 ec 04             	sub    $0x4,%esp
-80107b43:	81 c7 00 00 00 80    	add    $0x80000000,%edi
-80107b49:	68 00 10 00 00       	push   $0x1000
-80107b4e:	57                   	push   %edi
-80107b4f:	50                   	push   %eax
-80107b50:	e8 7b d3 ff ff       	call   80104ed0 <memmove>
+80107a50:	83 ec 04             	sub    $0x4,%esp
+80107a53:	81 c7 00 00 00 80    	add    $0x80000000,%edi
+80107a59:	68 00 10 00 00       	push   $0x1000
+80107a5e:	57                   	push   %edi
+80107a5f:	50                   	push   %eax
+80107a60:	e8 6b d4 ff ff       	call   80104ed0 <memmove>
     if(mappages(d, (void*)i, PGSIZE, V2P(mem), flags) < 0) {
-80107b55:	58                   	pop    %eax
-80107b56:	8d 83 00 00 00 80    	lea    -0x80000000(%ebx),%eax
-80107b5c:	5a                   	pop    %edx
-80107b5d:	ff 75 e4             	push   -0x1c(%ebp)
-80107b60:	b9 00 10 00 00       	mov    $0x1000,%ecx
-80107b65:	89 f2                	mov    %esi,%edx
-80107b67:	50                   	push   %eax
-80107b68:	8b 45 e0             	mov    -0x20(%ebp),%eax
-80107b6b:	e8 60 f8 ff ff       	call   801073d0 <mappages>
-80107b70:	83 c4 10             	add    $0x10,%esp
-80107b73:	85 c0                	test   %eax,%eax
-80107b75:	78 21                	js     80107b98 <copyuvm+0xe8>
+80107a65:	58                   	pop    %eax
+80107a66:	8d 83 00 00 00 80    	lea    -0x80000000(%ebx),%eax
+80107a6c:	5a                   	pop    %edx
+80107a6d:	ff 75 e4             	push   -0x1c(%ebp)
+80107a70:	b9 00 10 00 00       	mov    $0x1000,%ecx
+80107a75:	89 f2                	mov    %esi,%edx
+80107a77:	50                   	push   %eax
+80107a78:	8b 45 e0             	mov    -0x20(%ebp),%eax
+80107a7b:	e8 60 f8 ff ff       	call   801072e0 <mappages>
+80107a80:	83 c4 10             	add    $0x10,%esp
+80107a83:	85 c0                	test   %eax,%eax
+80107a85:	78 21                	js     80107aa8 <copyuvm+0xe8>
   for(i = 0; i < sz; i += PGSIZE){
-80107b77:	81 c6 00 10 00 00    	add    $0x1000,%esi
-80107b7d:	39 75 0c             	cmp    %esi,0xc(%ebp)
-80107b80:	0f 87 5a ff ff ff    	ja     80107ae0 <copyuvm+0x30>
+80107a87:	81 c6 00 10 00 00    	add    $0x1000,%esi
+80107a8d:	39 75 0c             	cmp    %esi,0xc(%ebp)
+80107a90:	0f 87 5a ff ff ff    	ja     801079f0 <copyuvm+0x30>
   return d;
 
 bad:
   freevm(d);
   return 0;
 }
-80107b86:	8b 45 e0             	mov    -0x20(%ebp),%eax
-80107b89:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80107b8c:	5b                   	pop    %ebx
-80107b8d:	5e                   	pop    %esi
-80107b8e:	5f                   	pop    %edi
-80107b8f:	5d                   	pop    %ebp
-80107b90:	c3                   	ret    
-80107b91:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80107a96:	8b 45 e0             	mov    -0x20(%ebp),%eax
+80107a99:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80107a9c:	5b                   	pop    %ebx
+80107a9d:	5e                   	pop    %esi
+80107a9e:	5f                   	pop    %edi
+80107a9f:	5d                   	pop    %ebp
+80107aa0:	c3                   	ret    
+80107aa1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
       kfree(mem);
-80107b98:	83 ec 0c             	sub    $0xc,%esp
-80107b9b:	53                   	push   %ebx
-80107b9c:	e8 ef b0 ff ff       	call   80102c90 <kfree>
+80107aa8:	83 ec 0c             	sub    $0xc,%esp
+80107aab:	53                   	push   %ebx
+80107aac:	e8 df b1 ff ff       	call   80102c90 <kfree>
       goto bad;
-80107ba1:	83 c4 10             	add    $0x10,%esp
+80107ab1:	83 c4 10             	add    $0x10,%esp
   freevm(d);
-80107ba4:	83 ec 0c             	sub    $0xc,%esp
-80107ba7:	ff 75 e0             	push   -0x20(%ebp)
-80107baa:	e8 91 fd ff ff       	call   80107940 <freevm>
+80107ab4:	83 ec 0c             	sub    $0xc,%esp
+80107ab7:	ff 75 e0             	push   -0x20(%ebp)
+80107aba:	e8 91 fd ff ff       	call   80107850 <freevm>
   return 0;
-80107baf:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
-80107bb6:	83 c4 10             	add    $0x10,%esp
+80107abf:	c7 45 e0 00 00 00 00 	movl   $0x0,-0x20(%ebp)
+80107ac6:	83 c4 10             	add    $0x10,%esp
 }
-80107bb9:	8b 45 e0             	mov    -0x20(%ebp),%eax
-80107bbc:	8d 65 f4             	lea    -0xc(%ebp),%esp
-80107bbf:	5b                   	pop    %ebx
-80107bc0:	5e                   	pop    %esi
-80107bc1:	5f                   	pop    %edi
-80107bc2:	5d                   	pop    %ebp
-80107bc3:	c3                   	ret    
+80107ac9:	8b 45 e0             	mov    -0x20(%ebp),%eax
+80107acc:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80107acf:	5b                   	pop    %ebx
+80107ad0:	5e                   	pop    %esi
+80107ad1:	5f                   	pop    %edi
+80107ad2:	5d                   	pop    %ebp
+80107ad3:	c3                   	ret    
       panic("copyuvm: page not present");
-80107bc4:	83 ec 0c             	sub    $0xc,%esp
-80107bc7:	68 16 87 10 80       	push   $0x80108716
-80107bcc:	e8 cf 87 ff ff       	call   801003a0 <panic>
-80107bd1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107bd8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107bdf:	90                   	nop
+80107ad4:	83 ec 0c             	sub    $0xc,%esp
+80107ad7:	68 8e 86 10 80       	push   $0x8010868e
+80107adc:	e8 bf 88 ff ff       	call   801003a0 <panic>
+80107ae1:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80107ae8:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80107aef:	90                   	nop
 
-80107be0 <uva2ka>:
+80107af0 <uva2ka>:
 
 //PAGEBREAK!
 // Map user virtual address to kernel address.
 char*
 uva2ka(pde_t *pgdir, char *uva)
 {
-80107be0:	55                   	push   %ebp
-80107be1:	89 e5                	mov    %esp,%ebp
-80107be3:	8b 45 0c             	mov    0xc(%ebp),%eax
+80107af0:	55                   	push   %ebp
+80107af1:	89 e5                	mov    %esp,%ebp
+80107af3:	8b 45 0c             	mov    0xc(%ebp),%eax
   if(*pde & PTE_P){
-80107be6:	8b 55 08             	mov    0x8(%ebp),%edx
+80107af6:	8b 55 08             	mov    0x8(%ebp),%edx
   pde = &pgdir[PDX(va)];
-80107be9:	89 c1                	mov    %eax,%ecx
-80107beb:	c1 e9 16             	shr    $0x16,%ecx
+80107af9:	89 c1                	mov    %eax,%ecx
+80107afb:	c1 e9 16             	shr    $0x16,%ecx
   if(*pde & PTE_P){
-80107bee:	8b 14 8a             	mov    (%edx,%ecx,4),%edx
-80107bf1:	f6 c2 01             	test   $0x1,%dl
-80107bf4:	0f 84 00 01 00 00    	je     80107cfa <uva2ka.cold>
+80107afe:	8b 14 8a             	mov    (%edx,%ecx,4),%edx
+80107b01:	f6 c2 01             	test   $0x1,%dl
+80107b04:	0f 84 00 01 00 00    	je     80107c0a <uva2ka.cold>
   return &pgtab[PTX(va)];
-80107bfa:	c1 e8 0c             	shr    $0xc,%eax
+80107b0a:	c1 e8 0c             	shr    $0xc,%eax
     pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-80107bfd:	81 e2 00 f0 ff ff    	and    $0xfffff000,%edx
+80107b0d:	81 e2 00 f0 ff ff    	and    $0xfffff000,%edx
   if((*pte & PTE_P) == 0)
     return 0;
   if((*pte & PTE_U) == 0)
     return 0;
   return (char*)P2V(PTE_ADDR(*pte));
 }
-80107c03:	5d                   	pop    %ebp
+80107b13:	5d                   	pop    %ebp
   return &pgtab[PTX(va)];
-80107c04:	25 ff 03 00 00       	and    $0x3ff,%eax
+80107b14:	25 ff 03 00 00       	and    $0x3ff,%eax
   if((*pte & PTE_P) == 0)
-80107c09:	8b 84 82 00 00 00 80 	mov    -0x80000000(%edx,%eax,4),%eax
+80107b19:	8b 84 82 00 00 00 80 	mov    -0x80000000(%edx,%eax,4),%eax
   if((*pte & PTE_U) == 0)
-80107c10:	89 c2                	mov    %eax,%edx
+80107b20:	89 c2                	mov    %eax,%edx
   return (char*)P2V(PTE_ADDR(*pte));
-80107c12:	25 00 f0 ff ff       	and    $0xfffff000,%eax
+80107b22:	25 00 f0 ff ff       	and    $0xfffff000,%eax
   if((*pte & PTE_U) == 0)
-80107c17:	83 e2 05             	and    $0x5,%edx
+80107b27:	83 e2 05             	and    $0x5,%edx
   return (char*)P2V(PTE_ADDR(*pte));
-80107c1a:	05 00 00 00 80       	add    $0x80000000,%eax
-80107c1f:	83 fa 05             	cmp    $0x5,%edx
-80107c22:	ba 00 00 00 00       	mov    $0x0,%edx
-80107c27:	0f 45 c2             	cmovne %edx,%eax
+80107b2a:	05 00 00 00 80       	add    $0x80000000,%eax
+80107b2f:	83 fa 05             	cmp    $0x5,%edx
+80107b32:	ba 00 00 00 00       	mov    $0x0,%edx
+80107b37:	0f 45 c2             	cmovne %edx,%eax
 }
-80107c2a:	c3                   	ret    
-80107c2b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-80107c2f:	90                   	nop
+80107b3a:	c3                   	ret    
+80107b3b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80107b3f:	90                   	nop
 
-80107c30 <copyout>:
+80107b40 <copyout>:
 // Copy len bytes from p to user address va in page table pgdir.
 // Most useful when pgdir is not the current page table.
 // uva2ka ensures this only works for PTE_U pages.
 int
 copyout(pde_t *pgdir, uint va, void *p, uint len)
 {
-80107c30:	55                   	push   %ebp
-80107c31:	89 e5                	mov    %esp,%ebp
-80107c33:	57                   	push   %edi
-80107c34:	56                   	push   %esi
-80107c35:	53                   	push   %ebx
-80107c36:	83 ec 0c             	sub    $0xc,%esp
-80107c39:	8b 75 14             	mov    0x14(%ebp),%esi
-80107c3c:	8b 45 0c             	mov    0xc(%ebp),%eax
-80107c3f:	8b 55 10             	mov    0x10(%ebp),%edx
+80107b40:	55                   	push   %ebp
+80107b41:	89 e5                	mov    %esp,%ebp
+80107b43:	57                   	push   %edi
+80107b44:	56                   	push   %esi
+80107b45:	53                   	push   %ebx
+80107b46:	83 ec 0c             	sub    $0xc,%esp
+80107b49:	8b 75 14             	mov    0x14(%ebp),%esi
+80107b4c:	8b 45 0c             	mov    0xc(%ebp),%eax
+80107b4f:	8b 55 10             	mov    0x10(%ebp),%edx
   char *buf, *pa0;
   uint n, va0;
 
   buf = (char*)p;
   while(len > 0){
-80107c42:	85 f6                	test   %esi,%esi
-80107c44:	75 51                	jne    80107c97 <copyout+0x67>
-80107c46:	e9 a5 00 00 00       	jmp    80107cf0 <copyout+0xc0>
-80107c4b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
-80107c4f:	90                   	nop
+80107b52:	85 f6                	test   %esi,%esi
+80107b54:	75 51                	jne    80107ba7 <copyout+0x67>
+80107b56:	e9 a5 00 00 00       	jmp    80107c00 <copyout+0xc0>
+80107b5b:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+80107b5f:	90                   	nop
   return (char*)P2V(PTE_ADDR(*pte));
-80107c50:	81 e3 00 f0 ff ff    	and    $0xfffff000,%ebx
-80107c56:	8d 8b 00 00 00 80    	lea    -0x80000000(%ebx),%ecx
+80107b60:	81 e3 00 f0 ff ff    	and    $0xfffff000,%ebx
+80107b66:	8d 8b 00 00 00 80    	lea    -0x80000000(%ebx),%ecx
     va0 = (uint)PGROUNDDOWN(va);
     pa0 = uva2ka(pgdir, (char*)va0);
     if(pa0 == 0)
-80107c5c:	81 fb 00 00 00 80    	cmp    $0x80000000,%ebx
-80107c62:	74 75                	je     80107cd9 <copyout+0xa9>
+80107b6c:	81 fb 00 00 00 80    	cmp    $0x80000000,%ebx
+80107b72:	74 75                	je     80107be9 <copyout+0xa9>
       return -1;
     n = PGSIZE - (va - va0);
-80107c64:	89 fb                	mov    %edi,%ebx
+80107b74:	89 fb                	mov    %edi,%ebx
     if(n > len)
       n = len;
     memmove(pa0 + (va - va0), buf, n);
-80107c66:	89 55 10             	mov    %edx,0x10(%ebp)
+80107b76:	89 55 10             	mov    %edx,0x10(%ebp)
     n = PGSIZE - (va - va0);
-80107c69:	29 c3                	sub    %eax,%ebx
-80107c6b:	81 c3 00 10 00 00    	add    $0x1000,%ebx
-80107c71:	39 f3                	cmp    %esi,%ebx
-80107c73:	0f 47 de             	cmova  %esi,%ebx
+80107b79:	29 c3                	sub    %eax,%ebx
+80107b7b:	81 c3 00 10 00 00    	add    $0x1000,%ebx
+80107b81:	39 f3                	cmp    %esi,%ebx
+80107b83:	0f 47 de             	cmova  %esi,%ebx
     memmove(pa0 + (va - va0), buf, n);
-80107c76:	29 f8                	sub    %edi,%eax
-80107c78:	83 ec 04             	sub    $0x4,%esp
-80107c7b:	01 c1                	add    %eax,%ecx
-80107c7d:	53                   	push   %ebx
-80107c7e:	52                   	push   %edx
-80107c7f:	51                   	push   %ecx
-80107c80:	e8 4b d2 ff ff       	call   80104ed0 <memmove>
+80107b86:	29 f8                	sub    %edi,%eax
+80107b88:	83 ec 04             	sub    $0x4,%esp
+80107b8b:	01 c1                	add    %eax,%ecx
+80107b8d:	53                   	push   %ebx
+80107b8e:	52                   	push   %edx
+80107b8f:	51                   	push   %ecx
+80107b90:	e8 3b d3 ff ff       	call   80104ed0 <memmove>
     len -= n;
     buf += n;
-80107c85:	8b 55 10             	mov    0x10(%ebp),%edx
+80107b95:	8b 55 10             	mov    0x10(%ebp),%edx
     va = va0 + PGSIZE;
-80107c88:	8d 87 00 10 00 00    	lea    0x1000(%edi),%eax
+80107b98:	8d 87 00 10 00 00    	lea    0x1000(%edi),%eax
   while(len > 0){
-80107c8e:	83 c4 10             	add    $0x10,%esp
+80107b9e:	83 c4 10             	add    $0x10,%esp
     buf += n;
-80107c91:	01 da                	add    %ebx,%edx
+80107ba1:	01 da                	add    %ebx,%edx
   while(len > 0){
-80107c93:	29 de                	sub    %ebx,%esi
-80107c95:	74 59                	je     80107cf0 <copyout+0xc0>
+80107ba3:	29 de                	sub    %ebx,%esi
+80107ba5:	74 59                	je     80107c00 <copyout+0xc0>
   if(*pde & PTE_P){
-80107c97:	8b 5d 08             	mov    0x8(%ebp),%ebx
+80107ba7:	8b 5d 08             	mov    0x8(%ebp),%ebx
   pde = &pgdir[PDX(va)];
-80107c9a:	89 c1                	mov    %eax,%ecx
+80107baa:	89 c1                	mov    %eax,%ecx
     va0 = (uint)PGROUNDDOWN(va);
-80107c9c:	89 c7                	mov    %eax,%edi
+80107bac:	89 c7                	mov    %eax,%edi
   pde = &pgdir[PDX(va)];
-80107c9e:	c1 e9 16             	shr    $0x16,%ecx
+80107bae:	c1 e9 16             	shr    $0x16,%ecx
     va0 = (uint)PGROUNDDOWN(va);
-80107ca1:	81 e7 00 f0 ff ff    	and    $0xfffff000,%edi
+80107bb1:	81 e7 00 f0 ff ff    	and    $0xfffff000,%edi
   if(*pde & PTE_P){
-80107ca7:	8b 0c 8b             	mov    (%ebx,%ecx,4),%ecx
-80107caa:	f6 c1 01             	test   $0x1,%cl
-80107cad:	0f 84 4e 00 00 00    	je     80107d01 <copyout.cold>
+80107bb7:	8b 0c 8b             	mov    (%ebx,%ecx,4),%ecx
+80107bba:	f6 c1 01             	test   $0x1,%cl
+80107bbd:	0f 84 4e 00 00 00    	je     80107c11 <copyout.cold>
   return &pgtab[PTX(va)];
-80107cb3:	89 fb                	mov    %edi,%ebx
+80107bc3:	89 fb                	mov    %edi,%ebx
     pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-80107cb5:	81 e1 00 f0 ff ff    	and    $0xfffff000,%ecx
+80107bc5:	81 e1 00 f0 ff ff    	and    $0xfffff000,%ecx
   return &pgtab[PTX(va)];
-80107cbb:	c1 eb 0c             	shr    $0xc,%ebx
-80107cbe:	81 e3 ff 03 00 00    	and    $0x3ff,%ebx
+80107bcb:	c1 eb 0c             	shr    $0xc,%ebx
+80107bce:	81 e3 ff 03 00 00    	and    $0x3ff,%ebx
   if((*pte & PTE_P) == 0)
-80107cc4:	8b 9c 99 00 00 00 80 	mov    -0x80000000(%ecx,%ebx,4),%ebx
+80107bd4:	8b 9c 99 00 00 00 80 	mov    -0x80000000(%ecx,%ebx,4),%ebx
   if((*pte & PTE_U) == 0)
-80107ccb:	89 d9                	mov    %ebx,%ecx
-80107ccd:	83 e1 05             	and    $0x5,%ecx
-80107cd0:	83 f9 05             	cmp    $0x5,%ecx
-80107cd3:	0f 84 77 ff ff ff    	je     80107c50 <copyout+0x20>
+80107bdb:	89 d9                	mov    %ebx,%ecx
+80107bdd:	83 e1 05             	and    $0x5,%ecx
+80107be0:	83 f9 05             	cmp    $0x5,%ecx
+80107be3:	0f 84 77 ff ff ff    	je     80107b60 <copyout+0x20>
   }
   return 0;
 }
-80107cd9:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80107be9:	8d 65 f4             	lea    -0xc(%ebp),%esp
       return -1;
-80107cdc:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+80107bec:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
 }
-80107ce1:	5b                   	pop    %ebx
-80107ce2:	5e                   	pop    %esi
-80107ce3:	5f                   	pop    %edi
-80107ce4:	5d                   	pop    %ebp
-80107ce5:	c3                   	ret    
-80107ce6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-80107ced:	8d 76 00             	lea    0x0(%esi),%esi
-80107cf0:	8d 65 f4             	lea    -0xc(%ebp),%esp
+80107bf1:	5b                   	pop    %ebx
+80107bf2:	5e                   	pop    %esi
+80107bf3:	5f                   	pop    %edi
+80107bf4:	5d                   	pop    %ebp
+80107bf5:	c3                   	ret    
+80107bf6:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+80107bfd:	8d 76 00             	lea    0x0(%esi),%esi
+80107c00:	8d 65 f4             	lea    -0xc(%ebp),%esp
   return 0;
-80107cf3:	31 c0                	xor    %eax,%eax
+80107c03:	31 c0                	xor    %eax,%eax
 }
-80107cf5:	5b                   	pop    %ebx
-80107cf6:	5e                   	pop    %esi
-80107cf7:	5f                   	pop    %edi
-80107cf8:	5d                   	pop    %ebp
-80107cf9:	c3                   	ret    
+80107c05:	5b                   	pop    %ebx
+80107c06:	5e                   	pop    %esi
+80107c07:	5f                   	pop    %edi
+80107c08:	5d                   	pop    %ebp
+80107c09:	c3                   	ret    
 
-80107cfa <uva2ka.cold>:
+80107c0a <uva2ka.cold>:
   if((*pte & PTE_P) == 0)
-80107cfa:	a1 00 00 00 00       	mov    0x0,%eax
-80107cff:	0f 0b                	ud2    
+80107c0a:	a1 00 00 00 00       	mov    0x0,%eax
+80107c0f:	0f 0b                	ud2    
 
-80107d01 <copyout.cold>:
-80107d01:	a1 00 00 00 00       	mov    0x0,%eax
-80107d06:	0f 0b                	ud2    
+80107c11 <copyout.cold>:
+80107c11:	a1 00 00 00 00       	mov    0x0,%eax
+80107c16:	0f 0b                	ud2    
