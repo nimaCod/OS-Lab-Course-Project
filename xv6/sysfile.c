@@ -295,6 +295,7 @@ int sys_copy_file(void)
     return -1;
   if (argstr(1, &dest) < 0)
     return -1;
+  return 0;
 }
 
 int sys_open(void)

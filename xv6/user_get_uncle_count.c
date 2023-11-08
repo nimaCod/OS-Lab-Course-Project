@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    int pid, i;
+    int pid, i,pid2;
 
     // Fork three child processes
     for (i = 0; i < 3; i++)
@@ -21,7 +21,7 @@ int main(void)
 
             if (i == 2)
             {
-                int pid2 = fork();
+                pid2 = fork();
                 if (pid2 == 0)
                 {
                     // grand son fork

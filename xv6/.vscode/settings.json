@@ -1,6 +1,15 @@
 {
     "files.associations": {
         "fcntl.h": "c",
-        "fs.h": "c"
+        "fs.h": "c",
+        "param.h": "c",
+        "proc.h": "c",
+        "types.h": "c",
+        "defs.h": "c",
+        "memlayout.h": "c",
+        "mmu.h": "c",
+        "x86.h": "c",
+        "spinlock.h": "c",
+        "user.h": "c"
     }
 }
