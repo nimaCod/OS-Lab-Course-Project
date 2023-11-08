@@ -542,3 +542,21 @@ void procdump(void)
     cprintf("\n");
   }
 }
+
+int sys_get_uncle_count(void){
+  int count = 0;
+  struct proc *my_proc = myproc();  // Get the current process
+
+  // Traverse the process table to count the uncles of the current process
+  for (int i = 0; i < NPROC; i++) {
+    struct proc *current_proc = &ptable.proc[i];
+    if (current_proc->state == UNUSED || current_proc->state == EMBRYO || current_proc->pid == my_proc->pid)
+      continue;
+
+    if (current_proc->parent && current_proc->parent->parent && current_proc->parent->parent == my_proc) {
+      count++;
+    }
+  }
+
+  return count;
+}
