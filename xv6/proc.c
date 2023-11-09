@@ -199,8 +199,16 @@ int fork(void)
     kfree(np->kstack);
     np->kstack = 0;
     np->state = UNUSED;
+
     return -1;
   }
+
+
+  	acquire(&tickslock);
+    np->xticks=ticks; // creation time for this process
+    // cprintf("forked process %d now has xtick %d\n",np->pid,np->xticks);
+	  release(&tickslock);
+
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
@@ -543,21 +551,28 @@ void procdump(void)
   }
 }
 
-int sys_get_uncle_count(void){
+int sys_get_uncle_count(void)
+{
   // cprintf("inside get_uncle\n");
+  acquire(&ptable.lock);
   int count = 0;
-  struct proc *my_proc = myproc();  // Get the current process
+  struct proc *my_proc = myproc(); // Get the current process
   // cprintf("currenct pid: %d\n",my_proc->pid);
   struct proc *curr_proc;
 
-  for (curr_proc = ptable.proc; curr_proc < &ptable.proc[NPROC]; curr_proc++){
+  for (curr_proc = ptable.proc; curr_proc < &ptable.proc[NPROC]; curr_proc++)
+  {
     if (curr_proc->state == UNUSED || curr_proc->state == EMBRYO || curr_proc->pid == my_proc->pid)
       continue;
     // cprintf("in for loop for pid:%d\n",curr_proc->pid);
-    if (curr_proc->parent && curr_proc->parent->parent && curr_proc->parent->parent == my_proc) {
+    if (curr_proc->parent && curr_proc->parent->parent && curr_proc->parent->parent == my_proc)
+    {
       count++;
     }
   }
+  release(&ptable.lock);
+
   // cprintf("done\n");
   return count;
 }
+

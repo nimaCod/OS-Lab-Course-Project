@@ -84,3 +84,16 @@ int sys_uptime(void)
 	return xticks;
 }
 
+uint sys_lifetime(void){
+	uint xticks;
+
+	acquire(&tickslock);
+	xticks = ticks;
+	release(&tickslock);
+	
+  	struct proc *my_proc = myproc(); // Get the current process
+
+	cprintf("[sys_lifetime] Current time  is: %d this app creation time is: %d\n",xticks,my_proc->xticks);
+	return (xticks-my_proc->xticks)/100;
+
+}

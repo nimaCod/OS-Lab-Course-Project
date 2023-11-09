@@ -4,26 +4,19 @@
 int main(void)
 {
     int pid, i,pid2;
-
     // Fork three child processes
-    for (i = 0; i < 3; i++)
-    {
+    for (i = 0; i < 3; i++){
         pid = fork();
 
-        if (pid < 0)
-        {
+        if (pid < 0) {
             printf(2, "Fork failed.\n");
             exit();
-        }
-        else if (pid == 0)
-        {
+        } else if (pid == 0) {
             // Child process
 
-            if (i == 2)
-            {
+            if (i == 2) {
                 pid2 = fork();
-                if (pid2 == 0)
-                {
+                if (pid2 == 0){
                     // grand son fork
                     int uncle_count = get_uncle_count();
                     printf(1, "Child process %d: Uncle count = %d\n", getpid(), uncle_count);

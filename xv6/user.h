@@ -26,6 +26,7 @@ char *sbrk(int);
 int sleep(int);
 int uptime(void);
 int get_uncle_count(void);
+uint lifetime(void);
 
 // ulib.c
 int stat(const char *, struct stat *);
