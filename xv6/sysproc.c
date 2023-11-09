@@ -84,6 +84,8 @@ int sys_uptime(void)
 	return xticks;
 }
 
+// this function returns time in seconds since process
+// created.
 uint sys_lifetime(void){
 	uint xticks;
 
