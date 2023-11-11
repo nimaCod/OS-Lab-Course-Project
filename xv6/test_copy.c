@@ -6,6 +6,15 @@
 
 int main(int argc, char *argv[])
 {
+    if (argc == 4)
+    {
+        int fd = open(argv[1], O_CREATE | O_WRONLY);
+        if (fd < 0)
+            printf(2, "err\n");
+        write(fd, argv[2], strlen(argv[2]));
+        close(fd);
+        exit();
+    }
     if (argc != 3)
     {
         printf(2, "not good args : %d!\n", argc);

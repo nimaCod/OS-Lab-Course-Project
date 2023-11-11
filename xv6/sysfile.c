@@ -89,6 +89,16 @@ int sys_write(void)
   return filewrite(f, p, n);
 }
 
+int close(int fd)
+{
+  struct file *f = myproc()->ofile[fd];
+  if (f == 0)
+    return -1;
+  myproc()->ofile[fd] = 0;
+  fileclose(f);
+  return 0;
+}
+
 int sys_close(void)
 {
   int fd;
@@ -286,116 +296,11 @@ create(char *path, short type, short major, short minor)
   return ip;
 }
 
-// copy src to dest
-// return 0 on success and -1 on error
-int sys_copy_file(void)
+int open(char *path, int omode)
 {
-  char *src, *dest;
-  struct file *fsrc, *fdest;
-  struct inode *isrc, *idest;
-
-  if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
-    return -1;
-
-  begin_op();
-
-  if ((isrc = namei(src)) == 0) // check src exist
-  {
-    cprintf("src not exist.\n");
-    end_op();
-    return -1;
-  }
-  if ((idest = namei(dest)) != 0) // check dest not exist
-  {
-    cprintf("dest exist.\n");
-    end_op();
-    return -1;
-  }
-
-  ilock(isrc); // lock src
-
-  if (isrc->type == T_DIR) // check src is not dir
-  {
-    cprintf("src is dir.\n");
-    iunlockput(isrc);
-    end_op();
-    return -1;
-  }
-
-  if ((fsrc = filealloc()) == 0) // aloc src file
-  {
-    cprintf("src aloc fail.\n");
-    if (fsrc)
-      fileclose(fsrc);
-    iunlockput(isrc);
-    end_op();
-    return -1;
-  }
-
-  iunlock(isrc); // unlock src node
-
-  idest = create(dest, T_FILE, 0, 0); // create dest node
-  if (idest == 0)
-  {
-    cprintf("create dest fail.\n");
-    fileclose(fsrc);
-    end_op();
-    return -1;
-  }
-
-  if ((fdest = filealloc()) == 0) // aloc dest file
-  {
-    cprintf("aloc dest fail.\n");
-    if (fdest)
-      fileclose(fdest);
-    fileclose(fsrc);
-    iunlockput(idest);
-    end_op();
-    return -1;
-  }
-
-  iunlock(idest); // unlock dest node
-
-  int size = 1024, n, m;
-  char buff[size];
-  do
-  {
-    n = fileread(fsrc, buff, sizeof(char) * size);
-    if (n < 0)
-    {
-      cprintf("read fail.\n");
-      fileclose(fsrc);
-      fileclose(fdest);
-      end_op();
-      return -1;
-    }
-    m = filewrite(fdest, buff, n);
-    if (m < n)
-    {
-      cprintf("write fail.\n");
-      fileclose(fsrc);
-      fileclose(fdest);
-      end_op();
-      return -1;
-    }
-  } while (n == size);
-
-  fileclose(fsrc);
-  fileclose(fdest);
-  end_op();
-
-  return 0;
-}
-
-int sys_open(void)
-{
-  char *path;
-  int fd, omode;
+  int fd;
   struct file *f;
   struct inode *ip;
-
-  if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
-    return -1;
 
   begin_op();
 
@@ -441,6 +346,68 @@ int sys_open(void)
   f->readable = !(omode & O_WRONLY);
   f->writable = (omode & O_WRONLY) || (omode & O_RDWR);
   return fd;
+}
+
+// copy src to dest
+// return 0 on success and -1 on error
+int sys_copy_file(void)
+{
+  char *src, *dest;
+
+  if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
+    return -1;
+
+  if (strlen(src) == strlen(dest) && strncmp(src, dest, strlen(src)) == 0)
+    return -1;
+
+  cprintf("arg read %s %s\n", src, dest);
+  int srcfd = open(src, O_RDONLY);
+  cprintf("open src\n");
+  int dstfd = open(src, O_CREATE | O_WRONLY);
+  cprintf("open dst\n");
+  if (src < 0 || dstfd < 0)
+    return -1;
+  cprintf("src type %d\n", myproc()->ofile[srcfd]->type);
+  cprintf("dst type %d\n", myproc()->ofile[dstfd]->type);
+  int r = -1, w = -1;
+  char buf[512];
+  r = fileread(myproc()->ofile[srcfd], buf, sizeof(buf));
+  buf[r] = 0;
+  cprintf("%d %s\n", r, buf);
+  w = filewrite(myproc()->ofile[dstfd], "ali", strlen("ali"));
+  cprintf("%d %s\n", w, "ali");
+  return 0;
+  while ((r = fileread(myproc()->ofile[srcfd], buf, sizeof(buf))) > 0)
+  {
+    buf[r] = 0;
+    cprintf("%s\n", buf);
+    w = filewrite(myproc()->ofile[dstfd], buf, r);
+    if (w < r || w < 0 || r < sizeof(buf))
+      break;
+  }
+  if (r < 0 || w < 0 || w < r)
+  {
+    cprintf("cp: error copying %s to %s\n", src, dest);
+    return -1;
+  }
+  cprintf("%d %d\n", w, r);
+  if (close(srcfd) < 0 || close(dstfd) < 0)
+  {
+    cprintf("close fail!\n");
+    return -1;
+  }
+  return 0;
+}
+
+int sys_open(void)
+{
+  char *path;
+  int omode;
+
+  if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
+    return -1;
+
+  return open(path, omode);
 }
 
 int sys_mkdir(void)
