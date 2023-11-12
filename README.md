@@ -1,5 +1,5 @@
-# OS-Lab1 UT
-<h3>This is First Project Of Os Laboratory</h3>
+# OS-Lab UT
+<h3>This project is for operating system laboratory of UT</h3>
 <p>Group Members:
   
 - Mohammad Ali Ghahari
