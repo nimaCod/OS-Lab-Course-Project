@@ -89,7 +89,7 @@ int sys_write(void)
   return filewrite(f, p, n);
 }
 
-int close(int fd)
+int _close(int fd)
 {
   struct file *f = myproc()->ofile[fd];
   if (f == 0)
@@ -296,7 +296,7 @@ create(char *path, short type, short major, short minor)
   return ip;
 }
 
-int open(char *path, int omode)
+int _open(char *path, int omode)
 {
   int fd;
   struct file *f;
@@ -355,45 +355,46 @@ int sys_copy_file(void)
   char *src, *dest;
 
   if (argstr(0, &src) < 0 || argstr(1, &dest) < 0)
+  {
+    // cprintf("fail to read input!\n");
     return -1;
-
+  }
   if (strlen(src) == strlen(dest) && strncmp(src, dest, strlen(src)) == 0)
+  {
+    // cprintf("can't copy to src!\n");
     return -1;
+  }
 
-  cprintf("arg read %s %s\n", src, dest);
-  int srcfd = open(src, O_RDONLY);
-  cprintf("open src\n");
-  int dstfd = open(src, O_CREATE | O_WRONLY);
-  cprintf("open dst\n");
-  if (src < 0 || dstfd < 0)
+  int srcfd = _open(src, O_RDONLY);
+  if (_open(dest, O_WRONLY) >= 0)
+  {
+    // cprintf("file already exist!\n");
     return -1;
-  cprintf("src type %d\n", myproc()->ofile[srcfd]->type);
-  cprintf("dst type %d\n", myproc()->ofile[dstfd]->type);
-  int r = -1, w = -1;
+  }
+  int dstfd = _open(dest, O_CREATE | O_WRONLY);
+  if (srcfd < 0 || srcfd >= NOFILE || dstfd >= NOFILE || dstfd < 0)
+  {
+    // cprintf("can't open files.\n");
+    return -1;
+  }
+
+  int r = 0, w = 0;
   char buf[512];
-  r = fileread(myproc()->ofile[srcfd], buf, sizeof(buf));
-  buf[r] = 0;
-  cprintf("%d %s\n", r, buf);
-  w = filewrite(myproc()->ofile[dstfd], "ali", strlen("ali"));
-  cprintf("%d %s\n", w, "ali");
-  return 0;
   while ((r = fileread(myproc()->ofile[srcfd], buf, sizeof(buf))) > 0)
   {
     buf[r] = 0;
-    cprintf("%s\n", buf);
     w = filewrite(myproc()->ofile[dstfd], buf, r);
     if (w < r || w < 0 || r < sizeof(buf))
       break;
   }
   if (r < 0 || w < 0 || w < r)
   {
-    cprintf("cp: error copying %s to %s\n", src, dest);
+    // cprintf("cp: error copying %s to %s\n", src, dest);
     return -1;
   }
-  cprintf("%d %d\n", w, r);
-  if (close(srcfd) < 0 || close(dstfd) < 0)
+  if (_close(srcfd) < 0 || _close(dstfd) < 0)
   {
-    cprintf("close fail!\n");
+    // cprintf("close fail!\n");
     return -1;
   }
   return 0;
@@ -407,7 +408,9 @@ int sys_open(void)
   if (argstr(0, &path) < 0 || argint(1, &omode) < 0)
     return -1;
 
-  return open(path, omode);
+  int res = _open(path, omode);
+  // cprintf("success! : %d", res);
+  return res;
 }
 
 int sys_mkdir(void)
