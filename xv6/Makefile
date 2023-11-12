@@ -186,6 +186,8 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
+	_user_get_uncle_count\
+	_user_lifetime\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -253,7 +255,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 # check in that version.
 
 EXTRA=\
-	strdiff.c test_copy.c test_fdr.c get_pid.c mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
+	strdiff.c test_copy.c user_get_uncle_count.c user_lifetime.c test_fdr.c get_pid.c mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\

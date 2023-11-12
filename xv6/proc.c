@@ -199,8 +199,15 @@ int fork(void)
     kfree(np->kstack);
     np->kstack = 0;
     np->state = UNUSED;
+
     return -1;
   }
+
+  acquire(&tickslock);
+  np->xticks = ticks; // creation time for this process
+                      // cprintf("forked process %d now has xtick %d\n",np->pid,np->xticks);
+  release(&tickslock);
+
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
@@ -541,4 +548,31 @@ void procdump(void)
     }
     cprintf("\n");
   }
+}
+
+// this function iteretes trhough all
+// proc and if their parent is same as
+// current process grand parent then it
+// is uncle of proc
+int sys_get_uncle_count(void)
+{
+  acquire(&ptable.lock);
+  int count = 0;
+  struct proc *my_proc = myproc(); // Get the current process
+  struct proc *curr_proc;
+
+  for (curr_proc = ptable.proc; curr_proc < &ptable.proc[NPROC]; curr_proc++)
+  {
+    if (curr_proc->state == UNUSED || curr_proc->state == EMBRYO || curr_proc->pid == my_proc->pid || curr_proc->pid == my_proc->parent->pid) // escaping incomplete proc
+      continue;
+
+    if (curr_proc->parent &&  curr_proc->parent->pid == my_proc->parent->parent->pid)
+    {
+      cprintf("Found uncle with pid:%d and name: %s\n",curr_proc->pid,curr_proc->name);
+      count++;
+    }
+  }
+  release(&ptable.lock);
+
+  return count;
 }
