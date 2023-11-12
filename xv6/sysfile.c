@@ -365,12 +365,13 @@ int sys_copy_file(void)
     return -1;
   }
 
-  int srcfd = _open(src, O_RDONLY);
   if (_open(dest, O_WRONLY) >= 0)
   {
     // cprintf("file already exist!\n");
     return -1;
   }
+
+  int srcfd = _open(src, O_RDONLY);
   int dstfd = _open(dest, O_CREATE | O_WRONLY);
   if (srcfd < 0 || srcfd >= NOFILE || dstfd >= NOFILE || dstfd < 0)
   {
