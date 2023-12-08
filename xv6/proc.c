@@ -576,3 +576,55 @@ int sys_get_uncle_count(void)
 
   return count;
 }
+
+// this function changes the queue of the
+// process with given pid 
+int change_queue(int pid, int new_queue) { // TODO: check why this must work?
+  struct proc *p;
+  int old_queue = -1;
+
+  if(new_queue == NO_QUEUE){
+    if (pid == 1)
+      new_queue = ROUND_ROBIN;
+    else if (pid > 1)
+      new_queue = LCFS;
+    else
+      return -1;
+  }
+
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      old_queue = p->scheduling_data.queue;
+      p->scheduling_data.queue = new_queue;
+      if (new_queue == LCFS && p->scheduling_data.age <= 0) {
+        p->scheduling_data.age = (rand() % 10) + 1;
+      }
+      break;
+    }
+  }
+  release(&ptable.lock);
+  return old_queue;
+}
+
+
+// This function checks for aging
+void do_aging(int tiks)
+{
+  struct proc *p;
+
+  acquire(&ptable.lock);
+
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN)
+    {
+      if (tiks - p->scheduling_data.age > AGED_OUT)
+      {
+        change_queue(p->pid, ROUND_ROBIN);
+      }
+    }
+  }
+
+  release(&ptable.lock);
+}
