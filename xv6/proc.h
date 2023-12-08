@@ -34,20 +34,21 @@ struct context {
 
 enum shced_queues { NO_QUEUE, ROUND_ROBIN, LCFS, BJF };
 
-struct bjfinfo {
+struct bjf_data {
   int priority;
   float priority_ratio;
   int arrival_time;
   float arrival_time_ratio;
-  float executed_cycle;
+  int executed_cycle;
   float executed_cycle_ratio;
+  int process_size;
+  float process_size_ratio;
 };
 
 struct scheduling {
   enum shced_queues queue; // Process queue
   int age;          // Last time process was run
-  // struct bjfinfo bjf;    // Best-Job-First scheduling info
-  // int tickets_count;     // Number of tickets for lottery scheduler
+  struct bjf_data bjf;    // Best-Job-First scheduling data
 };
 
 enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };

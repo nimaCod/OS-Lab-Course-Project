@@ -205,7 +205,16 @@ int fork(void)
 
   acquire(&tickslock);
   np->xticks = ticks; // creation time for this process
-                      // cprintf("forked process %d now has xtick %d\n",np->pid,np->xticks);
+  // cprintf("forked process %d now has xtick %d\n",np->pid,np->xticks);
+  
+  // initializing shceduling data for process
+  memset(&np->scheduling_data, 0, sizeof(np->scheduling_data));
+  np->scheduling_data.queue = NO_QUEUE;
+  // np->scheduling_data.bjf.priority = BJF_PRIORITY_DEF; // TODO: this was defined to 3 why?
+  np->scheduling_data.bjf.priority_ratio = 1;
+  np->scheduling_data.bjf.arrival_time_ratio = 1;
+  np->scheduling_data.bjf.executed_cycle_ratio = 1;
+  
   release(&tickslock);
 
   np->sz = curproc->sz;
@@ -627,4 +636,53 @@ void do_aging(int tiks)
   }
 
   release(&ptable.lock);
+}
+
+int sys_set_bjf_for_process(void) {
+  int pid;
+  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size;
+  if(argint(0, &pid) < 0 ||
+     argfloat(1, &priority_ratio) < 0 ||
+     argfloat(2, &arrival_time_ratio) < 0 ||
+     argfloat(3, &executed_cycle_ratio) < 0 ||
+     argfloat(4, &process_size) < 0){
+    return -1;
+  }
+
+  acquire(&ptable.lock);
+  struct proc* p;
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->pid == pid){
+      p->scheduling_data.bjf.priority_ratio = priority_ratio;
+      p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
+      p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
+      p->scheduling_data.bjf.process_size_ratio = process_size;
+      release(&ptable.lock);
+      return 0;
+    }
+  }
+  release(&ptable.lock);
+}
+
+int sys_set_bjf_for_all(void) {
+  int pid;
+  float priority_ratio, arrival_time_ratio, executed_cycle_ratio,process_size;
+  if(argint(0, &pid) < 0 ||
+     argfloat(1, &priority_ratio) < 0 ||
+     argfloat(2, &arrival_time_ratio) < 0 ||
+     argfloat(3, &executed_cycle_ratio) < 0 ||
+     argfloat(4, &process_size) < 0 ){
+    return -1;
+  }
+
+  acquire(&ptable.lock);
+  struct proc* p;
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    p->scheduling_data.bjf.priority_ratio = priority_ratio;
+    p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
+    p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
+    p->scheduling_data.bjf.process_size_ratio = process_size;
+
+  }
+  release(&ptable.lock);  return 0;
 }

@@ -103,6 +103,8 @@ extern int sys_find_digital_root(void);
 extern int sys_copy_file(void);
 extern int sys_get_uncle_count(void);
 extern int sys_lifetime(void);
+extern int sys_set_bjf_for_process(void);
+extern int sys_set_bjf_for_all(void);
 
 static int (*syscalls[])(void) = {
     [SYS_fork] sys_fork,
@@ -130,6 +132,8 @@ static int (*syscalls[])(void) = {
     [SYS_copy_file] sys_copy_file,
     [SYS_get_uncle_count] sys_get_uncle_count,
     [SYS_lifetime] sys_lifetime,
+    [SYS_set_bjf_for_process] sys_set_bjf_for_process,
+    [SYS_set_bjf_for_all] sys_set_bjf_for_all,
 };
 
 void syscall(void)

@@ -24,3 +24,5 @@
 #define SYS_copy_file 23
 #define SYS_get_uncle_count 24
 #define SYS_lifetime 25
+#define SYS_set_bjf_for_process 26
+#define SYS_set_bjf_for_all 27
