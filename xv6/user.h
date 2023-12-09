@@ -27,6 +27,10 @@ int sleep(int);
 int uptime(void);
 int get_uncle_count(void);
 uint lifetime(void);
+int set_bjf_for_process(void);
+int set_bjf_for_all(void);
+int change_queue(void);
+int ps(void);
 
 // ulib.c
 int stat(const char *, struct stat *);

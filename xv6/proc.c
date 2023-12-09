@@ -206,7 +206,7 @@ int fork(void)
   acquire(&tickslock);
   np->xticks = ticks; // creation time for this process
   // cprintf("forked process %d now has xtick %d\n",np->pid,np->xticks);
-  
+
   // initializing shceduling data for process
   memset(&np->scheduling_data, 0, sizeof(np->scheduling_data));
   np->scheduling_data.queue = NO_QUEUE;
@@ -214,7 +214,7 @@ int fork(void)
   np->scheduling_data.bjf.priority_ratio = 1;
   np->scheduling_data.bjf.arrival_time_ratio = 1;
   np->scheduling_data.bjf.executed_cycle_ratio = 1;
-  
+
   release(&tickslock);
 
   np->sz = curproc->sz;
@@ -529,12 +529,12 @@ int kill(int pid)
 void procdump(void)
 {
   static char *states[] = {
-      [UNUSED] "unused",
-      [EMBRYO] "embryo",
-      [SLEEPING] "sleep ",
-      [RUNNABLE] "runble",
-      [RUNNING] "run   ",
-      [ZOMBIE] "zombie"};
+      [UNUSED] = "unused",
+      [EMBRYO] = "embryo",
+      [SLEEPING] = "sleep ",
+      [RUNNABLE] = "runble",
+      [RUNNING] = "run   ",
+      [ZOMBIE] = "zombie"};
   int i;
   struct proc *p;
   char *state;
@@ -575,9 +575,9 @@ int sys_get_uncle_count(void)
     if (curr_proc->state == UNUSED || curr_proc->state == EMBRYO || curr_proc->pid == my_proc->pid || curr_proc->pid == my_proc->parent->pid) // escaping incomplete proc
       continue;
 
-    if (curr_proc->parent &&  curr_proc->parent->pid == my_proc->parent->parent->pid)
+    if (curr_proc->parent && curr_proc->parent->pid == my_proc->parent->parent->pid)
     {
-      cprintf("Found uncle with pid:%d and name: %s\n",curr_proc->pid,curr_proc->name);
+      cprintf("Found uncle with pid:%d and name: %s\n", curr_proc->pid, curr_proc->name);
       count++;
     }
   }
@@ -587,12 +587,14 @@ int sys_get_uncle_count(void)
 }
 
 // this function changes the queue of the
-// process with given pid 
-int change_queue(int pid, int new_queue) { // TODO: check why this must work?
+// process with given pid
+int change_queue(int pid, int new_queue)
+{ // TODO: check why this must work?
   struct proc *p;
   int old_queue = -1;
 
-  if(new_queue == NO_QUEUE){
+  if (new_queue == NO_QUEUE)
+  {
     if (pid == 1)
       new_queue = ROUND_ROBIN;
     else if (pid > 1)
@@ -602,20 +604,20 @@ int change_queue(int pid, int new_queue) { // TODO: check why this must work?
   }
 
   acquire(&ptable.lock);
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if(p->pid == pid){
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    if (p->pid == pid)
+    {
       old_queue = p->scheduling_data.queue;
       p->scheduling_data.queue = new_queue;
-      if (new_queue == LCFS && p->scheduling_data.age <= 0) {
-        p->scheduling_data.age = (rand() % 10) + 1;
-      }
+      if (new_queue == LCFS && p->scheduling_data.age < 0)
+        p->scheduling_data.age = 0;
       break;
     }
   }
   release(&ptable.lock);
   return old_queue;
 }
-
 
 // This function checks for aging
 void do_aging(int tiks)
@@ -625,34 +627,31 @@ void do_aging(int tiks)
   acquire(&ptable.lock);
 
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-    if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN)
-    {
-      if (tiks - p->scheduling_data.age > AGED_OUT)
-      {
-        change_queue(p->pid, ROUND_ROBIN);
-      }
-    }
-  }
+    if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN && tiks - p->scheduling_data.age > AGED_OUT)
+      change_queue(p->pid, ROUND_ROBIN);
 
   release(&ptable.lock);
 }
 
-int sys_set_bjf_for_process(void) {
+int sys_set_bjf_for_process(void)
+{
   int pid;
   float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size;
-  if(argint(0, &pid) < 0 ||
-     argfloat(1, &priority_ratio) < 0 ||
-     argfloat(2, &arrival_time_ratio) < 0 ||
-     argfloat(3, &executed_cycle_ratio) < 0 ||
-     argfloat(4, &process_size) < 0){
+  if (argint(0, &pid) < 0 ||
+      argfloat(1, &priority_ratio) < 0 ||
+      argfloat(2, &arrival_time_ratio) < 0 ||
+      argfloat(3, &executed_cycle_ratio) < 0 ||
+      argfloat(4, &process_size) < 0)
+  {
     return -1;
   }
 
   acquire(&ptable.lock);
-  struct proc* p;
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if(p->pid == pid){
+  struct proc *p;
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    if (p->pid == pid)
+    {
       p->scheduling_data.bjf.priority_ratio = priority_ratio;
       p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
       p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
@@ -664,25 +663,28 @@ int sys_set_bjf_for_process(void) {
   release(&ptable.lock);
 }
 
-int sys_set_bjf_for_all(void) {
+int sys_set_bjf_for_all(void)
+{
   int pid;
-  float priority_ratio, arrival_time_ratio, executed_cycle_ratio,process_size;
-  if(argint(0, &pid) < 0 ||
-     argfloat(1, &priority_ratio) < 0 ||
-     argfloat(2, &arrival_time_ratio) < 0 ||
-     argfloat(3, &executed_cycle_ratio) < 0 ||
-     argfloat(4, &process_size) < 0 ){
+  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size;
+  if (argint(0, &pid) < 0 ||
+      argfloat(1, &priority_ratio) < 0 ||
+      argfloat(2, &arrival_time_ratio) < 0 ||
+      argfloat(3, &executed_cycle_ratio) < 0 ||
+      argfloat(4, &process_size) < 0)
+  {
     return -1;
   }
 
   acquire(&ptable.lock);
-  struct proc* p;
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+  struct proc *p;
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
     p->scheduling_data.bjf.priority_ratio = priority_ratio;
     p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
     p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
     p->scheduling_data.bjf.process_size_ratio = process_size;
-
   }
-  release(&ptable.lock);  return 0;
+  release(&ptable.lock);
+  return 0;
 }
