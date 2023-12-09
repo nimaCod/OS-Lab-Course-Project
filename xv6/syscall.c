@@ -24,6 +24,16 @@ int fetchint(uint addr, int *ip)
   return 0;
 }
 
+int fetchfloat(uint addr, float *ip)
+{
+  struct proc *curproc = myproc();
+
+  if (addr >= curproc->sz || addr + 4 > curproc->sz)
+    return -1;
+  *ip = *(float *)(addr);
+  return 0;
+}
+
 // Fetch the nul-terminated string at addr from the current process.
 // Doesn't actually copy the string - just sets *pp to point at it.
 // Returns length of string, not including nul.
@@ -48,6 +58,11 @@ int fetchstr(uint addr, char **pp)
 int argint(int n, int *ip)
 {
   return fetchint((myproc()->tf->esp) + 4 + 4 * n, ip);
+}
+
+int argfloat(int n, float *ip)
+{
+  return fetchfloat((myproc()->tf->esp) + 4 + 4 * n, ip);
 }
 
 // Fetch the nth word-sized system call argument as a pointer
@@ -105,6 +120,8 @@ extern int sys_get_uncle_count(void);
 extern int sys_lifetime(void);
 extern int sys_set_bjf_for_process(void);
 extern int sys_set_bjf_for_all(void);
+extern int sys_change_queue(void);
+extern int sys_ps(void);
 
 static int (*syscalls[])(void) = {
     [SYS_fork] sys_fork,
@@ -134,6 +151,8 @@ static int (*syscalls[])(void) = {
     [SYS_lifetime] sys_lifetime,
     [SYS_set_bjf_for_process] sys_set_bjf_for_process,
     [SYS_set_bjf_for_all] sys_set_bjf_for_all,
+    [SYS_ps] sys_ps,
+    [SYS_change_queue] sys_change_queue,
 };
 
 void syscall(void)

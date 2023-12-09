@@ -32,6 +32,46 @@ int cpuid()
   return mycpu() - cpus;
 }
 
+static float get_bjf_rank(struct proc *p)
+{
+  return p->scheduling_data.bjf.priority_ratio * p->scheduling_data.bjf.priority + p->scheduling_data.bjf.arrival_time_ratio * p->scheduling_data.bjf.arrival_time + p->scheduling_data.bjf.executed_cycle_ratio * p->scheduling_data.bjf.executed_cycle + p->scheduling_data.bjf.process_size_ratio * p->scheduling_data.bjf.process_size;
+}
+
+struct proc *get_bjf_proc()
+{
+  struct proc *res = 0, *temp;
+  float min;
+  for (temp = ptable.proc; temp < &ptable.proc[NPROC]; temp++)
+  {
+    if (temp->state != RUNNABLE || temp->scheduling_data.queue != BJF)
+      continue;
+    float rank = get_bjf_rank(temp);
+    if (res == 0 || rank < min)
+    {
+      res = temp;
+      min = rank;
+    }
+  }
+  return res;
+}
+
+struct proc *get_rr_proc(struct proc *last)
+{
+  struct proc *res = last;
+  while (1)
+  {
+    res++;
+    if (res > &ptable.proc[NPROC])
+      res = ptable.proc;
+    if (res == last)
+      break;
+    if (res->state != RUNNABLE || res->scheduling_data.queue != ROUND_ROBIN)
+      continue;
+    return res;
+  }
+  return 0;
+}
+
 // Must be called with interrupts disabled to avoid the caller being
 // rescheduled between reading lapicid and running through the loop.
 struct cpu *
@@ -588,10 +628,9 @@ int sys_get_uncle_count(void)
 
 // this function changes the queue of the
 // process with given pid
-int change_queue(int pid, int new_queue)
+void change_queue(int pid, int new_queue)
 { // TODO: check why this must work?
   struct proc *p;
-  int old_queue = -1;
 
   if (new_queue == NO_QUEUE)
   {
@@ -608,7 +647,6 @@ int change_queue(int pid, int new_queue)
   {
     if (p->pid == pid)
     {
-      old_queue = p->scheduling_data.queue;
       p->scheduling_data.queue = new_queue;
       if (new_queue == LCFS && p->scheduling_data.age < 0)
         p->scheduling_data.age = 0;
@@ -616,7 +654,6 @@ int change_queue(int pid, int new_queue)
     }
   }
   release(&ptable.lock);
-  return old_queue;
 }
 
 // This function checks for aging
@@ -636,12 +673,12 @@ void do_aging(int tiks)
 int sys_set_bjf_for_process(void)
 {
   int pid;
-  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size;
+  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size_ratio;
   if (argint(0, &pid) < 0 ||
       argfloat(1, &priority_ratio) < 0 ||
       argfloat(2, &arrival_time_ratio) < 0 ||
       argfloat(3, &executed_cycle_ratio) < 0 ||
-      argfloat(4, &process_size) < 0)
+      argfloat(4, &process_size_ratio) < 0)
   {
     return -1;
   }
@@ -655,7 +692,7 @@ int sys_set_bjf_for_process(void)
       p->scheduling_data.bjf.priority_ratio = priority_ratio;
       p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
       p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
-      p->scheduling_data.bjf.process_size_ratio = process_size;
+      p->scheduling_data.bjf.process_size_ratio = process_size_ratio;
       release(&ptable.lock);
       return 0;
     }
@@ -665,13 +702,11 @@ int sys_set_bjf_for_process(void)
 
 int sys_set_bjf_for_all(void)
 {
-  int pid;
-  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size;
-  if (argint(0, &pid) < 0 ||
-      argfloat(1, &priority_ratio) < 0 ||
-      argfloat(2, &arrival_time_ratio) < 0 ||
-      argfloat(3, &executed_cycle_ratio) < 0 ||
-      argfloat(4, &process_size) < 0)
+  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size_ratio;
+  if (argfloat(0, &priority_ratio) < 0 ||
+      argfloat(1, &arrival_time_ratio) < 0 ||
+      argfloat(2, &executed_cycle_ratio) < 0 ||
+      argfloat(3, &process_size_ratio) < 0)
   {
     return -1;
   }
@@ -683,8 +718,23 @@ int sys_set_bjf_for_all(void)
     p->scheduling_data.bjf.priority_ratio = priority_ratio;
     p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
     p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
-    p->scheduling_data.bjf.process_size_ratio = process_size;
+    p->scheduling_data.bjf.process_size_ratio = process_size_ratio;
   }
   release(&ptable.lock);
   return 0;
+}
+
+int sys_change_queue(void)
+{
+  int pid, queue;
+  if (argint(0, &pid) < 0 || argint(1, &queue) < 0)
+  {
+    return -1;
+  }
+  change_queue(pid, queue);
+  return 0;
+}
+
+int sys_ps(void)
+{
 }

@@ -27,9 +27,9 @@ int sleep(int);
 int uptime(void);
 int get_uncle_count(void);
 uint lifetime(void);
-int set_bjf_for_process(void);
-int set_bjf_for_all(void);
-int change_queue(void);
+int set_bjf_for_process(int pid, float priority_ratio, float arrival_time_ratio, float executed_cycle_ratio, float process_size_ratio);
+int set_bjf_for_all(float priority_ratio, float arrival_time_ratio, float executed_cycle_ratio, float process_size_ratio);
+int change_queue(int pid, int queu);
 int ps(void);
 
 // ulib.c
