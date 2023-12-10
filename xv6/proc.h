@@ -91,7 +91,7 @@ struct proc
   struct scheduling scheduling_data; // keep scheduling data
   char name[16];                     // Process name (debugging)
 };
-#define AGED_OUT 8000
+#define AGED_OUT 80000
 
 // Process memory is laid out contiguously, low addresses first:
 //   text

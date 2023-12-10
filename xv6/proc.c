@@ -54,13 +54,14 @@ void set_proc_sched(struct proc *np)
 int change_queue(int pid, int new_queue)
 {
   struct proc *p;
+  int newq = new_queue;
 
-  if (new_queue == NO_QUEUE)
+  if (newq == NO_QUEUE)
   {
-    if (pid == 1)
-      new_queue = ROUND_ROBIN;
+    if (pid == 1 || pid == 2)
+      newq = ROUND_ROBIN;
     else if (pid > 1)
-      new_queue = LCFS;
+      newq = LCFS;
     else
       return -1;
   }
@@ -70,7 +71,7 @@ int change_queue(int pid, int new_queue)
   {
     if (p->pid == pid)
     {
-      p->scheduling_data.queue = new_queue;
+      p->scheduling_data.queue = newq;
       // if (new_queue == LCFS && p->scheduling_data.age < 0)
       //   p->scheduling_data.age = 0;
       break;
@@ -86,7 +87,10 @@ void refresh_queue()
   for (temp = ptable.proc; temp < &ptable.proc[NPROC]; temp++)
   {
     if (temp->scheduling_data.queue == NO_QUEUE)
-      change_queue(temp->pid, NO_QUEUE);
+    {
+      if (temp->name)
+        change_queue(temp->pid, NO_QUEUE);
+    }
   }
 }
 
@@ -116,6 +120,7 @@ struct proc *get_rr_proc()
   {
     if (temp->state != RUNNABLE || temp->scheduling_data.queue != ROUND_ROBIN)
       continue;
+    // cprintf("found round robin: %d\n",temp->pid);
     float rank = temp->scheduling_data.age;
     if (res == 0 || rank < min)
     {
@@ -134,6 +139,8 @@ struct proc *get_lcfs_proc()
   {
     if (temp->state != RUNNABLE || temp->scheduling_data.queue != LCFS)
       continue;
+    // cprintf("found lcfs\n");
+
     float rank = temp->scheduling_data.age;
     if (res == 0 || rank > max)
     {
@@ -478,16 +485,22 @@ void scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  // cprintf("Here-1\n");
   c->proc = 0;
 
   for (;;)
   {
+    // cprintf("Here-2\n");
+
+    refresh_queue();
     // Enable interrupts on this processor.
     sti();
 
-    refresh_queue();
     while (1)
     {
+
+      // cprintf("Here-3\n");
+
       acquire(&ptable.lock);
       p = get_rr_proc();
       if (p == 0)
@@ -500,9 +513,13 @@ void scheduler(void)
     }
 
     run_proc(p, c);
+
+    acquire(&ptable.lock);
     acquire(&tickslock);
+    // cprintf("%d\n",ticks);
     p->scheduling_data.age = ticks;
     release(&tickslock);
+    release(&ptable.lock);
   }
 }
 
@@ -806,19 +823,22 @@ int sys_ps(void)
   struct proc *p;
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
   {
-    cprintf(p->name);
-    cprintf("\t");
-    cprintf("%d\t", p->pid);
-    cprintf("\t");
-    cprintf(p->state == RUNNABLE ? "RUNNABLE" : p->state == RUNNING ? "RUNNING"
-                                            : p->state == SLEEPING  ? "SLEEPING"
-                                                                    : "ZOMBIE");
-    cprintf("\t");
-    cprintf("%d", p->scheduling_data.queue);
-    cprintf("\t");
-    cprintf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
-            p->scheduling_data.bjf.priority, p->scheduling_data.bjf.priority_ratio, p->scheduling_data.bjf.arrival_time_ratio,
-            p->scheduling_data.bjf.executed_cycle_ratio, p->scheduling_data.bjf.process_size_ratio, get_bjf_rank(p));
+    if (p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING)
+    {
+      cprintf(p->name);
+      cprintf("\t");
+      cprintf("%d\t", p->pid);
+      cprintf("\t");
+      cprintf(p->state == RUNNABLE ? "RUNNABLE" : p->state == RUNNING ? "RUNNING"
+                                              : p->state == SLEEPING  ? "SLEEPING"
+                                                                      : "ZOMBIE");
+      cprintf("\t");
+      cprintf("%d", p->scheduling_data.queue);
+      cprintf("\t");
+      cprintf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
+              p->scheduling_data.bjf.priority, p->scheduling_data.bjf.priority_ratio, p->scheduling_data.bjf.arrival_time_ratio,
+              p->scheduling_data.bjf.executed_cycle_ratio, p->scheduling_data.bjf.process_size_ratio, get_bjf_rank(p));
+    }
   }
   release(&ptable.lock);
   return 0;
