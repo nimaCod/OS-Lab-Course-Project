@@ -12,6 +12,8 @@ struct cpu
 };
 
 void do_aging(int tiks);
+void set_proc_sched(struct proc *np);
+
 extern struct cpu cpus[NCPU];
 extern int ncpu;
 
@@ -47,11 +49,9 @@ struct bjf_data
 {
   int priority;
   float priority_ratio;
-  int arrival_time;
   float arrival_time_ratio;
   float executed_cycle;
   float executed_cycle_ratio;
-  uint process_size;
   float process_size_ratio;
 };
 

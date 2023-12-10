@@ -57,7 +57,7 @@ endif
 # Try to infer the correct QEMU
 ifndef QEMU
 QEMU = $(shell if which qemu > /dev/null; \
-	then echo qemu; exit; \
+	then e  qemu; exit; \
 	elif which qemu-system-i386 > /dev/null; \
 	then echo qemu-system-i386; exit; \
 	elif which qemu-system-x86_64 > /dev/null; \

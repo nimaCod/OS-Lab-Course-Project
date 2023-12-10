@@ -34,7 +34,19 @@ int cpuid()
 
 static float get_bjf_rank(struct proc *p)
 {
-  return p->scheduling_data.bjf.priority_ratio * p->scheduling_data.bjf.priority + p->scheduling_data.bjf.arrival_time_ratio * p->scheduling_data.bjf.arrival_time + p->scheduling_data.bjf.executed_cycle_ratio * p->scheduling_data.bjf.executed_cycle + p->scheduling_data.bjf.process_size_ratio * p->scheduling_data.bjf.process_size;
+  return p->scheduling_data.bjf.priority_ratio * p->scheduling_data.bjf.priority + p->scheduling_data.bjf.arrival_time_ratio * p->xticks + p->scheduling_data.bjf.executed_cycle_ratio * p->scheduling_data.bjf.executed_cycle + p->scheduling_data.bjf.process_size_ratio * p->sz;
+}
+
+void set_proc_sched(struct proc *np)
+{
+  memset(&np->scheduling_data, 0, sizeof(np->scheduling_data));
+  np->scheduling_data.queue = NO_QUEUE;
+  np->scheduling_data.bjf.priority = 3;
+  np->scheduling_data.bjf.executed_cycle = 0;
+  np->scheduling_data.bjf.priority_ratio = 1;
+  np->scheduling_data.bjf.arrival_time_ratio = 1;
+  np->scheduling_data.bjf.executed_cycle_ratio = 1;
+  np->scheduling_data.bjf.process_size_ratio = 1;
 }
 
 struct proc *get_bjf_proc()
@@ -66,6 +78,23 @@ struct proc *get_rr_proc(struct proc *last)
     if (res == last)
       break;
     if (res->state != RUNNABLE || res->scheduling_data.queue != ROUND_ROBIN)
+      continue;
+    return res;
+  }
+  return 0;
+}
+
+struct proc *get_lcfs_proc(struct proc *last)
+{
+  struct proc *res = last;
+  while (1)
+  {
+    res++;
+    if (res > &ptable.proc[NPROC])
+      res = ptable.proc;
+    if (res == last)
+      break;
+    if (res->state != RUNNABLE || res->scheduling_data.queue != LCFS)
       continue;
     return res;
   }
@@ -245,17 +274,9 @@ int fork(void)
 
   acquire(&tickslock);
   np->xticks = ticks; // creation time for this process
-  // cprintf("forked process %d now has xtick %d\n",np->pid,np->xticks);
-
-  // initializing shceduling data for process
-  memset(&np->scheduling_data, 0, sizeof(np->scheduling_data));
-  np->scheduling_data.queue = NO_QUEUE;
-  // np->scheduling_data.bjf.priority = BJF_PRIORITY_DEF; // TODO: this was defined to 3 why?
-  np->scheduling_data.bjf.priority_ratio = 1;
-  np->scheduling_data.bjf.arrival_time_ratio = 1;
-  np->scheduling_data.bjf.executed_cycle_ratio = 1;
-
   release(&tickslock);
+
+  set_proc_sched(np); // init scheduler data
 
   np->sz = curproc->sz;
   np->parent = curproc;
@@ -378,6 +399,23 @@ int wait(void)
   }
 }
 
+void run_proc(struct proc *p, struct cpu *c)
+{
+  // Switch to chosen process.  It is the process's job
+  // to release ptable.lock and then reacquire it
+  // before jumping back to us.
+  c->proc = p;
+  switchuvm(p);
+  p->state = RUNNING;
+
+  swtch(&(c->scheduler), p->context);
+  switchkvm();
+
+  // Process is done running for now.
+  // It should have changed its p->state before coming back.
+  c->proc = 0;
+}
+
 // PAGEBREAK: 42
 //  Per-CPU process scheduler.
 //  Each CPU calls scheduler() after setting itself up.
@@ -390,34 +428,21 @@ void scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  struct proc *last = c->proc;
   c->proc = 0;
 
   for (;;)
   {
     // Enable interrupts on this processor.
     sti();
-
-    // Loop over process table looking for process to run.
     acquire(&ptable.lock);
-    for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    {
-      if (p->state != RUNNABLE)
-        continue;
-
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
-
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
-
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
-    }
+    p = get_rr_proc(last);
+    if (p == 0)
+      p = get_lcfs_proc(last);
+    if (p == 0)
+      p = get_bjf_proc();
+    last = p;
+    run_proc(p, c);
     release(&ptable.lock);
   }
 }
@@ -628,7 +653,7 @@ int sys_get_uncle_count(void)
 
 // this function changes the queue of the
 // process with given pid
-void change_queue(int pid, int new_queue)
+int change_queue(int pid, int new_queue)
 { // TODO: check why this must work?
   struct proc *p;
 
@@ -654,6 +679,7 @@ void change_queue(int pid, int new_queue)
     }
   }
   release(&ptable.lock);
+  return 0;
 }
 
 // This function checks for aging
@@ -698,6 +724,7 @@ int sys_set_bjf_for_process(void)
     }
   }
   release(&ptable.lock);
+  return 0;
 }
 
 int sys_set_bjf_for_all(void)
@@ -737,4 +764,26 @@ int sys_change_queue(void)
 
 int sys_ps(void)
 {
+  cprintf("proc name\tPID\tState\tQueue\tCycle\tArrival\tPriority\tR_Party\tR_arvl\tR_Exec\tR_Size\tRank\n");
+  cprintf("-------------------------------------------------------------------------------------------------\n");
+  acquire(&ptable.lock);
+  struct proc *p;
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    cprintf(p->name);
+    cprintf("\t");
+    cprintf("%d\t", p->pid);
+    cprintf("\t");
+    cprintf(p->state == RUNNABLE ? "RUNNABLE" : p->state == RUNNING ? "RUNNING"
+                                            : p->state == SLEEPING  ? "SLEEPING"
+                                                                    : "ZOMBIE");
+    cprintf("\t");
+    cprintf("%d", p->scheduling_data.queue);
+    cprintf("\t");
+    cprintf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
+            p->scheduling_data.bjf.priority, p->scheduling_data.bjf.priority_ratio, p->scheduling_data.bjf.arrival_time_ratio,
+            p->scheduling_data.bjf.executed_cycle_ratio, p->scheduling_data.bjf.process_size_ratio, get_bjf_rank(p));
+  }
+  release(&ptable.lock);
+  return 0;
 }
