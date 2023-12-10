@@ -818,8 +818,8 @@ int sys_change_queue(void)
 
 int sys_ps(void)
 {
-  cprintf("proc name\tPID\tState\tQueue\tCycle\tArrival\tPriority\tR_Party\tR_arvl\tR_Exec\tR_Size\tRank\n");
-  cprintf("-------------------------------------------------------------------------------------------------\n");
+  cprintf("proc name\tPID\tState\t\tQueue\tCycle\tArrival\tPriority  R_Party R_arvl\tR_Exec\tR_Size\t\tRank\n");
+  cprintf("--------------------------------------------------------------------------------------------------------------------------------\n");
   acquire(&ptable.lock);
   struct proc *p;
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
@@ -827,16 +827,16 @@ int sys_ps(void)
     if (p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING)
     {
       cprintf(p->name);
+      cprintf("\t\t");
+      cprintf("%d", p->pid);
       cprintf("\t");
-      cprintf("%d\t", p->pid);
-      cprintf("\t");
-      cprintf(p->state == RUNNABLE ? "RUNNABLE" : p->state == RUNNING ? "RUNNING"
+      cprintf(p->state == RUNNABLE ? "RUNNABLE" : p->state == RUNNING ? "RUNNING\t"
                                               : p->state == SLEEPING  ? "SLEEPING"
                                                                       : "ZOMBIE");
       cprintf("\t");
       cprintf("%d", p->scheduling_data.queue);
       cprintf("\t");
-      cprintf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
+      cprintf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
               p->scheduling_data.bjf.priority, p->scheduling_data.bjf.priority_ratio, p->scheduling_data.bjf.arrival_time_ratio,
               p->scheduling_data.bjf.executed_cycle_ratio, p->scheduling_data.bjf.process_size_ratio, get_bjf_rank(p));
     }
