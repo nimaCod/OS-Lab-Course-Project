@@ -58,7 +58,7 @@ int change_queue(int pid, int new_queue)
 
   if (newq == NO_QUEUE)
   {
-    if (pid == 1 || pid == 2)
+    if (pid == 1 || pid == 2) 
       newq = ROUND_ROBIN;
     else if (pid > 1)
       newq = LCFS;
@@ -837,8 +837,8 @@ int sys_ps(void)
       cprintf("%d", p->scheduling_data.queue);
       cprintf("\t");
       cprintf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
-              p->scheduling_data.bjf.priority, p->scheduling_data.bjf.priority_ratio, p->scheduling_data.bjf.arrival_time_ratio,
-              p->scheduling_data.bjf.executed_cycle_ratio, p->scheduling_data.bjf.process_size_ratio, get_bjf_rank(p));
+              (int)p->scheduling_data.bjf.priority, (int)p->scheduling_data.bjf.priority_ratio, (int)p->scheduling_data.bjf.arrival_time_ratio,
+              (int)p->scheduling_data.bjf.executed_cycle_ratio, (int)p->scheduling_data.bjf.process_size_ratio, (int)get_bjf_rank(p));
     }
   }
   release(&ptable.lock);
