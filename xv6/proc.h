@@ -58,7 +58,7 @@ struct bjf_data
 struct scheduling
 {
   enum shced_queues queue; // Process queue
-  int age;                 // Last time process was run
+  uint age;                // Last time process was run
   struct bjf_data bjf;     // Best-Job-First scheduling data
 };
 

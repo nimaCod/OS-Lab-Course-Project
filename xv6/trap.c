@@ -52,8 +52,8 @@ void trap(struct trapframe *tf)
       acquire(&tickslock);
       ticks++;
       wakeup(&ticks);
-      release(&tickslock);
       do_aging(ticks); // when tick is updated we update ages
+      release(&tickslock);
     }
     lapiceoi();
     break;

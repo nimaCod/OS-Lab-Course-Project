@@ -39,14 +39,55 @@ static float get_bjf_rank(struct proc *p)
 
 void set_proc_sched(struct proc *np)
 {
-  memset(&np->scheduling_data, 0, sizeof(np->scheduling_data));
   np->scheduling_data.queue = NO_QUEUE;
   np->scheduling_data.bjf.priority = 3;
+  np->scheduling_data.age = np->xticks;
   np->scheduling_data.bjf.executed_cycle = 0;
   np->scheduling_data.bjf.priority_ratio = 1;
   np->scheduling_data.bjf.arrival_time_ratio = 1;
   np->scheduling_data.bjf.executed_cycle_ratio = 1;
   np->scheduling_data.bjf.process_size_ratio = 1;
+}
+
+// this function changes the queue of the
+// process with given pid
+int change_queue(int pid, int new_queue)
+{
+  struct proc *p;
+
+  if (new_queue == NO_QUEUE)
+  {
+    if (pid == 1)
+      new_queue = ROUND_ROBIN;
+    else if (pid > 1)
+      new_queue = LCFS;
+    else
+      return -1;
+  }
+
+  acquire(&ptable.lock);
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    if (p->pid == pid)
+    {
+      p->scheduling_data.queue = new_queue;
+      // if (new_queue == LCFS && p->scheduling_data.age < 0)
+      //   p->scheduling_data.age = 0;
+      break;
+    }
+  }
+  release(&ptable.lock);
+  return 0;
+}
+
+void refresh_queue()
+{
+  struct proc *temp;
+  for (temp = ptable.proc; temp < &ptable.proc[NPROC]; temp++)
+  {
+    if (temp->scheduling_data.queue == NO_QUEUE)
+      change_queue(temp->pid, NO_QUEUE);
+  }
 }
 
 struct proc *get_bjf_proc()
@@ -67,38 +108,40 @@ struct proc *get_bjf_proc()
   return res;
 }
 
-struct proc *get_rr_proc(struct proc *last)
+struct proc *get_rr_proc()
 {
-  struct proc *res = last;
-  while (1)
+  struct proc *res = 0, *temp;
+  float min;
+  for (temp = ptable.proc; temp < &ptable.proc[NPROC]; temp++)
   {
-    res++;
-    if (res > &ptable.proc[NPROC])
-      res = ptable.proc;
-    if (res == last)
-      break;
-    if (res->state != RUNNABLE || res->scheduling_data.queue != ROUND_ROBIN)
+    if (temp->state != RUNNABLE || temp->scheduling_data.queue != ROUND_ROBIN)
       continue;
-    return res;
+    float rank = temp->scheduling_data.age;
+    if (res == 0 || rank < min)
+    {
+      res = temp;
+      min = rank;
+    }
   }
-  return 0;
+  return res;
 }
 
-struct proc *get_lcfs_proc(struct proc *last)
+struct proc *get_lcfs_proc()
 {
-  struct proc *res = last;
-  while (1)
+  struct proc *res = 0, *temp;
+  float max;
+  for (temp = ptable.proc; temp < &ptable.proc[NPROC]; temp++)
   {
-    res++;
-    if (res > &ptable.proc[NPROC])
-      res = ptable.proc;
-    if (res == last)
-      break;
-    if (res->state != RUNNABLE || res->scheduling_data.queue != LCFS)
+    if (temp->state != RUNNABLE || temp->scheduling_data.queue != LCFS)
       continue;
-    return res;
+    float rank = temp->scheduling_data.age;
+    if (res == 0 || rank > max)
+    {
+      res = temp;
+      max = rank;
+    }
   }
-  return 0;
+  return res;
 }
 
 // Must be called with interrupts disabled to avoid the caller being
@@ -150,8 +193,10 @@ allocproc(void)
   acquire(&ptable.lock);
 
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
     if (p->state == UNUSED)
       goto found;
+  }
 
   release(&ptable.lock);
   return 0;
@@ -401,6 +446,7 @@ int wait(void)
 
 void run_proc(struct proc *p, struct cpu *c)
 {
+  acquire(&ptable.lock);
   // Switch to chosen process.  It is the process's job
   // to release ptable.lock and then reacquire it
   // before jumping back to us.
@@ -409,11 +455,15 @@ void run_proc(struct proc *p, struct cpu *c)
   p->state = RUNNING;
 
   swtch(&(c->scheduler), p->context);
+
+  p->scheduling_data.bjf.executed_cycle += 0.1;
+
   switchkvm();
 
   // Process is done running for now.
   // It should have changed its p->state before coming back.
   c->proc = 0;
+  release(&ptable.lock);
 }
 
 // PAGEBREAK: 42
@@ -428,22 +478,31 @@ void scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
-  struct proc *last = c->proc;
   c->proc = 0;
 
   for (;;)
   {
     // Enable interrupts on this processor.
     sti();
-    acquire(&ptable.lock);
-    p = get_rr_proc(last);
-    if (p == 0)
-      p = get_lcfs_proc(last);
-    if (p == 0)
-      p = get_bjf_proc();
-    last = p;
+
+    refresh_queue();
+    while (1)
+    {
+      acquire(&ptable.lock);
+      p = get_rr_proc();
+      if (p == 0)
+        p = get_lcfs_proc();
+      if (p == 0)
+        p = get_bjf_proc();
+      release(&ptable.lock);
+      if (p != 0)
+        break;
+    }
+
     run_proc(p, c);
-    release(&ptable.lock);
+    acquire(&tickslock);
+    p->scheduling_data.age = ticks;
+    release(&tickslock);
   }
 }
 
@@ -651,37 +710,6 @@ int sys_get_uncle_count(void)
   return count;
 }
 
-// this function changes the queue of the
-// process with given pid
-int change_queue(int pid, int new_queue)
-{ // TODO: check why this must work?
-  struct proc *p;
-
-  if (new_queue == NO_QUEUE)
-  {
-    if (pid == 1)
-      new_queue = ROUND_ROBIN;
-    else if (pid > 1)
-      new_queue = LCFS;
-    else
-      return -1;
-  }
-
-  acquire(&ptable.lock);
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-    if (p->pid == pid)
-    {
-      p->scheduling_data.queue = new_queue;
-      if (new_queue == LCFS && p->scheduling_data.age < 0)
-        p->scheduling_data.age = 0;
-      break;
-    }
-  }
-  release(&ptable.lock);
-  return 0;
-}
-
 // This function checks for aging
 void do_aging(int tiks)
 {
@@ -691,7 +719,10 @@ void do_aging(int tiks)
 
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
     if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN && tiks - p->scheduling_data.age > AGED_OUT)
+    {
       change_queue(p->pid, ROUND_ROBIN);
+      p->scheduling_data.age = ticks;
+    }
 
   release(&ptable.lock);
 }
@@ -758,6 +789,10 @@ int sys_change_queue(void)
   {
     return -1;
   }
+  struct proc *p;
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    if (p->pid == pid)
+      p->scheduling_data.age = ticks;
   change_queue(pid, queue);
   return 0;
 }
