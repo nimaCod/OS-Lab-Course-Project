@@ -714,13 +714,14 @@ int sys_get_uncle_count(void)
 void do_aging(int tiks)
 {
   struct proc *p;
-
   acquire(&ptable.lock);
 
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
     if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN && tiks - p->scheduling_data.age > AGED_OUT)
     {
-      change_queue(p->pid, ROUND_ROBIN);
+      release(&ptable.lock);
+      change_queue(p->pid, p->scheduling_data.queue == LCFS ? ROUND_ROBIN : LCFS);
+      acquire(&ptable.lock);
       p->scheduling_data.age = ticks;
     }
 
