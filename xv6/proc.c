@@ -72,8 +72,6 @@ int change_queue(int pid, int new_queue)
     if (p->pid == pid)
     {
       p->scheduling_data.queue = newq;
-      // if (new_queue == LCFS && p->scheduling_data.age < 0)
-      //   p->scheduling_data.age = 0;
       break;
     }
   }
@@ -735,13 +733,15 @@ void do_aging(int tiks)
   acquire(&ptable.lock);
 
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN && tiks - p->scheduling_data.age > AGED_OUT)
+    if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN)
     {
+      if(tiks - p->scheduling_data.age > AGED_OUT){
+      cprintf("doin agin..\n");
       release(&ptable.lock);
       change_queue(p->pid, ROUND_ROBIN);
       acquire(&ptable.lock);
       p->scheduling_data.age = ticks;
-    }
+    }}
 
   release(&ptable.lock);
 }
