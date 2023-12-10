@@ -5,8 +5,8 @@
 int main()
 {
     uint child1, child2, child3, grand_child;
-
     child1 = fork();
+    set_bjf_for_all(0.1,0.1,0.1,0.1);
     if (child1 == 0)
     {
         // Child 1 process
