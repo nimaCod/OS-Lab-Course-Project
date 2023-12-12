@@ -22,3 +22,4 @@
 /xv6/mkfs
 /xv6/.gdbinit
 /xv6/_*
+/.vscode

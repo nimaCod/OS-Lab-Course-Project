@@ -11,6 +11,7 @@
         "x86.h": "c",
         "spinlock.h": "c",
         "user.h": "c",
-        "date.h": "c"
+        "date.h": "c",
+        "typeinfo": "c"
     }
 }

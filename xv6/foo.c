@@ -1,60 +1,27 @@
 #include "types.h"
 #include "user.h"
-#define PROCS_NUM 1
+
+#define PROCS_NUM 5
 
 int main()
 {
-    uint child1, child2, child3, grand_child;
-    child1 = fork();
-    // set_bjf_for_all(0.1,0.1,0.1,0.1);
-    if (child1 == 0)
+    for (int i = 0; i < PROCS_NUM; ++i)
     {
-        // Child 1 process
-        sleep(1000); // wait
-    }
-    else
-    { // parent proc
-        child2 = fork();
-        if (child2 == 0)
+        int pid = fork();
+        if (pid > 0)
+            continue;
+        if (pid == 0)
         {
-            // Child 2 process
-            sleep(10000);
-        }
-        else
-        {
-            child3 = fork();
-            if (child3 == 0)
+            for (int j = 0; j < 1000000000 * i; ++j)
             {
-                // Child 3 process
-                // printf(2, "Parent: PID=%d\n", getpid());
-
-                grand_child = fork();
-
-                if (grand_child == 0)
-                {
-                    long int x=0;
-                    for (long i = 0; i < 1000000000; i++)
-                    {
-                        for (long j = 0; j < 1000000000; j++)
-                        {
-                            for (long k = 0; k < 1000000000; k++)
-                            {
-                                x += i * j * k;
-                            }
-                        }
-                    }
-                    // Grand child 1 process
-                } 
-                wait();
+                int x = 1;
+                for (long k = 0; k < 1000000000000; ++k)
+                    x++;
             }
-            else
-            {
-                change_queue(child3, 3);
-            }
+            exit();
         }
     }
-    wait();
-    wait();
-    wait();
+    while (wait() != -1)
+        ;
     exit();
 }

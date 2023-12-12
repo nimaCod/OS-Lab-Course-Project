@@ -101,6 +101,7 @@ int exec(char *path, char **argv)
   curproc->sz = sz;
   curproc->tf->eip = elf.entry; // main
   curproc->tf->esp = sp;
+  // curproc->scheduling_data.queue = ROUND_ROBIN;
   set_proc_sched(curproc);
   switchuvm(curproc);
   freevm(oldpgdir);
