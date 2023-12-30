@@ -478,7 +478,8 @@ void run_proc(struct proc *p, struct cpu *c)
 //   - swtch to start running that process
 //   - eventually that process transfers control
 //       via swtch back to the scheduler.
-void scheduler(void)
+void 
+scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
