@@ -17,6 +17,13 @@ initlock(struct spinlock *lk, char *name)
   lk->cpu = 0;
 }
 
+void p_initlock(struct prioritylock *lk, char *name)
+{
+  initlock(&(lk->lock), name);
+  initlock(&(lk->queue_lock), name);
+  lk->head = 0;
+}
+
 // Acquire the lock.
 // Loops (spins) until the lock is acquired.
 // Holding a lock for a long time may cause
@@ -42,6 +49,97 @@ acquire(struct spinlock *lk)
   getcallerpcs(&lk, lk->pcs);
 }
 
+void add_queue(struct queue **head, int pid)
+{
+  struct queue *res = (struct queue *)kalloc();
+  res->pid = pid;
+  res->next = 0;
+  if (*head == 0)
+    *head = res;
+  else
+  {
+    struct queue *temp = *head;
+    if (temp->pid < res->pid)
+    {
+      res->next = temp;
+      *head = res;
+    }
+    else
+    {
+      while (temp->next != 0)
+        if (temp->next->pid < res->pid)
+          temp = temp->next;
+        else
+          break;
+      res->next = temp->next;
+      temp->next = res;
+    }
+  }
+}
+
+void rm_queue(struct queue **head, int pid)
+{
+  if (*head == 0)
+    panic("queue null");
+  else
+  {
+    struct queue *temp = *head;
+    if (temp->pid == pid)
+    {
+      *head = temp->next;
+      kfree((char *)temp);
+    }
+    else
+    {
+      while (temp->next != 0)
+        if (temp->next->pid != pid)
+          temp = temp->next;
+        else
+        {
+          struct queue *temp2 = temp->next;
+          temp->next = temp->next->next;
+          kfree((char *)temp2);
+          return;
+        }
+      panic("not found in queu!");
+    }
+  }
+}
+
+void prior_acquire(struct prioritylock *lk)
+{
+  pushcli(); // disable interrupts to avoid deadlock.
+  if (holding(&lk->lock))
+    panic("acquire");
+  int pid = myproc()->pid;
+  // add it to queue
+  acquire(&lk->queue_lock);
+  add_queue(&lk->head, pid);
+  release(&lk->queue_lock);
+
+  // The xchg is atomic.
+  while (1)
+  {
+    acquire(&lk->queue_lock);
+    if (lk->head->pid == pid && xchg(&lk->lock.locked, 1) == 0)
+    {
+      rm_queue(&lk->head, pid);
+      release(&lk->queue_lock);
+      break;
+    }
+    release(&lk->queue_lock);
+  }
+
+  // Tell the C compiler and the processor to not move loads or stores
+  // past this point, to ensure that the critical section's memory
+  // references happen after the lock is acquired.
+  __sync_synchronize();
+
+  // Record info about lock acquisition for debugging.
+  lk->lock.cpu = mycpu();
+  getcallerpcs(&lk->lock, lk->lock.pcs);
+}
+
 // Release the lock.
 void
 release(struct spinlock *lk)
@@ -65,6 +163,11 @@ release(struct spinlock *lk)
   asm volatile("movl $0, %0" : "+m" (lk->locked) : );
 
   popcli();
+}
+
+void p_release(struct prioritylock *lk)
+{
+  release(&lk->lock);
 }
 
 // Record the current call stack in pcs[] by following the %ebp chain.
