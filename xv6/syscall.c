@@ -106,16 +106,15 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int sys_find_digital_root(void);
-extern int sys_copy_file(void);
-extern int sys_get_uncle_count(void);
-extern int sys_lifetime(void);
-extern int sys_set_bjf_for_process(void);
-extern int sys_set_bjf_for_all(void);
-extern int sys_change_queue(void);
-extern int sys_ps(void);
+// extern int sys_find_digital_root(void);
+// extern int sys_copy_file(void);
+// extern int sys_get_uncle_count(void);
+// extern int sys_lifetime(void);
+// extern int sys_set_bjf_for_process(void);
+// extern int sys_set_bjf_for_all(void);
+// extern int sys_change_queue(void);
+// extern int sys_ps(void);
 extern int sys_aq(void);
-extern int sys_rel(void);
 extern int sys_print_num_syscalls(void);
 
 static int (*syscalls[])(void) = {
@@ -140,16 +139,15 @@ static int (*syscalls[])(void) = {
     [SYS_link] sys_link,
     [SYS_mkdir] sys_mkdir,
     [SYS_close] sys_close,
-    [SYS_find_digital_root] sys_find_digital_root,
-    [SYS_copy_file] sys_copy_file,
-    [SYS_get_uncle_count] sys_get_uncle_count,
-    [SYS_lifetime] sys_lifetime,
-    [SYS_set_bjf_for_process] sys_set_bjf_for_process,
-    [SYS_set_bjf_for_all] sys_set_bjf_for_all,
-    [SYS_ps] sys_ps,
-    [SYS_change_queue] sys_change_queue,
+    // [SYS_find_digital_root] sys_find_digital_root,
+    // [SYS_copy_file] sys_copy_file,
+    // [SYS_get_uncle_count] sys_get_uncle_count,
+    // [SYS_lifetime] sys_lifetime,
+    // [SYS_set_bjf_for_process] sys_set_bjf_for_process,
+    // [SYS_set_bjf_for_all] sys_set_bjf_for_all,
+    // [SYS_ps] sys_ps,
+    // [SYS_change_queue] sys_change_queue,
     [SYS_aq] sys_aq,
-    [SYS_rel] sys_rel,
     [SYS_print_num_syscalls] sys_print_num_syscalls,
 };
 

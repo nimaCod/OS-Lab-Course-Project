@@ -21,21 +21,21 @@ int main(int argc, char *argv[])
 
     if (fork() == 0)
     {
-        printf(2, "1\n");
+        // printf(2, "1\n");
         aq();
     }
     else
     {
         if (fork() == 0)
         {
-            printf(2, "2\n");
+            // printf(2, "2\n");
             aq();
         }
         else
         {
             if (fork() == 0)
             {
-                printf(2, "3\n");
+                // printf(2, "3\n");
                 aq();
             }
             else

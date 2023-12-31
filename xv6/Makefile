@@ -1,4 +1,5 @@
 OBJS = \
+	sysutils.o\
 	bio.o\
 	console.o\
 	exec.o\
@@ -168,7 +169,6 @@ mkfs: mkfs.c fs.h
 UPROGS=\
 	_cat\
 	_prior_lock\
-	_foo2\
 	_echo\
 	_forktest\
 	_grep\
@@ -183,10 +183,6 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
-	_user_get_uncle_count\
-	_user_lifetime\
-	_ps\
-	_foo\
 	_ncs\
 
 fs.img: mkfs README $(UPROGS)
@@ -256,7 +252,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 
 EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
-	strdiff.c foo2.c ncs.c test_copy.c user_get_uncle_count.c user_lifetime.c ps.c foo.c test_fdr.c get_pid.c prior_lock.c\
+	strdiff.c foo2.c ncs.c test_copy.c get_pid.c prior_lock.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\

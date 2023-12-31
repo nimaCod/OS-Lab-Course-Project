@@ -20,14 +20,13 @@
 #define SYS_link 19
 #define SYS_mkdir 20
 #define SYS_close 21
-#define SYS_find_digital_root 22
-#define SYS_copy_file 23
-#define SYS_get_uncle_count 24
-#define SYS_lifetime 25
-#define SYS_set_bjf_for_process 26
-#define SYS_set_bjf_for_all 27
-#define SYS_change_queue 28
-#define SYS_ps 29
+// #define SYS_find_digital_root 22
+// #define SYS_copy_file 23
+// #define SYS_get_uncle_count 24
+// #define SYS_lifetime 25
+// #define SYS_set_bjf_for_process 26
+// #define SYS_set_bjf_for_all 27
+// #define SYS_change_queue 28
+// #define SYS_ps 29
 #define SYS_aq 30
-#define SYS_rel 31
 #define SYS_print_num_syscalls 32

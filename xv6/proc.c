@@ -210,10 +210,6 @@ fork(void)
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
-  if (strncmp(curproc->name, "foo2", 5) == 0)
-  {
-    np->scheduling_data.queue = ROUND_ROBIN;
-  }
   pid = np->pid;
 
   acquire(&ptable.lock);
@@ -315,37 +311,16 @@ wait(void)
   }
 }
 
-void run_proc(struct proc *p, struct cpu *c)
-{
-  acquire(&ptable.lock);
-  // Switch to chosen process.  It is the process's job
-  // to release ptable.lock and then reacquire it
-  // before jumping back to us.
-  c->proc = p;
-  switchuvm(p);
-  p->state = RUNNING;
-
-  swtch(&(c->scheduler), p->context);
-
-  p->scheduling_data.bjf.executed_cycle += 0.1;
-
-  switchkvm();
-
-  // Process is done running for now.
-  // It should have changed its p->state before coming back.
-  c->proc = 0;
-  release(&ptable.lock);
-}
-
-// PAGEBREAK: 42
-//  Per-CPU process scheduler.
-//  Each CPU calls scheduler() after setting itself up.
-//  Scheduler never returns.  It loops, doing:
-//   - choose a process to run
-//   - swtch to start running that process
-//   - eventually that process transfers control
-//       via swtch back to the scheduler.
-void scheduler(void)
+//PAGEBREAK: 42
+// Per-CPU process scheduler.
+// Each CPU calls scheduler() after setting itself up.
+// Scheduler never returns.  It loops, doing:
+//  - choose a process to run
+//  - swtch to start running that process
+//  - eventually that process transfers control
+//      via swtch back to the scheduler.
+void
+scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
@@ -395,12 +370,9 @@ sched(void)
 
   if(!holding(&ptable.lock))
     panic("sched ptable.lock");
-  if (mycpu()->ncli != 1)
-  {
-    cprintf("ncli : %d\n", mycpu()->ncli);
+  if(mycpu()->ncli != 1)
     panic("sched locks");
-  }
-  if (p->state == RUNNING)
+  if(p->state == RUNNING)
     panic("sched running");
   if(readeflags()&FL_IF)
     panic("sched interruptible");
@@ -453,9 +425,14 @@ sleep(void *chan, struct spinlock *lk)
   if(lk == 0)
     panic("sleep without lk");
 
-  if (lk != &ptable.lock)
-  {
-    acquire(&ptable.lock);
+  // Must acquire ptable.lock in order to
+  // change p->state and then call sched.
+  // Once we hold ptable.lock, we can be
+  // guaranteed that we won't miss any wakeup
+  // (wakeup runs with ptable.lock locked),
+  // so it's okay to release lk.
+  if(lk != &ptable.lock){  //DOC: sleeplock0
+    acquire(&ptable.lock);  //DOC: sleeplock1
     release(lk);
   }
   // Go to sleep.
@@ -464,6 +441,7 @@ sleep(void *chan, struct spinlock *lk)
 
   sched();
 
+  // Tidy up.
   p->chan = 0;
 
   // Reacquire original lock.
@@ -553,153 +531,4 @@ procdump(void)
     }
     cprintf("\n");
   }
-}
-
-// this function iteretes trhough all
-// proc and if their parent is same as
-// current process grand parent then it
-// is uncle of proc
-int sys_get_uncle_count(void)
-{
-  acquire(&ptable.lock);
-  int count = 0;
-  struct proc *my_proc = myproc(); // Get the current process
-  struct proc *curr_proc;
-
-  for (curr_proc = ptable.proc; curr_proc < &ptable.proc[NPROC]; curr_proc++)
-  {
-    if (curr_proc->state == UNUSED || curr_proc->state == EMBRYO || curr_proc->pid == my_proc->pid || curr_proc->pid == my_proc->parent->pid) // escaping incomplete proc
-      continue;
-
-    if (curr_proc->parent && curr_proc->parent->pid == my_proc->parent->parent->pid)
-    {
-      cprintf("Found uncle with pid:%d and name: %s\n", curr_proc->pid, curr_proc->name);
-      count++;
-    }
-  }
-  release(&ptable.lock);
-
-  return count;
-}
-
-// This function checks for aging
-void do_aging(int tiks)
-{
-  struct proc *p;
-  acquire(&ptable.lock);
-
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if (p->state == RUNNABLE && p->scheduling_data.queue != ROUND_ROBIN)
-    {
-      // cprintf("aging %d:%d \n", tiks, p->scheduling_data.age);
-      if (tiks - p->scheduling_data.age > AGED_OUT)
-      {
-        // cprintf("%d\t%d\t%d\t%d\n", tiks, p->scheduling_data.age, p->pid, p->scheduling_data.queue);
-        release(&ptable.lock);
-        change_queue(p->pid, p->scheduling_data.queue == LCFS ? ROUND_ROBIN : LCFS);
-        acquire(&ptable.lock);
-        p->scheduling_data.age = ticks;
-      }
-    }
-
-  release(&ptable.lock);
-}
-
-int sys_set_bjf_for_process(void)
-{
-  int pid;
-  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size_ratio;
-  if (argint(0, &pid) < 0 ||
-      argfloat(1, &priority_ratio) < 0 ||
-      argfloat(2, &arrival_time_ratio) < 0 ||
-      argfloat(3, &executed_cycle_ratio) < 0 ||
-      argfloat(4, &process_size_ratio) < 0)
-  {
-    return -1;
-  }
-
-  acquire(&ptable.lock);
-  struct proc *p;
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-    if (p->pid == pid)
-    {
-      p->scheduling_data.bjf.priority_ratio = priority_ratio;
-      p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
-      p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
-      p->scheduling_data.bjf.process_size_ratio = process_size_ratio;
-      release(&ptable.lock);
-      return 0;
-    }
-  }
-  release(&ptable.lock);
-  return 0;
-}
-
-int sys_set_bjf_for_all(void)
-{
-  float priority_ratio, arrival_time_ratio, executed_cycle_ratio, process_size_ratio;
-  if (argfloat(0, &priority_ratio) < 0 ||
-      argfloat(1, &arrival_time_ratio) < 0 ||
-      argfloat(2, &executed_cycle_ratio) < 0 ||
-      argfloat(3, &process_size_ratio) < 0)
-  {
-    return -1;
-  }
-
-  acquire(&ptable.lock);
-  struct proc *p;
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-    p->scheduling_data.bjf.priority_ratio = priority_ratio;
-    p->scheduling_data.bjf.arrival_time_ratio = arrival_time_ratio;
-    p->scheduling_data.bjf.executed_cycle_ratio = executed_cycle_ratio;
-    p->scheduling_data.bjf.process_size_ratio = process_size_ratio;
-  }
-  release(&ptable.lock);
-  return 0;
-}
-
-int sys_change_queue(void)
-{
-  int pid, queue;
-  if (argint(0, &pid) < 0 || argint(1, &queue) < 0)
-  {
-    return -1;
-  }
-  struct proc *p;
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if (p->pid == pid)
-      p->scheduling_data.age = ticks;
-  // cprintf("sys change queue!\n");
-  change_queue(pid, queue);
-  return 0;
-}
-
-int sys_ps(void)
-{
-  cprintf("proc name\tPID\tState\t\tQueue\tCycle\tArrival\tPriority\tR_Party\tR_arvl\tR_Exec\tR_Size\tRank\n");
-  cprintf("--------------------------------------------------------------------------------------------------------------------------------\n");
-  acquire(&ptable.lock);
-  struct proc *p;
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-    if (p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING)
-    {
-      cprintf(p->name);
-      cprintf("\t\t");
-      cprintf("%d", p->pid);
-      cprintf("\t");
-      cprintf(p->state == RUNNABLE ? "RUNNABLE" : p->state == RUNNING ? "RUNNING\t"
-                                              : p->state == SLEEPING  ? "SLEEPING"
-                                                                      : "ZOMBIE");
-      cprintf("\t");
-      cprintf("%d\t", p->scheduling_data.queue);
-      cprintf("%d\t%d\t%d\t\t%d\t%d\t%d\t%d\t%d\n", (int)p->scheduling_data.bjf.executed_cycle, (int)p->xticks,
-              (int)p->scheduling_data.bjf.priority, (int)p->scheduling_data.bjf.priority_ratio, (int)p->scheduling_data.bjf.arrival_time_ratio,
-              (int)p->scheduling_data.bjf.executed_cycle_ratio, (int)p->scheduling_data.bjf.process_size_ratio, (int)get_bjf_rank(p));
-    }
-  }
-  release(&ptable.lock);
-  return 0;
 }

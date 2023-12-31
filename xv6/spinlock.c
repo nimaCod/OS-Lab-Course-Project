@@ -61,30 +61,23 @@ void print_queue2(struct queue *lock)
 
 void add_queue(struct queue **head, int pid)
 {
-  cprintf("1\n");
   struct queue *res = (struct queue *)kalloc();
-  cprintf("2\n");
   res->pid = pid;
   res->next = 0;
-  cprintf("2.5\n");
   if (*head == 0)
   {
     *head = res;
-    cprintf("3\n");
   }
   else
   {
     struct queue *temp = *head;
-    cprintf("4\n");
     if (temp->pid < res->pid)
     {
-      cprintf("5\n");
       res->next = temp;
       *head = res;
     }
     else
     {
-      cprintf("6\n");
       while (temp->next != 0)
         if (temp->next->pid > res->pid)
           temp = temp->next;
