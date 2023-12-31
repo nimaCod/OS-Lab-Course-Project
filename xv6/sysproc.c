@@ -110,11 +110,11 @@ uint sys_lifetime(void){
 
 void sys_print_num_syscalls(){
   // struct cpu *c;
-  cprintf("total uumber of systemcalls: %d",shared_syscall_num);
+  cprintf("total uumber of systemcalls: %d\n",shared_syscall_num);
   for (int i =0; i < ncpu; i++) {
     if (cpus[i].started)
     {
-      cprintf("cpu %d got: %d numbers of syscalss",cpus[i].apicid,cpus[i].num_sys_calls);  
+      cprintf("cpu %d got: %d numbers of syscalss\n",cpus[i].apicid,cpus[i].num_sys_calls);  
     }
   }
 }
