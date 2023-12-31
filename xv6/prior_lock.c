@@ -4,6 +4,13 @@
 #include "fs.h"
 #include "fcntl.h"
 
+void do_temp()
+{
+    int sum = 0;
+    for (int i = 0; i < 1000000000000; i++)
+        sum += i;
+}
+
 int main(int argc, char *argv[])
 {
     if (argc != 1)
@@ -12,12 +19,33 @@ int main(int argc, char *argv[])
         exit();
     }
 
-    fork();
-    fork();
-    aq();
-    int sum = 0;
-    for (int i = 0; i < 100000; i++)
-        sum += i;
-    rel();
+    if (fork() == 0)
+    {
+        printf(2, "1\n");
+        aq();
+    }
+    else
+    {
+        if (fork() == 0)
+        {
+            printf(2, "2\n");
+            aq();
+        }
+        else
+        {
+            if (fork() == 0)
+            {
+                printf(2, "3\n");
+                aq();
+            }
+            else
+            {
+                wait();
+            }
+            wait();
+        }
+        wait();
+    }
+
     exit();
 }

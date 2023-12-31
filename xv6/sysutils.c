@@ -9,10 +9,12 @@
 #include "spinlock.h"
 
 struct prioritylock lock;
+struct spinlock lock2;
 
 void utylinit(void)
 {
     p_initlock(&lock, "utyls");
+    // initlock(&lock2, "u");
 }
 
 // return digital root of number given
@@ -40,17 +42,30 @@ void print_queue()
     }
 }
 
+void do_temp()
+{
+    int sum = 0;
+    for (int i = 0; i < 1000000000000; i++)
+        sum += i;
+}
+
 int sys_aq(void)
 {
-    prior_acquire(&lock);
     cprintf("proccess enter : %d\n", myproc()->pid);
-    print_queue();
+    prior_acquire(&lock);
+    // acquire(&lock2);
+    // print_queue();
+    do_temp();
+    cprintf("proccess exit : %d\n", myproc()->pid);
+    p_release(&lock);
+    // release(&lock2);
     return 0;
 }
 
 int sys_rel(void)
 {
     cprintf("proccess exit : %d\n", myproc()->pid);
-    p_release(&lock);
+    // p_release(&lock);
+    // release(&lock2);
     return 0;
 }
