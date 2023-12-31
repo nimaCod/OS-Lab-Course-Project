@@ -189,8 +189,11 @@ void switchuvm(struct proc *);
 void switchkvm(void);
 int copyout(pde_t *, uint, void *, uint);
 void clearpteu(pde_t *pgdir, char *uva);
-extern uint shared_syscall_num;
 
+// utyls
+void utylinit(void);
+
+extern uint shared_syscall_num;
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
