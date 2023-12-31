@@ -32,40 +32,25 @@ int sys_find_digital_root(void)
     return res;
 }
 
-void print_queue()
-{
-    struct queue *temp = lock.head;
-    for (int i = 0; temp != 0; i++)
-    {
-        cprintf("at index %d proccess %d exist!\n", i, temp->pid);
-        temp = temp->next;
-    }
-}
 
+uint sum=0;
 void do_temp()
 {
-    int sum = 0;
-    for (int i = 0; i < 1000000000000; i++)
+    for (int i = 0; i < 1000000000; i++){
         sum += i;
+    }
 }
 
 int sys_aq(void)
 {
-    cprintf("proccess enter : %d\n", myproc()->pid);
+    cprintf("proccess entered queue : %d\n", myproc()->pid);
+
     prior_acquire(&lock);
+    cprintf("proccess entered critical : %d\n", myproc()->pid);
     // acquire(&lock2);
-    // print_queue();
     do_temp();
     cprintf("proccess exit : %d\n", myproc()->pid);
     p_release(&lock);
-    // release(&lock2);
-    return 0;
-}
-
-int sys_rel(void)
-{
-    cprintf("proccess exit : %d\n", myproc()->pid);
-    // p_release(&lock);
     // release(&lock2);
     return 0;
 }

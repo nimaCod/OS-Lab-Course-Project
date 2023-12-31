@@ -1,4 +1,5 @@
 OBJS = \
+	sysutils.o\
 	bio.o\
 	console.o\
 	exec.o\
@@ -22,7 +23,6 @@ OBJS = \
 	syscall.o\
 	sysfile.o\
 	sysproc.o\
-	sysutils.o\
 	trapasm.o\
 	trap.o\
 	uart.o\
@@ -52,12 +52,12 @@ TOOLPREFIX := $(shell if i386-jos-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >/d
 endif
 
 # If the makefile can't find QEMU, specify its path here
-# QEMU = qemu-system-x86_64
+# QEMU = qemu-system-i386
 
 # Try to infer the correct QEMU
 ifndef QEMU
 QEMU = $(shell if which qemu > /dev/null; \
-	then e  qemu; exit; \
+	then echo qemu; exit; \
 	elif which qemu-system-i386 > /dev/null; \
 	then echo qemu-system-i386; exit; \
 	elif which qemu-system-x86_64 > /dev/null; \
@@ -169,7 +169,6 @@ mkfs: mkfs.c fs.h
 UPROGS=\
 	_cat\
 	_prior_lock\
-	_foo2\
 	_echo\
 	_forktest\
 	_grep\
@@ -177,10 +176,6 @@ UPROGS=\
 	_kill\
 	_ln\
 	_ls\
-	_strdiff\
-	_test_fdr\
-	_test_copy\
-	_get_pid\
 	_mkdir\
 	_rm\
 	_sh\
@@ -188,10 +183,6 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
-	_user_get_uncle_count\
-	_user_lifetime\
-	_ps\
-	_foo\
 	_ncs\
 
 fs.img: mkfs README $(UPROGS)
@@ -261,7 +252,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 
 EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
-	strdiff.c foo2.c ncs.c test_copy.c user_get_uncle_count.c user_lifetime.c ps.c foo.c test_fdr.c get_pid.c prior_lock.c\
+	strdiff.c foo2.c ncs.c test_copy.c get_pid.c prior_lock.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\

@@ -9,7 +9,8 @@
 #include "proc.h"
 #include "spinlock.h"
 
-void initlock(struct spinlock *lk, char *name)
+void
+initlock(struct spinlock *lk, char *name)
 {
   lk->name = name;
   lk->locked = 0;
@@ -27,14 +28,15 @@ void p_initlock(struct prioritylock *lk, char *name)
 // Loops (spins) until the lock is acquired.
 // Holding a lock for a long time may cause
 // other CPUs to waste time spinning to acquire it.
-void acquire(struct spinlock *lk)
+void
+acquire(struct spinlock *lk)
 {
   pushcli(); // disable interrupts to avoid deadlock.
   if (holding(lk))
     panic("acquire\n");
 
   // The xchg is atomic.
-  while (xchg(&lk->locked, 1) != 0)
+  while(xchg(&lk->locked, 1) != 0)
     ;
 
   // Tell the C compiler and the processor to not move loads or stores
@@ -59,30 +61,23 @@ void print_queue2(struct queue *lock)
 
 void add_queue(struct queue **head, int pid)
 {
-  cprintf("1\n");
   struct queue *res = (struct queue *)kalloc();
-  cprintf("2\n");
   res->pid = pid;
   res->next = 0;
-  cprintf("2.5\n");
   if (*head == 0)
   {
     *head = res;
-    cprintf("3\n");
   }
   else
   {
     struct queue *temp = *head;
-    cprintf("4\n");
     if (temp->pid < res->pid)
     {
-      cprintf("5\n");
       res->next = temp;
       *head = res;
     }
     else
     {
-      cprintf("6\n");
       while (temp->next != 0)
         if (temp->next->pid > res->pid)
           temp = temp->next;
@@ -159,7 +154,8 @@ void prior_acquire(struct prioritylock *lk)
 }
 
 // Release the lock.
-void release(struct spinlock *lk)
+void
+release(struct spinlock *lk)
 {
   if (!holding(lk))
     panic("release\n");
@@ -177,7 +173,7 @@ void release(struct spinlock *lk)
   // Release the lock, equivalent to lk->locked = 0.
   // This code can't use a C assignment, since it might
   // not be atomic. A real OS would use C atomics here.
-  asm volatile("movl $0, %0" : "+m"(lk->locked) :);
+  asm volatile("movl $0, %0" : "+m" (lk->locked) : );
 
   popcli();
 }
@@ -188,25 +184,26 @@ void p_release(struct prioritylock *lk)
 }
 
 // Record the current call stack in pcs[] by following the %ebp chain.
-void getcallerpcs(void *v, uint pcs[])
+void
+getcallerpcs(void *v, uint pcs[])
 {
   uint *ebp;
   int i;
 
-  ebp = (uint *)v - 2;
-  for (i = 0; i < 10; i++)
-  {
-    if (ebp == 0 || ebp < (uint *)KERNBASE || ebp == (uint *)0xffffffff)
+  ebp = (uint*)v - 2;
+  for(i = 0; i < 10; i++){
+    if(ebp == 0 || ebp < (uint*)KERNBASE || ebp == (uint*)0xffffffff)
       break;
-    pcs[i] = ebp[1];      // saved %eip
-    ebp = (uint *)ebp[0]; // saved %ebp
+    pcs[i] = ebp[1];     // saved %eip
+    ebp = (uint*)ebp[0]; // saved %ebp
   }
-  for (; i < 10; i++)
+  for(; i < 10; i++)
     pcs[i] = 0;
 }
 
 // Check whether this cpu is holding the lock.
-int holding(struct spinlock *lock)
+int
+holding(struct spinlock *lock)
 {
   int r;
   pushcli();
@@ -215,22 +212,25 @@ int holding(struct spinlock *lock)
   return r;
 }
 
+
 // Pushcli/popcli are like cli/sti except that they are matched:
 // it takes two popcli to undo two pushcli.  Also, if interrupts
 // are off, then pushcli, popcli leaves them off.
 
-void pushcli(void)
+void
+pushcli(void)
 {
   int eflags;
 
   eflags = readeflags();
   cli();
-  if (mycpu()->ncli == 0)
+  if(mycpu()->ncli == 0)
     mycpu()->intena = eflags & FL_IF;
   mycpu()->ncli += 1;
 }
 
-void popcli(void)
+void
+popcli(void)
 {
   if (readeflags() & FL_IF)
     panic("popcli - interruptible\n");
@@ -239,3 +239,4 @@ void popcli(void)
   if (mycpu()->ncli == 0 && mycpu()->intena)
     sti();
 }
+

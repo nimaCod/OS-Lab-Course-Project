@@ -12,9 +12,6 @@ struct cpu
   int num_sys_calls;         // Counts number of syste call in this cpu
 };
 
-void do_aging(int tiks);
-void set_proc_sched(struct proc *np);
-
 extern struct cpu cpus[NCPU];
 extern int ncpu;
 
@@ -38,61 +35,24 @@ struct context
   uint eip;
 };
 
-enum shced_queues
-{
-  NO_QUEUE,
-  ROUND_ROBIN,
-  LCFS,
-  BJF
-};
-
-struct bjf_data
-{
-  int priority;
-  float priority_ratio;
-  float arrival_time_ratio;
-  float executed_cycle;
-  float executed_cycle_ratio;
-  float process_size_ratio;
-};
-
-struct scheduling
-{
-  enum shced_queues queue; // Process queue
-  uint age;                // Last time process was run
-  struct bjf_data bjf;     // Best-Job-First scheduling data
-};
-
-enum procstate
-{
-  UNUSED,
-  EMBRYO,
-  SLEEPING,
-  RUNNABLE,
-  RUNNING,
-  ZOMBIE
-};
+enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
 // Per-process state
-struct proc
-{
-  uint sz;                           // Size of process memory (bytes)
-  pde_t *pgdir;                      // Page table
-  char *kstack;                      // Bottom of kernel stack for this process
-  enum procstate state;              // Process state
-  int pid;                           // Process ID
-  struct proc *parent;               // Parent process
-  struct trapframe *tf;              // Trap frame for current syscall
-  struct context *context;           // swtch() here to run process
-  void *chan;                        // If non-zero, sleeping on chan
-  int killed;                        // If non-zero, have been killed
-  struct file *ofile[NOFILE];        // Open files
-  struct inode *cwd;                 // Current directory
-  uint xticks;                       // time of creation
-  struct scheduling scheduling_data; // keep scheduling data
-  char name[16];                     // Process name (debugging)
+struct proc {
+  uint sz;                     // Size of process memory (bytes)
+  pde_t* pgdir;                // Page table
+  char *kstack;                // Bottom of kernel stack for this process
+  enum procstate state;        // Process state
+  int pid;                     // Process ID
+  struct proc *parent;         // Parent process
+  struct trapframe *tf;        // Trap frame for current syscall
+  struct context *context;     // swtch() here to run process
+  void *chan;                  // If non-zero, sleeping on chan
+  int killed;                  // If non-zero, have been killed
+  struct file *ofile[NOFILE];  // Open files
+  struct inode *cwd;           // Current directory
+  char name[16];               // Process name (debugging)
 };
-#define AGED_OUT 8000
 
 // Process memory is laid out contiguously, low addresses first:
 //   text
