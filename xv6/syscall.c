@@ -173,8 +173,9 @@ void syscall(void)
   if (num > 0 && num < NELEM(syscalls) && syscalls[num])
   {
     curproc->tf->eax = syscalls[num]();
-    mycpu()->num_sys_calls++;
+    
     acquire(&shared_int);
+    mycpu()->num_sys_calls++;
     shared_syscall_num++;
     release(&shared_int);
   }
