@@ -34,7 +34,7 @@ void releasesleep(struct sleeplock *lk)
 {
   acquire(&lk->lk);
 
-  // add if statement to check who has lock
+  //add if statement to check who's lock owner
   if (lk->pid != myproc()->pid)
   {
     release(&lk->lk);
