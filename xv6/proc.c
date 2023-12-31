@@ -395,9 +395,12 @@ sched(void)
 
   if(!holding(&ptable.lock))
     panic("sched ptable.lock");
-  if(mycpu()->ncli != 1)
+  if (mycpu()->ncli != 1)
+  {
+    cprintf("ncli : %d\n", mycpu()->ncli);
     panic("sched locks");
-  if(p->state == RUNNING)
+  }
+  if (p->state == RUNNING)
     panic("sched running");
   if(readeflags()&FL_IF)
     panic("sched interruptible");

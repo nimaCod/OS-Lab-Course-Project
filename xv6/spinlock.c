@@ -32,8 +32,8 @@ void
 acquire(struct spinlock *lk)
 {
   pushcli(); // disable interrupts to avoid deadlock.
-  if(holding(lk))
-    panic("acquire");
+  if (holding(lk))
+    panic("acquire\n");
 
   // The xchg is atomic.
   while(xchg(&lk->locked, 1) != 0)
@@ -49,25 +49,44 @@ acquire(struct spinlock *lk)
   getcallerpcs(&lk, lk->pcs);
 }
 
+void print_queue2(struct queue *lock)
+{
+  struct queue *temp = lock;
+  for (int i = 0; temp != 0; i++)
+  {
+    cprintf("at index %d proccess %d exist!\n", i, temp->pid);
+    temp = temp->next;
+  }
+}
+
 void add_queue(struct queue **head, int pid)
 {
+  cprintf("1\n");
   struct queue *res = (struct queue *)kalloc();
+  cprintf("2\n");
   res->pid = pid;
   res->next = 0;
+  cprintf("2.5\n");
   if (*head == 0)
+  {
     *head = res;
+    cprintf("3\n");
+  }
   else
   {
     struct queue *temp = *head;
+    cprintf("4\n");
     if (temp->pid < res->pid)
     {
+      cprintf("5\n");
       res->next = temp;
       *head = res;
     }
     else
     {
+      cprintf("6\n");
       while (temp->next != 0)
-        if (temp->next->pid < res->pid)
+        if (temp->next->pid > res->pid)
           temp = temp->next;
         else
           break;
@@ -75,12 +94,13 @@ void add_queue(struct queue **head, int pid)
       temp->next = res;
     }
   }
+  // print_queue2(*head);
 }
 
 void rm_queue(struct queue **head, int pid)
 {
   if (*head == 0)
-    panic("queue null");
+    panic("queue null\n");
   else
   {
     struct queue *temp = *head;
@@ -101,7 +121,7 @@ void rm_queue(struct queue **head, int pid)
           kfree((char *)temp2);
           return;
         }
-      panic("not found in queu!");
+      panic("not found in queu!\n");
     }
   }
 }
@@ -110,17 +130,17 @@ void prior_acquire(struct prioritylock *lk)
 {
   pushcli(); // disable interrupts to avoid deadlock.
   if (holding(&lk->lock))
-    panic("acquire");
-  int pid = myproc()->pid;
+    panic("acquire\n");
   // add it to queue
   acquire(&lk->queue_lock);
+  int pid = myproc()->pid;
   add_queue(&lk->head, pid);
   release(&lk->queue_lock);
 
-  // The xchg is atomic.
   while (1)
   {
     acquire(&lk->queue_lock);
+    // The xchg is atomic.
     if (lk->head->pid == pid && xchg(&lk->lock.locked, 1) == 0)
     {
       rm_queue(&lk->head, pid);
@@ -144,8 +164,8 @@ void prior_acquire(struct prioritylock *lk)
 void
 release(struct spinlock *lk)
 {
-  if(!holding(lk))
-    panic("release");
+  if (!holding(lk))
+    panic("release\n");
 
   lk->pcs[0] = 0;
   lk->cpu = 0;
@@ -219,11 +239,11 @@ pushcli(void)
 void
 popcli(void)
 {
-  if(readeflags()&FL_IF)
-    panic("popcli - interruptible");
-  if(--mycpu()->ncli < 0)
-    panic("popcli");
-  if(mycpu()->ncli == 0 && mycpu()->intena)
+  if (readeflags() & FL_IF)
+    panic("popcli - interruptible\n");
+  if (--mycpu()->ncli < 0)
+    panic("popcli\n");
+  if (mycpu()->ncli == 0 && mycpu()->intena)
     sti();
 }
 
