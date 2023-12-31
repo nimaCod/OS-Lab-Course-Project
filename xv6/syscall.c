@@ -6,12 +6,15 @@
 #include "proc.h"
 #include "x86.h"
 #include "syscall.h"
+#include "spinlock.h"
 
 // User code makes a system call with INT T_SYSCALL.
 // System call number in %eax.
 // Arguments on the stack, from the user call to the C
 // library system call function. The saved user %esp points
 // to a saved program counter, and then the first argument.
+struct spinlock shared_int;
+uint shared_syscall_num;
 
 // Fetch the int at addr from the current process.
 int
@@ -159,6 +162,10 @@ syscall(void)
   num = curproc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
+    mycpu()->num_sys_calls++;
+    acquire(&shared_int);
+    shared_syscall_num++;
+    release(&shared_int);
   }
   else
   {

@@ -15,8 +15,6 @@ struct cpu
 extern struct cpu cpus[NCPU];
 extern int ncpu;
 
-uint shared_syscall_num;
-
 // PAGEBREAK: 17
 //  Saved registers for kernel context switches.
 //  Don't need to save all the segment registers (%cs, etc),
