@@ -26,6 +26,8 @@ char *sbrk(int);
 int sleep(int);
 int uptime(void);
 int get_uncle_count(void);
+int aq(void);
+int rel(void);
 uint lifetime(void);
 int set_bjf_for_process(int pid, float priority_ratio, float arrival_time_ratio, float executed_cycle_ratio, float process_size_ratio);
 int set_bjf_for_all(float priority_ratio, float arrival_time_ratio, float executed_cycle_ratio, float process_size_ratio);
