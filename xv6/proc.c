@@ -341,6 +341,10 @@ int fork(void)
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
+  if (strncmp(curproc->name, "foo2", 5) == 0)
+  {
+    np->scheduling_data.queue = ROUND_ROBIN;
+  }
   pid = np->pid;
 
   acquire(&ptable.lock);
@@ -478,8 +482,7 @@ void run_proc(struct proc *p, struct cpu *c)
 //   - swtch to start running that process
 //   - eventually that process transfers control
 //       via swtch back to the scheduler.
-void 
-scheduler(void)
+void scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
@@ -583,15 +586,9 @@ void sleep(void *chan, struct spinlock *lk)
   if (lk == 0)
     panic("sleep without lk");
 
-  // Must acquire ptable.lock in order to
-  // change p->state and then call sched.
-  // Once we hold ptable.lock, we can be
-  // guaranteed that we won't miss any wakeup
-  // (wakeup runs with ptable.lock locked),
-  // so it's okay to release lk.
   if (lk != &ptable.lock)
-  {                        // DOC: sleeplock0
-    acquire(&ptable.lock); // DOC: sleeplock1
+  {
+    acquire(&ptable.lock);
     release(lk);
   }
   // Go to sleep.
@@ -600,7 +597,6 @@ void sleep(void *chan, struct spinlock *lk)
 
   sched();
 
-  // Tidy up.
   p->chan = 0;
 
   // Reacquire original lock.
