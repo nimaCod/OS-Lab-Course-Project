@@ -89,3 +89,32 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// this function returns time in seconds since process
+// created.
+uint sys_lifetime(void){
+	uint xticks;
+
+	acquire(&tickslock);
+	xticks = ticks;
+	release(&tickslock);
+	
+  	struct proc *my_proc = myproc(); // Get the current process
+
+	cprintf("[sys_lifetime] Current time  is: %d this app creation time is: %d\n",xticks,my_proc->xticks);
+	return (xticks-my_proc->xticks)/100;
+
+}
+
+
+
+void sys_print_num_syscalls(){
+  // struct cpu *c;
+  cprintf("total uumber of systemcalls: %d",shared_syscall_num);
+  for (int i =0; i < ncpu; i++) {
+    if (cpus[i].started)
+    {
+      cprintf("cpu %d got: %d numbers of syscalss",cpus[i].apicid,cpus[i].num_sys_calls);  
+    }
+  }
+}
