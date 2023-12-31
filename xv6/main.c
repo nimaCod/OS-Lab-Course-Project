@@ -60,8 +60,7 @@ mpmain(void)
 pde_t entrypgdir[]; // For entry.S
 
 // Start the non-boot (AP) processors.
-static void
-startothers(void)
+static void startothers(void)
 {
   extern uchar _binary_entryother_start[], _binary_entryother_size[];
   uchar *code;
