@@ -210,6 +210,10 @@ fork(void)
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
+  if (strncmp(curproc->name, "foo2", 5) == 0)
+  {
+    np->scheduling_data.queue = ROUND_ROBIN;
+  }
   pid = np->pid;
 
   acquire(&ptable.lock);
@@ -441,7 +445,6 @@ sleep(void *chan, struct spinlock *lk)
 
   sched();
 
-  // Tidy up.
   p->chan = 0;
 
   // Reacquire original lock.
