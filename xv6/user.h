@@ -31,6 +31,7 @@ int set_bjf_for_process(int pid, float priority_ratio, float arrival_time_ratio,
 int set_bjf_for_all(float priority_ratio, float arrival_time_ratio, float executed_cycle_ratio, float process_size_ratio);
 int change_queue(int pid, int queu);
 int ps(void);
+int print_num_syscalls(void);
 
 // ulib.c
 int stat(const char *, struct stat *);

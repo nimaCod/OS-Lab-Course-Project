@@ -6,6 +6,9 @@
 #include "proc.h"
 #include "x86.h"
 #include "syscall.h"
+#include "spinlock.h"
+
+struct spinlock shared_int;
 
 // User code makes a system call with INT T_SYSCALL.
 // System call number in %eax.
@@ -122,6 +125,7 @@ extern int sys_set_bjf_for_process(void);
 extern int sys_set_bjf_for_all(void);
 extern int sys_change_queue(void);
 extern int sys_ps(void);
+extern int sys_print_num_syscalls(void);
 
 static int (*syscalls[])(void) = {
     [SYS_fork] sys_fork,
@@ -153,6 +157,7 @@ static int (*syscalls[])(void) = {
     [SYS_set_bjf_for_all] sys_set_bjf_for_all,
     [SYS_ps] sys_ps,
     [SYS_change_queue] sys_change_queue,
+    [SYS_print_num_syscalls] sys_print_num_syscalls,
 };
 
 void syscall(void)
@@ -164,6 +169,11 @@ void syscall(void)
   if (num > 0 && num < NELEM(syscalls) && syscalls[num])
   {
     curproc->tf->eax = syscalls[num]();
+    mycpu()->num_sys_calls++;
+    acquire(&shared_int);
+    shared_syscall_num++;
+    release(&shared_int);
+
   }
   else
   {

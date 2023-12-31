@@ -99,3 +99,16 @@ uint sys_lifetime(void){
 	return (xticks-my_proc->xticks)/100;
 
 }
+
+
+
+void sys_print_num_syscalls(){
+  // struct cpu *c;
+  cprintf("total uumber of systemcalls: %d",shared_syscall_num);
+  for (int i =0; i < ncpu; i++) {
+    if (cpus[i].started)
+    {
+      cprintf("cpu %d got: %d numbers of syscalss",cpus[i].apicid,cpus[i].num_sys_calls);  
+    }
+  }
+}
