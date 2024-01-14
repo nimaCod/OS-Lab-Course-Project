@@ -115,7 +115,7 @@ extern int sys_uptime(void);
 // extern int sys_ps(void);
 extern int sys_aq(void);
 extern int sys_print_num_syscalls(void);
-extern void *sys_open_sharedmem(void);
+extern int sys_open_sharedmem(void);
 extern int sys_close_sharedmem(void);
 
 static int (*syscalls[])(void) = {
@@ -151,7 +151,7 @@ static int (*syscalls[])(void) = {
     [SYS_aq] sys_aq,
     [SYS_print_num_syscalls] sys_print_num_syscalls,
     [SYS_open_sharedmem] sys_open_sharedmem,
-    [SYS_open_sharedmem] sys_close_sharedmem,
+    [SYS_close_sharedmem] sys_close_sharedmem,
 };
 
 void

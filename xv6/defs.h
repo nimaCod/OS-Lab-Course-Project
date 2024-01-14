@@ -155,21 +155,12 @@ int             strncmp(const char*, const char*, uint);
 char*           strncpy(char*, const char*, int);
 
 // syscall.c
-<<<<<<< HEAD
-int             argint(int, int*);
-int             argptr(int, char**, int);
-int             argstr(int, char**);
-int             fetchint(uint, int*);
-int             fetchstr(uint, char**);
-void            syscall(void);
-=======
 int argint(int, int *);
 int argptr(int, char **, int);
 int argstr(int, char **);
 int fetchint(uint, int *);
 int fetchstr(uint, char **);
 void syscall(void);
->>>>>>> 1f6592d229f35dea342c0b9f358ac4515bbc72c3
 
 // timer.c
 void            timerinit(void);
@@ -205,6 +196,7 @@ void clearpteu(pde_t *pgdir, char *uva);
 void utylinit(void);
 
 extern uint shared_syscall_num;
+extern int mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))

@@ -6,7 +6,6 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
-#include "spinlock.h"
 #include "sysutils.h"
 
 struct prioritylock lock;
@@ -16,9 +15,11 @@ struct sharedmem main_mem;
 void initmem(struct sharedmem *my_mem)
 {
     initlock(&my_mem->lock, "shared mem");
-    my_mem->page_count = 0;
-    my_mem->pages = 0;
+    int i = 0;
+    for (i = 0; i < PAGE_COUNT; i++)
+        main_mem.pages[i].ref_count = 0;
 }
+
 
 void utylinit(void)
 {
@@ -42,19 +43,11 @@ int sys_find_digital_root(void)
     return res;
 }
 
-<<<<<<< HEAD
-
-uint sum=0;
-void do_temp()
-{
-    for (int i = 0; i < 1000000000; i++){
-=======
 uint sum = 0;
 void do_temp()
 {
     for (int i = 0; i < 1000000000; i++)
     {
->>>>>>> 1f6592d229f35dea342c0b9f358ac4515bbc72c3
         sum += i;
     }
 }
@@ -72,20 +65,43 @@ int sys_aq(void)
     // release(&lock2);
     return 0;
 }
-<<<<<<< HEAD
-=======
 
-void *sys_open_sharedmem(void)
+int sys_open_sharedmem(void)
 {
     int id;
-    if ((argstr(0, &id)) < 0)
+    char **res;
+    if ((argint(0, &id)) < 0 || (argptr(1, (char**)(&res), 4)) < 0)
         return 0;
+    struct proc *proc = myproc();
+    pde_t *pgdir = proc->pgdir;
+    // uint shm = proc->shm;
+
+    if (main_mem.pages[id].ref_count == 0)
+    {
+        *res = kalloc();
+
+        memset(*res, 0, PGSIZE);
+        mappages(pgdir, *res, PGSIZE, V2P(*res), PTE_W | PTE_U);
+        main_mem.pages[id].frame = *res;
+        main_mem.pages[id].ref_count++;
+        // main_mem.pages[id].perm_info.mode = folan??;
+        main_mem.pages[id].frame = (void*) *res; 
+    }
+    else
+    {
+        mappages(pgdir, *res, PGSIZE, V2P(main_mem.pages[id].frame), PTE_W | PTE_U);
+        main_mem.pages[id].ref_count++;
+        *res =(char*) main_mem.pages[id].frame;
+        // proc->shm = shm;
+        
+    }
+    return 0;    
 }
 
 int sys_close_sharedmem(void)
 {
     int id;
-    if ((argstr(0, &id)) < 0)
+    if ((argint(0, &id)) < 0)
         return -1;
+    return 0;
 }
->>>>>>> 1f6592d229f35dea342c0b9f358ac4515bbc72c3

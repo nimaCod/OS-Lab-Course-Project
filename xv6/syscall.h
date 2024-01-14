@@ -30,8 +30,5 @@
 // #define SYS_ps 29
 #define SYS_aq 30
 #define SYS_print_num_syscalls 32
-<<<<<<< HEAD
-=======
 #define SYS_open_sharedmem 33
 #define SYS_close_sharedmem 34
->>>>>>> 1f6592d229f35dea342c0b9f358ac4515bbc72c3

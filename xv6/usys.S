@@ -31,8 +31,5 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(aq)
 SYSCALL(print_num_syscalls)
-<<<<<<< HEAD
-=======
 SYSCALL(open_sharedmem)
 SYSCALL(close_sharedmem)
->>>>>>> 1f6592d229f35dea342c0b9f358ac4515bbc72c3
