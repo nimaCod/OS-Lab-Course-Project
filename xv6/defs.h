@@ -10,6 +10,8 @@ struct prioritylock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct sharedmem;
+struct page;
 
 // bio.c
 void            binit(void);
@@ -153,12 +155,21 @@ int             strncmp(const char*, const char*, uint);
 char*           strncpy(char*, const char*, int);
 
 // syscall.c
+<<<<<<< HEAD
 int             argint(int, int*);
 int             argptr(int, char**, int);
 int             argstr(int, char**);
 int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
+=======
+int argint(int, int *);
+int argptr(int, char **, int);
+int argstr(int, char **);
+int fetchint(uint, int *);
+int fetchstr(uint, char **);
+void syscall(void);
+>>>>>>> 1f6592d229f35dea342c0b9f358ac4515bbc72c3
 
 // timer.c
 void            timerinit(void);

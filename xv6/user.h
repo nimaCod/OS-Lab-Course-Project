@@ -32,6 +32,8 @@ int aq(void);
 // int change_queue(int pid, int queu);
 // int ps(void);
 int print_num_syscalls(void);
+void *open_sharedmem(int);
+int close_sharedmem(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

@@ -24,7 +24,7 @@ fetchint(uint addr, int *ip)
 
   if(addr >= curproc->sz || addr+4 > curproc->sz)
     return -1;
-  *ip = *(int*)(addr);
+  *ip = *(int *)(addr);
   return 0;
 }
 
@@ -49,10 +49,9 @@ fetchstr(uint addr, char **pp)
 }
 
 // Fetch the nth 32-bit system call argument.
-int
-argint(int n, int *ip)
+int argint(int n, int *ip)
 {
-  return fetchint((myproc()->tf->esp) + 4 + 4*n, ip);
+  return fetchint((myproc()->tf->esp) + 4 + 4 * n, ip);
 }
 
 // Fetch the nth word-sized system call argument as a pointer
@@ -116,6 +115,8 @@ extern int sys_uptime(void);
 // extern int sys_ps(void);
 extern int sys_aq(void);
 extern int sys_print_num_syscalls(void);
+extern void *sys_open_sharedmem(void);
+extern int sys_close_sharedmem(void);
 
 static int (*syscalls[])(void) = {
     [SYS_fork] sys_fork,
@@ -149,6 +150,8 @@ static int (*syscalls[])(void) = {
     // [SYS_change_queue] sys_change_queue,
     [SYS_aq] sys_aq,
     [SYS_print_num_syscalls] sys_print_num_syscalls,
+    [SYS_open_sharedmem] sys_open_sharedmem,
+    [SYS_open_sharedmem] sys_close_sharedmem,
 };
 
 void
@@ -160,7 +163,7 @@ syscall(void)
   num = curproc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
-    
+
     acquire(&shared_int);
     mycpu()->num_sys_calls++;
     shared_syscall_num++;
