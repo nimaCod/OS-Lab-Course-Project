@@ -32,8 +32,12 @@ int main(int argc, char *argv[])
             counter->cnt++;
             urelease(&(counter->lock));
             close_sharedmem(1);
+            exit();
+            return 0;
         }
         wait();
+        exit();
+        return 0;
     }
     else
     {
@@ -43,7 +47,7 @@ int main(int argc, char *argv[])
         counter->cnt++;
         urelease(&(counter->lock));
         close_sharedmem(1);
+        exit();
+        return 0;
     }
-    exit();
-    return 0;
 }

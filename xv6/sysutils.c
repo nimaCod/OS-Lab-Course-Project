@@ -20,7 +20,6 @@ void initmem(struct sharedmem *my_mem)
         main_mem.pages[i].ref_count = 0;
 }
 
-
 void utylinit(void)
 {
     p_initlock(&lock, "utyls");
@@ -68,34 +67,31 @@ int sys_aq(void)
 
 int sys_open_sharedmem(void)
 {
+    acquire(&main_mem.lock);
     int id;
     char **res;
-    if ((argint(0, &id)) < 0 || (argptr(1, (char**)(&res), 4)) < 0)
-        return 0;
+    if ((argint(0, &id)) < 0 || (argptr(1, (char **)(&res), 4)) < 0)
+        return -1;
     struct proc *proc = myproc();
     pde_t *pgdir = proc->pgdir;
-    // uint shm = proc->shm;
-
+    uint va = PGROUNDUP(proc->sz);
+    proc->sz += PGSIZE;
     if (main_mem.pages[id].ref_count == 0)
     {
         *res = kalloc();
-
         memset(*res, 0, PGSIZE);
-        mappages(pgdir, *res, PGSIZE, V2P(*res), PTE_W | PTE_U);
-        main_mem.pages[id].frame = *res;
+        mappages(pgdir, (void *)va, PGSIZE, V2P(*res), PTE_W | PTE_U);
         main_mem.pages[id].ref_count++;
-        // main_mem.pages[id].perm_info.mode = folan??;
-        main_mem.pages[id].frame = (void*) *res; 
+        main_mem.pages[id].frame = (void *)*res;
     }
     else
     {
-        mappages(pgdir, *res, PGSIZE, V2P(main_mem.pages[id].frame), PTE_W | PTE_U);
+        mappages(pgdir, (void *)va, PGSIZE, V2P(main_mem.pages[id].frame), PTE_W | PTE_U);
         main_mem.pages[id].ref_count++;
-        *res =(char*) main_mem.pages[id].frame;
-        // proc->shm = shm;
-        
+        *res = (char *)main_mem.pages[id].frame;
     }
-    return 0;    
+    release(&main_mem.lock);
+    return 0;
 }
 
 int sys_close_sharedmem(void)
