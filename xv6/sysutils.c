@@ -74,19 +74,18 @@ int sys_open_sharedmem(void)
         return -1;
     struct proc *proc = myproc();
     pde_t *pgdir = proc->pgdir;
-    uint va = PGROUNDUP(proc->sz);
-    proc->sz += PGSIZE;
+    uint va = 0;
     if (main_mem.pages[id].ref_count == 0)
     {
         *res = kalloc();
         memset(*res, 0, PGSIZE);
-        mappages(pgdir, (void *)va, PGSIZE, V2P(*res), PTE_W | PTE_U);
+        mappages(pgdir, (char *)va, PGSIZE, V2P(*res), PTE_W | PTE_U);
         main_mem.pages[id].ref_count++;
         main_mem.pages[id].frame = (void *)*res;
     }
     else
     {
-        mappages(pgdir, (void *)va, PGSIZE, V2P(main_mem.pages[id].frame), PTE_W | PTE_U);
+        mappages(pgdir, (char *)va, PGSIZE, V2P(main_mem.pages[id].frame), PTE_W | PTE_U);
         main_mem.pages[id].ref_count++;
         *res = (char *)main_mem.pages[id].frame;
     }
