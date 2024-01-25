@@ -98,5 +98,11 @@ int sys_close_sharedmem(void)
     int id;
     if ((argint(0, &id)) < 0)
         return -1;
+
+    main_mem.pages[id].ref_count--;
+        
+    if (main_mem.pages[id].ref_count == 0)
+        kfree((char*)main_mem.pages[id].frame);
+    
     return 0;
 }
