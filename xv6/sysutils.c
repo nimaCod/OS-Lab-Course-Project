@@ -74,7 +74,7 @@ int sys_open_sharedmem(void)
         return -1;
     struct proc *proc = myproc();
     pde_t *pgdir = proc->pgdir;
-    uint va = 0;
+    uint va = proc.;
     if (main_mem.pages[id].ref_count == 0)
     {
         *res = kalloc();
@@ -100,9 +100,9 @@ int sys_close_sharedmem(void)
         return -1;
 
     main_mem.pages[id].ref_count--;
-        
+
     if (main_mem.pages[id].ref_count == 0)
-        kfree((char*)main_mem.pages[id].frame);
-    
+        kfree((char *)main_mem.pages[id].frame);
+
     return 0;
 }
